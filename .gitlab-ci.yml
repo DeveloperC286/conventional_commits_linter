@@ -6,15 +6,16 @@ stages:
     - unit-tests
     - releasing
     - crates-io-publishing
+    - building-release-binary
 
 
 formatting:
     stage: formatting
-    image: archlinux/base
+    image: rust
     before_script:
-        - pacman -Sy --noconfirm
-        - pacman -S rust diffutils gawk grep --noconfirm
+        - rustup component add clippy rustfmt
     script:
+        - cargo clippy -- -D warnings
         - for i in $( du -a ./src/ | awk '{print $2}' | grep -i "[.]rs$" ); do
         - echo $i
         - cp $i temp.txt
@@ -135,5 +136,18 @@ crates-io-publishing:
     image: rust
     script:
         - cargo publish --token $GITLAB_CRATES_IO_TOKEN
+    rules:
+        - if: $CI_COMMIT_TAG
+
+
+building-release-binary-linux-musl:
+    stage: building-release-binary
+    image: ekidd/rust-musl-builder
+    script:
+        - cargo build --release
+        - mv target/x86_64-unknown-linux-musl/release/conventional_commits_linter conventional_commits_linter
+    artifacts:
+        paths:
+            - conventional_commits_linter
     rules:
         - if: $CI_COMMIT_TAG
