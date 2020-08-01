@@ -1,0 +1,14 @@
+[package]
+name = "conventional_commits_linter"
+version = "0.1.0"
+description = "A utility to lint Git commit messages against the Convectional Commits v1.0.0 format."
+authors = ["C <DeveloperC@protonmail.com>"]
+edition = "2018"
+license = "GPL-3.0"
+repository = "https://gitlab.com/DeveloperC/conventional_commits_linter"
+readme = "README.md"
+keywords = ["conventional", "commits", "lint", "linting", "git"]
+categories = ["command-line-utilities", "development-tools"]
+
+
+[dependencies]

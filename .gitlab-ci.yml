@@ -1,0 +1,139 @@
+stages:
+    - formatting
+    - merge-request-conventional-commits-linting
+    - merge-request-conventional-commits-next-version
+    - builds
+    - unit-tests
+    - releasing
+    - crates-io-publishing
+
+
+formatting:
+    stage: formatting
+    image: archlinux/base
+    before_script:
+        - pacman -Sy --noconfirm
+        - pacman -S rust diffutils gawk grep --noconfirm
+    script:
+        - for i in $( du -a ./src/ | awk '{print $2}' | grep -i "[.]rs$" ); do
+        - echo $i
+        - cp $i temp.txt
+        - rustfmt $i
+        - cmp $i temp.txt
+        - done
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+        - if: $CI_COMMIT_BRANCH == "master"
+
+
+merge-request-conventional-commits-linting:
+    stage: merge-request-conventional-commits-linting
+    image: node
+    before_script:
+        - npm install -g @commitlint/cli @commitlint/config-conventional
+    script:
+        # Get latest tag commit hash.
+        - LATEST_TAG=`git tag -l | sort -r | head -1`
+        - LATEST_TAG_HASH=`git rev-parse $LATEST_TAG`
+        # Lint all the commits in the PR.
+        - commitlint --from=$LATEST_TAG_HASH
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+
+
+merge-request-conventional-commits-next-version:
+    stage: merge-request-conventional-commits-next-version
+    image: alpine
+    before_script:
+        - apk update
+        - apk add git unzip wget
+    script:
+        # Get latest tag commit hash.
+        - CURRENT_VERSION=`grep '^version = "[0-9].[0-9].[0-9]"$' Cargo.toml | cut -d '"' -f 2`
+        - LATEST_TAG=`git tag -l | sort -r | head -1`
+        - LATEST_TAG_HASH=`git rev-parse $LATEST_TAG`
+        # Download conventional_commits_next_version.
+        - wget https://gitlab.com/DeveloperC/conventional_commits_next_version/-/jobs/artifacts/1.1.0/download\?job\=building-release-binary-linux-musl
+        - unzip download?job=building-release-binary-linux-musl
+        # Compare current version vs expected.
+        - ./conventional_commits_next_version --batch-commits --from-commit-hash $LATEST_TAG_HASH --from-version $LATEST_TAG --current-version $CURRENT_VERSION
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+
+
+builds:
+    stage: builds
+    image: rust
+    script:
+        - cargo build --verbose
+    artifacts:
+        expire_in: 1 hrs
+        paths:
+            - target/debug/conventional_commits_next_version
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+        - if: $CI_COMMIT_BRANCH == "master"
+
+
+builds-nightly:
+    stage: builds
+    image: rustlang/rust:nightly
+    script:
+        - cargo build --verbose
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+        - if: $CI_COMMIT_BRANCH == "master"
+    allow_failure: true
+
+
+unit-tests:
+    stage: unit-tests
+    image: rust
+    script:
+        - cargo test --verbose
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+        - if: $CI_COMMIT_BRANCH == "master"
+
+
+unit-tests-nightly:
+    stage: unit-tests
+    image: rustlang/rust:nightly
+    script:
+        - cargo test --verbose
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+        - if: $CI_COMMIT_BRANCH == "master"
+    allow_failure: true
+
+
+releasing:
+    stage: releasing
+    image: registry.gitlab.com/gitlab-org/release-cli
+    before_script:
+        - apk add git
+    script:
+        # Test if tag already exists.
+        - VERSION=`grep '^version = "[0-9].[0-9].[0-9]"$' Cargo.toml | cut -d '"' -f 2`
+        - VERSION_TAG_EXISTS=`git show-ref --tags -d | awk "/ refs\/tags\/$VERSION/" | wc -l`
+        - test $VERSION_TAG_EXISTS -eq 1 && exit 0
+        # Tag does not exist so create it and release.
+        # Creating changelog.
+        - LATEST_TAG=`git tag -l | sort -r | head -1`
+        - LATEST_TAG_HASH=`git rev-parse $LATEST_TAG`
+        - wget https://github.com/clog-tool/clog-cli/releases/download/v0.9.3/clog-v0.9.3-x86_64-unknown-linux-musl.tar.gz
+        - tar xvf clog-v0.9.3-x86_64-unknown-linux-musl.tar.gz
+        - RELEASE_DESCRIPTION=`./clog --from $LATEST_TAG_HASH --link-style Gitlab --subtitle $VERSION | tail -n +2`
+        # Create release/new tag.
+        - release-cli create --name $VERSION --description "$RELEASE_DESCRIPTION" --tag-name $VERSION --ref $CI_COMMIT_SHA
+    rules:
+        - if: $CI_COMMIT_BRANCH == "master"
+
+
+crates-io-publishing:
+    stage: crates-io-publishing
+    image: rust
+    script:
+        - cargo publish --token $GITLAB_CRATES_IO_TOKEN
+    rules:
+        - if: $CI_COMMIT_TAG
