@@ -18,7 +18,7 @@ mod linter;
 struct Args {
     #[structopt(
         long = "from-commit-hash",
-        help = "The Git commit hash from where to start linting from till HEAD."
+        help = "The Git commit hash from where to take the range of commits from till HEAD to lint. The range is inclusive of HEAD and exclusive of the provided commit hash."
     )]
     from_commit_hash: String,
 }
