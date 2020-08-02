@@ -1,1 +1,3 @@
 /target
+end-to-end-tests/features/steps/__pycache__/
+end-to-end-tests/.venv/
