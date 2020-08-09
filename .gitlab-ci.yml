@@ -1,5 +1,6 @@
 stages:
     - formatting
+    - linting
     - conventional-commits-linting
     - conventional-commits-next-version-checking
     - compiling
@@ -20,6 +21,17 @@ formatting:
         -   rustfmt $i
         -   cmp $i temp.txt
         - done
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+
+
+linting:
+    stage: linting
+    image: rust
+    before_script:
+        - rustup component add clippy
+    script:
+        - cargo clippy -- -D warnings
     rules:
         - if: $CI_MERGE_REQUEST_ID
 
