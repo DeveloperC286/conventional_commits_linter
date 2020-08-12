@@ -5,6 +5,7 @@ stages:
     - conventional-commits-next-version-checking
     - compiling
     - unit-testing
+    - end-to-end-testing
     - releasing
     - crates-io-publishing
     - release-binary-compiling
@@ -88,6 +89,19 @@ unit-testing:
     image: rust
     script:
         - cargo test
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+        - if: $CI_COMMIT_BRANCH == "master"
+
+
+end-to-end-testing:
+    stage: end-to-end-testing
+    image: python
+    before_script:
+        - cd end-to-end-tests/
+        - pip install -r requirements.txt
+    script:
+        - behave
     rules:
         - if: $CI_MERGE_REQUEST_ID
         - if: $CI_COMMIT_BRANCH == "master"
