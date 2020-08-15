@@ -39,13 +39,13 @@ linting:
 
 conventional-commits-linting:
     stage: conventional-commits-linting
-    image: node
+    image: rust
     before_script:
-        - npm install -g @commitlint/cli @commitlint/config-conventional
+        - cargo install conventional_commits_linter
     script:
-        - BRANCH_FIRST_COMMIT=`git log --pretty=tformat:"%H" origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME --not origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME | tail -1`
+        - COMMON_ANCESTOR_COMMIT=`git merge-base origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME`
         # Lint all the commits in the branch.
-        - commitlint --from=$BRANCH_FIRST_COMMIT
+        - /usr/local/cargo/bin/conventional_commits_linter --from-commit-hash $COMMON_ANCESTOR_COMMIT
     rules:
         - if: $CI_MERGE_REQUEST_ID
 
