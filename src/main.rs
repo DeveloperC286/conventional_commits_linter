@@ -20,7 +20,7 @@ struct Args {
         long = "from-commit-hash",
         help = "The Git commit hash from where to take the range of commits from till HEAD to lint. The range is inclusive of HEAD and exclusive of the provided commit hash."
     )]
-    from_commit_hash: String,
+    from_commit_hash: git2::Oid,
 }
 
 fn main() {
@@ -28,7 +28,7 @@ fn main() {
     let args = Args::from_args();
     debug!("The command line arguments provided are {:?}.", args);
 
-    let commit_messages = git::get_commit_messages_from(&args.from_commit_hash);
+    let commit_messages = git::get_commit_messages_from(args.from_commit_hash);
 
     let number_of_linting_errors = linter::lint_commits(commit_messages);
     if number_of_linting_errors > 0 {

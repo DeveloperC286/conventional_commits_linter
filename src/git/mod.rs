@@ -1,10 +1,10 @@
 use git2::{Oid, Repository, Revwalk};
 
-pub fn get_commit_messages_from(from_commit_hash: &str) -> Vec<String> {
+pub fn get_commit_messages_from(from_commit_hash: Oid) -> Vec<String> {
     let mut commit_messages = vec![];
 
     let repository = get_repository();
-    let mut revwalk = get_revwalk(&repository, get_oid(from_commit_hash));
+    let mut revwalk = get_revwalk(&repository, from_commit_hash);
 
     loop {
         match revwalk.next() {
@@ -83,16 +83,6 @@ fn get_repository() -> Repository {
         Err(error) => {
             error!("Unable to open the Git repository.");
             error!("{:?}", error);
-            std::process::exit(1);
-        }
-    }
-}
-
-fn get_oid(oid_string: &str) -> Oid {
-    match Oid::from_str(oid_string) {
-        Ok(oid) => oid,
-        Err(_error) => {
-            error!("'{}' is not a valid commit id.", oid_string);
             std::process::exit(1);
         }
     }
