@@ -52,20 +52,19 @@ conventional-commits-linting:
 
 conventional-commits-next-version-checking:
     stage: conventional-commits-next-version-checking
-    image: archlinux/base
+    image: rust
     before_script:
-        - pacman -Syu --noconfirm
-        - pacman -S diffutils unzip nettle wget git --noconfirm
+        - cargo install conventional_commits_next_version
     script:
         # Get current version and latest tag.
         - CURRENT_VERSION=`grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2`
-        - LATEST_TAG=`git tag -l | sort -r | head -1`
+        # Get latest tag.
+        - LATEST_TAG=`git describe --tags | cut -d '-' -f 1`
         - LATEST_TAG_HASH=`git rev-parse $LATEST_TAG`
-        # Download conventional_commits_next_version binary.
-        - wget https://gitlab.com/DeveloperC/conventional_commits_next_version/-/jobs/artifacts/1.1.0/download?job=building-release-binary-linux-musl
-        - unzip download\?job=building-release-binary-linux-musl
+        # Check latest tag is in semantic versioning.
+        - echo $LATEST_TAG | grep "^[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*$"
         # Check current vs expected.
-        - ./conventional_commits_next_version --batch-commits --from-commit-hash $LATEST_TAG_HASH --from-version $LATEST_TAG --current-version $CURRENT_VERSION
+        - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-commit-hash $LATEST_TAG_HASH --from-version $LATEST_TAG --current-version $CURRENT_VERSION
     rules:
         - if: $CI_MERGE_REQUEST_ID
 
