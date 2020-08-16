@@ -1,30 +1,36 @@
 # Conventional Commits Linter
 [![crates.io](https://img.shields.io/crates/v/conventional_commits_linter)](https://crates.io/crates/conventional_commits_linter) [![pipeline status](https://gitlab.com/DeveloperC/conventional_commits_linter/badges/master/pipeline.svg)](https://gitlab.com/DeveloperC/conventional_commits_linter/commits/master) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-conventional_commits_linter is a utility to lint Git commit history against the Conventional Commits v1.0.0 format (https://www.conventionalcommits.org/en/v1.0.0/).
+Conventional Commits Linter is a utility to lint Git commit messages against the Conventional Commits v1.0.0 format.
 
 
-## Why?
-conventional_commits_linter was created due to a lack of easy to use intuitive linters that comply with the Conventional Commits v1.0.0 format.
-The Unix philosophy of 'Make each program do one thing well.' combined with the principle of convention over configuration creates an easy to use and versatile tool not tied to specific tooling or language.
+## Why use Conventional Commits Linter?
+Conventional Commits Linter utilises command line arguments to create a versatile tool not tied to any specific tooling or language.
+A statically linked binary download is provided to remove any additional dependencies on downloading specific tools or interpreter languages.
+By default no subjective linting rules are applied and Conventional Commits v1.0.0 format is followed strictly.
+No additional configuration flags or files are necessary but additional flags can be provided to loosen or restrict specific linting rules.
 
 
 ## Content
  * [Usage](#usage)
    + [Usage - Logging](#usage-logging)
- * [Issues/Feature Requests](#issuesfeature-requests)
  * [Compiling via Local Repository](#compiling-via-local-repository)
  * [Compiling via Cargo](#compiling-via-cargo)
  * [Unit Testing](#unit-testing)
+ * [End-to-End Testing](#end-to-end-testing)
+ * [Issues/Feature Requests](#issuesfeature-requests)
 
 
 ## Usage
-conventional_commits_linter with the enviroment variable `GIT_DIR` unset, will search for a Git repository starting in the current directory.
-Through the non-optional argument `--from-commit-hash` a range of commits will be parsed from the Git repository till HEAD, The range is inclusive of HEAD and exclusive of the provided commit hash.
+Conventional Commits Linter operates directly on a Git repository, the Git environment variables are respected.
+With the environment variable `GIT_DIR` unset, Conventional Commits Linter will search for a Git repository starting in the current directory.
 
-All commit messages are then linted against the Conventional Commits v1.0.0 specfication.
-If any commits do not meet the specfication then an error message is logged and conventional_commits_linter exits with a non zero exit code.
-Otherwise conventional_commits_linter exits with a zero exit code.
+
+Using either the argument `--from-commit-hash` or `--from-tag` will note the start of the range of commits till HEAD to lint. The range is inclusive of HEAD and exclusive of the initial commit.
+
+
+All commit messages in the range are linted against the Conventional Commits v1.0.0 specification.
+If any commits messages fail linting then an error message explaining why is logged and Conventional Commits Linter exits with a non zero exit code.
 
 
 ## Usage - Logging
@@ -60,6 +66,23 @@ The unit test suite has a number parameterised tests testing the Conventional Co
 
 ```
 cargo test
+```
+
+
+## End-to-End Testing
+To ensure correctness as there are a variety of out of process dependencies the project has an End-to-End test suite.
+The End-to-End suite uses the behave framework (https://github.com/behave/behave).
+To run the test suite you need to first build a binary, install behave and then execute behave.
+
+#### Note - You can't use --release as the End-to-End test suite uses `target/debug/conventional_commits_linter`.
+
+```
+cargo build
+cd end-to-end-tests/
+virtualenv -p python3 .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+behave
 ```
 
 
