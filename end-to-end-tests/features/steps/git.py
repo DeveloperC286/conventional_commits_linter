@@ -19,3 +19,4 @@ def clone_remote_repository_and_checkout_commit(context, remote_repository, comm
     assert exit_code == 0
 
     os.chdir(current_directory)
+    context.set_arguments = ""
