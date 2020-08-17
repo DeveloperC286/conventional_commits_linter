@@ -14,7 +14,7 @@ use super::*;
     case("feature: support array of examples (#1682)")
 )]
 fn test_valid_commits(commit_message: &str) {
-    assert!(lint_commit(commit_message));
+    assert!(lint(commit_message));
 }
 
 #[rstest(
@@ -26,7 +26,7 @@ fn test_valid_commits(commit_message: &str) {
     case("The first two examples of advanced.md fail silently (#1498) ")
 )]
 fn test_type_is_required(commit_message: &str) {
-    assert!(!lint_commit(commit_message));
+    assert_eq!(lint(commit_message), false);
 }
 
 #[rstest(
@@ -36,7 +36,7 @@ fn test_type_is_required(commit_message: &str) {
     case("fix-deps: Update os-locale to avoid security vulnerability (#1270)")
 )]
 fn test_type_is_noun(commit_message: &str) {
-    assert!(!lint_commit(commit_message));
+    assert_eq!(lint(commit_message), false);
 }
 
 #[rstest(
@@ -48,7 +48,7 @@ fn test_type_is_noun(commit_message: &str) {
     case("fix(deps): Update os-locale to avoid security vulnerability (#1270)")
 )]
 fn test_scope_is_allowed_and_optional(commit_message: &str) {
-    assert!(lint_commit(commit_message));
+    assert!(lint(commit_message), false);
 }
 
 #[rstest(
@@ -57,7 +57,7 @@ fn test_scope_is_allowed_and_optional(commit_message: &str) {
     case("feat(yargs-parser): introduce single-digit boolean aliases (#1576)")
 )]
 fn test_scope_is_noun(commit_message: &str) {
-    assert!(!lint_commit(commit_message));
+    assert_eq!(lint(commit_message), false);
 }
 
 #[rstest(
@@ -69,8 +69,8 @@ fn test_scope_is_noun(commit_message: &str) {
     case("feat!: drop support for EOL Node 8 (#1686)"),
     case("feat: drop support for EOL Node 8 (#1686)")
 )]
-fn test_scope_is_exclamation_and_optional(commit_message: &str) {
-    assert!(lint_commit(commit_message));
+fn test_scope_and_exclamation_is_optional(commit_message: &str) {
+    assert!(lint(commit_message), false);
 }
 
 #[rstest(
@@ -81,7 +81,7 @@ fn test_scope_is_exclamation_and_optional(commit_message: &str) {
     case("chore release 15.4.0 (#1635)")
 )]
 fn test_colon_and_space_is_required(commit_message: &str) {
-    assert!(!lint_commit(commit_message));
+    assert_eq!(lint(commit_message), false);
 }
 
 #[rstest(
@@ -93,5 +93,5 @@ fn test_colon_and_space_is_required(commit_message: &str) {
     case("feat:")
 )]
 fn test_description_is_required(commit_message: &str) {
-    assert!(!lint_commit(commit_message));
+    assert_eq!(lint(commit_message), false);
 }

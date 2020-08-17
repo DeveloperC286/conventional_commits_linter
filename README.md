@@ -14,6 +14,7 @@ No additional configuration flags or files are necessary but additional flags ca
 ## Content
  * [Usage](#usage)
    + [Usage - Logging](#usage-logging)
+   + [Usage - Additional Flags](#usage-additional-flags)
  * [Compiling via Local Repository](#compiling-via-local-repository)
  * [Compiling via Cargo](#compiling-via-cargo)
  * [Unit Testing](#unit-testing)
@@ -31,6 +32,13 @@ Using either the argument `--from-commit-hash` or `--from-tag` will note the sta
 
 All commit messages in the range are linted against the Conventional Commits v1.0.0 specification.
 If any commits messages fail linting then an error message explaining why is logged and Conventional Commits Linter exits with a non zero exit code.
+
+
+## Usage - Additional Flags
+
+| Flag                      | |
+|---------------------------|-|
+| --allow-angular-type-only | Allow the Conventional Commits type to only be (`build`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `style`, `test`, `revert`), otherwise linting for the commit will fail. |
 
 
 ## Usage - Logging

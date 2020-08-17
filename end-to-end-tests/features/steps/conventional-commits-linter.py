@@ -8,7 +8,7 @@ from behave import *
 
 @when(
     'the argument --from-commit-hash is set as "{from_commit_hash}".')
-def set_from_tag(context, from_commit_hash):
+def set_from_commit_hash(context, from_commit_hash):
     context.set_arguments += " --from-commit-hash " + from_commit_hash
 
 
@@ -16,6 +16,11 @@ def set_from_tag(context, from_commit_hash):
     'the argument --from-tag is set as "{from_tag}".')
 def set_from_tag(context, from_tag):
     context.set_arguments += " --from-tag " + from_tag
+
+
+@when('the flag --allow-angular-type-only is set.')
+def set_allow_angular_type_only(context):
+    context.set_arguments += " --allow-angular-type-only "
 
 
 @when(

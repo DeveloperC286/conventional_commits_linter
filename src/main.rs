@@ -26,6 +26,11 @@ struct Args {
         help = "The Git tag from where to take the range of commits from till HEAD to lint. The range is inclusive of HEAD and exclusive of the provided tag."
     )]
     from_tag: Option<String>,
+    #[structopt(
+        long = "allow-angular-type-only",
+        help = "Allow the Conventional Commits type to only be (`build`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `style`, `test`, `revert`), otherwise linting for the commit will fail."
+    )]
+    allow_angular_type_only: bool,
 }
 
 fn main() {
@@ -55,7 +60,8 @@ fn main() {
         }
     }
 
-    let number_of_linting_errors = linter::lint_commits(commit_messages);
+    let number_of_linting_errors =
+        linter::lint_commits(commit_messages, args.allow_angular_type_only);
     if number_of_linting_errors > 0 {
         error!(
             "{} commits failed Conventional Commits v1.0.0 linting.",
