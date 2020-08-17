@@ -39,7 +39,12 @@ fn main() {
     debug!("The command line arguments provided are {:?}.", args);
 
     if args.from_commit_hash.is_some() && args.from_tag.is_some() {
-        error!("Provide either the --from-tag or --from-commit-hash arguement not both.");
+        error!("Provide either the --from-tag or --from-commit-hash arguments not both.");
+        std::process::exit(1);
+    }
+
+    if args.from_commit_hash.is_none() && args.from_tag.is_none() {
+        error!("Provide either the --from-tag or --from-commit-hash argument.");
         std::process::exit(1);
     }
 
