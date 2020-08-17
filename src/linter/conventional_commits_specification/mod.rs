@@ -3,7 +3,7 @@ use regex::Regex;
 pub fn lint(commit_message: &str) -> bool {
     lazy_static! {
         static ref CONVENTIONAL_COMMITS_REGEX: Regex =
-            Regex::new(r"^([[:alpha:]])+(\([[:alpha:]]*\))?(!)?: (.)+").unwrap();
+            Regex::new(r"^([[:alpha:]])+(\([[:alpha:]]+\))?(!)?: (.)+").unwrap();
     }
 
     match CONVENTIONAL_COMMITS_REGEX.is_match(commit_message) {

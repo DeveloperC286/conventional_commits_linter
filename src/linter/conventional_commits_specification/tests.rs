@@ -13,7 +13,7 @@ use super::*;
     case("chore(release): 14.2.0"),
     case("feature: support array of examples (#1682)")
 )]
-fn test_valid_commits(commit_message: &str) {
+fn test_valid_conventional_commits_specification(commit_message: &str) {
     assert!(lint(commit_message));
 }
 
@@ -35,20 +35,21 @@ fn test_type_is_required(commit_message: &str) {
     case("release 15.4.0: (#1635)"),
     case("fix-deps: Update os-locale to avoid security vulnerability (#1270)")
 )]
-fn test_type_is_noun(commit_message: &str) {
+fn test_type_as_noun_is_required(commit_message: &str) {
     assert_eq!(lint(commit_message), false);
 }
 
 #[rstest(
     commit_message,
     case("feat: zsh auto completion (#1292) "),
+    case("feat(completion): zsh auto completion (#1292) "),
     case("chore(release): 13.1.0"),
     case("chore: 13.1.0"),
     case("fix: Update os-locale to avoid security vulnerability (#1270)"),
     case("fix(deps): Update os-locale to avoid security vulnerability (#1270)")
 )]
 fn test_scope_is_allowed_and_optional(commit_message: &str) {
-    assert!(lint(commit_message), false);
+    assert!(lint(commit_message));
 }
 
 #[rstest(
@@ -56,7 +57,7 @@ fn test_scope_is_allowed_and_optional(commit_message: &str) {
     case("fix(strict mode): report default command unknown arguments (#1626)\n\n"),
     case("feat(yargs-parser): introduce single-digit boolean aliases (#1576)")
 )]
-fn test_scope_is_noun(commit_message: &str) {
+fn test_scope_as_noun_is_required(commit_message: &str) {
     assert_eq!(lint(commit_message), false);
 }
 
@@ -70,7 +71,7 @@ fn test_scope_is_noun(commit_message: &str) {
     case("feat: drop support for EOL Node 8 (#1686)")
 )]
 fn test_scope_and_exclamation_is_optional(commit_message: &str) {
-    assert!(lint(commit_message), false);
+    assert!(lint(commit_message));
 }
 
 #[rstest(
@@ -93,5 +94,15 @@ fn test_colon_and_space_is_required(commit_message: &str) {
     case("feat:")
 )]
 fn test_description_is_required(commit_message: &str) {
+    assert_eq!(lint(commit_message), false);
+}
+
+#[rstest(
+    commit_message,
+    case("feat(): zsh auto completion (#1292) "),
+    case("chore(): 13.1.0"),
+    case("fix(): Update os-locale to avoid security vulnerability (#1270)")
+)]
+fn test_scope_can_not_be_empty(commit_message: &str) {
     assert_eq!(lint(commit_message), false);
 }
