@@ -7,7 +7,7 @@ Scenario Outline: When you provide both --from-tag and --from-commit-hash argume
     When the argument --from-tag is set as "<from_tag>".
     When conventional_commits_linter is called with the set arguments.
     Then the linting fails.
-    Then the error message is "ERROR conventional_commits_linter > Provide either the --from-tag or --from-commit-hash arguments not both.".
+    Then the error message is "ERROR conventional_commits_linter::git > Provide either the --from-tag or --from-commit-hash arguments not both.".
 
 
 Examples:
@@ -19,7 +19,7 @@ Scenario Outline: When you provide neither --from-tag and --from-commit-hash arg
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     When conventional_commits_linter is called with the set arguments.
     Then the linting fails.
-    Then the error message is "ERROR conventional_commits_linter > Provide either the --from-tag or --from-commit-hash argument.".
+    Then the error message is "ERROR conventional_commits_linter::git > Provide either the --from-tag or --from-commit-hash argument.".
 
 
 Examples:
@@ -44,7 +44,7 @@ Scenario Outline: When you use the --from-tag argument with an invalid tag name 
     When the argument --from-tag is set as "<from_tag>".
     When conventional_commits_linter is called with the set arguments.
     Then the linting fails.
-    Then the error message is "ERROR conventional_commits_linter > Could not find tag with the name '12-0-0'.".
+    Then the error message is "ERROR conventional_commits_linter::git > Could not find tag with the name '12-0-0'.".
 
 
 Examples:
