@@ -31,7 +31,7 @@ fn main() {
 
             reporter::print_summary(&linting_errors);
 
-            if linting_errors.len() > 0 {
+            if !linting_errors.is_empty() {
                 std::process::exit(1);
             }
         }

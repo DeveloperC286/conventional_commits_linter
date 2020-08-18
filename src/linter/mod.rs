@@ -40,7 +40,7 @@ fn add_to_linting_errors(
 ) -> HashMap<Oid, Vec<LintingError>> {
     linting_errors
         .entry(oid)
-        .or_insert(vec![])
+        .or_insert_with(Vec::new)
         .push(linting_error);
 
     linting_errors
