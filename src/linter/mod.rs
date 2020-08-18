@@ -1,18 +1,47 @@
 mod allow_angular_type_only;
 mod conventional_commits_specification;
 
-pub fn lint_commits(commit_messages: Vec<String>, allow_angular_type_only: bool) -> usize {
-    let mut number_of_linting_errors = 0;
+use crate::model::{Commit, LintingError};
+use git2::Oid;
+use std::collections::HashMap;
 
-    for commit_message in commit_messages {
-        if !conventional_commits_specification::lint(&commit_message) {
-            number_of_linting_errors += 1;
+pub fn lint_commits(
+    commits: Vec<Commit>,
+    allow_angular_type_only: bool,
+) -> HashMap<Oid, Vec<LintingError>> {
+    let mut linting_errors = HashMap::new();
+
+    for commit in commits {
+        match conventional_commits_specification::lint(&commit.message) {
+            Ok(()) => {}
+            Err(linting_error) => {
+                linting_errors = add_to_linting_errors(linting_errors, commit.oid, linting_error);
+            }
         }
 
-        if allow_angular_type_only && !allow_angular_type_only::lint(&commit_message) {
-            number_of_linting_errors += 1;
+        if allow_angular_type_only {
+            match allow_angular_type_only::lint(&commit.message) {
+                Ok(()) => {}
+                Err(linting_error) => {
+                    linting_errors =
+                        add_to_linting_errors(linting_errors, commit.oid, linting_error);
+                }
+            }
         }
     }
 
-    number_of_linting_errors
+    linting_errors
+}
+
+fn add_to_linting_errors(
+    mut linting_errors: HashMap<Oid, Vec<LintingError>>,
+    oid: Oid,
+    linting_error: LintingError,
+) -> HashMap<Oid, Vec<LintingError>> {
+    linting_errors
+        .entry(oid)
+        .or_insert(vec![])
+        .push(linting_error);
+
+    linting_errors
 }

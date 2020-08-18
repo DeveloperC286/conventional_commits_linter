@@ -1,9 +1,10 @@
+use crate::model::Commit;
 use git2::{Oid, Repository, Revwalk};
 
 pub fn get_commit_messages_till_head_from(
     from_commit_hash: Option<git2::Oid>,
     from_tag: Option<String>,
-) -> Vec<String> {
+) -> Vec<Commit> {
     if from_commit_hash.is_some() && from_tag.is_some() {
         error!("Provide either the --from-tag or --from-commit-hash arguments not both.");
         std::process::exit(1);
@@ -29,8 +30,8 @@ pub fn get_commit_messages_till_head_from(
     std::process::exit(1);
 }
 
-fn get_commit_messages_till_head_from_oid(from_commit_hash: Oid) -> Vec<String> {
-    let mut commit_messages = vec![];
+fn get_commit_messages_till_head_from_oid(from_commit_hash: Oid) -> Vec<Commit> {
+    let mut commits = vec![];
 
     let repository = get_repository();
     let mut revwalk = get_revwalk(&repository, from_commit_hash);
@@ -38,9 +39,9 @@ fn get_commit_messages_till_head_from_oid(from_commit_hash: Oid) -> Vec<String> 
     loop {
         match revwalk.next() {
             Some(Ok(oid)) => match get_commit_message(&repository, oid) {
-                Some(commit_message) => {
-                    trace!("Found commit '{}'s message '{:?}'.", oid, commit_message);
-                    commit_messages.push(commit_message);
+                Some(message) => {
+                    trace!("Found commit '{}'s message '{:?}'.", oid, message);
+                    commits.push(Commit { oid, message });
                 }
                 None => {
                     warn!("Commit hash '{}' has no message.", oid);
@@ -55,9 +56,9 @@ fn get_commit_messages_till_head_from_oid(from_commit_hash: Oid) -> Vec<String> 
         }
     }
 
-    debug!("'{}' commit messages in the vector.", commit_messages.len());
-    commit_messages.reverse();
-    commit_messages
+    debug!("'{}' commit messages in the vector.", commits.len());
+    commits.reverse();
+    commits
 }
 
 fn get_revwalk(repository: &Repository, from_commit_hash: Oid) -> Revwalk {

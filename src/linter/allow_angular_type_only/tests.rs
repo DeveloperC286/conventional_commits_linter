@@ -10,7 +10,7 @@ use super::*;
     case("cicd: new Jenkinsfile")
 )]
 fn test_allow_angular_type_only(commit_message: &str) {
-    assert_eq!(lint(commit_message), false);
+    assert_eq!(lint(commit_message), Err(LintingError::NON_ANGULAR_TYPE));
 }
 
 #[rstest(
@@ -20,5 +20,5 @@ fn test_allow_angular_type_only(commit_message: &str) {
     case("CI: new Jenkinsfile")
 )]
 fn test_allow_angular_type_only_ignores_casing(commit_message: &str) {
-    assert!(lint(commit_message));
+    assert!(lint(commit_message).is_ok());
 }

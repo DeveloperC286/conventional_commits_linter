@@ -10,28 +10,27 @@ use structopt::StructOpt;
 mod cli;
 mod git;
 mod linter;
+mod model;
 
 fn main() {
     pretty_env_logger::init();
     let arguments = cli::Arguments::from_args();
     debug!("The command line arguments provided are {:?}.", arguments);
 
-    let commit_messages =
+    let commits =
         git::get_commit_messages_till_head_from(arguments.from_commit_hash, arguments.from_tag);
 
-    match commit_messages.len() {
+    match commits.len() {
         0 => {
             error!("No commit messages to lint.");
             std::process::exit(1);
         }
         _ => {
-            let number_of_linting_errors =
-                linter::lint_commits(commit_messages, arguments.allow_angular_type_only);
-            if number_of_linting_errors > 0 {
-                error!(
-                    "{} commits failed Conventional Commits v1.0.0 linting.",
-                    number_of_linting_errors
-                );
+            let linting_errors = linter::lint_commits(commits, arguments.allow_angular_type_only);
+
+            //TODO print out linting errors in nice format etc.
+
+            if linting_errors.len() > 0 {
                 std::process::exit(1);
             }
         }
