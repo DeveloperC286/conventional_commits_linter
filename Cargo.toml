@@ -1,6 +1,6 @@
 [package]
 name = "conventional_commits_linter"
-version = "0.4.1"
+version = "0.5.0"
 description = "A utility to lint Git commit messages against the Conventional Commits v1.0.0 format."
 authors = ["C <DeveloperC@protonmail.com>"]
 edition = "2018"

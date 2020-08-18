@@ -11,6 +11,7 @@ mod cli;
 mod git;
 mod linter;
 mod model;
+mod reporter;
 
 fn main() {
     pretty_env_logger::init();
@@ -28,7 +29,7 @@ fn main() {
         _ => {
             let linting_errors = linter::lint_commits(commits, arguments.allow_angular_type_only);
 
-            //TODO print out linting errors in nice format etc.
+            reporter::print_summary(&linting_errors);
 
             if linting_errors.len() > 0 {
                 std::process::exit(1);
