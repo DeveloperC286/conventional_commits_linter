@@ -2,6 +2,7 @@
 #[allow(non_camel_case_types)]
 pub enum LintingError {
     NON_ANGULAR_TYPE,
+    EMPTY_SCOPE,
     NON_CONVENTIONAL_COMMITS_SPECIFICATION,
 }
 

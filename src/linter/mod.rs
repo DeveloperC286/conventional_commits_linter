@@ -18,6 +18,12 @@ pub fn lint_commits(
             Ok(()) => {}
             Err(linting_error) => {
                 linting_errors.push(linting_error);
+                match conventional_commits_specification::empty_scope::lint(&commit.message) {
+                    Ok(()) => {}
+                    Err(linting_error) => {
+                        linting_errors.push(linting_error);
+                    }
+                }
             }
         }
 

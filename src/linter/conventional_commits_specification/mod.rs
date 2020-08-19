@@ -1,6 +1,8 @@
 use crate::model::LintingError;
 use regex::Regex;
 
+pub mod empty_scope;
+
 pub fn lint(commit_message: &str) -> Result<(), LintingError> {
     lazy_static! {
         static ref CONVENTIONAL_COMMITS_REGEX: Regex =
