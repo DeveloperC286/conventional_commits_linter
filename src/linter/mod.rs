@@ -6,16 +6,18 @@ use git2::Oid;
 use std::collections::HashMap;
 
 pub fn lint_commits(
-    commits: Vec<Commit>,
+    commits: &Vec<Commit>,
     allow_angular_type_only: bool,
 ) -> HashMap<Oid, Vec<LintingError>> {
-    let mut linting_errors = HashMap::new();
+    let mut oid_to_linting_errors = HashMap::new();
 
     for commit in commits {
+        let mut linting_errors = vec![];
+
         match conventional_commits_specification::lint(&commit.message) {
             Ok(()) => {}
             Err(linting_error) => {
-                linting_errors = add_to_linting_errors(linting_errors, commit.oid, linting_error);
+                linting_errors.push(linting_error);
             }
         }
 
@@ -23,25 +25,15 @@ pub fn lint_commits(
             match allow_angular_type_only::lint(&commit.message) {
                 Ok(()) => {}
                 Err(linting_error) => {
-                    linting_errors =
-                        add_to_linting_errors(linting_errors, commit.oid, linting_error);
+                    linting_errors.push(linting_error);
                 }
             }
         }
+
+        if !linting_errors.is_empty() {
+            oid_to_linting_errors.insert(commit.oid, linting_errors);
+        }
     }
 
-    linting_errors
-}
-
-fn add_to_linting_errors(
-    mut linting_errors: HashMap<Oid, Vec<LintingError>>,
-    oid: Oid,
-    linting_error: LintingError,
-) -> HashMap<Oid, Vec<LintingError>> {
-    linting_errors
-        .entry(oid)
-        .or_insert_with(Vec::new)
-        .push(linting_error);
-
-    linting_errors
+    oid_to_linting_errors
 }

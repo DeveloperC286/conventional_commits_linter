@@ -27,10 +27,11 @@ fn main() {
             std::process::exit(1);
         }
         _ => {
-            let linting_errors = linter::lint_commits(commits, arguments.allow_angular_type_only);
+            let linting_errors = linter::lint_commits(&commits, arguments.allow_angular_type_only);
 
             if !linting_errors.is_empty() {
                 if !arguments.quiet {
+                    reporter::print_linting_errors(&commits, &linting_errors);
                     reporter::print_summary(&linting_errors);
                 }
                 std::process::exit(1);
