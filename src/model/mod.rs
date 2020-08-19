@@ -4,6 +4,7 @@ pub enum LintingError {
     NON_ANGULAR_TYPE,
     EMPTY_SCOPE,
     NON_CONVENTIONAL_COMMITS_SPECIFICATION,
+    PRECEDING_WHITESPACE,
 }
 
 #[derive(Debug)]

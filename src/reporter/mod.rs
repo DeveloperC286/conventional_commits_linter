@@ -15,10 +15,7 @@ pub fn print_summary(linting_errors: &HashMap<Oid, Vec<LintingError>>) {
     );
 }
 
-pub fn print_linting_errors(
-    commits: &Vec<Commit>,
-    linting_errors: &HashMap<Oid, Vec<LintingError>>,
-) {
+pub fn print_linting_errors(commits: &[Commit], linting_errors: &HashMap<Oid, Vec<LintingError>>) {
     let red = Style::new().red().bold();
 
     for commit in commits {
@@ -43,6 +40,12 @@ pub fn print_linting_errors(
                     LintingError::EMPTY_SCOPE => {
                         println!(
                             "\t{} - Commit message has an empty scope.",
+                            red.apply_to("X")
+                        );
+                    }
+                    LintingError::PRECEDING_WHITESPACE => {
+                        println!(
+                            "\t{} - Commit message has preceding whitespace characters.",
                             red.apply_to("X")
                         );
                     }

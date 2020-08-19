@@ -6,7 +6,7 @@ use git2::Oid;
 use std::collections::HashMap;
 
 pub fn lint_commits(
-    commits: &Vec<Commit>,
+    commits: &[Commit],
     allow_angular_type_only: bool,
 ) -> HashMap<Oid, Vec<LintingError>> {
     let mut oid_to_linting_errors = HashMap::new();
@@ -18,7 +18,17 @@ pub fn lint_commits(
             Ok(()) => {}
             Err(linting_error) => {
                 linting_errors.push(linting_error);
+
                 match conventional_commits_specification::empty_scope::lint(&commit.message) {
+                    Ok(()) => {}
+                    Err(linting_error) => {
+                        linting_errors.push(linting_error);
+                    }
+                }
+
+                match conventional_commits_specification::preceding_whitespace::lint(
+                    &commit.message,
+                ) {
                     Ok(()) => {}
                     Err(linting_error) => {
                         linting_errors.push(linting_error);
