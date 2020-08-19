@@ -21,4 +21,9 @@ pub struct Arguments {
         help = "Allow the Conventional Commits type to only be (`build`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `style`, `test`, `revert`), otherwise linting for the commit will fail."
     )]
     pub allow_angular_type_only: bool,
+    #[structopt(
+        long = "quiet",
+        help = "Do not print any linting warnings/errors or summaries out."
+    )]
+    pub quiet: bool,
 }
