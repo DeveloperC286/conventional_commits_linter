@@ -5,6 +5,7 @@ pub enum LintingError {
     EMPTY_SCOPE,
     NON_CONVENTIONAL_COMMITS_SPECIFICATION,
     PRECEDING_WHITESPACE,
+    NO_DESCRIPTION,
 }
 
 #[derive(Debug)]

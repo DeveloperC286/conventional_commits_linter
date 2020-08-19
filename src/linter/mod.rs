@@ -34,6 +34,13 @@ pub fn lint_commits(
                         linting_errors.push(linting_error);
                     }
                 }
+
+                match conventional_commits_specification::no_description::lint(&commit.message) {
+                    Ok(()) => {}
+                    Err(linting_error) => {
+                        linting_errors.push(linting_error);
+                    }
+                }
             }
         }
 

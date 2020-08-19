@@ -2,6 +2,7 @@ use crate::model::LintingError;
 use regex::Regex;
 
 pub mod empty_scope;
+pub mod no_description;
 pub mod preceding_whitespace;
 
 pub fn lint(commit_message: &str) -> Result<(), LintingError> {

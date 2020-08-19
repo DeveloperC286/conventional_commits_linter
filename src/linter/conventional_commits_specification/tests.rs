@@ -70,13 +70,3 @@ fn test_scope_and_exclamation_is_optional(commit_message: &str) {}
     case("chore release 15.4.0 (#1635)")
 )]
 fn test_colon_and_space_is_required(commit_message: &str) {}
-
-#[rstest(
-    commit_message,
-    case("build: "),
-    case("build:"),
-    case("chore(ts): "),
-    case("chore(deps):"),
-    case("feat:")
-)]
-fn test_description_is_required(commit_message: &str) {}

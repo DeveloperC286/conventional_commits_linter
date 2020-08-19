@@ -49,6 +49,12 @@ pub fn print_linting_errors(commits: &[Commit], linting_errors: &HashMap<Oid, Ve
                             red.apply_to("X")
                         );
                     }
+                    LintingError::NO_DESCRIPTION => {
+                        println!(
+                            "\t{} - Commit message has no description after the type/scope.",
+                            red.apply_to("X")
+                        );
+                    }
                 }
             }
 
