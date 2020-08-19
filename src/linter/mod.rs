@@ -41,6 +41,14 @@ pub fn lint_commits(
                         linting_errors.push(linting_error);
                     }
                 }
+
+                match conventional_commits_specification::no_space_after_type::lint(&commit.message)
+                {
+                    Ok(()) => {}
+                    Err(linting_error) => {
+                        linting_errors.push(linting_error);
+                    }
+                }
             }
         }
 
@@ -60,3 +68,6 @@ pub fn lint_commits(
 
     oid_to_linting_errors
 }
+
+#[cfg(test)]
+mod tests;

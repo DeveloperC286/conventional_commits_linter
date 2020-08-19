@@ -4,6 +4,7 @@ use regex::Regex;
 pub mod empty_scope;
 pub mod no_description;
 pub mod preceding_whitespace;
+pub mod no_space_after_type;
 
 pub fn lint(commit_message: &str) -> Result<(), LintingError> {
     lazy_static! {

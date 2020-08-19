@@ -55,6 +55,12 @@ pub fn print_linting_errors(commits: &[Commit], linting_errors: &HashMap<Oid, Ve
                             red.apply_to("X")
                         );
                     }
+                    LintingError::NO_SPACE_AFTER_TYPE => {
+                        println!(
+                            "\t{} - Commit message has no space after the type/scope, which is required by the specfication.",
+                            red.apply_to("X")
+                        );
+                    }
                 }
             }
 

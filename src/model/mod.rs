@@ -6,6 +6,7 @@ pub enum LintingError {
     NON_CONVENTIONAL_COMMITS_SPECIFICATION,
     PRECEDING_WHITESPACE,
     NO_DESCRIPTION,
+    NO_SPACE_AFTER_TYPE,
 }
 
 #[derive(Debug)]

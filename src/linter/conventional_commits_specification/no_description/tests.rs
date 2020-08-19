@@ -23,7 +23,7 @@ fn test_no_description(commit_message: &str) {
     case("ui::Display cleanup: some enums --> enum classes\n\nhttps://chromium-review.googlesource.com/915211\n"),
     case("base::LaunchOptions fds_to_remap is no longer a pointer\n\nhttps://codereview.chromium.org/2950153002\n")
 )]
-fn test_no_description_odd(commit_message: &str) {
+fn test_no_description_on_non_conventional_commit(commit_message: &str) {
     assert!(lint(commit_message).is_ok());
 }
 
