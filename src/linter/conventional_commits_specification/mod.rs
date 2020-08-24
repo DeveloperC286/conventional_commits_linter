@@ -3,8 +3,8 @@ use regex::Regex;
 
 pub mod empty_scope;
 pub mod no_description;
-pub mod preceding_whitespace;
 pub mod no_space_after_type;
+pub mod preceding_whitespace;
 
 pub fn lint(commit_message: &str) -> Result<(), LintingError> {
     lazy_static! {
@@ -17,6 +17,3 @@ pub fn lint(commit_message: &str) -> Result<(), LintingError> {
         false => Err(LintingError::NON_CONVENTIONAL_COMMITS_SPECIFICATION),
     }
 }
-
-#[cfg(test)]
-mod tests;

@@ -3,9 +3,11 @@ use regex::Regex;
 
 pub fn lint(commit_message: &str) -> Result<(), LintingError> {
     lazy_static! {
-        static ref ANGULAR_TYPE_REGEX: Regex = Regex::new(
-            r"(?i)^(revert|build|ci|docs|feat|fix|perf|refactor|style|test)(\([[:alpha:]]*\))?(!)?:"
-        )
+        static ref ANGULAR_TYPE_REGEX: Regex = Regex::new(&format!(
+            r"(?i)^{}(\([[:alpha:]]*\))?{}:",
+            crate::linter::regex::ANGULAR_TYPE,
+            crate::linter::regex::OPTIONAL_EXCLAMATION,
+        ))
         .unwrap();
     }
 
@@ -14,6 +16,3 @@ pub fn lint(commit_message: &str) -> Result<(), LintingError> {
         false => Err(LintingError::NON_ANGULAR_TYPE),
     }
 }
-
-#[cfg(test)]
-mod tests;

@@ -1,5 +1,6 @@
 mod allow_angular_type_only;
 mod conventional_commits_specification;
+mod regex;
 
 use crate::model::{Commit, LintingError};
 use git2::Oid;

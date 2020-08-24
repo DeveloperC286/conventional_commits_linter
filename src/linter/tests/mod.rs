@@ -2,6 +2,8 @@ use rstest::rstest;
 
 use super::*;
 
+mod generating_utilities;
+
 #[rstest(
     commit_message,
     case("feat(deps)!: yargs-parser now throws on invalid combinations of config (\n\n"),
@@ -34,4 +36,33 @@ fn test_lint_commits_on_valid(commit_message: &str) {
         false
     )
     .is_empty());
+}
+
+#[test]
+fn test_generate_commits() {
+    let x: u32 = 2;
+    let upper_bound = x.pow(2);
+
+    for i in 1..upper_bound {
+        //Given
+        let binary_string = format!("{:02b}", i);
+        let (commits, expected_linting_errors) = generating_utilities::generate_commit(
+            generating_utilities::is_position_in_binary_string_true(&binary_string, 0),
+            generating_utilities::is_position_in_binary_string_true(&binary_string, 1),
+        );
+
+        //When/Then
+        for commit in commits {
+            let commit_message = commit.message.clone();
+            let commit_oid = commit.oid.clone();
+            let linting_errors = lint_commits(&vec![commit], false);
+
+            assert_eq!(
+                expected_linting_errors,
+                *linting_errors.get(&commit_oid).unwrap(),
+                "Incorrect linting errors for commit message {:?}.",
+                commit_message
+            );
+        }
+    }
 }
