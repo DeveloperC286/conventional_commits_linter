@@ -4,12 +4,8 @@ use regex::Regex;
 pub fn lint(commit_message: &str) -> Result<(), LintingError> {
     lazy_static! {
         static ref NO_DESCRIPTION_REGEX: Regex = Regex::new(&format!(
-            r"{}{}{}{}{}:([[:space:]]*($|\n\n))",
-            *crate::linter::regex::OPTIONAL_PRECEDING_WHITESPACE,
-            crate::linter::regex::TYPE,
-            crate::linter::regex::OPTIONAL_EXCLAMATION,
-            crate::linter::regex::OPTIONAL_EMPTY_SCOPE_OR_SCOPE,
-            crate::linter::regex::OPTIONAL_EXCLAMATION
+            r"{}([[:space:]]*($|\n\n))",
+            *crate::linter::regex::IGNORE_TYPE_AND_SCOPE_LINTING_ERRORS,
         ))
         .unwrap();
     }

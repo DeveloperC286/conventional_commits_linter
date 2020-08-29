@@ -15,6 +15,7 @@ pub fn generate_commit(
     should_generate_preceding_whitespace: bool,
     should_generate_empty_scope: bool,
     should_generate_no_description: bool,
+    should_generate_no_space_after_type: bool,
 ) -> (Vec<Commit>, Vec<LintingError>) {
     let mut linting_errors = vec![LintingError::NON_CONVENTIONAL_COMMITS_SPECIFICATION];
     let mut commits: Vec<Commit> = vec![];
@@ -43,13 +44,23 @@ pub fn generate_commit(
         false => get_description_variations(),
     };
 
+    let space_after_type = match should_generate_no_space_after_type {
+        true => {
+            linting_errors.push(LintingError::NO_SPACE_AFTER_TYPE);
+            ""
+        }
+        false => " ",
+    };
+
     let mut commit_id = 1;
     for description in description_variations {
         for preceding in &preceding_variations {
             for scope in &scope_variations {
                 for commit_type in get_commit_type_variations() {
-                    let generated_commit =
-                        format!("{}{}{}: {}", preceding, commit_type, scope, description);
+                    let generated_commit = format!(
+                        "{}{}{}:{}{}",
+                        preceding, commit_type, scope, space_after_type, description
+                    );
                     let commit = Commit {
                         oid: git2::Oid::from_str(&commit_id.to_string()).unwrap(),
                         message: generated_commit.to_string(),
