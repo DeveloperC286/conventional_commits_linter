@@ -5,11 +5,6 @@ pub fn get_commit_messages_till_head_from(
     from_commit_hash: Option<git2::Oid>,
     from_tag: Option<String>,
 ) -> Vec<Commit> {
-    if from_commit_hash.is_some() && from_tag.is_some() {
-        error!("Provide either the --from-tag or --from-commit-hash arguments not both.");
-        std::process::exit(1);
-    }
-
     if let Some(oid) = from_commit_hash {
         return get_commit_messages_till_head_from_oid(oid);
     }

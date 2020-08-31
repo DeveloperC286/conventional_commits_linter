@@ -51,4 +51,16 @@ def then_linting_fails(context):
 
 @then('the error message is "{error_message}".')
 def then_the_error_message_is(context, error_message):
-    assert context.stdout.strip() == error_message.strip()
+    assert starts_with(context.stdout, error_message)
+
+
+@then('the error message is either "{error_message}" or "{error_message2}".')
+def then_the_error_message_is_either(context, error_message, error_message2):
+    print(context.stdout)
+    print(starts_with(context.stdout, error_message))
+    print(starts_with(context.stdout, error_message2))
+    assert starts_with(context.stdout, error_message) or starts_with(context.stdout, error_message2)
+
+
+def starts_with(stdout, error_message):
+    return stdout.strip().startswith(error_message.strip())
