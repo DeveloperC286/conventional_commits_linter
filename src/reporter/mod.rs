@@ -27,37 +27,37 @@ pub fn print_linting_errors(commits: &[Commit], linting_errors: &HashMap<Oid, Ve
                 match linting_error {
                     LintingError::NON_ANGULAR_TYPE => {
                         println!(
-                            "\t{} - Commit message does not use a Angular type.",
+                            "\t{} - Commit title does not use an Angular type.",
                             red.apply_to("X")
                         );
                     }
                     LintingError::NON_CONVENTIONAL_COMMITS_SPECIFICATION => {
                         println!(
-"\t{} - Commit message does not comply with the Conventional Commits V1.0.0 specification.",
-                             red.apply_to("X")
-                         );
+                            "\t{} - Commit title does not comply with the Conventional Commits V1.0.0 specification.",
+                            red.apply_to("X")
+                        );
                     }
                     LintingError::EMPTY_SCOPE => {
                         println!(
-                            "\t{} - Commit message has an empty scope.",
+                            "\t{} - Commit title has a scope which is empty.",
                             red.apply_to("X")
                         );
                     }
                     LintingError::PRECEDING_WHITESPACE => {
                         println!(
-                            "\t{} - Commit message has preceding whitespace characters.",
+                            "\t{} - Commit title has preceding whitespace characters.",
                             red.apply_to("X")
                         );
                     }
                     LintingError::NO_DESCRIPTION => {
                         println!(
-                            "\t{} - Commit message has no description after the type/scope.",
+                            "\t{} - Commit title has no description after the Conventional Commits type and scope.",
                             red.apply_to("X")
                         );
                     }
                     LintingError::NO_SPACE_AFTER_TYPE => {
                         println!(
-                            "\t{} - Commit message has no space after the type/scope.",
+                            "\t{} - Commit title has no space after the colon preceding the Conventional Commits type and scope.",
                             red.apply_to("X")
                         );
                     }
