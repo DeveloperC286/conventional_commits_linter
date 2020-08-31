@@ -118,11 +118,13 @@ fn get_repository() -> Repository {
 fn get_tag_oid(matching: &str) -> Option<Oid> {
     let mut oid: Option<Oid> = None;
     let repository = get_repository();
+    let matching = format!("refs/tags/{}", matching);
 
     match repository.tag_foreach(|tag_oid: Oid, tag_name: &[u8]| -> bool {
         match std::str::from_utf8(tag_name) {
             Ok(tag_name) => {
-                if tag_name.ends_with(matching) {
+                if tag_name == matching {
+                    debug!("Matching '{}' at commit id '{}'.", tag_name, tag_oid);
                     oid = Some(tag_oid);
                     return false;
                 }
