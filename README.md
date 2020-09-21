@@ -5,11 +5,10 @@ Conventional Commits Linter is a utility to lint Git commit messages against the
 
 
 ## Why use Conventional Commits Linter?
- * __Not Tooling/Language Specific__ - Conventional Commits Linter utilises command line arguments so is not tied to specific tooling.
+ * __Correct__ - Numerous violations against the Conventional Commits v1.0.0 format are caught unlike other linters.
+ * __Sensible Defaults__ - By default no subjective linting rules are applied, however you can adjust the linting rules.
  * __No Dependencies__ - A binary download is provided, removing dependencies on downloading tools or interpreter languages.
- * __Sensible Defaults__ - By default no subjective linting rules are applied and Conventional Commits v1.0.0 format is followed strictly.
- * __Ease Of Use__ - Out of the box no additional configuration or files are required, additional flags can be used to add/modify linting rules.
- * __The Need for Speed__ - Conventional Commits Linter is x25 faster than some interpreted language linters.
+ * __Fast__ - Utilising Regex and Rust the performance is significantly better than some other interpreted language linters.
 
 
 ## Upcoming
