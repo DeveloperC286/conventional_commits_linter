@@ -1,11 +1,12 @@
 # Conventional Commits Linter
 [![crates.io](https://img.shields.io/crates/v/conventional_commits_linter)](https://crates.io/crates/conventional_commits_linter) [![pipeline status](https://gitlab.com/DeveloperC/conventional_commits_linter/badges/master/pipeline.svg)](https://gitlab.com/DeveloperC/conventional_commits_linter/commits/master) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-Conventional Commits Linter is a utility to lint Git commit messages against the Conventional Commits v1.0.0 format.
+
+A fast and sensible linter for the Conventional Commits v1.0.0 format. Which catches violations other linters do not combined with no dependencies on specific tools or interpreter languages.
 
 
 ## Why use Conventional Commits Linter?
- * __Correct__ - Numerous violations against the Conventional Commits v1.0.0 format are caught unlike other linters.
+ * __Correctness__ - Numerous violations against the Conventional Commits v1.0.0 format are caught unlike other linters.
  * __Sensible Defaults__ - By default no subjective linting rules are applied, however you can adjust the linting rules.
  * __No Dependencies__ - A binary download is provided, removing dependencies on downloading tools or interpreter languages.
  * __Fast__ - Utilising Regex and Rust the performance is significantly better than some other interpreted language linters.
