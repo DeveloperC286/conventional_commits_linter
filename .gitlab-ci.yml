@@ -17,11 +17,7 @@ formatting:
     before_script:
         - rustup component add rustfmt
     script:
-        - for i in $( du -a . | awk '{print $2}' | grep -i "[.]rs$" ); do
-        -   cp $i temp.txt
-        -   rustfmt $i
-        -   cmp $i temp.txt
-        - done
+        - cargo fmt --all -- --check
     rules:
         - if: $CI_MERGE_REQUEST_ID
 
@@ -32,7 +28,9 @@ linting:
     before_script:
         - rustup component add clippy
     script:
-        - cargo clippy -- -D warnings
+        - cargo clippy --verbose --workspace --all-targets -- -D warnings
+        - cargo clippy --verbose --workspace --all-targets --all-features -- -D warnings
+        - cargo clippy --verbose --workspace --all-targets --no-default-features -- -D warnings
     rules:
         - if: $CI_MERGE_REQUEST_ID
 
@@ -45,7 +43,7 @@ conventional-commits-linting:
     script:
         - COMMON_ANCESTOR_COMMIT=`git merge-base origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME`
         # Lint all the commits in the branch.
-        - /usr/local/cargo/bin/conventional_commits_linter --from-commit-hash $COMMON_ANCESTOR_COMMIT --allow-angular-type-only
+        - /usr/local/cargo/bin/conventional_commits_linter --from-commit-hash $COMMON_ANCESTOR_COMMIT
     rules:
         - if: $CI_MERGE_REQUEST_ID
 
@@ -60,11 +58,10 @@ conventional-commits-next-version-checking:
         - CURRENT_VERSION=`grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2`
         # Get latest tag.
         - LATEST_TAG=`git describe --tags | cut -d '-' -f 1`
-        - LATEST_TAG_HASH=`git rev-parse $LATEST_TAG`
         # Check latest tag is in semantic versioning.
         - echo $LATEST_TAG | grep "^[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*$"
         # Check current vs expected.
-        - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-commit-hash $LATEST_TAG_HASH --from-version $LATEST_TAG --current-version $CURRENT_VERSION
+        - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-tag $LATEST_TAG --from-version $LATEST_TAG --current-version $CURRENT_VERSION
     rules:
         - if: $CI_MERGE_REQUEST_ID
 
@@ -87,7 +84,9 @@ unit-testing:
     stage: unit-testing
     image: rust
     script:
-        - cargo test
+        - cargo test --verbose --workspace
+        - cargo test --verbose --workspace --all-features
+        - cargo test --verbose --workspace --no-default-features
     rules:
         - if: $CI_MERGE_REQUEST_ID
         - if: $CI_COMMIT_BRANCH == "master"
@@ -126,7 +125,9 @@ releasing:
         # Generate the release description.
         - RELEASE_DESCRIPTION=`./clog --from $LATEST_TAG_HASH --link-style Gitlab --subtitle $CURRENT_VERSION | tail -n +2`
         # Create the new release.
-        - release-cli create --name $CURRENT_VERSION --description "$RELEASE_DESCRIPTION" --tag-name $CURRENT_VERSION --ref $CI_COMMIT_SHA
+        - release-cli create --name $CURRENT_VERSION --description "$RELEASE_DESCRIPTION"
+                             --tag-name $CURRENT_VERSION --ref $CI_COMMIT_SHA
+                             --assets-link '{"name":"x86_64-linux-musl-binary.zip","url":"https://gitlab.com/DeveloperC/conventional_commits_linter/-/jobs/artifacts/'$CURRENT_VERSION'/download?job=release-binary-compiling-x86_64-linux-musl"}'
     rules:
         - if: $CI_COMMIT_BRANCH == "master"
 
@@ -140,7 +141,7 @@ crates-io-publishing:
         - if: $CI_COMMIT_TAG
 
 
-release-binary-compiling:
+release-binary-compiling-x86_64-linux-musl:
     stage: release-binary-compiling
     image: ekidd/rust-musl-builder
     script:
