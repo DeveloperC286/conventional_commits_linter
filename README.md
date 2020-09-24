@@ -12,6 +12,18 @@ Conventional Commits Linter is a utility to lint Git commit messages against the
  * __The Need for Speed__ - Conventional Commits Linter is x25 faster than some interpreted language linters.
 
 
+## Upcoming
+ * Allowing standard input over reading from Git directly.
+ * Optional configuration file over CLI arguments/flags.
+ * Add commit title length arguments/flags.
+ * Add type as noun linting warning/CLI arguments/flags.
+ * Add scope as noun linting warning/CLI arguments/flags.
+ * Add exclamation before scope linting warning.
+ * Adding description casing CLI arguments/flags.
+ * Adding type casing CLI arguments/flags.
+ * Adding scope casing CLI arguments/flags.
+
+
 ## Content
  * [Usage](#usage)
    + [Usage - Logging](#usage-logging)
