@@ -1,6 +1,6 @@
 use super::*;
 
-pub fn is_position_in_binary_string_true(binary_string: &String, position: usize) -> bool {
+pub fn is_position_in_binary_string_true(binary_string: &str, position: usize) -> bool {
     match binary_string.chars().nth(position).unwrap() {
         '0' => false,
         '1' => true,
@@ -10,7 +10,6 @@ pub fn is_position_in_binary_string_true(binary_string: &String, position: usize
     }
 }
 
-//NO_SPACE_AFTER_TYPE,
 pub fn generate_commit(
     should_generate_preceding_whitespace: bool,
     should_generate_empty_scope: bool,
@@ -72,7 +71,7 @@ pub fn generate_commit(
         }
     }
 
-    return (commits, linting_errors);
+    (commits, linting_errors)
 }
 
 fn get_no_description_variations() -> Vec<String> {

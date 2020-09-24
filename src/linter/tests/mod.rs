@@ -27,7 +27,7 @@ use super::*;
 )]
 fn test_lint_commits_on_valid(commit_message: &str) {
     assert!(lint_commits(
-        &vec![Commit {
+        &[Commit {
             oid: git2::Oid::zero(),
             message: commit_message.to_string(),
         }],

@@ -20,8 +20,8 @@ fn test_generate_commits() {
         //When/Then
         for commit in commits {
             let commit_message = commit.message.clone();
-            let commit_oid = commit.oid.clone();
-            let linting_errors = lint_commits(&vec![commit], false);
+            let commit_oid = commit.oid;
+            let linting_errors = lint_commits(&[commit], false);
 
             assert_eq!(
                 expected_linting_errors,
