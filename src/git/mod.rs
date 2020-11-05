@@ -1,5 +1,6 @@
-use crate::model::Commit;
 use git2::{Oid, Repository, Revwalk};
+
+use crate::model::Commit;
 
 pub fn get_commit_messages_till_head_from(
     from_commit_hash: Option<git2::Oid>,

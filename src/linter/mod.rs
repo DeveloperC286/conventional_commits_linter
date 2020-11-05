@@ -1,10 +1,12 @@
+use std::collections::HashMap;
+
+use git2::Oid;
+
+use crate::model::{Commit, LintingError};
+
 mod allow_angular_type_only;
 mod conventional_commits_specification;
 mod regex;
-
-use crate::model::{Commit, LintingError};
-use git2::Oid;
-use std::collections::HashMap;
 
 pub fn lint_commits(
     commits: &[Commit],

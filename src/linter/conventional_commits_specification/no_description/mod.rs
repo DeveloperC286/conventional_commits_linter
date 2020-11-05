@@ -1,5 +1,6 @@
-use crate::model::LintingError;
 use regex::Regex;
+
+use crate::model::LintingError;
 
 pub fn lint(commit_message: &str) -> Result<(), LintingError> {
     lazy_static! {

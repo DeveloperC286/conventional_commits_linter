@@ -1,5 +1,6 @@
-use crate::model::LintingError;
 use regex::Regex;
+
+use crate::model::LintingError;
 
 pub mod empty_scope;
 pub mod no_description;

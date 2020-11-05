@@ -1,7 +1,9 @@
-use crate::model::{Commit, LintingError};
+use std::collections::HashMap;
+
 use console::Style;
 use git2::Oid;
-use std::collections::HashMap;
+
+use crate::model::{Commit, LintingError};
 
 pub fn print_summary(linting_errors: &HashMap<Oid, Vec<LintingError>>) {
     let number_of_issues: usize = linting_errors.values().map(|x| x.len()).sum();
