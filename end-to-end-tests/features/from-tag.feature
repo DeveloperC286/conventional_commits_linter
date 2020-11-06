@@ -44,7 +44,7 @@ Scenario Outline: When you use the --from-tag argument with an invalid tag name 
     When the argument --from-tag is set as "<from_tag>".
     When conventional_commits_linter is called with the set arguments.
     Then the linting fails.
-    Then the error message is "ERROR conventional_commits_linter::git > Could not find tag with the name '12-0-0'.".
+    Then the error message is "ERROR conventional_commits_linter::git > Could not find a tag with the name '12-0-0'.".
 
 
 Examples:
