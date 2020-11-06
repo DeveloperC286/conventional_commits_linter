@@ -5,6 +5,8 @@ extern crate log;
 extern crate pretty_env_logger;
 extern crate regex;
 
+use std::process::exit;
+
 use structopt::StructOpt;
 
 mod cli;
@@ -12,6 +14,8 @@ mod git;
 mod linter;
 mod model;
 mod reporter;
+
+const ERROR_EXIT_CODE: i32 = 1;
 
 fn main() {
     pretty_env_logger::init();
@@ -24,7 +28,7 @@ fn main() {
     match commits.len() {
         0 => {
             error!("No commit messages to lint.");
-            std::process::exit(1);
+            exit(ERROR_EXIT_CODE);
         }
         _ => {
             let linting_errors = linter::lint_commits(&commits, arguments.allow_angular_type_only);
@@ -34,7 +38,7 @@ fn main() {
                     reporter::print_linting_errors(&commits, &linting_errors);
                     reporter::print_summary(&linting_errors);
                 }
-                std::process::exit(1);
+                exit(ERROR_EXIT_CODE);
             }
         }
     }

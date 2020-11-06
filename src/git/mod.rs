@@ -1,3 +1,5 @@
+use std::process::exit;
+
 use git2::{Oid, Repository, Revwalk};
 
 use crate::model::Commit;
@@ -17,13 +19,13 @@ pub fn get_commit_messages_till_head_from(
             }
             None => {
                 error!("Could not find tag with the name '{}'.", tag_name);
-                std::process::exit(1);
+                exit(crate::ERROR_EXIT_CODE);
             }
         }
     }
 
     error!("Provide either the --from-tag or --from-commit-hash argument.");
-    std::process::exit(1);
+    exit(crate::ERROR_EXIT_CODE);
 }
 
 fn get_commit_messages_till_head_from_oid(from_commit_hash: Oid) -> Vec<Commit> {
@@ -46,7 +48,7 @@ fn get_commit_messages_till_head_from_oid(from_commit_hash: Oid) -> Vec<Commit> 
             Some(Err(error)) => {
                 error!("Revwalk threw error while walking the commits.");
                 error!("{:?}", error);
-                std::process::exit(1);
+                exit(crate::ERROR_EXIT_CODE);
             }
             None => break,
         }
@@ -64,7 +66,7 @@ fn get_revwalk(repository: &Repository, from_commit_hash: Oid) -> Revwalk {
                 Ok(_result) => {}
                 Err(_error) => {
                     error!("Unable to push HEAD onto the revwalk.");
-                    std::process::exit(1);
+                    exit(crate::ERROR_EXIT_CODE);
                 }
             }
 
@@ -75,7 +77,7 @@ fn get_revwalk(repository: &Repository, from_commit_hash: Oid) -> Revwalk {
                         "Can not find commit hash '{}' in the Git repository.",
                         from_commit_hash
                     );
-                    std::process::exit(1);
+                    exit(crate::ERROR_EXIT_CODE);
                 }
             }
 
@@ -84,7 +86,7 @@ fn get_revwalk(repository: &Repository, from_commit_hash: Oid) -> Revwalk {
         Err(error) => {
             error!("Unable to get revwalk from local Git repository.");
             error!("{:?}", error);
-            std::process::exit(1);
+            exit(crate::ERROR_EXIT_CODE);
         }
     }
 }
@@ -95,7 +97,7 @@ fn get_commit_message(repository: &Repository, oid: Oid) -> Option<String> {
 
         Err(_error) => {
             error!("Can not find commit '{}' in current repository.", oid);
-            std::process::exit(1);
+            exit(crate::ERROR_EXIT_CODE);
         }
     }
 }
@@ -106,7 +108,7 @@ fn get_repository() -> Repository {
         Err(error) => {
             error!("Unable to open the Git repository.");
             error!("{:?}", error);
-            std::process::exit(1);
+            exit(crate::ERROR_EXIT_CODE);
         }
     }
 }
@@ -128,7 +130,7 @@ fn get_tag_oid(matching: &str) -> Option<Oid> {
             Err(error) => {
                 error!("Unable to parse String from tag's name.");
                 error!("{:?}", error);
-                std::process::exit(1);
+                exit(crate::ERROR_EXIT_CODE);
             }
         }
 
@@ -138,7 +140,7 @@ fn get_tag_oid(matching: &str) -> Option<Oid> {
         Err(error) => {
             error!("Unable to perform function on all tags.");
             error!("{:?}", error);
-            std::process::exit(1);
+            exit(crate::ERROR_EXIT_CODE);
         }
     }
 
