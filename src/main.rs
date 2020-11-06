@@ -5,9 +5,11 @@ extern crate log;
 extern crate pretty_env_logger;
 extern crate regex;
 
-use std::process::exit;
+use std::{io::stdin, process::exit};
 
 use structopt::StructOpt;
+
+use crate::model::Commit;
 
 mod cli;
 mod git;
@@ -22,8 +24,26 @@ fn main() {
     let arguments = cli::Arguments::from_args();
     debug!("The command line arguments provided are {:?}.", arguments);
 
-    let commits =
-        git::get_commit_messages_till_head_from(arguments.from_commit_hash, arguments.from_tag);
+    let (commits, print_summary, print_commit_hash) = match arguments.stdin {
+        true => {
+            let mut input = String::new();
+            stdin().read_line(&mut input).unwrap();
+
+            (
+                vec![Commit {
+                    oid: git2::Oid::zero(),
+                    message: input,
+                }],
+                false,
+                false,
+            )
+        }
+        false => (
+            git::get_commit_messages_till_head_from(arguments.from_commit_hash, arguments.from_tag),
+            true,
+            true,
+        ),
+    };
 
     match commits.len() {
         0 => {
@@ -35,8 +55,10 @@ fn main() {
 
             if !linting_errors.is_empty() {
                 if !arguments.quiet {
-                    reporter::print_linting_errors(&commits, &linting_errors);
-                    reporter::print_summary(&linting_errors);
+                    reporter::print_linting_errors(&commits, &linting_errors, print_commit_hash);
+                    if print_summary {
+                        reporter::print_summary(&linting_errors);
+                    }
                 }
                 exit(ERROR_EXIT_CODE);
             }

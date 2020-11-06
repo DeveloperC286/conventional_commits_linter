@@ -1,6 +1,6 @@
 [package]
 name = "conventional_commits_linter"
-version = "0.6.2"
+version = "0.7.0"
 description = "A fast and sensible linter for the Conventional Commits v1.0.0 format. Which catches violations other linters do not combined with no dependencies on specific tools or interpreter languages."
 authors = ["C <DeveloperC@protonmail.com>"]
 edition = "2018"
@@ -24,6 +24,7 @@ console = "0.13.0"
 
 [dev-dependencies]
 rstest = "0.6.4"
+
 
 [profile.release]
 lto = 'fat'

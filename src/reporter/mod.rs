@@ -17,12 +17,18 @@ pub fn print_summary(linting_errors: &HashMap<Oid, Vec<LintingError>>) {
     );
 }
 
-pub fn print_linting_errors(commits: &[Commit], linting_errors: &HashMap<Oid, Vec<LintingError>>) {
+pub fn print_linting_errors(
+    commits: &[Commit],
+    linting_errors: &HashMap<Oid, Vec<LintingError>>,
+    print_commit_hash: bool,
+) {
     let red = Style::new().red().bold();
 
     for commit in commits {
         if linting_errors.contains_key(&commit.oid) {
-            println!("{} - {}", red.apply_to("Commit Hash"), commit.oid);
+            if print_commit_hash {
+                println!("{} - {}", red.apply_to("Commit Hash"), commit.oid);
+            }
             println!("{} - {:?}", red.apply_to("Message"), commit.message);
 
             for linting_error in linting_errors.get(&commit.oid).unwrap() {
