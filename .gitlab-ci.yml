@@ -147,6 +147,7 @@ release-binary-compiling-x86_64-linux-musl:
     script:
         - cargo build --release
         - mv target/x86_64-unknown-linux-musl/release/conventional_commits_linter conventional_commits_linter
+        - strip conventional_commits_linter
     artifacts:
         paths:
             - conventional_commits_linter
