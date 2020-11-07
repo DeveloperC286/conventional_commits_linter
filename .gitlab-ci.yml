@@ -160,9 +160,11 @@ crates-io-publishing:
 
 release-binary-compiling-x86_64-linux-musl:
     stage: release-binary-compiling
-    image: ekidd/rust-musl-builder
+    image: rust:alpine
+    before_script:
+        - apk add --no-cache musl-dev git
     script:
-        - cargo build --release
+        - cargo build --release --target x86_64-unknown-linux-musl
         - mv target/x86_64-unknown-linux-musl/release/conventional_commits_linter conventional_commits_linter
         - strip conventional_commits_linter
     artifacts:

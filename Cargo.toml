@@ -12,7 +12,7 @@ categories = ["command-line-utilities", "development-tools"]
 
 
 [dependencies]
-git2 = "0.13.12"
+git2 = { version = "0.13.12", default-features = false, features=[] }
 log = "0.4.11"
 pretty_env_logger = "0.4.0"
 semver = "0.11.0"
