@@ -56,7 +56,11 @@ def then_the_error_message_is(context, error_message):
 
 @then('the error message is either "{error_message}" or "{error_message2}".')
 def then_the_error_message_is_either(context, error_message, error_message2):
-    assert starts_with(context.stdout, error_message) or starts_with(context.stdout, error_message2)
+    assert starts_with(
+        context.stdout,
+        error_message) or starts_with(
+        context.stdout,
+        error_message2)
 
 
 def starts_with(stdout, error_message):

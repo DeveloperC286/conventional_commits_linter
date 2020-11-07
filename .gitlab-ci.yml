@@ -11,13 +11,28 @@ stages:
     - release-binary-compiling
 
 
-formatting:
+conventional-commits-linter-formatting:
     stage: formatting
     image: rust
     before_script:
         - rustup component add rustfmt
     script:
         - cargo fmt --all -- --check
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+
+
+end-to-end-tests-formatting:
+    stage: formatting
+    image: python:3-slim
+    before_script:
+        - pip3 install autopep8
+    script:
+        - for i in $( du -a ./end-to-end-tests/ | awk '{print $2}' | grep -i "[.]py$" ); do
+        -   cp $i temp.txt
+        -   autopep8 --in-place --aggressive --aggressive $i
+        -   cmp $i temp.txt
+        - done
     rules:
         - if: $CI_MERGE_REQUEST_ID
 
@@ -94,10 +109,12 @@ unit-testing:
 
 end-to-end-testing:
     stage: end-to-end-testing
-    image: python
+    image: python:3-slim
     before_script:
+        - apt update
+        - apt install git -y
         - cd end-to-end-tests/
-        - pip install -r requirements.txt
+        - pip3 install -r requirements.txt
     script:
         - behave
     rules:
