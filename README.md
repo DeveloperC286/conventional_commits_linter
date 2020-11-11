@@ -13,7 +13,6 @@ A fast and sensible linter for the Conventional Commits v1.0.0 format. Which cat
 
 
 ## Upcoming
- * Allowing standard input over reading from Git directly.
  * Optional configuration file over CLI arguments/flags.
  * Add commit title length arguments/flags.
  * Add type as noun linting warning/CLI arguments/flags.
@@ -26,8 +25,8 @@ A fast and sensible linter for the Conventional Commits v1.0.0 format. Which cat
 
 ## Content
  * [Usage](#usage)
-   + [Usage - Logging](#usage-logging)
    + [Usage - Additional Flags](#usage-additional-flags)
+   + [Usage - Logging](#usage-logging)
  * [Compiling via Local Repository](#compiling-via-local-repository)
  * [Compiling via Cargo](#compiling-via-cargo)
  * [Unit Testing](#unit-testing)
