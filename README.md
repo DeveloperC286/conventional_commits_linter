@@ -2,14 +2,15 @@
 [![crates.io](https://img.shields.io/crates/v/conventional_commits_linter)](https://crates.io/crates/conventional_commits_linter) [![pipeline status](https://gitlab.com/DeveloperC/conventional_commits_linter/badges/master/pipeline.svg)](https://gitlab.com/DeveloperC/conventional_commits_linter/commits/master) [![License: AGPL v3](https://img.shields.io/badge/License-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
 
-A fast and sensible linter for the Conventional Commits v1.0.0 format. Which catches violations other linters do not combined with no dependencies on specific tools or interpreter languages.
+A tooling/language agnostic utility to lint Git commit message against the Conventional Commits specifaction.
 
 
 ## Why use Conventional Commits Linter?
- * __Correctness__ - Numerous violations against the Conventional Commits v1.0.0 format are caught unlike other linters.
- * __Sensible Defaults__ - By default no subjective linting rules are applied, however you can adjust the linting rules.
  * __No Dependencies__ - A binary download is provided, removing dependencies on downloading tools or interpreter languages.
- * __Fast__ - Utilising Regex and Rust the performance is significantly better than some other interpreted language linters.
+ * __Correctness__ - The linting against the Conventional Commits specifaction is strict. Numerous violations missed by other linters are caught.
+ * __Sensible Defaults__ - By default no subjective linting rules are applied, only compilance with the Conventional Commits specifaction is asserted.
+ * __Configurable__ - While by defauly no subjective linting rules are applied, additional subjective linting rules can be enabled.
+ * __Fast__ - Utilising Rust the performance is significantly better than other interpreted language linters.
 
 
 ## Upcoming
