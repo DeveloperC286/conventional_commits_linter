@@ -3,11 +3,11 @@ Feature: conventional_commits_linter can use the argument --from-tag in the plac
 
   Scenario Outline: When you provide both --from-tag and --from-commit-hash arguments conventional_commits_linter fails.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
-    When the argument --from-commit-hash is set as "<from_commit_hash>".
-    When the argument --from-tag is set as "<from_tag>".
-    When conventional_commits_linter is called with the set arguments.
+    And the directory is changed to the cloned repository.
+    When the argument --from-commit-hash is provided as "<from_commit_hash>".
+    And the argument --from-tag is provided as "<from_tag>".
     Then the linting fails.
-    Then the error message is either "error: The argument '--from-tag <from-tag>' cannot be used with one or more of the other specified arguments" or "error: The argument '--from-commit-hash <from-commit-hash>' cannot be used with one or more of the other specified arguments".
+    And the error message is either "error: The argument '--from-tag <from-tag>' cannot be used with one or more of the other specified arguments" or "error: The argument '--from-commit-hash <from-commit-hash>' cannot be used with one or more of the other specified arguments".
 
 
     Examples:
@@ -17,9 +17,9 @@ Feature: conventional_commits_linter can use the argument --from-tag in the plac
 
   Scenario Outline: When you provide neither --from-tag and --from-commit-hash arguments conventional_commits_linter fails.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
-    When conventional_commits_linter is called with the set arguments.
+    And the directory is changed to the cloned repository.
     Then the linting fails.
-    Then the error message is "error: The following required arguments were not provided:".
+    And the error message is "error: The following required arguments were not provided:".
 
 
     Examples:
@@ -29,8 +29,8 @@ Feature: conventional_commits_linter can use the argument --from-tag in the plac
 
   Scenario Outline: You can use the --from-tag argument instead of the --from-commit-hash argument.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
-    When the argument --from-tag is set as "<from_tag>".
-    When conventional_commits_linter is called with the set arguments.
+    And the directory is changed to the cloned repository.
+    When the argument --from-tag is provided as "<from_tag>".
     Then the linting passes.
 
 
@@ -41,10 +41,10 @@ Feature: conventional_commits_linter can use the argument --from-tag in the plac
 
   Scenario Outline: When you use the --from-tag argument with an invalid tag name a relevant error message is returned.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
-    When the argument --from-tag is set as "<from_tag>".
-    When conventional_commits_linter is called with the set arguments.
+    And the directory is changed to the cloned repository.
+    When the argument --from-tag is provided as "<from_tag>".
     Then the linting fails.
-    Then the error message is "ERROR conventional_commits_linter::git > Could not find a tag with the name '12-0-0'.".
+    And the error message is "ERROR conventional_commits_linter::git > Could not find a tag with the name '12-0-0'.".
 
 
     Examples:

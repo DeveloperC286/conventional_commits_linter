@@ -3,8 +3,8 @@ Feature: conventional_commits_linter without any additional flags/config can lin
 
   Scenario Outline: Valid Conventional Commits pass linting.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
-    When the argument --from-commit-hash is set as "<from_commit_hash>".
-    When conventional_commits_linter is called with the set arguments.
+    And the directory is changed to the cloned repository.
+    When the argument --from-commit-hash is provided as "<from_commit_hash>".
     Then the linting passes.
 
 
@@ -18,8 +18,8 @@ Feature: conventional_commits_linter without any additional flags/config can lin
 
   Scenario Outline: Invalid Conventional Commits fail linting.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
-    When the argument --from-commit-hash is set as "<from_commit_hash>".
-    When conventional_commits_linter is called with the set arguments.
+    And the directory is changed to the cloned repository.
+    When the argument --from-commit-hash is provided as "<from_commit_hash>".
     Then the linting fails.
 
 

@@ -10,4 +10,4 @@ def execute_command(command):
         stderr=STDOUT)
     process.wait()
 
-    return (process.returncode, process.stdout.read().decode('utf-8'))
+    return process.returncode, process.stdout.read().decode('utf-8')

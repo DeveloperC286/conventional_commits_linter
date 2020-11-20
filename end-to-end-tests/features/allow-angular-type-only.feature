@@ -3,9 +3,9 @@ Feature: conventional_commits_linter with the --allow-angular-type-only flag set
 
   Scenario Outline: When linting a repository using non Angular types linting fails.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
-    When the argument --from-commit-hash is set as "<from_commit_hash>".
-    When the flag --allow-angular-type-only is set.
-    When conventional_commits_linter is called with the set arguments.
+    And the directory is changed to the cloned repository.
+    When the argument --from-commit-hash is provided as "<from_commit_hash>".
+    And the flag --allow-angular-type-only is set.
     Then the linting fails.
 
 
