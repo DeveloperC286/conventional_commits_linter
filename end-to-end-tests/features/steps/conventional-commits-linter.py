@@ -13,6 +13,11 @@ def set_from_tag(context, from_tag):
     context.arguments += " --from-tag " + from_tag + " "
 
 
+@when('the flag --stdin is set.')
+def set_allow_angular_type_only(context):
+    context.arguments += " --stdin "
+
+
 @when('the flag --allow-angular-type-only is set.')
 def set_allow_angular_type_only(context):
     context.arguments += " --allow-angular-type-only "

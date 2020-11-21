@@ -1,7 +1,7 @@
-Feature: conventional_commits_linter without any additional flags/config can lint Git commit messages from a repository.
+Feature: By default no additional configuration/settings are necessary to lint for the Conventional Commits specification.
 
 
-  Scenario Outline: Valid Conventional Commits pass linting.
+  Scenario Outline:
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     And the directory is changed to the cloned repository.
     When the argument --from-commit-hash is provided as "<from_commit_hash>".
@@ -16,7 +16,7 @@ Feature: conventional_commits_linter without any additional flags/config can lin
       | https://github.com/danielduarte/diffparse.git | df6be23b79af66d3684fb27719020e1ce587f4b8 | 4f6bf53139fe66f61bd05893bcc9de6e96400c5c |
 
 
-  Scenario Outline: Invalid Conventional Commits fail linting.
+  Scenario Outline:
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     And the directory is changed to the cloned repository.
     When the argument --from-commit-hash is provided as "<from_commit_hash>".

@@ -1,7 +1,7 @@
 Feature: Git environment variables are respected and used instead of using the current working directory.
 
 
-  Scenario Outline: Valid Conventional Commits pass linting.
+  Scenario Outline:
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     And the GIT_DIR environment variable is set to the cloned repository.
     When the argument --from-commit-hash is provided as "<from_commit_hash>".
@@ -15,7 +15,7 @@ Feature: Git environment variables are respected and used instead of using the c
       | https://github.com/danielduarte/diffparse.git | df6be23b79af66d3684fb27719020e1ce587f4b8 | 4f6bf53139fe66f61bd05893bcc9de6e96400c5c |
 
 
-  Scenario Outline: Invalid Conventional Commits fail linting.
+  Scenario Outline:
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     And the GIT_DIR environment variable is set to the cloned repository.
     When the argument --from-commit-hash is provided as "<from_commit_hash>".
