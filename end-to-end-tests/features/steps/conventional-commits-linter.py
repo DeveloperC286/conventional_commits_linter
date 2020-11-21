@@ -42,6 +42,14 @@ def then_linting_fails(context):
     assert int(context.exit_code) != 0
 
 
+@then('an empty scope violation is found.')
+def then_empty_scope_violation(context):
+    then_linting_fails(context)
+    assert context.stdout.count('\n\tX - ') == 2
+    assert "\tX - Commit title does not comply with the Conventional Commits V1.0.0 specification.\n" in context.stdout
+    assert "\tX - Commit title has a scope which is empty.\n" in context.stdout
+
+
 @then('the error message is "{error_message}".')
 def then_the_error_message_is(context, error_message):
     execute_conventional_commits_linter(context)
