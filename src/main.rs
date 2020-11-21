@@ -24,7 +24,7 @@ fn main() {
     let arguments = cli::Arguments::from_args();
     debug!("The command line arguments provided are {:?}.", arguments);
 
-    let (commits, print_summary, print_commit_hash) = match arguments.stdin {
+    let (commits, print_summary, print_commit_hash) = match arguments.from_stdin {
         true => {
             let mut input = String::new();
             stdin().read_line(&mut input).unwrap();

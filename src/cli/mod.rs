@@ -4,29 +4,29 @@ use structopt::{clap::ArgGroup, StructOpt};
 #[structopt(
     name = "conventional_commits_linter",
     about = "A tooling/language agnostic utility to lint Git commit message against the Conventional Commits specifaction.",
-    group = ArgGroup::with_name("input").required(true)
+    group = ArgGroup::with_name("from").required(true)
 )]
 pub struct Arguments {
     #[structopt(
-        group = "input",
+        group = "from",
         long,
         help = "The Git commit hash from where to take the range of commits from till HEAD to lint. The range is inclusive of HEAD and exclusive of the provided commit hash."
     )]
     pub from_commit_hash: Option<git2::Oid>,
 
     #[structopt(
-        group = "input",
+        group = "from",
         long,
         help = "The Git tag from where to take the range of commits from till HEAD to lint. The range is inclusive of HEAD and exclusive of the provided tag."
     )]
     pub from_tag: Option<String>,
 
     #[structopt(
-        group = "input",
+        group = "from",
         long,
         help = "Read the standard input and lint the input as a Git commit message."
     )]
-    pub stdin: bool,
+    pub from_stdin: bool,
 
     #[structopt(
         long,

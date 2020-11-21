@@ -13,9 +13,9 @@ def set_from_tag(context, from_tag):
     context.arguments += " --from-tag " + from_tag + " "
 
 
-@when('the flag --stdin is set.')
+@when('the flag --from-stdin is set.')
 def set_allow_angular_type_only(context):
-    context.arguments += " --stdin "
+    context.arguments += " --from-stdin "
 
 
 @when('the flag --allow-angular-type-only is set.')
