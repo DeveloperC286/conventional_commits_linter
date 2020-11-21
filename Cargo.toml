@@ -1,7 +1,7 @@
 [package]
 name = "conventional_commits_linter"
 version = "0.7.0"
-description = "A tooling/language agnostic utility to lint Git commit message against the Conventional Commits specifaction."
+description = "A tooling/language agnostic utility to lint Git commit message against the Conventional Commits specification."
 authors = ["C <DeveloperC@protonmail.com>"]
 edition = "2018"
 license = "AGPL-3.0"

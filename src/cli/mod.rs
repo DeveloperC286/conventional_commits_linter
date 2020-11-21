@@ -3,7 +3,7 @@ use structopt::{clap::ArgGroup, StructOpt};
 #[derive(Debug, StructOpt)]
 #[structopt(
     name = "conventional_commits_linter",
-    about = "A tooling/language agnostic utility to lint Git commit message against the Conventional Commits specifaction.",
+    about = "A tooling/language agnostic utility to lint Git commit message against the Conventional Commits specification.",
     group = ArgGroup::with_name("from").required(true)
 )]
 pub struct Arguments {
