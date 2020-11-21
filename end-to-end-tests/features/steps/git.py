@@ -4,10 +4,12 @@ from behave import given
 from util import execute_command
 
 
+@given('the context and environment are reset.')
 def reset_context(context):
     context.behave_directory = os.getcwd()
     context.temporary_directory = tempfile.TemporaryDirectory()
 
+    context.standard_input = ""
     context.conventional_commits_linter_path = context.behave_directory + \
         "/../target/debug/conventional_commits_linter"
     context.arguments = ""

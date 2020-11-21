@@ -13,8 +13,9 @@ def set_from_tag(context, from_tag):
     context.arguments += " --from-tag " + from_tag + " "
 
 
-@when('the flag --from-stdin is set.')
-def set_allow_angular_type_only(context):
+@when('the standard input is "{standard_input}".')
+def set_allow_angular_type_only(context, standard_input):
+    context.standard_input = "echo \"" + standard_input + "\" | "
     context.arguments += " --from-stdin "
 
 
@@ -25,7 +26,7 @@ def set_allow_angular_type_only(context):
 
 def execute_conventional_commits_linter(context):
     (context.exit_code, context.stdout) = execute_command(
-        context.conventional_commits_linter_path + context.arguments)
+        context.standard_input + context.conventional_commits_linter_path + context.arguments)
     os.chdir(context.behave_directory)
 
 

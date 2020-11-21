@@ -31,27 +31,27 @@ Feature: Ensure input on what to linting is provided correctly.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     And the directory is changed to the cloned repository.
     When the argument --from-tag is provided as "<from_tag>".
-    And the flag --from-stdin is set.
+    And the standard input is "<standard_input>".
     Then the linting fails.
     And the error message is either "error: The argument '--from-tag <from-tag>' cannot be used with one or more of the other specified arguments" or "error: The argument '--from-stdin' cannot be used with one or more of the other specified arguments".
 
 
     Examples:
-      | repository                         | checkout_commit                          | from_tag |
-      | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | v15.4.0  |
+      | repository                         | checkout_commit                          | from_tag | standard_input               |
+      | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | v15.4.0  | setup of typescript and jest |
 
   Scenario Outline: You can not provide both commit hash and standard input.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     And the directory is changed to the cloned repository.
     When the argument --from-commit-hash is provided as "<from_commit_hash>".
-    And the flag --from-stdin is set.
+    And the standard input is "<standard_input>".
     Then the linting fails.
     And the error message is either "error: The argument '--from-commit-hash <from-commit-hash>' cannot be used with one or more of the other specified arguments" or "error: The argument '--from-stdin' cannot be used with one or more of the other specified arguments".
 
 
     Examples:
-      | repository                         | checkout_commit                          | from_commit_hash                         |
-      | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | 028b50d5ced3b41a8dccf74107dbfc7065052a5d |
+      | repository                         | checkout_commit                          | from_commit_hash                         | standard_input               |
+      | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | 028b50d5ced3b41a8dccf74107dbfc7065052a5d | setup of typescript and jest |
 
 
 
