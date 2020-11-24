@@ -16,3 +16,6 @@ pub fn lint(commit_message: &str) -> Result<(), LintingError> {
         false => Ok(()),
     }
 }
+
+#[cfg(test)]
+mod tests;
