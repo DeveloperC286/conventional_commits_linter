@@ -15,7 +15,9 @@ def set_from_tag(context, from_tag):
 
 @when('the standard input is "{standard_input}".')
 def set_allow_angular_type_only(context, standard_input):
-    context.standard_input = "echo \"" + standard_input + "\" | "
+    standard_input = standard_input.strip('\"')
+    standard_input = standard_input.strip('\'')
+    context.pre_command = "echo \"" + standard_input + "\" | "
     context.arguments += " --from-stdin "
 
 
@@ -26,7 +28,7 @@ def set_allow_angular_type_only(context):
 
 def execute_conventional_commits_linter(context):
     (context.exit_code, context.stdout) = execute_command(
-        context.standard_input + context.conventional_commits_linter_path + context.arguments)
+        context.pre_command + context.conventional_commits_linter_path + context.arguments)
     os.chdir(context.behave_directory)
 
 
@@ -56,6 +58,14 @@ def then_empty_scope_violation(context):
     assert context.stdout.count('\n\tX - ') == 2
     assert "\tX - Commit title does not comply with the Conventional Commits V1.0.0 specification.\n" in context.stdout
     assert "\tX - Commit title has no description after the Conventional Commits type and scope.\n" in context.stdout
+
+
+@then('an no space after type violation is found.')
+def then_empty_scope_violation(context):
+    then_linting_fails(context)
+    assert context.stdout.count('\n\tX - ') == 2
+    assert "\tX - Commit title does not comply with the Conventional Commits V1.0.0 specification.\n" in context.stdout
+    assert "\tX - Commit title has no space after the colon preceding the Conventional Commits type and scope.\n" in context.stdout
 
 
 @then('the error message is "{error_message}".')

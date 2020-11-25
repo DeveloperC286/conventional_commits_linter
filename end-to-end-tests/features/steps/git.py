@@ -9,7 +9,7 @@ def reset_context(context):
     context.behave_directory = os.getcwd()
     context.temporary_directory = tempfile.TemporaryDirectory()
 
-    context.standard_input = ""
+    context.pre_command = ""
     context.conventional_commits_linter_path = context.behave_directory + \
         "/../target/debug/conventional_commits_linter"
     context.arguments = ""
