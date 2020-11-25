@@ -12,3 +12,5 @@ Feature: No descriptions are caught as a Conventional Commits specification viol
       | test:       \n\nCo-authored-by: Renovate Bot <bot@renovateapp.com>\n\n |
       | doc(README):    \n\n                                                   |
       | chore!(release): \n\n                                                  |
+      | chore!(release): \n                                                    |
+      | test:       \nCo-authored-by: Renovate Bot <bot@renovateapp.com>\n\n   |
