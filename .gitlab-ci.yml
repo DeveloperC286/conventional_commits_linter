@@ -58,7 +58,7 @@ conventional-commits-linting:
     script:
         - COMMON_ANCESTOR_COMMIT=`git merge-base origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME`
         # Lint all the commits in the branch.
-        - /usr/local/cargo/bin/conventional_commits_linter --from-commit-hash $COMMON_ANCESTOR_COMMIT
+        - /usr/local/cargo/bin/conventional_commits_linter --from-commit-hash $COMMON_ANCESTOR_COMMIT --allow-angular-type-only
     rules:
         - if: $CI_MERGE_REQUEST_ID
 
