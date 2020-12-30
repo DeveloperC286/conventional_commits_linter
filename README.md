@@ -97,7 +97,7 @@ cargo test
 To ensure correctness as there are a variety of out of process dependencies the project has an End-to-End behaviour driven test suite using the behave framework (https://github.com/behave/behave).
 To run the test suite you need to first build a binary, install Python3, install behave and then execute behave to run the behaviour driven test suite.
 
-#### Note - You can't use --release as the End-to-End test suite uses `target/debug/conventional_commits_linter`.
+__Note - You can't use --release as the test suite uses `target/debug/conventional_commits_linter`.__
 
 ```
 cargo build
