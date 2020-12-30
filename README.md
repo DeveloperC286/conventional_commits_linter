@@ -2,7 +2,7 @@
 [![crates.io](https://img.shields.io/crates/v/conventional_commits_linter)](https://crates.io/crates/conventional_commits_linter) [![pipeline status](https://gitlab.com/DeveloperC/conventional_commits_linter/badges/master/pipeline.svg)](https://gitlab.com/DeveloperC/conventional_commits_linter/commits/master) [![License: AGPL v3](https://img.shields.io/badge/License-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
 
-A tooling and language agnostic utility to lint Git commits against the Conventional Commits specification.
+A tooling and language agnostic Git commit linter for the Conventional Commits specification.
 
 
 ## Why use Conventional Commits Linter?
