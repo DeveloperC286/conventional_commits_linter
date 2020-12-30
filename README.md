@@ -77,12 +77,32 @@ The compiled binary is present in `target/release/conventional_commits_linter`.
 
 
 ## Compiling via Cargo
-Cargo is the Rust package manager, using the `install` sub-command it pulls the crate from `crates.io` and then compiles the binary locally.
+Cargo is the Rust package manager, using the `install` sub-command it pulls the Conventional Commits Linter from `crates.io` and then compiles the binary locally.
 `cargo install` places the produced binary at `$HOME/.cargo/bin/conventional_commits_linter`.
 
 ```
 cargo install conventional_commits_linter
 ```
+
+By default it installs the latest version at the time of execution.
+You can specify a specific version to install using the `--version` argument.
+For certain environments such as CICD etc you may want to pin the version.
+
+e.g.
+
+```
+cargo install conventional_commits_linter --version 0.7.0
+```
+
+Rather than pinning to a specific version you can specify the major or minor version.
+
+e.g.
+
+```
+cargo install conventional_commits_linter --version ^0
+```
+
+Will download the latest `0.*` release whether that is `0.6.7` or `0.11.0`.
 
 
 ## Unit Testing
