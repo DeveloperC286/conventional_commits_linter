@@ -31,6 +31,10 @@ A tooling and language agnostic Git commit linter for the Conventional Commits s
  * [Usage](#usage)
    + [Usage - Additional Flags](#usage-additional-flags)
    + [Usage - Logging](#usage-logging)
+ * [CICD Examples](#cicd-examples)
+   + [GitLab CI Rust Project Example](#gitlab-ci-rust-project-example)
+     + [Via Cargo](#via-cargo)
+     + [Via Binary Download](#via-binary-download)
  * [Downloading Binary](#downloading-binary)
  * [Compiling via Local Repository](#compiling-via-local-repository)
  * [Compiling via Cargo](#compiling-via-cargo)
@@ -62,6 +66,48 @@ If any commits messages fail linting then an error message explaining why is log
 The crates `pretty_env_logger` and `log` are used to provide logging.
 The environment variable `RUST_LOG` can be used to set the logging level.
 See [https://crates.io/crates/pretty_env_logger](https://crates.io/crates/pretty_env_logger) for more detailed documentation.
+
+
+## CICD Examples
+### GitLab CI Rust Project Example
+#### Via Cargo
+See [Compiling via Cargo](#compiling-via-cargo) for more details about installing via Cargo.
+
+__Note - This example downloads the latest `0.*` version.__
+
+```
+conventional-commits-linting:
+    stage: conventional-commits-linting
+    image: rust
+    before_script:
+        - cargo install conventional_commits_linter --version ^0
+    script:
+        - COMMON_ANCESTOR_COMMIT=`git merge-base origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME`
+        # Lint all the commits in the branch.
+        - /usr/local/cargo/bin/conventional_commits_linter --from-commit-hash $COMMON_ANCESTOR_COMMIT --allow-angular-type-only
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+```
+
+
+#### Via Binary Download
+See [Downloading Binary](#downloading-binary) for more details about Binary downloads.
+
+__Note - This example downloads version `0.7.1`.__
+
+```
+conventional-commits-linting:
+    stage: conventional-commits-linting
+    image: rust
+    before_script:
+        - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/conventional_commits_linter/-/jobs/artifacts/0.7.1/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
+    script:
+        - COMMON_ANCESTOR_COMMIT=`git merge-base origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME`
+        # Lint all the commits in the branch.
+        - ./conventional_commits_linter --from-commit-hash $COMMON_ANCESTOR_COMMIT --allow-angular-type-only
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+```
 
 
 ## Downloading Binary
