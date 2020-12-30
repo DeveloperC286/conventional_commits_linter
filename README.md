@@ -31,6 +31,7 @@ A tooling and language agnostic Git commit linter for the Conventional Commits s
  * [Usage](#usage)
    + [Usage - Additional Flags](#usage-additional-flags)
    + [Usage - Logging](#usage-logging)
+ * [Downloading Binary](#downloading-binary)
  * [Compiling via Local Repository](#compiling-via-local-repository)
  * [Compiling via Cargo](#compiling-via-cargo)
  * [Unit Testing](#unit-testing)
@@ -61,6 +62,13 @@ If any commits messages fail linting then an error message explaining why is log
 The crates `pretty_env_logger` and `log` are used to provide logging.
 The environment variable `RUST_LOG` can be used to set the logging level.
 See [https://crates.io/crates/pretty_env_logger](https://crates.io/crates/pretty_env_logger) for more detailed documentation.
+
+
+## Downloading Binary
+Statically linked compiled binaries are available for download.
+Visit the releases page at [https://gitlab.com/DeveloperC/conventional_commits_linter/-/releases](https://gitlab.com/DeveloperC/conventional_commits_linter/-/releases) to see all the releases, the release notes contains links to binary downloads for various architectures.
+
+If you do not trust the provided binaries another option is to compile your own and then make it available for remote download, so your CICD etc can then download it.
 
 
 ## Compiling via Local Repository
