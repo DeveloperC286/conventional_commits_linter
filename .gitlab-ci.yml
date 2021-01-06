@@ -1,174 +1,174 @@
 stages:
-    - formatting
-    - linting
-    - conventional-commits-linting
-    - conventional-commits-next-version-checking
-    - compiling
-    - unit-testing
-    - end-to-end-testing
-    - releasing
-    - crates-io-publishing
-    - release-binary-compiling
+  - formatting
+  - linting
+  - conventional-commits-linting
+  - conventional-commits-next-version-checking
+  - compiling
+  - unit-testing
+  - end-to-end-testing
+  - releasing
+  - crates-io-publishing
+  - release-binary-compiling
 
 
 conventional-commits-linter-formatting:
-    stage: formatting
-    image: rust
-    before_script:
-        - rustup component add rustfmt
-    script:
-        - cargo fmt --all -- --check
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
+  stage: formatting
+  image: rust
+  before_script:
+    - rustup component add rustfmt
+  script:
+    - cargo fmt --all -- --check
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
 
 
 end-to-end-tests-formatting:
-    stage: formatting
-    image: python:3-slim
-    before_script:
-        - pip3 install autopep8
-    script:
-        - for i in $( du -a ./end-to-end-tests/ | awk '{print $2}' | grep -i "[.]py$" ); do
-        -   cp $i temp.txt
-        -   autopep8 --in-place --aggressive --aggressive $i
-        -   cmp $i temp.txt
-        - done
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
+  stage: formatting
+  image: python:3-slim
+  before_script:
+    - pip3 install autopep8
+  script:
+    - for i in $( du -a ./end-to-end-tests/ | awk '{print $2}' | grep -i "[.]py$" ); do
+    - cp $i temp.txt
+    - autopep8 --in-place --aggressive --aggressive $i
+    - cmp $i temp.txt
+    - done
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
 
 
 linting:
-    stage: linting
-    image: rust
-    before_script:
-        - rustup component add clippy
-    script:
-        - cargo clippy --verbose --workspace --all-targets -- -D warnings
-        - cargo clippy --verbose --workspace --all-targets --all-features -- -D warnings
-        - cargo clippy --verbose --workspace --all-targets --no-default-features -- -D warnings
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
+  stage: linting
+  image: rust
+  before_script:
+    - rustup component add clippy
+  script:
+    - cargo clippy --verbose --workspace --all-targets -- -D warnings
+    - cargo clippy --verbose --workspace --all-targets --all-features -- -D warnings
+    - cargo clippy --verbose --workspace --all-targets --no-default-features -- -D warnings
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
 
 
 conventional-commits-linting:
-    stage: conventional-commits-linting
-    image: rust
-    before_script:
-        - cargo install conventional_commits_linter
-    script:
-        - COMMON_ANCESTOR_COMMIT=`git merge-base origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME`
-        # Lint all the commits in the branch.
-        - /usr/local/cargo/bin/conventional_commits_linter --from-commit-hash $COMMON_ANCESTOR_COMMIT --allow-angular-type-only
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
+  stage: conventional-commits-linting
+  image: rust
+  before_script:
+    - cargo install conventional_commits_linter
+  script:
+    - COMMON_ANCESTOR_COMMIT=`git merge-base origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME`
+    # Lint all the commits in the branch.
+    - /usr/local/cargo/bin/conventional_commits_linter --from-commit-hash $COMMON_ANCESTOR_COMMIT --allow-angular-type-only
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
 
 
 conventional-commits-next-version-checking:
-    stage: conventional-commits-next-version-checking
-    image: rust
-    before_script:
-        - cargo install conventional_commits_next_version
-    script:
-        # Get current version and latest tag.
-        - CURRENT_VERSION=`grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2`
-        # Get latest tag.
-        - LATEST_TAG=`git describe --tags --abbrev=0`
-        # Check latest tag is in semantic versioning.
-        - echo $LATEST_TAG | grep "^[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*$"
-        # Check current vs expected.
-        - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-reference $LATEST_TAG --from-version $LATEST_TAG --current-version $CURRENT_VERSION
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
+  stage: conventional-commits-next-version-checking
+  image: rust
+  before_script:
+    - cargo install conventional_commits_next_version
+  script:
+    # Get current version and latest tag.
+    - CURRENT_VERSION=`grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2`
+    # Get latest tag.
+    - LATEST_TAG=`git describe --tags --abbrev=0`
+    # Check latest tag is in semantic versioning.
+    - echo $LATEST_TAG | grep "^[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*$"
+    # Check current vs expected.
+    - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-reference $LATEST_TAG --from-version $LATEST_TAG --current-version $CURRENT_VERSION
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
 
 
 compiling:
-    stage: compiling
-    image: rust
-    script:
-        - cargo build
-    artifacts:
-        expire_in: 1 hrs
-        paths:
-            - target/debug/conventional_commits_linter
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
-        - if: $CI_COMMIT_BRANCH == "master"
+  stage: compiling
+  image: rust
+  script:
+    - cargo build
+  artifacts:
+    expire_in: 1 hrs
+    paths:
+      - target/debug/conventional_commits_linter
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+    - if: $CI_COMMIT_BRANCH == "master"
 
 
 unit-testing:
-    stage: unit-testing
-    image: rust
-    script:
-        - cargo test --verbose --workspace
-        - cargo test --verbose --workspace --all-features
-        - cargo test --verbose --workspace --no-default-features
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
-        - if: $CI_COMMIT_BRANCH == "master"
+  stage: unit-testing
+  image: rust
+  script:
+    - cargo test --verbose --workspace
+    - cargo test --verbose --workspace --all-features
+    - cargo test --verbose --workspace --no-default-features
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+    - if: $CI_COMMIT_BRANCH == "master"
 
 
 end-to-end-testing:
-    stage: end-to-end-testing
-    image: python:3-slim
-    before_script:
-        - apt update
-        - apt install git -y
-        - cd end-to-end-tests/
-        - pip3 install -r requirements.txt
-    script:
-        - behave
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
-        - if: $CI_COMMIT_BRANCH == "master"
+  stage: end-to-end-testing
+  image: python:3-slim
+  before_script:
+    - apt update
+    - apt install git -y
+    - cd end-to-end-tests/
+    - pip3 install -r requirements.txt
+  script:
+    - behave
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+    - if: $CI_COMMIT_BRANCH == "master"
 
 
 releasing:
-    stage: releasing
-    image: registry.gitlab.com/gitlab-org/release-cli
-    before_script:
-        - apk add git
-    script:
-        - CURRENT_VERSION=`grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2`
-        # If the tag already exist then exit.
-        - git tag -l | grep "^${CURRENT_VERSION}$" && exit 0
-        # Get latest tag.
-        - LATEST_TAG=`git describe --tags | cut -d '-' -f 1`
-        - LATEST_TAG_HASH=`git rev-parse $LATEST_TAG`
-        # Check latest tag is in semantic versioning.
-        - echo $LATEST_TAG | grep "^[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*$"
-        # Download clog.
-        - wget https://github.com/clog-tool/clog-cli/releases/download/v0.9.3/clog-v0.9.3-x86_64-unknown-linux-musl.tar.gz
-        - tar xvf clog-v0.9.3-x86_64-unknown-linux-musl.tar.gz
-        # Generate the release description.
-        - RELEASE_DESCRIPTION=`./clog --from $LATEST_TAG_HASH --link-style Gitlab --subtitle $CURRENT_VERSION | tail -n +2`
-        # Create the new release.
-        - release-cli create --name $CURRENT_VERSION --description "$RELEASE_DESCRIPTION"
-                             --tag-name $CURRENT_VERSION --ref $CI_COMMIT_SHA
-                             --assets-link '{"name":"x86_64-linux-musl-binary.zip","url":"https://gitlab.com/DeveloperC/conventional_commits_linter/-/jobs/artifacts/'$CURRENT_VERSION'/download?job=release-binary-compiling-x86_64-linux-musl"}'
-    rules:
-        - if: $CI_COMMIT_BRANCH == "master"
+  stage: releasing
+  image: registry.gitlab.com/gitlab-org/release-cli
+  before_script:
+    - apk add git
+  script:
+    - CURRENT_VERSION=`grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2`
+    # If the tag already exist then exit.
+    - git tag -l | grep "^${CURRENT_VERSION}$" && exit 0
+    # Get latest tag.
+    - LATEST_TAG=`git describe --tags | cut -d '-' -f 1`
+    - LATEST_TAG_HASH=`git rev-parse $LATEST_TAG`
+    # Check latest tag is in semantic versioning.
+    - echo $LATEST_TAG | grep "^[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*$"
+    # Download clog.
+    - wget https://github.com/clog-tool/clog-cli/releases/download/v0.9.3/clog-v0.9.3-x86_64-unknown-linux-musl.tar.gz
+    - tar xvf clog-v0.9.3-x86_64-unknown-linux-musl.tar.gz
+    # Generate the release description.
+    - RELEASE_DESCRIPTION=`./clog --from $LATEST_TAG_HASH --link-style Gitlab --subtitle $CURRENT_VERSION | tail -n +2`
+    # Create the new release.
+    - release-cli create --name $CURRENT_VERSION --description "$RELEASE_DESCRIPTION"
+      --tag-name $CURRENT_VERSION --ref $CI_COMMIT_SHA
+      --assets-link '{"name":"x86_64-linux-musl-binary.zip","url":"https://gitlab.com/DeveloperC/conventional_commits_linter/-/jobs/artifacts/'$CURRENT_VERSION'/download?job=release-binary-compiling-x86_64-linux-musl"}'
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
 
 
 crates-io-publishing:
-    stage: crates-io-publishing
-    image: rust
-    script:
-        - cargo publish --token $GITLAB_CRATES_IO_TOKEN
-    rules:
-        - if: $CI_COMMIT_TAG
+  stage: crates-io-publishing
+  image: rust
+  script:
+    - cargo publish --token $GITLAB_CRATES_IO_TOKEN
+  rules:
+    - if: $CI_COMMIT_TAG
 
 
 release-binary-compiling-x86_64-linux-musl:
-    stage: release-binary-compiling
-    image: rust:alpine
-    before_script:
-        - apk add --no-cache musl-dev git
-    script:
-        - cargo build --release --target x86_64-unknown-linux-musl
-        - mv target/x86_64-unknown-linux-musl/release/conventional_commits_linter conventional_commits_linter
-        - strip conventional_commits_linter
-    artifacts:
-        paths:
-            - conventional_commits_linter
-    rules:
-        - if: $CI_COMMIT_TAG
+  stage: release-binary-compiling
+  image: rust:alpine
+  before_script:
+    - apk add --no-cache musl-dev git
+  script:
+    - cargo build --release --target x86_64-unknown-linux-musl
+    - mv target/x86_64-unknown-linux-musl/release/conventional_commits_linter conventional_commits_linter
+    - strip conventional_commits_linter
+  artifacts:
+    paths:
+      - conventional_commits_linter
+  rules:
+    - if: $CI_COMMIT_TAG
