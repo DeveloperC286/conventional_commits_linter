@@ -85,11 +85,9 @@ compiling:
   stage: compiling
   image: rust
   script:
-    - cargo build
-  artifacts:
-    expire_in: 1 hrs
-    paths:
-      - target/debug/conventional_commits_linter
+    - cargo build --verbose --workspace
+    - cargo build --verbose --workspace --all-features
+    - cargo build --verbose --workspace --no-default-features
   rules:
     - if: $CI_MERGE_REQUEST_ID
     - if: $CI_COMMIT_BRANCH == "master"
@@ -109,10 +107,11 @@ unit-testing:
 
 end-to-end-testing:
   stage: end-to-end-testing
-  image: python:3-slim
+  image: rust
   before_script:
     - apt update
-    - apt install git -y
+    - apt install python3-minimal python3-pip git -y
+    - cargo build
     - cd end-to-end-tests/
     - pip3 install -r requirements.txt
   script:
