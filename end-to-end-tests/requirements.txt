@@ -1,4 +1,4 @@
 behave==1.2.6
-parse==1.18.0
+parse==1.19.0
 parse-type==0.5.2
 six==1.15.0
