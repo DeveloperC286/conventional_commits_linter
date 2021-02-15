@@ -141,8 +141,11 @@ releasing:
     # Generate the release description.
     - RELEASE_DESCRIPTION=`./clog --from $LATEST_TAG_HASH --link-style Gitlab --subtitle $CURRENT_VERSION | tail -n +2`
     # Create the new release.
-    - release-cli create --name $CURRENT_VERSION --description "$RELEASE_DESCRIPTION"
-      --tag-name $CURRENT_VERSION --ref $CI_COMMIT_SHA
+    - release-cli create 
+      --name $CURRENT_VERSION
+      --description "$RELEASE_DESCRIPTION"
+      --tag-name $CURRENT_VERSION
+      --ref $CI_COMMIT_SHA
       --assets-link '{"name":"x86_64-linux-musl-binary.zip","url":"https://gitlab.com/DeveloperC/conventional_commits_linter/-/jobs/artifacts/'$CURRENT_VERSION'/download?job=release-binary-compiling-x86_64-linux-musl"}'
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
