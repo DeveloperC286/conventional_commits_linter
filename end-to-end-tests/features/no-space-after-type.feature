@@ -8,7 +8,7 @@ Feature: No space after the type/scope are caught as a Conventional Commits spec
 
 
     Examples:
-      | standard_input                      |
-      | "chore:🌐 fix chinese translations" |
-      | "docs:提交文件头" |
+      | standard_input                               |
+      | "chore:🌐 fix chinese translations"          |
+      | "docs:提交文件"                                  |
       | "fix(deps):update dependency gitmojis to v3" |

@@ -8,7 +8,7 @@ Feature: Empty scopes are caught as a Conventional Commits specification violati
 
 
     Examples:
-      | standard_input                           |
-      | test(): adding stdin scenario variations |
-      | doc(   ): webpack example (#1436)        |
-      | chore!(): 14.2.0                         |
+      | standard_input                             |
+      | "test(): adding stdin scenario variations" |
+      | "doc(   ): webpack example (#1436)"        |
+      | "chore!(): 14.2.0"                         |

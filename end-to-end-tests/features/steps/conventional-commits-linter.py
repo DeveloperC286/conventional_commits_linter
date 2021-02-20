@@ -15,9 +15,7 @@ def set_from_tag(context, from_tag):
 
 @when('the standard input is "{standard_input}".')
 def set_allow_angular_type_only(context, standard_input):
-    standard_input = standard_input.strip('\"')
-    standard_input = standard_input.strip('\'')
-    context.pre_command = "echo \"" + standard_input + "\" | "
+    context.pre_command = "echo \"" + standard_input.strip().strip('\"') + "\" | "
     context.arguments += " --from-stdin "
 
 

@@ -9,7 +9,7 @@ Feature: Standard input can be used to supply a singular commit to lint.
 
     Examples:
       | standard_input                         |
-      | test: adding stdin scenario variations |
+      | "test: adding stdin scenario variations" |
 
 
   Scenario Outline:
@@ -20,4 +20,4 @@ Feature: Standard input can be used to supply a singular commit to lint.
 
     Examples:
       | standard_input               |
-      | setup of typescript and jest |
+      | "setup of typescript and jest" |

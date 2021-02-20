@@ -10,9 +10,9 @@ Feature: With the allow Angular types only flag, valid Conventional Commits not 
 
 
     Examples:
-      | standard_input                    |
-      | chore: update dependencies\n      |
-      | chore(release): 6.5.0             |
-      | lint: clean up mutex returns\n\n  |
-      | composer: updated the packages    |
-      | major: release v3 (merge #51)\n\n |
+      | standard_input                      |
+      | "chore: update dependencies\n"      |
+      | "chore(release): 6.5.0"             |
+      | "lint: clean up mutex returns\n\n"  |
+      | "composer: updated the packages"    |
+      | "major: release v3 (merge #51)\n\n" |

@@ -52,6 +52,3 @@ Feature: Ensure input on what to linting is provided correctly.
     Examples:
       | repository                         | checkout_commit                          | from_commit_hash                         | standard_input               |
       | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | 028b50d5ced3b41a8dccf74107dbfc7065052a5d | setup of typescript and jest |
-
-
-
