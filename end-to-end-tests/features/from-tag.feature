@@ -18,7 +18,7 @@ Feature: A Git tag can be provided as an argument to indicate where to start lin
     And the directory is changed to the cloned repository.
     When the argument --from-tag is provided as "<from_tag>".
     Then the linting fails.
-    And the error message is "ERROR conventional_commits_linter::git > Could not find a tag with the name '12-0-0'.".
+    And their is a could not find tag "<from_tag>" error.
 
 
     Examples:

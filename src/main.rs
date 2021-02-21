@@ -5,7 +5,10 @@ extern crate log;
 extern crate pretty_env_logger;
 extern crate regex;
 
-use std::{io::stdin, process::exit};
+use std::{
+    io::{stdin, Read},
+    process::exit,
+};
 
 use structopt::StructOpt;
 
@@ -27,7 +30,7 @@ fn main() {
     let (commits, print_summary, print_commit_hash) = match arguments.from_stdin {
         true => {
             let mut input = String::new();
-            stdin().read_line(&mut input).unwrap();
+            stdin().read_to_string(&mut input).unwrap();
 
             (
                 vec![Commit {

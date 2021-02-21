@@ -5,7 +5,7 @@ Feature: Ensure input on what to linting is provided correctly.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     And the directory is changed to the cloned repository.
     Then the linting fails.
-    And the error message is "error: The following required arguments were not provided:".
+    And their is a required arguments missing error.
 
 
     Examples:
