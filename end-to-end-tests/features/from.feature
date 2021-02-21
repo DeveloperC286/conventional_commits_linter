@@ -19,7 +19,7 @@ Feature: Ensure input on what to linting is provided correctly.
     When the argument --from-tag is provided as "<from_tag>".
     And the argument --from-commit-hash is provided as "<from_commit_hash>".
     Then the linting fails.
-    And the error message is either "error: The argument '--from-tag <from-tag>' cannot be used with one or more of the other specified arguments" or "error: The argument '--from-commit-hash <from-commit-hash>' cannot be used with one or more of the other specified arguments".
+    And their is a conflicting tag and commit hash input.
 
 
     Examples:
@@ -33,7 +33,7 @@ Feature: Ensure input on what to linting is provided correctly.
     When the argument --from-tag is provided as "<from_tag>".
     And the standard input is "<standard_input>".
     Then the linting fails.
-    And the error message is either "error: The argument '--from-tag <from-tag>' cannot be used with one or more of the other specified arguments" or "error: The argument '--from-stdin' cannot be used with one or more of the other specified arguments".
+    And their is a conflicting tag and standard input input.
 
 
     Examples:
@@ -46,7 +46,7 @@ Feature: Ensure input on what to linting is provided correctly.
     When the argument --from-commit-hash is provided as "<from_commit_hash>".
     And the standard input is "<standard_input>".
     Then the linting fails.
-    And the error message is either "error: The argument '--from-commit-hash <from-commit-hash>' cannot be used with one or more of the other specified arguments" or "error: The argument '--from-stdin' cannot be used with one or more of the other specified arguments".
+    And their is a conflicting commit hash and standard input input.
 
 
     Examples:

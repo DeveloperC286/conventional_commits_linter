@@ -4,7 +4,8 @@ Feature: No space after the type/scope are caught as a Conventional Commits spec
   Scenario Outline:
     Given the context and environment are reset.
     When the standard input is "<standard_input>".
-    Then an no space after type violation is found.
+    Then the linting fails.
+    And an no space after type violation is found.
 
 
     Examples:

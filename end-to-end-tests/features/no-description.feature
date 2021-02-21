@@ -4,7 +4,8 @@ Feature: No descriptions are caught as a Conventional Commits specification viol
   Scenario Outline:
     Given the context and environment are reset.
     When the standard input is "<standard_input>".
-    Then an no description violation is found.
+    Then the linting fails.
+    And an no description violation is found.
 
 
     Examples:

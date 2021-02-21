@@ -4,7 +4,8 @@ Feature: Empty scopes are caught as a Conventional Commits specification violati
   Scenario Outline:
     Given the context and environment are reset.
     When the standard input is "<standard_input>".
-    Then an empty scope violation is found.
+    Then the linting fails.
+    And an empty scope violation is found.
 
 
     Examples:
