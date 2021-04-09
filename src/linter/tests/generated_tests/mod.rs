@@ -1,16 +1,21 @@
 use super::*;
 
+mod generation;
 mod utilities;
 
 #[test]
 fn test_generate_commits() {
-    let x: u32 = 2;
-    let upper_bound = x.pow(4);
+    let number_of_variants: usize = 4;
 
-    for i in 1..upper_bound {
+    for i in 1..2_usize.pow(number_of_variants as u32) {
         //Given
-        let binary_string = format!("{:04b}", i);
-        let (commits, expected_linting_errors) = utilities::generate_commit(
+        let binary_string = format!(
+            "{:0desired_length$b}",
+            i,
+            desired_length = number_of_variants
+        );
+
+        let (commits, expected_linting_errors) = generation::generate_commit(
             utilities::is_position_in_binary_string_true(&binary_string, 0),
             utilities::is_position_in_binary_string_true(&binary_string, 1),
             utilities::is_position_in_binary_string_true(&binary_string, 2),
