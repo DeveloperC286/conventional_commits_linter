@@ -20,6 +20,6 @@ pub fn lint(commit_message: &str) -> Result<(), LintingError> {
 
     match CONVENTIONAL_COMMITS_REGEX.is_match(commit_message) {
         true => Ok(()),
-        false => Err(LintingError::NON_CONVENTIONAL_COMMITS_SPECIFICATION),
+        false => Err(LintingError::NonConventionalCommitsSpecification),
     }
 }

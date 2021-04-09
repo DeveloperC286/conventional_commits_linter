@@ -9,7 +9,7 @@ use super::*;
     case("fix(): Update os-locale to avoid security vulnerability (#1270)")
 )]
 fn test_empty_scope(commit_message: &str) {
-    assert_eq!(lint(commit_message), Err(LintingError::EMPTY_SCOPE));
+    assert_eq!(lint(commit_message), Err(LintingError::EmptyScope));
 }
 
 #[rstest(
@@ -18,7 +18,7 @@ fn test_empty_scope(commit_message: &str) {
     case("feat!( ): zsh auto completion (#1292) ")
 )]
 fn test_empty_scope_with_exclamation(commit_message: &str) {
-    assert_eq!(lint(commit_message), Err(LintingError::EMPTY_SCOPE));
+    assert_eq!(lint(commit_message), Err(LintingError::EmptyScope));
 }
 
 #[rstest(
@@ -27,7 +27,7 @@ fn test_empty_scope_with_exclamation(commit_message: &str) {
     case("\tchore(): 13.1.0\n\n")
 )]
 fn test_empty_scope_with_preceding_whitespace(commit_message: &str) {
-    assert_eq!(lint(commit_message), Err(LintingError::EMPTY_SCOPE));
+    assert_eq!(lint(commit_message), Err(LintingError::EmptyScope));
 }
 
 #[rstest(

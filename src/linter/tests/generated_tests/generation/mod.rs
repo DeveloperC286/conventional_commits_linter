@@ -8,12 +8,12 @@ pub fn generate_commit(
     should_generate_no_description: bool,
     should_generate_no_space_after_type: bool,
 ) -> (Vec<Commit>, Vec<LintingError>) {
-    let mut linting_errors = vec![LintingError::NON_CONVENTIONAL_COMMITS_SPECIFICATION];
+    let mut linting_errors = vec![LintingError::NonConventionalCommitsSpecification];
     let mut commits: Vec<Commit> = vec![];
 
     let scope_variations = match should_generate_empty_scope {
         true => {
-            linting_errors.push(LintingError::EMPTY_SCOPE);
+            linting_errors.push(LintingError::EmptyScope);
             variations::get_empty_scope_variations()
         }
         false => vec!["".to_string()],
@@ -21,7 +21,7 @@ pub fn generate_commit(
 
     let preceding_variations = match should_generate_preceding_whitespace {
         true => {
-            linting_errors.push(LintingError::PRECEDING_WHITESPACE);
+            linting_errors.push(LintingError::PrecedingWhitespace);
             variations::get_preceding_whitespace_variations()
         }
         false => vec!["".to_string()],
@@ -29,7 +29,7 @@ pub fn generate_commit(
 
     let description_variations = match should_generate_no_description {
         true => {
-            linting_errors.push(LintingError::NO_DESCRIPTION);
+            linting_errors.push(LintingError::NoDescription);
             variations::get_no_description_variations()
         }
         false => variations::get_description_variations(),
@@ -37,7 +37,7 @@ pub fn generate_commit(
 
     let space_after_type = match should_generate_no_space_after_type {
         true => {
-            linting_errors.push(LintingError::NO_SPACE_AFTER_TYPE);
+            linting_errors.push(LintingError::NoSpaceAfterType);
             ""
         }
         false => " ",

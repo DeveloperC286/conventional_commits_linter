@@ -16,7 +16,7 @@ pub fn lint(commit_message: &str) -> Result<(), LintingError> {
     }
 
     match EMPTY_SCOPE_REGEX.is_match(commit_message) {
-        true => Err(LintingError::EMPTY_SCOPE),
+        true => Err(LintingError::EmptyScope),
         false => Ok(()),
     }
 }

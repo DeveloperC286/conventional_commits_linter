@@ -14,6 +14,6 @@ pub fn lint(commit_message: &str) -> Result<(), LintingError> {
 
     match ANGULAR_TYPE_REGEX.is_match(commit_message) {
         true => Ok(()),
-        false => Err(LintingError::NON_ANGULAR_TYPE),
+        false => Err(LintingError::NonAngularType),
     }
 }

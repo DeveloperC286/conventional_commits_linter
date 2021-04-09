@@ -33,37 +33,37 @@ pub fn print_linting_errors(
 
             for linting_error in linting_errors.get(&commit.oid).unwrap() {
                 match linting_error {
-                    LintingError::NON_ANGULAR_TYPE => {
+                    LintingError::NonAngularType => {
                         println!(
                             "\t{} - Commit title does not use an Angular type.",
                             red.apply_to("X")
                         );
                     }
-                    LintingError::NON_CONVENTIONAL_COMMITS_SPECIFICATION => {
+                    LintingError::NonConventionalCommitsSpecification => {
                         println!(
                             "\t{} - Commit title does not comply with the Conventional Commits V1.0.0 specification.",
                             red.apply_to("X")
                         );
                     }
-                    LintingError::EMPTY_SCOPE => {
+                    LintingError::EmptyScope => {
                         println!(
                             "\t{} - Commit title has a scope which is empty.",
                             red.apply_to("X")
                         );
                     }
-                    LintingError::PRECEDING_WHITESPACE => {
+                    LintingError::PrecedingWhitespace => {
                         println!(
                             "\t{} - Commit title has preceding whitespace characters.",
                             red.apply_to("X")
                         );
                     }
-                    LintingError::NO_DESCRIPTION => {
+                    LintingError::NoDescription => {
                         println!(
                             "\t{} - Commit title has no description after the Conventional Commits type and scope.",
                             red.apply_to("X")
                         );
                     }
-                    LintingError::NO_SPACE_AFTER_TYPE => {
+                    LintingError::NoSpaceAfterType => {
                         println!(
                             "\t{} - Commit title has no space after the colon preceding the Conventional Commits type and scope.",
                             red.apply_to("X")

@@ -1,12 +1,11 @@
 #[derive(Debug, Clone, PartialEq)]
-#[allow(non_camel_case_types)]
 pub enum LintingError {
-    NON_ANGULAR_TYPE,
-    EMPTY_SCOPE,
-    NON_CONVENTIONAL_COMMITS_SPECIFICATION,
-    PRECEDING_WHITESPACE,
-    NO_DESCRIPTION,
-    NO_SPACE_AFTER_TYPE,
+    NonAngularType,
+    EmptyScope,
+    NonConventionalCommitsSpecification,
+    PrecedingWhitespace,
+    NoSpaceAfterType,
+    NoDescription,
 }
 
 #[derive(Debug)]

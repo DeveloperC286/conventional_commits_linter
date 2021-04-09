@@ -12,7 +12,7 @@ pub fn lint(commit_message: &str) -> Result<(), LintingError> {
     }
 
     match NO_SPACE_AFTER_TYPE_REGEX.is_match(commit_message) {
-        true => Err(LintingError::NO_SPACE_AFTER_TYPE),
+        true => Err(LintingError::NoSpaceAfterType),
         false => Ok(()),
     }
 }
