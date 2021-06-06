@@ -12,18 +12,29 @@ categories = ["command-line-utilities", "development-tools"]
 
 
 [dependencies]
-git2 = { version = "0.13.17", default-features = false, features=[] }
+# Parsing commit messages
+regex = "1.5.4"
+lazy_static = "1.4.0"
+
+# CLI parsing
+structopt = "0.3.21"
+
+# Logging
 log = "0.4.14"
 pretty_env_logger = "0.4.0"
-semver = "0.11.0"
-regex = "1.4.5"
-lazy_static = "1.4.0"
-structopt = "0.3.21"
+
+# Reading commits
+git2 = { version = "0.13.20", default-features = false, features=[] }
+
+# Semantic Versioning parsing
+semver = "1.0.3"
+
+# For fancy output
 console = "0.14.1"
 
 
 [dev-dependencies]
-rstest = "0.7.0"
+rstest = "0.10.0"
 
 
 [profile.release]
