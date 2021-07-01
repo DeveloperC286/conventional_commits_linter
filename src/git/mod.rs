@@ -54,8 +54,7 @@ fn get_commit_messages_till_head_from_oid(
                 exit(crate::ERROR_EXIT_CODE);
             }
         })
-        .filter(|commit| commit.is_some())
-        .map(|commit| commit.unwrap())
+        .flatten()
         .collect();
 
     commit_messages.reverse();
