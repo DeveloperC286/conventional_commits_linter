@@ -1,7 +1,7 @@
 Feature: Ensure input on what to linting is provided correctly.
 
 
-  Scenario Outline: You must provide either a tag, a commit hash or standard input.
+  Scenario Outline: You must provide either a reference, a commit hash or standard input.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     And the directory is changed to the cloned repository.
     Then the linting fails.
@@ -13,32 +13,32 @@ Feature: Ensure input on what to linting is provided correctly.
       | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 |
 
 
-  Scenario Outline: You can not provide both a tag and a commit hash.
+  Scenario Outline: You can not provide both a reference and a commit hash.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     And the directory is changed to the cloned repository.
-    When the argument --from-tag is provided as "<from_tag>".
+    When the argument --from-reference is provided as "<from_reference>".
     And the argument --from-commit-hash is provided as "<from_commit_hash>".
     Then the linting fails.
-    And their is a conflicting tag and commit hash input.
+    And their is a conflicting reference and commit hash input.
 
 
     Examples:
-      | repository                         | checkout_commit                          | from_commit_hash                         | from_tag |
-      | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | 028b50d5ced3b41a8dccf74107dbfc7065052a5d | v15.4.0  |
+      | repository                         | checkout_commit                          | from_commit_hash                         | from_reference |
+      | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | 028b50d5ced3b41a8dccf74107dbfc7065052a5d | v15.4.0        |
 
 
-  Scenario Outline: You can not provide both a tag and standard input.
+  Scenario Outline: You can not provide both a reference and standard input.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     And the directory is changed to the cloned repository.
-    When the argument --from-tag is provided as "<from_tag>".
+    When the argument --from-reference is provided as "<from_reference>".
     And the standard input is "<standard_input>".
     Then the linting fails.
-    And their is a conflicting tag and standard input input.
+    And their is a conflicting reference and standard input input.
 
 
     Examples:
-      | repository                         | checkout_commit                          | from_tag | standard_input               |
-      | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | v15.4.0  | setup of typescript and jest |
+      | repository                         | checkout_commit                          | from_reference | standard_input               |
+      | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | v15.4.0        | setup of typescript and jest |
 
   Scenario Outline: You can not provide both commit hash and standard input.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".

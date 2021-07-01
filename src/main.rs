@@ -42,7 +42,10 @@ fn main() {
             )
         }
         false => (
-            git::get_commit_messages_till_head_from(arguments.from_commit_hash, arguments.from_tag),
+            git::get_commit_messages_till_head_from(
+                arguments.from_commit_hash,
+                arguments.from_reference,
+            ),
             true,
             true,
         ),

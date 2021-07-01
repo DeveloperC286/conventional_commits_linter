@@ -1,6 +1,6 @@
 [package]
 name = "conventional_commits_linter"
-version = "0.7.2"
+version = "0.8.0"
 description = "A tooling and language agnostic Git commit linter for the Conventional Commits specification."
 authors = ["C <DeveloperC@protonmail.com>"]
 edition = "2018"

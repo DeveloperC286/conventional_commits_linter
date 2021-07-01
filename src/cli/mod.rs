@@ -15,11 +15,11 @@ pub struct Arguments {
     pub from_commit_hash: Option<git2::Oid>,
 
     #[structopt(
-        group = "from",
         long,
-        help = "The Git tag from where to take the range of commits from till HEAD to lint. The range is inclusive of HEAD and exclusive of the provided tag."
+        group = "from",
+        help = "The Git reference from where to start taking the range of commits from till HEAD to lint. The range is inclusive of HEAD and exclusive of the provided reference."
     )]
-    pub from_tag: Option<String>,
+    pub from_reference: Option<String>,
 
     #[structopt(
         group = "from",

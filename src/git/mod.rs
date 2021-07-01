@@ -6,7 +6,7 @@ use crate::model::Commit;
 
 pub fn get_commit_messages_till_head_from(
     from_commit_hash: Option<git2::Oid>,
-    from_tag: Option<String>,
+    from_reference: Option<String>,
 ) -> Vec<Commit> {
     let repository = get_repository();
 
@@ -14,19 +14,14 @@ pub fn get_commit_messages_till_head_from(
         return get_commit_messages_till_head_from_oid(&repository, oid);
     }
 
-    if let Some(tag_name) = from_tag {
-        match get_tag_oid(&repository, &tag_name) {
-            Some(oid) => {
-                return get_commit_messages_till_head_from_oid(&repository, oid);
-            }
-            None => {
-                error!("Could not find a tag with the name '{}'.", tag_name);
-                exit(crate::ERROR_EXIT_CODE);
-            }
-        }
+    if let Some(reference) = from_reference {
+        return get_commit_messages_till_head_from_oid(
+            &repository,
+            get_reference(&repository, &reference),
+        );
     }
 
-    error!("Provide either the --from-tag or --from-commit-hash argument.");
+    error!("Provide either the --from-reference or --from-commit-hash argument.");
     exit(crate::ERROR_EXIT_CODE);
 }
 
@@ -112,36 +107,21 @@ fn get_repository() -> Repository {
     }
 }
 
-fn get_tag_oid(repository: &Repository, matching: &str) -> Option<Oid> {
-    let mut oid: Option<Oid> = None;
-    let matching = format!("refs/tags/{}", matching);
-
-    match repository.tag_foreach(|tag_oid: Oid, tag_name: &[u8]| -> bool {
-        match std::str::from_utf8(tag_name) {
-            Ok(tag_name) => {
-                if tag_name == matching {
-                    debug!(
-                        "Matching tag with the name '{}' at commit id '{}'.",
-                        tag_name, tag_oid
-                    );
-                    oid = Some(tag_oid);
-                    return false;
+fn get_reference(repository: &Repository, matching: &str) -> Oid {
+    match repository.resolve_reference_from_short_name(matching) {
+        Ok(reference) => {
+            trace!("Found reference '{}'.", reference.name().unwrap());
+            match reference.peel_to_commit() {
+                Ok(commit) => commit.id(),
+                Err(error) => {
+                    error!("{:?}", error);
+                    exit(crate::ERROR_EXIT_CODE);
                 }
             }
-            Err(error) => {
-                error!("{:?}", error);
-                exit(crate::ERROR_EXIT_CODE);
-            }
         }
-
-        true
-    }) {
-        Ok(_) => {}
-        Err(error) => {
-            error!("{:?}", error);
+        Err(_) => {
+            error!("Could not find a reference with the name {:?}.", matching);
             exit(crate::ERROR_EXIT_CODE);
         }
     }
-
-    oid
 }
