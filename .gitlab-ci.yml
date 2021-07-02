@@ -59,10 +59,10 @@ end-to-end-tests-formatting:
   before_script:
     - pip3 install autopep8
   script:
-    - for i in $( du -a ./end-to-end-tests/ | awk '{print $2}' | grep -i "[.]py$" ); do
-    - cp $i temp.txt
-    - autopep8 --in-place --aggressive --aggressive $i
-    - cmp $i temp.txt
+    - for i in $(du -a "./end-to-end-tests/" | awk '{print $2}' | grep -i "[.]py$"); do
+    - cp "$i" "temp.txt"
+    - autopep8 --in-place --aggressive --aggressive "$i"
+    - cmp "$i" "temp.txt" || ( echo "$i needs formatted." && exit 1 )
     - done
   rules:
     - if: $CI_MERGE_REQUEST_ID
@@ -141,7 +141,7 @@ releasing:
     # Generate the release description.
     - RELEASE_DESCRIPTION=`./clog --from $LATEST_TAG_HASH --link-style Gitlab --subtitle $CURRENT_VERSION | tail -n +2`
     # Create the new release.
-    - release-cli create 
+    - release-cli create
       --name $CURRENT_VERSION
       --description "$RELEASE_DESCRIPTION"
       --tag-name $CURRENT_VERSION
