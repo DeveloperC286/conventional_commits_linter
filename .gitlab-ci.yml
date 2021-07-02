@@ -127,25 +127,25 @@ releasing:
   before_script:
     - apk add git
   script:
-    - CURRENT_VERSION=`grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2`
+    - CURRENT_VERSION=$(grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2)
     # If the tag already exist then exit.
     - git tag -l | grep "^${CURRENT_VERSION}$" && exit 0
     # Get latest tag.
-    - LATEST_TAG=`git describe --tags | cut -d '-' -f 1`
-    - LATEST_TAG_HASH=`git rev-parse $LATEST_TAG`
+    - LATEST_TAG=$(git describe --tags | cut -d '-' -f 1)
+    - LATEST_TAG_HASH=$(git rev-parse "$LATEST_TAG")
     # Check latest tag is in semantic versioning.
-    - echo $LATEST_TAG | grep "^[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*$"
+    - echo "$LATEST_TAG" | grep "^[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*$"
     # Download clog.
     - wget https://github.com/clog-tool/clog-cli/releases/download/v0.9.3/clog-v0.9.3-x86_64-unknown-linux-musl.tar.gz
     - tar xvf clog-v0.9.3-x86_64-unknown-linux-musl.tar.gz
     # Generate the release description.
-    - RELEASE_DESCRIPTION=`./clog --from $LATEST_TAG_HASH --link-style Gitlab --subtitle $CURRENT_VERSION | tail -n +2`
+    - RELEASE_DESCRIPTION=$(./clog --from "$LATEST_TAG_HASH" --link-style Gitlab --subtitle "$CURRENT_VERSION" | tail -n +2)
     # Create the new release.
     - release-cli create
-      --name $CURRENT_VERSION
+      --name "$CURRENT_VERSION"
       --description "$RELEASE_DESCRIPTION"
-      --tag-name $CURRENT_VERSION
-      --ref $CI_COMMIT_SHA
+      --tag-name "$CURRENT_VERSION"
+      --ref "$CI_COMMIT_SHA"
       --assets-link '{"name":"x86_64-linux-musl-binary.zip","url":"https://gitlab.com/DeveloperC/conventional_commits_linter/-/jobs/artifacts/'$CURRENT_VERSION'/download?job=release-binary-compiling-x86_64-linux-musl"}'
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
@@ -155,7 +155,7 @@ crates-io-publishing:
   stage: crates-io-publishing
   image: rust
   script:
-    - cargo publish --token $GITLAB_CRATES_IO_TOKEN
+    - cargo publish --token "$GITLAB_CRATES_IO_TOKEN"
   rules:
     - if: $CI_COMMIT_TAG
 
