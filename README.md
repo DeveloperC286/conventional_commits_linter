@@ -83,9 +83,9 @@ conventional-commits-linting:
     before_script:
         - cargo install conventional_commits_linter --version ^0
     script:
-        - COMMON_ANCESTOR_COMMIT=`git merge-base origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME`
+        - COMMON_ANCESTOR_COMMIT=$(git merge-base "origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME" "origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME")
         # Lint all the commits in the branch.
-        - /usr/local/cargo/bin/conventional_commits_linter --from-commit-hash $COMMON_ANCESTOR_COMMIT --allow-angular-type-only
+        - /usr/local/cargo/bin/conventional_commits_linter --from-commit-hash "$COMMON_ANCESTOR_COMMIT" --allow-angular-type-only
     rules:
         - if: $CI_MERGE_REQUEST_ID
 ```
@@ -103,9 +103,9 @@ conventional-commits-linting:
     before_script:
         - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/conventional_commits_linter/-/jobs/artifacts/0.7.1/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
     script:
-        - COMMON_ANCESTOR_COMMIT=`git merge-base origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME`
+        - COMMON_ANCESTOR_COMMIT=$(git merge-base "origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME" "origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME")
         # Lint all the commits in the branch.
-        - ./conventional_commits_linter --from-commit-hash $COMMON_ANCESTOR_COMMIT --allow-angular-type-only
+        - ./conventional_commits_linter --from-commit-hash "$COMMON_ANCESTOR_COMMIT" --allow-angular-type-only
     rules:
         - if: $CI_MERGE_REQUEST_ID
 ```
