@@ -17,7 +17,7 @@ regex = "1.5.4"
 lazy_static = "1.4.0"
 
 # CLI parsing
-structopt = "0.3.21"
+structopt = "0.3.22"
 
 # Logging
 log = "0.4.14"
