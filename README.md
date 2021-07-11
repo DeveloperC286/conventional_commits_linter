@@ -115,17 +115,20 @@ conventional-commits-linting:
 An example `commit-msg` Git hook to check if a Rust projects semantic version needs increased because of the commit message.
 
 ```
-#!/bin/bash
+#!/usr/bin/env bash
 
-COMMIT_MESSAGE=$(cat $1)
+set -o errexit
+set -o pipefail
+
+commit_message=$(cat "${1}")
 
 # Get current version in the commit to be made.
-COMMIT_VERSION=$(grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2)
+current_version=$(grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2)
 # Get latest version on the remote HEAD.
-HEAD_VERSION=$(git show remotes/origin/HEAD:Cargo.toml | grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' | cut -d '"' -f 2)
+head_version=$(git show remotes/origin/HEAD:Cargo.toml | grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' | cut -d '"' -f 2)
 
-# Check current commits version vs expected because of the new commit's message.
-echo "$COMMIT_MESSAGE" | /home/$USER/.cargo/bin/conventional_commits_linter --from-stdin --allow-angular-type-only
+# Lint new commit's message.
+echo "${commit_message}" | "/home/${USER}/.cargo/bin/conventional_commits_linter" --from-stdin --allow-angular-type-only
 ```
 
 
