@@ -30,6 +30,7 @@ A tooling and language agnostic Git commit linter for the Conventional Commits s
 ## Content
  * [Usage](#usage)
    + [Usage - Additional Flags](#usage-additional-flags)
+   + [Usage - Git Environment Variables](#usage-git-environment-variables)
    + [Usage - Logging](#usage-logging)
  * [CICD Examples](#cicd-examples)
    + [GitLab CI Rust Project Example](#gitlab-ci-rust-project-example)
@@ -45,25 +46,31 @@ A tooling and language agnostic Git commit linter for the Conventional Commits s
 
 
 ## Usage
-Conventional Commits Linter operates directly on a Git repository, the Git environment variables are respected.
-With the environment variable `GIT_DIR` unset, Conventional Commits Linter will search for a Git repository starting in the current directory.
+Conventional Commits Linter can either operate upon a range of Git commits in the repositories' history or on a commit message from standard in.
+To provide a commit message by standard in simple add the flag `--from-stdin` and standard in will be read.
+Otherwise to specify the range of commits you can add either the `--from-commit-hash <commit-hash>` or `--from-reference <reference>` arguments.
+The range of commits starts exclusively from the commit specified till inclusively of `HEAD`.
 
-
-Using either the argument `--from-commit-hash` or `--from-tag` will note the start of the range of commits till HEAD to lint. The range is inclusive of HEAD and exclusive of the initial commit.
-
-
-All commit messages in the range are linted against the Conventional Commits v1.0.0 specification.
+All commit messages provided or within the range are linted against the Conventional Commits v1.0.0 specification.
 If any commits messages fail linting then an error message explaining why is logged and Conventional Commits Linter exits with a non zero exit code.
 
+The only required arguments are any of the `--from-stdin`, `--from-commit-hash <commit-hash>` or `--from-reference <reference>` arguments.
 
-## Usage - Additional Flags
+
+### Usage - Additional Flags
 
 | Flag                      | |
 |---------------------------|-|
 | --allow-angular-type-only | Allow the Conventional Commits type to only be (`build`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `style`, `test`, `revert`), otherwise linting for the commit will fail. |
 
 
-## Usage - Logging
+### Usage - Git Environment Variables
+When looking for a repository the Git environment variables are respected.
+When `$GIT_DIR` is set, it takes precedence and Conventional Commits Linter begins searching for a repository in the directory specified in `$GIT_DIR`.
+When `$GIT_DIR` is not set, Conventional Commits Linter searches for a repository beginning in the current directory.
+
+
+### Usage - Logging
 The crates `pretty_env_logger` and `log` are used to provide logging.
 The environment variable `RUST_LOG` can be used to set the logging level.
 See [https://crates.io/crates/pretty_env_logger](https://crates.io/crates/pretty_env_logger) for more detailed documentation.
