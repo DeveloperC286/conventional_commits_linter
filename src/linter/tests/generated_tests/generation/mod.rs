@@ -51,15 +51,17 @@ fn generate_commits(
         for commit_type in commit_type_variations {
             for scope in scope_variations {
                 for description in description_variations {
-                    let generated_commit = format!(
-                        "{}{}{}:{}{}",
-                        preceding_whitespace, commit_type, scope, after_type_variation, description
-                    );
-                    let commit = Commit {
+                    commits.push(Commit {
                         oid: git2::Oid::from_str(&commit_id.to_string()).unwrap(),
-                        message: generated_commit.to_string(),
-                    };
-                    commits.push(commit);
+                        message: format!(
+                            "{}{}{}:{}{}",
+                            preceding_whitespace,
+                            commit_type,
+                            scope,
+                            after_type_variation,
+                            description
+                        ),
+                    });
                     commit_id += 1;
                 }
             }
