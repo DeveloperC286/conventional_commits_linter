@@ -1,44 +1,83 @@
-pub fn get_no_description_variations() -> Vec<String> {
-    return vec![
-        "".to_string(),
-        "\t".to_string(),
-        "\n\n".to_string(),
-        "\n\r".to_string(),
-    ];
+use super::*;
+
+const PRECEDING_WHITESPACE_VARIATIONS: &[&str] = &["  ", " ", "\t", "\n", "\n\r"];
+const NON_PRECEDING_WHITESPACE_VARIATIONS: &[&str] = &[""];
+
+pub fn get_preceding_whitespace_variations(
+    linting_errors: &mut Vec<LintingError>,
+    should_generate_preceding_whitespace: bool,
+) -> &'static [&'static str] {
+    match should_generate_preceding_whitespace {
+        true => {
+            linting_errors.push(LintingError::PrecedingWhitespace);
+            PRECEDING_WHITESPACE_VARIATIONS
+        }
+        false => NON_PRECEDING_WHITESPACE_VARIATIONS,
+    }
 }
 
-pub fn get_description_variations() -> Vec<String> {
-    return vec![
-        "this is a description".to_string(),
-        "this is a description\n\n".to_string(),
-    ];
+const NON_ANGULAR_COMMIT_TYPE_VARIATIONS: &[&str] =
+    &["lint", "Lint", "bug", "Bug", "BUG", "chore", "Chore"];
+const ANGULAR_COMMIT_TYPE_VARIATIONS: &[&str] = &[
+    "REVERT", "revert", "Build", "build", "ci", "CI", "docs", "feat", "FEAT", "fix", "Fix", "perf",
+    "refactor", "Refactor", "style", "Style", "test", "TEST",
+];
+
+pub fn get_various_commit_type_variations() -> Vec<&'static str> {
+    let mut various_commit_type_variations = vec![];
+
+    various_commit_type_variations.extend(NON_ANGULAR_COMMIT_TYPE_VARIATIONS);
+    various_commit_type_variations.extend(ANGULAR_COMMIT_TYPE_VARIATIONS);
+
+    various_commit_type_variations
 }
 
-pub fn get_preceding_whitespace_variations() -> Vec<String> {
-    return vec![
-        "  ".to_string(),
-        " ".to_string(),
-        "\t".to_string(),
-        "\n\r".to_string(),
-    ];
+const EMPTY_SCOPE_VARIATIONS: &[&str] = &["()", "(  )"];
+const NON_EMPTY_SCOPE_VARIATIONS: &[&str] = &["", "(i18n)", "(parser)", "(strict mode)"];
+
+pub fn get_scope_variations(
+    linting_errors: &mut Vec<LintingError>,
+    should_generate_empty_scope: bool,
+) -> &'static [&'static str] {
+    match should_generate_empty_scope {
+        true => {
+            linting_errors.push(LintingError::EmptyScope);
+            EMPTY_SCOPE_VARIATIONS
+        }
+        false => NON_EMPTY_SCOPE_VARIATIONS,
+    }
 }
 
-pub fn get_empty_scope_variations() -> Vec<String> {
-    return vec![
-        "()".to_string(),
-        "()!".to_string(),
-        "!()".to_string(),
-        "( )".to_string(),
-    ];
+pub fn get_after_type_variation(
+    linting_errors: &mut Vec<LintingError>,
+    should_not_generate_space_after_type: bool,
+) -> &'static str {
+    match should_not_generate_space_after_type {
+        true => {
+            linting_errors.push(LintingError::NoSpaceAfterType);
+            ""
+        }
+        false => " ",
+    }
 }
 
-pub fn get_commit_type_variations() -> Vec<String> {
-    return vec![
-        "bug".to_string(),
-        "fix".to_string(),
-        "feat".to_string(),
-        "ci".to_string(),
-        "chore".to_string(),
-        "docs".to_string(),
-    ];
+const DESCRIPTION_VARIATIONS: &[&str] = &[
+    "expose hideBin helper for CJS ",
+    "release 16.1.0 (#1779)",
+    "update types for deno ^1.4.0",
+    "Japanese translation phrasing (#1619)",
+];
+const NON_DESCRIPTION_VARIATIONS: &[&str] = &["", "\n"];
+
+pub fn get_description_variations(
+    linting_errors: &mut Vec<LintingError>,
+    should_not_generate_description: bool,
+) -> &'static [&'static str] {
+    match should_not_generate_description {
+        true => {
+            linting_errors.push(LintingError::NoDescription);
+            NON_DESCRIPTION_VARIATIONS
+        }
+        false => DESCRIPTION_VARIATIONS,
+    }
 }
