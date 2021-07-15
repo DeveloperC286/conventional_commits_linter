@@ -16,21 +16,12 @@ pub fn get_preceding_whitespace_variations(
     }
 }
 
-const NON_ANGULAR_COMMIT_TYPE_VARIATIONS: &[&str] =
+pub const NON_ANGULAR_COMMIT_TYPE_VARIATIONS: &[&str] =
     &["lint", "Lint", "bug", "Bug", "BUG", "chore", "Chore"];
-const ANGULAR_COMMIT_TYPE_VARIATIONS: &[&str] = &[
+pub const ANGULAR_COMMIT_TYPE_VARIATIONS: &[&str] = &[
     "REVERT", "revert", "Build", "build", "ci", "CI", "docs", "feat", "FEAT", "fix", "Fix", "perf",
     "refactor", "Refactor", "style", "Style", "test", "TEST",
 ];
-
-pub fn get_various_commit_type_variations() -> Vec<&'static str> {
-    let mut various_commit_type_variations = vec![];
-
-    various_commit_type_variations.extend(NON_ANGULAR_COMMIT_TYPE_VARIATIONS);
-    various_commit_type_variations.extend(ANGULAR_COMMIT_TYPE_VARIATIONS);
-
-    various_commit_type_variations
-}
 
 const EMPTY_SCOPE_VARIATIONS: &[&str] = &["()", "(  )"];
 const NON_EMPTY_SCOPE_VARIATIONS: &[&str] = &["", "(i18n)", "(parser)", "(strict mode)"];

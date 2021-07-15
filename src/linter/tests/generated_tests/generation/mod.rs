@@ -2,8 +2,39 @@ use super::*;
 
 mod variations;
 
-pub fn generate_various_type_commits(
+pub fn generate_non_angular_type_commits(
     should_generate_preceding_whitespace: bool,
+    should_generate_empty_scope: bool,
+    should_not_generate_space_after_type: bool,
+    should_not_generate_description: bool,
+) -> (Vec<Commit>, Vec<LintingError>) {
+    generate_commits_with_type(
+        should_generate_preceding_whitespace,
+        &variations::NON_ANGULAR_COMMIT_TYPE_VARIATIONS,
+        should_generate_empty_scope,
+        should_not_generate_space_after_type,
+        should_not_generate_description,
+    )
+}
+
+pub fn generate_angular_type_commits(
+    should_generate_preceding_whitespace: bool,
+    should_generate_empty_scope: bool,
+    should_not_generate_space_after_type: bool,
+    should_not_generate_description: bool,
+) -> (Vec<Commit>, Vec<LintingError>) {
+    generate_commits_with_type(
+        should_generate_preceding_whitespace,
+        &variations::ANGULAR_COMMIT_TYPE_VARIATIONS,
+        should_generate_empty_scope,
+        should_not_generate_space_after_type,
+        should_not_generate_description,
+    )
+}
+
+fn generate_commits_with_type(
+    should_generate_preceding_whitespace: bool,
+    commit_type_variations: &[&str],
     should_generate_empty_scope: bool,
     should_not_generate_space_after_type: bool,
     should_not_generate_description: bool,
@@ -28,7 +59,7 @@ pub fn generate_various_type_commits(
     (
         generate_commits(
             preceding_whitespace_variations,
-            &variations::get_various_commit_type_variations(),
+            commit_type_variations,
             scope_variations,
             after_type_variation,
             description_variations,
