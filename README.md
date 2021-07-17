@@ -127,15 +127,8 @@ An example `commit-msg` Git hook to check if a Rust projects semantic version ne
 set -o errexit
 set -o pipefail
 
-commit_message=$(cat "${1}")
-
-# Get current version in the commit to be made.
-current_version=$(grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2)
-# Get latest version on the remote HEAD.
-head_version=$(git show remotes/origin/HEAD:Cargo.toml | grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' | cut -d '"' -f 2)
-
 # Lint new commit's message.
-echo "${commit_message}" | "/home/${USER}/.cargo/bin/conventional_commits_linter" --from-stdin --allow-angular-type-only
+cat "${1}" | "/home/${USER}/.cargo/bin/conventional_commits_linter" --from-stdin --allow-angular-type-only
 ```
 
 
