@@ -4,7 +4,7 @@ pub enum LintingError {
     EmptyScope,
     NonConventionalCommitsSpecification,
     PrecedingWhitespace,
-    NoSpaceAfterType,
+    NoSpaceAfterColonPrecedingTypeAndScope,
     NoDescription,
 }
 

@@ -41,7 +41,7 @@ def then_no_description_violation(context):
     assert context.stdout == no_description
 
 
-@then('an no space after type violation is found.')
+@then('a no space after the colon preceding the type and scope violation is detected.')
 def then_no_space_after_type_violation(context):
     no_space_after_type = "Message - \"" + \
                           context.standard_input.strip('"') + \

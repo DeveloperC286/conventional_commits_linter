@@ -63,7 +63,7 @@ pub fn print_linting_errors(
                             red.apply_to("X")
                         );
                     }
-                    LintingError::NoSpaceAfterType => {
+                    LintingError::NoSpaceAfterColonPrecedingTypeAndScope => {
                         println!(
                             "\t{} - Commit title has no space after the colon preceding the Conventional Commits type and scope.",
                             red.apply_to("X")

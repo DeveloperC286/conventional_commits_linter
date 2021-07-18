@@ -54,7 +54,7 @@ pub fn lint_commit(commit: &Commit, allow_angular_type_only: bool) -> Vec<Lintin
                 }
             }
 
-            match conventional_commits_specification::no_space_after_type::lint(&commit.message) {
+            match conventional_commits_specification::no_space_after_colon_preceding_type_and_scope::lint(&commit.message) {
                 Ok(()) => {}
                 Err(linting_error) => {
                     linting_errors.push(linting_error);

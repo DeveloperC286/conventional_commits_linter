@@ -10,7 +10,10 @@ use super::*;
     case("fix:calling parse multiple times now appropriately maintains state (#\n\n")
 )]
 fn test_no_space_after_type(commit_message: &str) {
-    assert_eq!(lint(commit_message), Err(LintingError::NoSpaceAfterType));
+    assert_eq!(
+        lint(commit_message),
+        Err(LintingError::NoSpaceAfterColonPrecedingTypeAndScope)
+    );
 }
 
 #[rstest(
@@ -19,7 +22,10 @@ fn test_no_space_after_type(commit_message: &str) {
     case("\tfix:calling parse multiple times now appropriately maintains state (#\n\n")
 )]
 fn test_no_space_after_type_with_preceding_whitespace(commit_message: &str) {
-    assert_eq!(lint(commit_message), Err(LintingError::NoSpaceAfterType));
+    assert_eq!(
+        lint(commit_message),
+        Err(LintingError::NoSpaceAfterColonPrecedingTypeAndScope)
+    );
 }
 
 #[rstest(

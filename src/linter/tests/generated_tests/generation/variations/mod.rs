@@ -45,7 +45,7 @@ pub fn get_after_type_variation(
 ) -> &'static str {
     match should_not_generate_space_after_type {
         true => {
-            linting_errors.push(LintingError::NoSpaceAfterType);
+            linting_errors.push(LintingError::NoSpaceAfterColonPrecedingTypeAndScope);
             ""
         }
         false => " ",
