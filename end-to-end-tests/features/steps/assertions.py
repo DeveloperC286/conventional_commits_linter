@@ -63,6 +63,12 @@ def then_could_not_find_reference(context, reference):
     assert context.stdout == could_not_find_reference_error
 
 
+@then('their is a could not find commit hash "{commit_hash}" error.')
+def then_could_not_find_commit_hash(context, commit_hash):
+    could_not_find_commit_hash_error = " ERROR conventional_commits_linter::git > Could not find a commit with the commit hash '" + commit_hash + "'.\n"
+    assert context.stdout == could_not_find_commit_hash_error
+
+
 @then('their is a required arguments missing error.')
 def then_required_arguments_missing(context):
     required_arguments_missing = "error: The following required arguments were not provided:\n    <--from-commit-hash <from-commit-hash>|--from-reference <from-reference>|--from-stdin>\n\nUSAGE:\n    conventional_commits_linter [FLAGS] [OPTIONS] <--from-commit-hash <from-commit-hash>|--from-reference <from-reference>|--from-stdin>\n\nFor more information try --help\n"

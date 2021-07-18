@@ -71,7 +71,7 @@ fn get_commit_oids(repository: &Repository, from_commit_hash: Oid) -> Revwalk {
                 Ok(_) => {}
                 Err(_) => {
                     error!(
-                        "Can not find commit hash '{}' on the revision walker.",
+                        "Could not find a commit with the commit hash '{}'.",
                         from_commit_hash
                     );
                     exit(crate::ERROR_EXIT_CODE);

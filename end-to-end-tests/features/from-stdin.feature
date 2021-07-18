@@ -1,4 +1,4 @@
-Feature: Standard input can be used to supply a singular commit to lint.
+Feature: Standard input can be read and the input is linted as a Git commit message.
 
 
   Scenario Outline:
@@ -10,6 +10,8 @@ Feature: Standard input can be used to supply a singular commit to lint.
     Examples:
       | standard_input                           |
       | "test: adding stdin scenario variations" |
+      | "docs: correct spelling of CHANGELOG"    |
+      | "fix: minor typos in code"               |
 
 
   Scenario Outline:
@@ -19,5 +21,7 @@ Feature: Standard input can be used to supply a singular commit to lint.
 
 
     Examples:
-      | standard_input                 |
-      | "setup of typescript and jest" |
+      | standard_input                        |
+      | "setup of typescript and jest"        |
+      | "fix(): setup of typescript and jest" |
+      | "feat:initial commit"                 |

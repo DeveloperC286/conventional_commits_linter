@@ -1,4 +1,4 @@
-Feature: Ensure input on what to linting is provided correctly.
+Feature: Ensure input on what to lint or where to lint from is provided correctly.
 
 
   Scenario Outline: You must provide either a reference, a commit hash or standard input.
@@ -40,7 +40,8 @@ Feature: Ensure input on what to linting is provided correctly.
       | repository                         | checkout_commit                          | from_reference | standard_input               |
       | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | v15.4.0        | setup of typescript and jest |
 
-  Scenario Outline: You can not provide both commit hash and standard input.
+
+  Scenario Outline: You can not provide both a commit hash and standard input.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     And the directory is changed to the cloned repository.
     When the argument --from-commit-hash is provided as "<from_commit_hash>".
