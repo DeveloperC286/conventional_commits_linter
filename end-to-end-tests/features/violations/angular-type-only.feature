@@ -1,4 +1,4 @@
-Feature: With the allow Angular types only flag, valid Conventional Commits not using Angular types fail linting.
+Feature: With the allow Angular types only flag, non-Angular types are picked up as violations.
 
 
   Scenario Outline:
@@ -7,6 +7,7 @@ Feature: With the allow Angular types only flag, valid Conventional Commits not 
     Then the linting passes.
     When the flag --allow-angular-type-only is set.
     Then the linting fails.
+    And a non-Angular type violation is detected.
 
 
     Examples:

@@ -25,6 +25,14 @@ def then_linting_fails(context):
     assert int(context.exit_code) != 0
 
 
+@then('a non-Angular type violation is detected.')
+def then_non_angular_type_violation(context):
+    non_angular_type = "Message - \"" + \
+        context.standard_input.strip('"') + \
+        "\\n\"\n\tX - Commit title does not use an Angular type.\n\n"
+    assert context.stdout == non_angular_type
+
+
 @then('a empty scope violation is detected.')
 def then_empty_scope_violation(context):
     empty_scope = "Message - \"" + \
