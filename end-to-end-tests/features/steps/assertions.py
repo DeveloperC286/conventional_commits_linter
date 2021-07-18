@@ -25,7 +25,7 @@ def then_linting_fails(context):
     assert int(context.exit_code) != 0
 
 
-@then('an empty scope violation is found.')
+@then('a empty scope violation is detected.')
 def then_empty_scope_violation(context):
     empty_scope = "Message - \"" + \
                   context.standard_input.strip('"') + \
