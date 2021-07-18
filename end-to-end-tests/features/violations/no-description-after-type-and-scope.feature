@@ -1,11 +1,11 @@
-Feature: No descriptions are caught as a Conventional Commits specification violation.
+Feature: No descriptions after the type and scope is picked up as a Conventional Commits specification violation.
 
 
   Scenario Outline:
     Given the context and environment are reset.
     When the standard input is "<standard_input>".
     Then the linting fails.
-    And an no description violation is found.
+    And a no description after the type and scope violation is detected.
 
 
     Examples:

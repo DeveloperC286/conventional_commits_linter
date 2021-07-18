@@ -57,7 +57,7 @@ pub fn print_linting_errors(
                             red.apply_to("X")
                         );
                     }
-                    LintingError::NoDescription => {
+                    LintingError::NoDescriptionAfterTypeAndScope => {
                         println!(
                             "\t{} - Commit title has no description after the Conventional Commits type and scope.",
                             red.apply_to("X")

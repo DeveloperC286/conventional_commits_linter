@@ -66,7 +66,7 @@ pub fn get_description_variations(
 ) -> &'static [&'static str] {
     match should_not_generate_description {
         true => {
-            linting_errors.push(LintingError::NoDescription);
+            linting_errors.push(LintingError::NoDescriptionAfterTypeAndScope);
             NON_DESCRIPTION_VARIATIONS
         }
         false => DESCRIPTION_VARIATIONS,

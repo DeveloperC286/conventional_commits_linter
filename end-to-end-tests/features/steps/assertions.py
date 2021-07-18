@@ -33,7 +33,7 @@ def then_empty_scope_violation(context):
     assert context.stdout == empty_scope
 
 
-@then('an no description violation is found.')
+@then('a no description after the type and scope violation is detected.')
 def then_no_description_violation(context):
     no_description = "Message - \"" + \
                      context.standard_input.strip('"') + \

@@ -3,7 +3,7 @@ use regex::Regex;
 use crate::model::LintingError;
 
 pub mod empty_scope;
-pub mod no_description;
+pub mod no_description_after_type_and_scope;
 pub mod no_space_after_colon_preceding_type_and_scope;
 pub mod preceding_whitespace;
 

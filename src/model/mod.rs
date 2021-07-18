@@ -5,7 +5,7 @@ pub enum LintingError {
     NonConventionalCommitsSpecification,
     PrecedingWhitespace,
     NoSpaceAfterColonPrecedingTypeAndScope,
-    NoDescription,
+    NoDescriptionAfterTypeAndScope,
 }
 
 pub struct Commit {

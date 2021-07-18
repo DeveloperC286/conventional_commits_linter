@@ -12,7 +12,7 @@ pub fn lint(commit_message: &str) -> Result<(), LintingError> {
     }
 
     match NO_DESCRIPTION_REGEX.is_match(commit_message) {
-        true => Err(LintingError::NoDescription),
+        true => Err(LintingError::NoDescriptionAfterTypeAndScope),
         false => Ok(()),
     }
 }
