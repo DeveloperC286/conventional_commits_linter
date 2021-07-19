@@ -57,6 +57,14 @@ def then_no_space_after_type_violation(context):
     assert context.stdout == no_space_after_type
 
 
+@then('a preceding whitespace before the type violation is detected.')
+def then_preceding_whitespace_before_type_violation(context):
+    preceding_whitespace_before_the_type = "Message - \"" + \
+                          context.standard_input.strip('"') + \
+                          "\\n\"\n\tX - Commit title does not comply with the Conventional Commits V1.0.0 specification.\n\tX - Commit title has preceding whitespace characters.\n\n"
+    assert context.stdout == preceding_whitespace_before_the_type
+
+
 @then('their is a could not find reference "{reference}" error.')
 def then_could_not_find_reference(context, reference):
     could_not_find_reference_error = " ERROR conventional_commits_linter::git > Could not find a reference with the name \"" + reference + "\".\n"
