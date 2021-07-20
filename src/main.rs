@@ -39,7 +39,14 @@ fn main() {
 
         if !linting_errors.is_empty() {
             if !arguments.quiet {
-                crate::reporter::pretty_print_linting_error(None, &commit.message, &linting_errors);
+                println!(
+                    "{}",
+                    crate::reporter::pretty_print_linting_error(
+                        None,
+                        &commit.message,
+                        &linting_errors
+                    )
+                );
             }
             exit(ERROR_EXIT_CODE);
         }
@@ -59,7 +66,10 @@ fn main() {
 
         if !linting_errors.is_empty() {
             if !arguments.quiet {
-                crate::reporter::pretty_print_linting_errors(&commits, &linting_errors);
+                println!(
+                    "{}",
+                    crate::reporter::pretty_print_linting_errors(&commits, &linting_errors)
+                );
             }
             exit(ERROR_EXIT_CODE);
         }
