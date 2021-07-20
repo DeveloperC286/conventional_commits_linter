@@ -1,9 +1,9 @@
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub enum LintingError {
-    NonAngularType,
-    EmptyScope,
     NonConventionalCommitsSpecification,
     PrecedingWhitespace,
+    NonAngularType,
+    EmptyScope,
     NoSpaceAfterColonPrecedingTypeAndScope,
     NoDescriptionAfterTypeAndScope,
 }

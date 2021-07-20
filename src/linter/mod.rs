@@ -33,6 +33,13 @@ pub fn lint_commit(commit: &Commit, allow_angular_type_only: bool) -> Vec<Lintin
         Err(linting_error) => {
             linting_errors.push(linting_error);
 
+            match conventional_commits_specification::preceding_whitespace::lint(&commit.message) {
+                Ok(()) => {}
+                Err(linting_error) => {
+                    linting_errors.push(linting_error);
+                }
+            }
+
             match conventional_commits_specification::empty_scope::lint(&commit.message) {
                 Ok(()) => {}
                 Err(linting_error) => {
@@ -40,7 +47,7 @@ pub fn lint_commit(commit: &Commit, allow_angular_type_only: bool) -> Vec<Lintin
                 }
             }
 
-            match conventional_commits_specification::preceding_whitespace::lint(&commit.message) {
+            match conventional_commits_specification::no_space_after_colon_preceding_type_and_scope::lint(&commit.message) {
                 Ok(()) => {}
                 Err(linting_error) => {
                     linting_errors.push(linting_error);
@@ -50,13 +57,6 @@ pub fn lint_commit(commit: &Commit, allow_angular_type_only: bool) -> Vec<Lintin
             match conventional_commits_specification::no_description_after_type_and_scope::lint(
                 &commit.message,
             ) {
-                Ok(()) => {}
-                Err(linting_error) => {
-                    linting_errors.push(linting_error);
-                }
-            }
-
-            match conventional_commits_specification::no_space_after_colon_preceding_type_and_scope::lint(&commit.message) {
                 Ok(()) => {}
                 Err(linting_error) => {
                     linting_errors.push(linting_error);
