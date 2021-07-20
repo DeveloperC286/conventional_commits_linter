@@ -27,47 +27,41 @@ fn main() {
     let arguments = cli::Arguments::from_args();
     debug!("The command line arguments provided are {:?}.", arguments);
 
-    let (commits, print_summary, print_commit_hash) = match arguments.from_stdin {
-        true => {
-            let mut input = String::new();
-            stdin().read_to_string(&mut input).unwrap();
+    if arguments.from_stdin {
+        let mut input = String::new();
+        stdin().read_to_string(&mut input).unwrap();
 
-            (
-                vec![Commit {
-                    oid: git2::Oid::zero(),
-                    message: input,
-                }],
-                false,
-                false,
-            )
+        let commit = Commit {
+            oid: git2::Oid::zero(),
+            message: input,
+        };
+        let linting_errors = crate::linter::lint_commit(&commit, arguments.allow_angular_type_only);
+
+        if !linting_errors.is_empty() {
+            if !arguments.quiet {
+                crate::reporter::pretty_print_linting_error(None, &commit.message, &linting_errors);
+            }
+            exit(ERROR_EXIT_CODE);
         }
-        false => (
-            git::get_commit_messages_till_head_from(
-                arguments.from_commit_hash,
-                arguments.from_reference,
-            ),
-            true,
-            true,
-        ),
-    };
+    } else {
+        let commits = git::get_commit_messages_till_head_from(
+            arguments.from_commit_hash,
+            arguments.from_reference,
+        );
 
-    match commits.len() {
-        0 => {
+        if commits.is_empty() {
             error!("No commit messages to lint.");
             exit(ERROR_EXIT_CODE);
         }
-        _ => {
-            let linting_errors = linter::lint_commits(&commits, arguments.allow_angular_type_only);
 
-            if !linting_errors.is_empty() {
-                if !arguments.quiet {
-                    reporter::print_linting_errors(&commits, &linting_errors, print_commit_hash);
-                    if print_summary {
-                        reporter::print_summary(&linting_errors);
-                    }
-                }
-                exit(ERROR_EXIT_CODE);
+        let linting_errors =
+            crate::linter::lint_commits(&commits, arguments.allow_angular_type_only);
+
+        if !linting_errors.is_empty() {
+            if !arguments.quiet {
+                crate::reporter::pretty_print_linting_errors(&commits, &linting_errors);
             }
+            exit(ERROR_EXIT_CODE);
         }
     }
 }
