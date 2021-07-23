@@ -130,7 +130,7 @@ releasing:
     # If the tag already exist then exit.
     - git tag -l | grep "^${CURRENT_VERSION}$" && exit 0
     # Get latest tag.
-    - LATEST_TAG=$(git describe --tags | cut -d '-' -f 1)
+    - LATEST_TAG=$(git describe --tags --abbrev=0)
     - LATEST_TAG_HASH=$(git rev-parse "$LATEST_TAG")
     # Check latest tag is in semantic versioning.
     - echo "$LATEST_TAG" | grep "^[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*$"
