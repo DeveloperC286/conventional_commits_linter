@@ -1,0 +1,16 @@
+---
+source: src/reporter/tests/mod.rs
+expression: reporting
+
+---
+[1;31mCommit Hash[0m - 0000000000000000000000000000000000000000
+[1;31mMessage[0m - "feat()!: yargs-parser now throws on invalid combinations of config\n\n"
+	[1;31mX[0m - Commit title does not comply with the Conventional Commits V1.0.0 specification.
+	[1;31mX[0m - Commit title has a scope which is empty.
+
+[1;31mCommit Hash[0m - 1000000000000000000000000000000000000000
+[1;31mMessage[0m - "doc(webpack):webpack example (#1436)"
+	[1;31mX[0m - Commit title does not comply with the Conventional Commits V1.0.0 specification.
+	[1;31mX[0m - Commit title has no space after the colon preceding the Conventional Commits type and scope.
+
+[1;31mX[0m - Found 4 separate linting issues across 2 commits.
