@@ -1,0 +1,9 @@
+---
+source: src/reporter/tests/mod.rs
+expression: reporting
+
+---
+[1;31mMessage[0m - "Merge branch 'fix-ocsp-signer-check' into 'master'"
+	[1;31mX[0m - Commit title does not comply with the Conventional Commits V1.0.0 specification.
+
+

@@ -34,7 +34,11 @@ ansi_term = "0.12.1"
 
 
 [dev-dependencies]
+# For parameterized testing.
 rstest = "0.10.0"
+
+# For snapshot testing.
+insta = "1.7.1"
 
 
 [profile.release]

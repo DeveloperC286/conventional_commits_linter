@@ -91,3 +91,6 @@ pub fn pretty_print_linting_errors(
     ));
     pretty_print
 }
+
+#[cfg(test)]
+mod tests;
