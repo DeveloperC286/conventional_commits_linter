@@ -26,3 +26,8 @@ def set_allow_angular_type_only(context):
 @when('the flag --quiet is set.')
 def set_quiet(context):
     context.arguments += " --quiet "
+
+
+@when('the flag --json is set.')
+def set_json(context):
+    context.arguments += " --json "
