@@ -21,3 +21,8 @@ def set_allow_angular_type_only(context, standard_input):
 @when('the flag --allow-angular-type-only is set.')
 def set_allow_angular_type_only(context):
     context.arguments += " --allow-angular-type-only "
+
+
+@when('the flag --quiet is set.')
+def set_quiet(context):
+    context.arguments += " --quiet "

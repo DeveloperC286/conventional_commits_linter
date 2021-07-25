@@ -56,3 +56,13 @@ def then_conflicting_reference_and_standard_input_input(context):
 @then('their is a conflicting commit hash and standard input input.')
 def then_conflicting_reference_and_standard_input_input(context):
     assert context.stdout == conflicting_commit_hash_input or context.stdout == conflicting_standard_input_input
+
+
+@then('standard output is not empty.')
+def then_standard_output_not_empty(context):
+    assert context.stdout != ""
+
+
+@then('standard output is empty.')
+def then_standard_output_empty(context):
+    assert context.stdout == ""
