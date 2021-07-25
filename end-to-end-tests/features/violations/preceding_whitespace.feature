@@ -4,6 +4,7 @@ Feature: Preceding whitespace before the type is picked up as a Conventional Com
   Scenario Outline:
     Given the context and environment are reset.
     When the standard input is "<standard_input>".
+    And the flag --json is set.
     Then the linting fails.
     And a preceding whitespace before the type violation is detected.
 
