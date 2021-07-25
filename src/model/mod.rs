@@ -1,4 +1,6 @@
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
+use serde::Serialize;
+
+#[derive(Serialize, Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub enum LintingError {
     NonConventionalCommitsSpecification,
     PrecedingWhitespace,

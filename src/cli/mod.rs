@@ -4,7 +4,8 @@ use structopt::{clap::ArgGroup, StructOpt};
 #[structopt(
     name = "conventional_commits_linter",
     about = "A tooling and language agnostic Git commit linter for the Conventional Commits specification.",
-    group = ArgGroup::with_name("from").required(true)
+    group = ArgGroup::with_name("from").required(true),
+    group = ArgGroup::with_name("reporter")
 )]
 pub struct Arguments {
     #[structopt(
@@ -35,9 +36,17 @@ pub struct Arguments {
     pub allow_angular_type_only: bool,
 
     #[structopt(
+        group = "reporter",
+        long,
+        help = "With JSON enabled when linting errors are encountered they are printed out in a JSON format and not the default pretty more human readable console format."
+    )]
+    pub json: bool,
+
+    #[structopt(
+        group = "reporter",
         long,
         short,
-        help = "Do not print any linting warnings/errors or summaries out."
+        help = "With quiet enabled when linting errors are encountered no output is printed."
     )]
     pub quiet: bool,
 }
