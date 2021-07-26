@@ -42,7 +42,7 @@ fn main() {
                 if arguments.json {
                     println!(
                         "{}",
-                        crate::reporter::json_print_linting_error(&commit.message, &linting_errors)
+                        crate::reporter::json::print(&commit.message, &linting_errors)
                     );
                 } else {
                     println!(
@@ -76,7 +76,7 @@ fn main() {
                 if arguments.json {
                     println!(
                         "{}",
-                        crate::reporter::json_print_linting_errors(&commits, &linting_errors)
+                        crate::reporter::json::print_all(&commits, &linting_errors)
                     );
                 } else {
                     println!(

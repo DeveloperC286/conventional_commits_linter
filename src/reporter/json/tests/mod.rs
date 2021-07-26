@@ -7,15 +7,15 @@ use super::*;
     snapshot_name,
     case(
         "feat()!: yargs-parser now throws on invalid combinations of config\n\n",
-        "test_stdin_pretty_print_case_1"
+        "test_json_print_case_1"
     ),
-    case("Release 1.0.126", "test_stdin_pretty_print_case_2"),
+    case("Release 1.0.126", "test_stdin_json_print_case_2"),
     case(
         "Merge branch 'fix-ocsp-signer-check' into 'master'",
-        "test_stdin_pretty_print_case_3"
+        "test_json_print_case_3"
     )
 )]
-fn test_stdin_pretty_print(message: &str, snapshot_name: &str) {
+fn test_json_print(message: &str, snapshot_name: &str) {
     // Given
     let commit = Commit {
         oid: git2::Oid::zero(),
@@ -24,7 +24,7 @@ fn test_stdin_pretty_print(message: &str, snapshot_name: &str) {
     let linting_errors = crate::linter::lint_commit(&commit, false);
 
     // When
-    let reporting = pretty_print_linting_error(None, message, &linting_errors);
+    let reporting = print(message, &linting_errors);
 
     // Then
     insta::assert_snapshot!(snapshot_name, reporting);
@@ -35,14 +35,14 @@ fn test_stdin_pretty_print(message: &str, snapshot_name: &str) {
     snapshot_name,
     case(
         &["feat()!: yargs-parser now throws on invalid combinations of config\n\n", "doc(webpack):webpack example (#1436)"],
-        "test_git_range_pretty_print_case_1"
+        "test_json_print_all_case_1"
     ),
     case(
         &["refactor(ts support)!: ship yargs.d.ts (#1671)", "feat!: drop support for EOL Node 8 (#1686)"],
-        "test_git_range_pretty_print_case_2"
+        "test_json_print_all_case_2"
     ),
 )]
-fn test_git_range_pretty_print(messages: &[&str], snapshot_name: &str) {
+fn test_json_print_all(messages: &[&str], snapshot_name: &str) {
     // Given
     let commits: Vec<Commit> = messages
         .iter()
@@ -55,7 +55,7 @@ fn test_git_range_pretty_print(messages: &[&str], snapshot_name: &str) {
     let linting_errors = crate::linter::lint_commits(&commits, false);
 
     // When
-    let reporting = pretty_print_linting_errors(&commits, &linting_errors);
+    let reporting = print_all(&commits, &linting_errors);
 
     // Then
     insta::assert_snapshot!(snapshot_name, reporting);
