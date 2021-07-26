@@ -100,14 +100,14 @@ conventional-commits-linting:
 #### Via Binary Download
 See [Downloading Binary](#downloading-binary) for more details about Binary downloads.
 
-__Note - This example downloads version `0.8.1`.__
+__Note - This example downloads version `0.9.0`.__
 
 ```
 conventional-commits-linting:
     stage: conventional-commits-linting
     image: rust
     before_script:
-        - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/conventional_commits_linter/-/jobs/artifacts/0.8.1/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
+        - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/conventional_commits_linter/-/jobs/artifacts/0.9.0/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
     script:
         # Lint all the commits in the branch.
         - ./conventional_commits_linter --from-commit-hash "origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" --allow-angular-type-only
@@ -165,7 +165,7 @@ For certain environments such as CICD etc you may want to pin the version.
 e.g.
 
 ```
-cargo install conventional_commits_linter --version 0.8.1
+cargo install conventional_commits_linter --version 0.9.0
 ```
 
 Rather than pinning to a specific version you can specify the major or minor version.
