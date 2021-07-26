@@ -17,14 +17,14 @@ A tooling and language agnostic Git commit linter for the Conventional Commits s
 
 
 ## Upcoming
- * Optional configuration file over CLI arguments/flags.
- * Add commit title length arguments/flags.
- * Add type as noun linting warning/CLI arguments/flags.
- * Add scope as noun linting warning/CLI arguments/flags.
- * Add exclamation before scope linting warning.
- * Adding description casing CLI arguments/flags.
- * Adding type casing CLI arguments/flags.
- * Adding scope casing CLI arguments/flags.
+ * Optional configuration file over CLI arguments.
+ * Add commit title length linting.
+ * Add type as noun/non-noun linting.
+ * Add scope as noun/non-noun linting.
+ * Add exclamation before scope linting.
+ * Adding description casing linting.
+ * Adding type casing linting.
+ * Adding scope casing CLI linting.
 
 
 ## Content

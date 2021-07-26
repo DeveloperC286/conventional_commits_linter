@@ -13,4 +13,4 @@ expression: reporting
 	[1;31mX[0m - Commit title does not comply with the Conventional Commits V1.0.0 specification.
 	[1;31mX[0m - Commit title has no space after the colon preceding the Conventional Commits type and scope.
 
-[1;31mX[0m - Found 4 separate linting issues across 2 commits.
+[1;31mX[0m - Found 4 separate linting errors across 2 commits.

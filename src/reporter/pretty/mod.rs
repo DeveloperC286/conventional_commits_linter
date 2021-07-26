@@ -74,12 +74,12 @@ pub fn print_all(commits: &[Commit], linting_errors: &HashMap<Oid, Vec<LintingEr
     }
 
     let red = Red.bold();
-    let number_of_issues: usize = linting_errors.values().map(|x| x.len()).sum();
+    let total_linting_errors: usize = linting_errors.values().map(|x| x.len()).sum();
 
     pretty_print.push_str(&format!(
-        "{} - Found {} separate linting issues across {} commits.",
+        "{} - Found {} separate linting errors across {} commits.",
         red.paint("X"),
-        number_of_issues,
+        total_linting_errors,
         linting_errors.len()
     ));
     pretty_print

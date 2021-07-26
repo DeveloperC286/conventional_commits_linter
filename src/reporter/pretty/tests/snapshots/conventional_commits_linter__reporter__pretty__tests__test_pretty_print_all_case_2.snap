@@ -7,4 +7,4 @@ expression: reporting
 [1;31mMessage[0m - "refactor(ts support)!: ship yargs.d.ts (#1671)"
 	[1;31mX[0m - Commit title does not comply with the Conventional Commits V1.0.0 specification.
 
-[1;31mX[0m - Found 1 separate linting issues across 1 commits.
+[1;31mX[0m - Found 1 separate linting errors across 1 commits.
