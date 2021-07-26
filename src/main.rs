@@ -47,11 +47,7 @@ fn main() {
                 } else {
                     println!(
                         "{}",
-                        crate::reporter::pretty_print_linting_error(
-                            None,
-                            &commit.message,
-                            &linting_errors
-                        )
+                        crate::reporter::pretty::print(None, &commit.message, &linting_errors)
                     );
                 }
             }
@@ -81,7 +77,7 @@ fn main() {
                 } else {
                     println!(
                         "{}",
-                        crate::reporter::pretty_print_linting_errors(&commits, &linting_errors)
+                        crate::reporter::pretty::print_all(&commits, &linting_errors)
                     );
                 }
             }

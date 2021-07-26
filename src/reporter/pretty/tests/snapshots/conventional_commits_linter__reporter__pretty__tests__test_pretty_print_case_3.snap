@@ -1,5 +1,5 @@
 ---
-source: src/reporter/tests/mod.rs
+source: src/reporter/pretty/tests/mod.rs
 expression: reporting
 
 ---
