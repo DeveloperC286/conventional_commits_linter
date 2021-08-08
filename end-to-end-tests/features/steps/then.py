@@ -1,6 +1,6 @@
 from behave import *
 
-from util import is_json, execute_conventional_commits_linter
+from utilities import is_json, execute_conventional_commits_linter
 
 conflicting_commit_hash_input = "error: The argument '--from-commit-hash <from-commit-hash>' cannot be used with one or more of the other specified arguments\n\nUSAGE:\n    conventional_commits_linter <--from-commit-hash <from-commit-hash>|--from-reference <from-reference>|--from-stdin>\n\nFor more information try --help\n"
 conflicting_reference_input = "error: The argument '--from-reference <from-reference>' cannot be used with one or more of the other specified arguments\n\nUSAGE:\n    conventional_commits_linter <--from-commit-hash <from-commit-hash>|--from-reference <from-reference>|--from-stdin>\n\nFor more information try --help\n"

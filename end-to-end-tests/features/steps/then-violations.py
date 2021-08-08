@@ -1,7 +1,7 @@
 import json
 from behave import *
 
-from util import is_json
+from utilities import is_json
 
 
 @then('a preceding whitespace before the type violation is detected.')

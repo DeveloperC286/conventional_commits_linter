@@ -2,7 +2,7 @@ import os
 import tempfile
 from behave import given
 
-from util import execute_command
+from utilities import execute_command
 
 
 @given('the context and environment are reset.')
