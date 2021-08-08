@@ -68,7 +68,7 @@ pub fn print_all(commits: &[Commit], linting_errors: &HashMap<Oid, Vec<LintingEr
             pretty_print.push_str(&print(
                 Some(commit.oid),
                 &commit.message,
-                &linting_errors.get(&commit.oid).unwrap(),
+                linting_errors.get(&commit.oid).unwrap(),
             ));
         }
     }

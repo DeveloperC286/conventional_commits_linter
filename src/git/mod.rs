@@ -31,7 +31,7 @@ fn get_commit_messages_till_head_from_oid(
 ) -> Vec<Commit> {
     let mut commit_messages: Vec<Commit> = get_commit_oids(repository, from_commit_hash)
         .map(|oid| match oid {
-            Ok(oid) => match get_commit_message(&repository, oid) {
+            Ok(oid) => match get_commit_message(repository, oid) {
                 Some(commit_message) => {
                     trace!("Found commit '{}'s message {:?}.", oid, commit_message);
                     Some(Commit {
