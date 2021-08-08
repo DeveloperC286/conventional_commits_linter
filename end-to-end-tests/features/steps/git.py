@@ -25,10 +25,10 @@ def clone_remote_repository_and_checkout_commit(
     reset_context(context)
 
     os.chdir(context.temporary_directory.name)
-    (exit_code, _) = execute_command(
+    (exit_code, _, _) = execute_command(
         "git clone " + remote_repository + " .")
     assert exit_code == 0
-    (exit_code, _) = execute_command("git checkout " + commit_hash)
+    (exit_code, _, _) = execute_command("git checkout " + commit_hash)
     assert exit_code == 0
     os.chdir(context.behave_directory)
 
