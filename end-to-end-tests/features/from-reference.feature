@@ -11,8 +11,6 @@ Feature: A Git reference can be provided as an argument to indicate where to sta
     Examples:
       | repository                               | checkout_commit                          | from_reference |
       | https://github.com/yargs/yargs.git       | 0f810245494ccf13a35b7786d021b30fc95ecad5 | v15.4.0        |
-      | https://github.com/electron/electron.git | 5e033cb7f869f42e93c641fcfddba59fa62742f7 | origin/14-x-y  |
-      | https://github.com/electron/electron.git | 42a9d72ce170e5cadfb8bf443886cdbc4bcbcb93 | origin/9-x-y   |
 
 
   Scenario Outline:
@@ -25,7 +23,6 @@ Feature: A Git reference can be provided as an argument to indicate where to sta
     Examples:
       | repository                                     | checkout_commit                          | from_reference                           |
       | https://gitlab.com/tortoisegit/tortoisegit.git | 42ffd0e0545202421f3dc658e1e359a01891067a | REL_2.12.0.0_EXTERNAL                    |
-      | https://gitlab.com/ase/ase.git                 | ea47ff989f80caf30b5247c5f12089766e9de05b | 6cbbbfe76c1c5624cce9bc3213e4b86df0b5785f |
 
 
   Scenario Outline: When you provide an invalid reference a relevant error message is returned.
@@ -38,6 +35,4 @@ Feature: A Git reference can be provided as an argument to indicate where to sta
 
     Examples:
       | repository                               | checkout_commit                          | from_reference |
-      | https://github.com/yargs/yargs.git       | 0f810245494ccf13a35b7786d021b30fc95ecad5 | 12-0-0         |
-      | https://github.com/electron/electron.git | 5e033cb7f869f42e93c641fcfddba59fa62742f7 | origin/staging |
       | https://gitlab.com/inkscape/inkscape     | e73f3c57b093fe47add63c94c230223af3378b87 | v13.0.2        |
