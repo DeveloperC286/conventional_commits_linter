@@ -1,5 +1,4 @@
 import json
-import os
 from subprocess import Popen, PIPE
 
 
@@ -19,7 +18,6 @@ def execute_command(command):
 def execute_conventional_commits_linter(context):
     (context.exit_code, context.stdout, context.stderr) = execute_command(
         context.pre_command + context.conventional_commits_linter_path + context.arguments)
-    os.chdir(context.behave_directory)
 
 
 def is_json(testing):

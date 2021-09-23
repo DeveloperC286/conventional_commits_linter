@@ -3,8 +3,11 @@ Feature: Git environment variables are respected and used instead of using the c
 
   Scenario Outline:
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
-    And the GIT_DIR environment variable is set to the cloned repository.
+    And the directory is changed to the cloned repository.
     When the argument --from-commit-hash is provided as "<from_commit_hash>".
+    Then the linting passes.
+    Given the directory is changed to the behave directory.
+    And the GIT_DIR environment variable is set to the cloned repository.
     Then the linting passes.
 
 
@@ -15,8 +18,11 @@ Feature: Git environment variables are respected and used instead of using the c
 
   Scenario Outline:
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
-    And the GIT_DIR environment variable is set to the cloned repository.
+    And the directory is changed to the cloned repository.
     When the argument --from-commit-hash is provided as "<from_commit_hash>".
+    Then the linting fails.
+    Given the directory is changed to the behave directory.
+    And the GIT_DIR environment variable is set to the cloned repository.
     Then the linting fails.
 
 
