@@ -1,2 +1,2 @@
-pub mod json;
-pub mod pretty;
+pub(crate) mod json;
+pub(crate) mod pretty;

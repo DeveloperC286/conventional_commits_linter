@@ -2,12 +2,12 @@ use regex::Regex;
 
 use crate::model::LintingError;
 
-pub mod empty_scope;
-pub mod no_description_after_type_and_scope;
-pub mod no_space_after_colon_preceding_type_and_scope;
-pub mod preceding_whitespace;
+pub(crate) mod empty_scope;
+pub(crate) mod no_description_after_type_and_scope;
+pub(crate) mod no_space_after_colon_preceding_type_and_scope;
+pub(crate) mod preceding_whitespace;
 
-pub fn lint(commit_message: &str) -> Result<(), LintingError> {
+pub(crate) fn lint(commit_message: &str) -> Result<(), LintingError> {
     lazy_static! {
         static ref CONVENTIONAL_COMMITS_REGEX: Regex = Regex::new(&format!(
             r"^{}{}{}: [^[[:space:]]]+",

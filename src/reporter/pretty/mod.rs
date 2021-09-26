@@ -5,7 +5,11 @@ use git2::Oid;
 
 use crate::model::{Commit, LintingError};
 
-pub fn print(oid: Option<git2::Oid>, message: &str, linting_errors: &[LintingError]) -> String {
+pub(crate) fn print(
+    oid: Option<git2::Oid>,
+    message: &str,
+    linting_errors: &[LintingError],
+) -> String {
     let mut pretty_print = String::new();
     let red = Red.bold();
 
@@ -60,7 +64,10 @@ pub fn print(oid: Option<git2::Oid>, message: &str, linting_errors: &[LintingErr
     pretty_print
 }
 
-pub fn print_all(commits: &[Commit], linting_errors: &HashMap<Oid, Vec<LintingError>>) -> String {
+pub(crate) fn print_all(
+    commits: &[Commit],
+    linting_errors: &HashMap<Oid, Vec<LintingError>>,
+) -> String {
     let mut pretty_print = String::new();
 
     for commit in commits {

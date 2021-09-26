@@ -1,14 +1,15 @@
-pub const PRECEDING_WHITESPACE: &str = "^([[:space:]])";
-pub const OPTIONAL_EXCLAMATION: &str = "(!)?";
-pub const ANGULAR_TYPE: &str = "(revert|build|ci|docs|feat|fix|perf|refactor|style|test)";
-pub const EMPTY_SCOPE: &str = r"\(([[:space:]])*\)";
-pub const TYPE: &str = r"([[:alpha:]])*";
-pub const OPTIONAL_SCOPE: &str = r"(\([[:alpha:]]+\))?";
-pub const OPTIONAL_EMPTY_SCOPE_OR_SCOPE: &str = r"(\(.*\))?";
+pub(crate) const PRECEDING_WHITESPACE: &str = "^([[:space:]])";
+pub(crate) const OPTIONAL_EXCLAMATION: &str = "(!)?";
+pub(crate) const ANGULAR_TYPE: &str = "(revert|build|ci|docs|feat|fix|perf|refactor|style|test)";
+pub(crate) const EMPTY_SCOPE: &str = r"\(([[:space:]])*\)";
+pub(crate) const TYPE: &str = r"([[:alpha:]])*";
+pub(crate) const OPTIONAL_SCOPE: &str = r"(\([[:alpha:]]+\))?";
+pub(crate) const OPTIONAL_EMPTY_SCOPE_OR_SCOPE: &str = r"(\(.*\))?";
 
 lazy_static! {
-    pub static ref OPTIONAL_PRECEDING_WHITESPACE: String = format!("{}*", PRECEDING_WHITESPACE);
-    pub static ref IGNORE_TYPE_AND_SCOPE_LINTING_ERRORS: String = format!(
+    pub(crate) static ref OPTIONAL_PRECEDING_WHITESPACE: String =
+        format!("{}*", PRECEDING_WHITESPACE);
+    pub(crate) static ref IGNORE_TYPE_AND_SCOPE_LINTING_ERRORS: String = format!(
         "{}{}{}{}{}:",
         *crate::linter::regex::OPTIONAL_PRECEDING_WHITESPACE,
         crate::linter::regex::TYPE,

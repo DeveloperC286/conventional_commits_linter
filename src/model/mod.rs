@@ -1,7 +1,7 @@
 use serde::Serialize;
 
 #[derive(Serialize, Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
-pub enum LintingError {
+pub(crate) enum LintingError {
     NonConventionalCommitsSpecification,
     PrecedingWhitespace,
     NonAngularType,
@@ -10,7 +10,7 @@ pub enum LintingError {
     NoDescriptionAfterTypeAndScope,
 }
 
-pub struct Commit {
-    pub oid: git2::Oid,
-    pub message: String,
+pub(crate) struct Commit {
+    pub(crate) oid: git2::Oid,
+    pub(crate) message: String,
 }

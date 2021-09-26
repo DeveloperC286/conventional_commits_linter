@@ -8,7 +8,7 @@ mod allow_angular_type_only;
 mod conventional_commits_specification;
 mod regex;
 
-pub fn lint_commits(
+pub(crate) fn lint_commits(
     commits: &[Commit],
     allow_angular_type_only: bool,
 ) -> HashMap<Oid, Vec<LintingError>> {
@@ -25,7 +25,7 @@ pub fn lint_commits(
     oid_to_linting_errors
 }
 
-pub fn lint_commit(commit: &Commit, allow_angular_type_only: bool) -> Vec<LintingError> {
+pub(crate) fn lint_commit(commit: &Commit, allow_angular_type_only: bool) -> Vec<LintingError> {
     let mut linting_errors = vec![];
 
     match conventional_commits_specification::lint(&commit.message) {

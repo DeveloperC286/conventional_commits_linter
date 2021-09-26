@@ -14,7 +14,7 @@ struct CommitLintingErrorsJSON {
     linting_errors: Vec<LintingError>,
 }
 
-pub fn print(message: &str, linting_errors: &[LintingError]) -> String {
+pub(crate) fn print(message: &str, linting_errors: &[LintingError]) -> String {
     match serde_json::to_string(&[CommitLintingErrorsJSON {
         commit_hash: None,
         commit_message: message.to_string(),
@@ -29,7 +29,10 @@ pub fn print(message: &str, linting_errors: &[LintingError]) -> String {
     }
 }
 
-pub fn print_all(commits: &[Commit], linting_errors: &HashMap<Oid, Vec<LintingError>>) -> String {
+pub(crate) fn print_all(
+    commits: &[Commit],
+    linting_errors: &HashMap<Oid, Vec<LintingError>>,
+) -> String {
     let mut linting_errors_json: Vec<CommitLintingErrorsJSON> = vec![];
 
     for commit in commits {

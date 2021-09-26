@@ -2,7 +2,7 @@ use super::*;
 
 mod variations;
 
-pub fn generate_non_angular_type_commits(
+pub(crate) fn generate_non_angular_type_commits(
     should_generate_preceding_whitespace: bool,
     should_generate_empty_scope: bool,
     should_not_generate_space_after_type: bool,
@@ -17,7 +17,7 @@ pub fn generate_non_angular_type_commits(
     )
 }
 
-pub fn generate_angular_type_commits(
+pub(crate) fn generate_angular_type_commits(
     should_generate_preceding_whitespace: bool,
     should_generate_empty_scope: bool,
     should_not_generate_space_after_type: bool,
