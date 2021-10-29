@@ -21,8 +21,8 @@ Feature: A Git commit hash can be provided as an argument to indicate where to s
 
 
     Examples:
-      | repository                                    | checkout_commit                          | from_commit_hash                         |
-      | https://github.com/electron/electron.git      | 8798571a77a4d2a7e073b046d2e8b56caa4d1e68 | 77ee3da77ca853485d62aa77698860cae6a9b02b |
+      | repository                               | checkout_commit                          | from_commit_hash                         |
+      | https://github.com/electron/electron.git | 8798571a77a4d2a7e073b046d2e8b56caa4d1e68 | 77ee3da77ca853485d62aa77698860cae6a9b02b |
 
 
   Scenario Outline: When you provide an invalid commit hash a relevant error message is returned.
@@ -34,5 +34,5 @@ Feature: A Git commit hash can be provided as an argument to indicate where to s
 
 
     Examples:
-      | repository                                    | checkout_commit                          | from_commit_hash                         |
-      | https://github.com/SergioBenitez/Rocket.git   | 549c9241c41320fc5af76b53c2ffc3bd8db88f8c | ecfc2c474575c6cdbc6d273c94c13181bd1dbaa6 |
+      | repository                                  | checkout_commit                          | from_commit_hash                         |
+      | https://github.com/SergioBenitez/Rocket.git | 549c9241c41320fc5af76b53c2ffc3bd8db88f8c | ecfc2c474575c6cdbc6d273c94c13181bd1dbaa6 |

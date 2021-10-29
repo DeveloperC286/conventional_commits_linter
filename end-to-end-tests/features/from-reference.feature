@@ -9,8 +9,8 @@ Feature: A Git reference can be provided as an argument to indicate where to sta
 
 
     Examples:
-      | repository                               | checkout_commit                          | from_reference |
-      | https://github.com/yargs/yargs.git       | 0f810245494ccf13a35b7786d021b30fc95ecad5 | v15.4.0        |
+      | repository                         | checkout_commit                          | from_reference |
+      | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | v15.4.0        |
 
 
   Scenario Outline:
@@ -21,8 +21,8 @@ Feature: A Git reference can be provided as an argument to indicate where to sta
 
 
     Examples:
-      | repository                                     | checkout_commit                          | from_reference                           |
-      | https://gitlab.com/tortoisegit/tortoisegit.git | 42ffd0e0545202421f3dc658e1e359a01891067a | REL_2.12.0.0_EXTERNAL                    |
+      | repository                                     | checkout_commit                          | from_reference        |
+      | https://gitlab.com/tortoisegit/tortoisegit.git | 42ffd0e0545202421f3dc658e1e359a01891067a | REL_2.12.0.0_EXTERNAL |
 
 
   Scenario Outline: When you provide an invalid reference a relevant error message is returned.
@@ -34,5 +34,5 @@ Feature: A Git reference can be provided as an argument to indicate where to sta
 
 
     Examples:
-      | repository                               | checkout_commit                          | from_reference |
-      | https://gitlab.com/inkscape/inkscape     | e73f3c57b093fe47add63c94c230223af3378b87 | v13.0.2        |
+      | repository                           | checkout_commit                          | from_reference |
+      | https://gitlab.com/inkscape/inkscape | e73f3c57b093fe47add63c94c230223af3378b87 | v13.0.2        |
