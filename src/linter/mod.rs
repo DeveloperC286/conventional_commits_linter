@@ -12,17 +12,11 @@ pub(crate) fn lint_commits(
     commits: &[Commit],
     allow_angular_type_only: bool,
 ) -> HashMap<Oid, Vec<LintingError>> {
-    let mut oid_to_linting_errors = HashMap::new();
-
-    for commit in commits {
-        let linting_errors = lint_commit(commit, allow_angular_type_only);
-
-        if !linting_errors.is_empty() {
-            oid_to_linting_errors.insert(commit.oid, linting_errors);
-        }
-    }
-
-    oid_to_linting_errors
+    commits
+        .iter()
+        .map(|commit| (commit.oid, lint_commit(commit, allow_angular_type_only)))
+        .filter(|(_, linting_errors)| !linting_errors.is_empty())
+        .collect()
 }
 
 pub(crate) fn lint_commit(commit: &Commit, allow_angular_type_only: bool) -> Vec<LintingError> {
