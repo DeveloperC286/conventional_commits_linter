@@ -18,19 +18,20 @@ fn test_non_angular_type_commits_with_no_angular_type_only_assertion() {
             desired_length = number_of_variants
         );
 
-        let (commits, expected_linting_errors) = generation::generate_non_angular_type_commits(
-            utilities::is_position_in_binary_string_true(&binary_string, 0),
-            utilities::is_position_in_binary_string_true(&binary_string, 1),
-            utilities::is_position_in_binary_string_true(&binary_string, 2),
-            utilities::is_position_in_binary_string_true(&binary_string, 3),
-        );
+        let (commit_messages, expected_linting_errors) =
+            generation::generate_non_angular_type_commits(
+                utilities::is_position_in_binary_string_true(&binary_string, 0),
+                utilities::is_position_in_binary_string_true(&binary_string, 1),
+                utilities::is_position_in_binary_string_true(&binary_string, 2),
+                utilities::is_position_in_binary_string_true(&binary_string, 3),
+            );
 
         //When/Then
-        for commit in commits {
+        for commit_message in commit_messages {
             assert_linting_errors_eq!(
                 expected_linting_errors,
-                lint_commit(&commit, allow_angular_type_only),
-                commit.message
+                lint_commit_message(&commit_message, allow_angular_type_only),
+                commit_message
             );
         }
     }
@@ -49,7 +50,7 @@ fn test_angular_type_commits_with_no_angular_type_only_assertion() {
             desired_length = number_of_variants
         );
 
-        let (commits, expected_linting_errors) = generation::generate_angular_type_commits(
+        let (commit_messages, expected_linting_errors) = generation::generate_angular_type_commits(
             utilities::is_position_in_binary_string_true(&binary_string, 0),
             utilities::is_position_in_binary_string_true(&binary_string, 1),
             utilities::is_position_in_binary_string_true(&binary_string, 2),
@@ -57,11 +58,11 @@ fn test_angular_type_commits_with_no_angular_type_only_assertion() {
         );
 
         //When/Then
-        for commit in commits {
+        for commit_message in commit_messages {
             assert_linting_errors_eq!(
                 expected_linting_errors,
-                lint_commit(&commit, allow_angular_type_only),
-                commit.message
+                lint_commit_message(&commit_message, allow_angular_type_only),
+                commit_message
             );
         }
     }
@@ -80,20 +81,21 @@ fn test_non_angular_type_commits_with_angular_type_only_assertion() {
             desired_length = number_of_variants
         );
 
-        let (commits, mut expected_linting_errors) = generation::generate_non_angular_type_commits(
-            utilities::is_position_in_binary_string_true(&binary_string, 0),
-            utilities::is_position_in_binary_string_true(&binary_string, 1),
-            utilities::is_position_in_binary_string_true(&binary_string, 2),
-            utilities::is_position_in_binary_string_true(&binary_string, 3),
-        );
+        let (commit_messages, mut expected_linting_errors) =
+            generation::generate_non_angular_type_commits(
+                utilities::is_position_in_binary_string_true(&binary_string, 0),
+                utilities::is_position_in_binary_string_true(&binary_string, 1),
+                utilities::is_position_in_binary_string_true(&binary_string, 2),
+                utilities::is_position_in_binary_string_true(&binary_string, 3),
+            );
         expected_linting_errors.push(LintingError::NonAngularType);
 
         //When/Then
-        for commit in commits {
+        for commit_message in commit_messages {
             assert_linting_errors_eq!(
                 expected_linting_errors,
-                lint_commit(&commit, allow_angular_type_only),
-                commit.message
+                lint_commit_message(&commit_message, allow_angular_type_only),
+                commit_message
             );
         }
     }
@@ -112,7 +114,7 @@ fn test_angular_type_commits_with_angular_type_only_assertion() {
             desired_length = number_of_variants
         );
 
-        let (commits, expected_linting_errors) = generation::generate_angular_type_commits(
+        let (commit_messages, expected_linting_errors) = generation::generate_angular_type_commits(
             utilities::is_position_in_binary_string_true(&binary_string, 0),
             utilities::is_position_in_binary_string_true(&binary_string, 1),
             utilities::is_position_in_binary_string_true(&binary_string, 2),
@@ -120,11 +122,11 @@ fn test_angular_type_commits_with_angular_type_only_assertion() {
         );
 
         //When/Then
-        for commit in commits {
+        for commit_message in commit_messages {
             assert_linting_errors_eq!(
                 expected_linting_errors,
-                lint_commit(&commit, allow_angular_type_only),
-                commit.message
+                lint_commit_message(&commit_message, allow_angular_type_only),
+                commit_message
             );
         }
     }

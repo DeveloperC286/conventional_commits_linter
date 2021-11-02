@@ -12,8 +12,6 @@ use std::{
 
 use structopt::StructOpt;
 
-use crate::model::Commit;
-
 mod cli;
 mod git;
 mod linter;
@@ -31,23 +29,17 @@ fn main() {
         let mut input = String::new();
         stdin().read_to_string(&mut input).unwrap();
 
-        let commit = Commit {
-            oid: git2::Oid::zero(),
-            message: input,
-        };
-        let linting_errors = crate::linter::lint_commit(&commit, arguments.allow_angular_type_only);
+        let linting_errors =
+            crate::linter::lint_commit_message(&input, arguments.allow_angular_type_only);
 
         if !linting_errors.is_empty() {
             if !arguments.quiet {
                 if arguments.json {
-                    println!(
-                        "{}",
-                        crate::reporter::json::print(&commit.message, &linting_errors)
-                    );
+                    println!("{}", crate::reporter::json::print(&input, &linting_errors));
                 } else {
                     println!(
                         "{}",
-                        crate::reporter::pretty::print(None, &commit.message, &linting_errors)
+                        crate::reporter::pretty::print(None, &input, &linting_errors)
                     );
                 }
             }

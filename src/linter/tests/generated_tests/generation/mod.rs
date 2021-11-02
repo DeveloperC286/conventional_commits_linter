@@ -7,7 +7,7 @@ pub(crate) fn generate_non_angular_type_commits(
     should_generate_empty_scope: bool,
     should_not_generate_space_after_type: bool,
     should_not_generate_description: bool,
-) -> (Vec<Commit>, Vec<LintingError>) {
+) -> (Vec<String>, Vec<LintingError>) {
     generate_commits_with_type(
         should_generate_preceding_whitespace,
         variations::NON_ANGULAR_COMMIT_TYPE_VARIATIONS,
@@ -22,7 +22,7 @@ pub(crate) fn generate_angular_type_commits(
     should_generate_empty_scope: bool,
     should_not_generate_space_after_type: bool,
     should_not_generate_description: bool,
-) -> (Vec<Commit>, Vec<LintingError>) {
+) -> (Vec<String>, Vec<LintingError>) {
     generate_commits_with_type(
         should_generate_preceding_whitespace,
         variations::ANGULAR_COMMIT_TYPE_VARIATIONS,
@@ -38,7 +38,7 @@ fn generate_commits_with_type(
     should_generate_empty_scope: bool,
     should_not_generate_space_after_type: bool,
     should_not_generate_description: bool,
-) -> (Vec<Commit>, Vec<LintingError>) {
+) -> (Vec<String>, Vec<LintingError>) {
     let mut linting_errors = vec![LintingError::NonConventionalCommitsSpecification];
 
     let preceding_whitespace_variations = variations::get_preceding_whitespace_variations(
@@ -57,7 +57,7 @@ fn generate_commits_with_type(
     );
 
     (
-        generate_commits(
+        generate_commit_messages(
             preceding_whitespace_variations,
             commit_type_variations,
             scope_variations,
@@ -68,36 +68,27 @@ fn generate_commits_with_type(
     )
 }
 
-fn generate_commits(
+fn generate_commit_messages(
     preceding_whitespace_variations: &[&str],
     commit_type_variations: &[&str],
     scope_variations: &[&str],
     after_type_variation: &str,
     description_variations: &[&str],
-) -> Vec<Commit> {
-    let mut commits: Vec<Commit> = vec![];
-    let mut commit_id = 1;
+) -> Vec<String> {
+    let mut commit_messages = vec![];
 
     for preceding_whitespace in preceding_whitespace_variations {
         for commit_type in commit_type_variations {
             for scope in scope_variations {
                 for description in description_variations {
-                    commits.push(Commit {
-                        oid: git2::Oid::from_str(&commit_id.to_string()).unwrap(),
-                        message: format!(
-                            "{}{}{}:{}{}",
-                            preceding_whitespace,
-                            commit_type,
-                            scope,
-                            after_type_variation,
-                            description
-                        ),
-                    });
-                    commit_id += 1;
+                    commit_messages.push(format!(
+                        "{}{}{}:{}{}",
+                        preceding_whitespace, commit_type, scope, after_type_variation, description
+                    ));
                 }
             }
         }
     }
 
-    commits
+    commit_messages
 }

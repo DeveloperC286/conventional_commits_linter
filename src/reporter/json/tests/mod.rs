@@ -3,7 +3,7 @@ use rstest::rstest;
 use super::*;
 
 #[rstest(
-    message,
+    commit_message,
     snapshot_name,
     case(
         "feat()!: yargs-parser now throws on invalid combinations of config\n\n",
@@ -15,23 +15,19 @@ use super::*;
         "test_json_print_case_3"
     )
 )]
-fn test_json_print(message: &str, snapshot_name: &str) {
+fn test_json_print(commit_message: &str, snapshot_name: &str) {
     // Given
-    let commit = Commit {
-        oid: git2::Oid::zero(),
-        message: message.to_string(),
-    };
-    let linting_errors = crate::linter::lint_commit(&commit, false);
+    let linting_errors = crate::linter::lint_commit_message(commit_message, false);
 
     // When
-    let reporting = print(message, &linting_errors);
+    let reporting = print(commit_message, &linting_errors);
 
     // Then
     insta::assert_snapshot!(snapshot_name, reporting);
 }
 
 #[rstest(
-    messages,
+    commit_messages,
     snapshot_name,
     case(
         &["feat()!: yargs-parser now throws on invalid combinations of config\n\n", "doc(webpack):webpack example (#1436)"],
@@ -42,14 +38,14 @@ fn test_json_print(message: &str, snapshot_name: &str) {
         "test_json_print_all_case_2"
     ),
 )]
-fn test_json_print_all(messages: &[&str], snapshot_name: &str) {
+fn test_json_print_all(commit_messages: &[&str], snapshot_name: &str) {
     // Given
-    let commits: Vec<Commit> = messages
+    let commits: Vec<Commit> = commit_messages
         .iter()
         .enumerate()
-        .map(|(index, message)| Commit {
+        .map(|(index, commit_message)| Commit {
             oid: git2::Oid::from_str(&*format!("{}", index)).unwrap(),
-            message: message.to_string(),
+            message: commit_message.to_string(),
         })
         .collect();
     let linting_errors = crate::linter::lint_commits(&commits, false);
