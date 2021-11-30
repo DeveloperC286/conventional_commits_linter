@@ -31,7 +31,7 @@ fn test_lint_commits_on_valid(commit_message: &str) {
             oid: git2::Oid::zero(),
             message: commit_message.to_string(),
         }],
-        false
+        false,
     )
     .is_empty());
 }

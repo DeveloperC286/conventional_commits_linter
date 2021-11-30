@@ -1,7 +1,6 @@
-use std::collections::HashMap;
-
 use ansi_term::Colour::Red;
 use git2::Oid;
+use std::collections::HashMap;
 
 use crate::model::{Commit, LintingError};
 
@@ -20,9 +19,9 @@ pub(crate) fn print(
 
     if linting_errors.contains(&LintingError::NonConventionalCommitsSpecification) {
         pretty_print.push_str(&format!(
-           "\t{} - Commit title does not comply with the Conventional Commits V1.0.0 specification.\n",
-           red.paint("X")
-       ));
+            "\t{} - Commit title does not comply with the Conventional Commits V1.0.0 specification.\n",
+            red.paint("X")
+        ));
     }
 
     if linting_errors.contains(&LintingError::PrecedingWhitespace) {

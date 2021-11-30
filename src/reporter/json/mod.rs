@@ -1,8 +1,7 @@
-use std::collections::HashMap;
-use std::process::exit;
-
 use git2::Oid;
 use serde::Serialize;
+use std::collections::HashMap;
+use std::process::exit;
 
 use crate::model::{Commit, LintingError};
 

@@ -9,7 +9,6 @@ use std::{
     io::{stdin, Read},
     process::exit,
 };
-
 use structopt::StructOpt;
 
 mod cli;

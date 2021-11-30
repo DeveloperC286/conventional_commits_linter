@@ -1,6 +1,5 @@
-use std::collections::HashMap;
-
 use git2::Oid;
+use std::collections::HashMap;
 
 use crate::model::{Commit, LintingError};
 
