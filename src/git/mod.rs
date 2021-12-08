@@ -1,5 +1,6 @@
-use git2::{Oid, Repository, Revwalk};
 use std::process::exit;
+
+use git2::{Oid, Repository, Revwalk};
 
 use crate::model::Commit;
 

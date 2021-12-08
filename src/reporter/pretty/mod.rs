@@ -1,6 +1,7 @@
+use std::collections::HashMap;
+
 use ansi_term::Colour::Red;
 use git2::Oid;
-use std::collections::HashMap;
 
 use crate::model::{Commit, LintingError};
 
