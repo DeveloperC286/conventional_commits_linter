@@ -12,6 +12,12 @@ stages:
   - release-binary-compiling
 
 
+variables:
+  SEMANTIC_VERSIONING_REGEX: "[0-9][0-9]*[.][0-9][0-9]*[.][0-9][0-9]*"
+  RELEASE_BIN_NAME: "release-cli-linux-amd64"
+  GIT_CLIFF_VERSION: "0.5.0"
+
+
 clean-git-history-checking:
   stage: clean-git-history-checking
   image: rust
@@ -135,25 +141,25 @@ end-to-end-testing:
 
 releasing:
   stage: releasing
-  image: registry.gitlab.com/gitlab-org/release-cli
-  before_script:
-    - apk add git
+  image: rust
   script:
-    - CURRENT_VERSION=$(grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2)
+    # Get current version.
+    - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "Cargo.toml" | cut -d '"' -f 2)
     # If the tag already exist then exit.
-    - git tag -l | grep "^${CURRENT_VERSION}$" && exit 0
+    - NEW_TAG=${CURRENT_VERSION}
+    - git tag -l | grep "^${NEW_TAG}$" && exit 0
     # Get latest tag.
-    - LATEST_TAG=$(git describe --tags --abbrev=0)
-    - LATEST_TAG_HASH=$(git rev-parse "$LATEST_TAG")
-    # Check latest tag is in semantic versioning.
-    - echo "$LATEST_TAG" | grep "^[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*$"
-    # Download clog.
-    - wget https://github.com/clog-tool/clog-cli/releases/download/v0.9.3/clog-v0.9.3-x86_64-unknown-linux-musl.tar.gz
-    - tar xvf clog-v0.9.3-x86_64-unknown-linux-musl.tar.gz
+    - LATEST_TAG=$(git tag --sort=-committerdate | head -1)
+    # Install release description generator.
+    - wget "https://github.com/orhun/git-cliff/releases/download/v${GIT_CLIFF_VERSION}/git-cliff-${GIT_CLIFF_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+    - tar xzvf "git-cliff-${GIT_CLIFF_VERSION}-x86_64-unknown-linux-musl.tar.gz"
     # Generate the release description.
-    - RELEASE_DESCRIPTION=$(./clog --from "$LATEST_TAG_HASH" --link-style Gitlab --subtitle "$CURRENT_VERSION" | tail -n +2)
+    - RELEASE_DESCRIPTION=$(./git-cliff-${GIT_CLIFF_VERSION}/git-cliff "${LATEST_TAG}.." --tag "${NEW_TAG}" --strip all)
+    # Install GitlabCI cli releasing tool.
+    - wget "https://release-cli-downloads.s3.amazonaws.com/latest/${RELEASE_BIN_NAME}"
+    - chmod 755 "${RELEASE_BIN_NAME}"
     # Create the new release.
-    - release-cli create
+    - ./${RELEASE_BIN_NAME} create
       --name "$CURRENT_VERSION"
       --description "$RELEASE_DESCRIPTION"
       --tag-name "$CURRENT_VERSION"
