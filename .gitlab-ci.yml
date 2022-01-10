@@ -48,14 +48,12 @@ conventional-commits-next-version-checking:
   before_script:
     - cargo install conventional_commits_next_version
   script:
-    # Get current version and latest tag.
-    - CURRENT_VERSION=$(grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2)
+    # Get current version.
+    - current_version=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "Cargo.toml" | cut -d '"' -f 2)
     # Get latest tag.
-    - LATEST_TAG=$(git describe --tags --abbrev=0)
-    # Check latest tag is in semantic versioning.
-    - echo "$LATEST_TAG" | grep "^[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*$"
+    - latest_tag=$(git tag --sort=-committerdate | head -1)
     # Check current vs expected.
-    - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-reference "$LATEST_TAG" --from-version "$LATEST_TAG" --current-version "$CURRENT_VERSION"
+    - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-reference "${latest_tag}" --from-version "${latest_tag}" --current-version "${current_version}"
   rules:
     - if: $CI_MERGE_REQUEST_ID
 
