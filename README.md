@@ -1,5 +1,8 @@
 # Conventional Commits Linter
-[![crates.io](https://img.shields.io/crates/v/conventional_commits_linter)](https://crates.io/crates/conventional_commits_linter) [![pipeline status](https://gitlab.com/DeveloperC/conventional_commits_linter/badges/master/pipeline.svg)](https://gitlab.com/DeveloperC/conventional_commits_linter/commits/master) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![License: AGPL v3](https://img.shields.io/badge/License-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![crates.io](https://img.shields.io/crates/v/conventional_commits_linter)](https://crates.io/crates/conventional_commits_linter)
+[![pipeline status](https://gitlab.com/DeveloperC/conventional_commits_linter/badges/master/pipeline.svg)](https://gitlab.com/DeveloperC/conventional_commits_linter/commits/master)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
 
 ## Pre 1.0.0 breaking changes _may_ be introduced without increasing the major version.
@@ -91,7 +94,7 @@ conventional-commits-linting:
         - cargo install conventional_commits_linter --version ^0
     script:
         # Lint all the commits in the branch.
-        - /usr/local/cargo/bin/conventional_commits_linter --from-reference "origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" --allow-angular-type-only
+        - /usr/local/cargo/bin/conventional_commits_linter --from-reference "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}" --allow-angular-type-only
     rules:
         - if: $CI_MERGE_REQUEST_ID
 ```
@@ -110,7 +113,7 @@ conventional-commits-linting:
         - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/conventional_commits_linter/-/jobs/artifacts/0.9.0/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
     script:
         # Lint all the commits in the branch.
-        - ./conventional_commits_linter --from-commit-hash "origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" --allow-angular-type-only
+        - ./conventional_commits_linter --from-commit-hash "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}" --allow-angular-type-only
     rules:
         - if: $CI_MERGE_REQUEST_ID
 ```
@@ -126,7 +129,7 @@ set -o errexit
 set -o pipefail
 
 # Lint new commit's message.
-cat "${1}" | "/home/${USER}/.cargo/bin/conventional_commits_linter" --from-stdin --allow-angular-type-only
+cat "${1}" | "${HOME}/.cargo/bin/conventional_commits_linter" --from-stdin --allow-angular-type-only
 ```
 
 
@@ -152,7 +155,7 @@ The compiled binary is present in `target/release/conventional_commits_linter`.
 
 ## Compiling via Cargo
 Cargo is the Rust package manager, using the `install` sub-command it pulls the Conventional Commits Linter from `crates.io` and then compiles the binary locally.
-`cargo install` places the produced binary at `$HOME/.cargo/bin/conventional_commits_linter`.
+`cargo install` places the produced binary at `${HOME}/.cargo/bin/conventional_commits_linter`.
 
 ```
 cargo install conventional_commits_linter
