@@ -1,0 +1,25 @@
+From 0081d9d50a21d9d78f8d31279029144d1a4224d3 Mon Sep 17 00:00:00 2001
+From: DeveloperC <DeveloperC@protonmail.com>
+Date: Tue, 11 Jan 2022 20:08:43 +0000
+Subject: [PATCH] ci: updating clean-git-history-checking stage
+
+---
+ .gitlab-ci.yml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+index 27a865a..409fce5 100644
+--- a/.gitlab-ci.yml
++++ b/.gitlab-ci.yml
+@@ -25,7 +25,7 @@ clean-git-history-checking:
+     - cargo install clean_git_history
+   script:
+     # Check all the commits in the branch.
+-    - /usr/local/cargo/bin/clean_git_history --from-reference "origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
++    - /usr/local/cargo/bin/clean_git_history --from-reference "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
+   rules:
+     - if: $CI_MERGE_REQUEST_ID
+ 
+-- 
+2.24.3 (Apple Git-128)
+

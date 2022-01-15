@@ -69,8 +69,8 @@ The only required arguments are any of the `--from-stdin`, `--from-commit-hash <
 
 ### Usage - Git Environment Variables
 When looking for a repository the Git environment variables are respected.
-When `$GIT_DIR` is set, it takes precedence and Conventional Commits Linter begins searching for a repository in the directory specified in `$GIT_DIR`.
-When `$GIT_DIR` is not set, Conventional Commits Linter searches for a repository beginning in the current directory.
+When `${GIT_DIR}` is set, it takes precedence and Conventional Commits Linter begins searching for a repository in the directory specified in `${GIT_DIR}`.
+When `${GIT_DIR}` is not set, Conventional Commits Linter searches for a repository beginning in the current directory.
 
 
 ### Usage - Logging
