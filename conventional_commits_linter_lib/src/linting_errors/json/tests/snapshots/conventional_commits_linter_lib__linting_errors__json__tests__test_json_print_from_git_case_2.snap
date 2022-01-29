@@ -1,0 +1,7 @@
+---
+source: conventional_commits_linter_lib/src/linting_errors/json/tests/mod.rs
+assertion_line: 68
+expression: json_print
+
+---
+[{"commit_hash":"0000000000000000000000000000000000000000","commit_message":"refactor(ts support)!: ship yargs.d.ts (#1671)","linting_errors":["NonConventionalCommitsSpecification"]}]

@@ -1,0 +1,10 @@
+---
+source: conventional_commits_linter_lib/src/linting_errors/pretty/tests/mod.rs
+assertion_line: 29
+expression: pretty_print
+
+---
+[1;31mMessage[0m - "Merge branch 'fix-ocsp-signer-check' into 'master'"
+	[1;31mX[0m - Commit title does not comply with the Conventional Commits V1.0.0 specification.
+
+

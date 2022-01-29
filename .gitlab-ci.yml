@@ -1,19 +1,23 @@
 stages:
   - clean-git-history-checking
   - conventional-commits-linting
-  - conventional-commits-next-version-checking
   - formatting
   - linting
   - compiling
   - unit-testing
   - end-to-end-testing
-  - releasing
-  - crates-io-publishing
-  - release-binary-compiling
 
 
 variables:
   SEMANTIC_VERSIONING_REGEX: "[0-9][0-9]*[.][0-9][0-9]*[.][0-9][0-9]*"
+  BIN_TAG_PREFIX: "bin-"
+  LIB_TAG_PREFIX: "lib-"
+  BIN_TAG_REGEX: "${BIN_TAG_PREFIX}${SEMANTIC_VERSIONING_REGEX}"
+  LIB_TAG_REGEX: "${LIB_TAG_PREFIX}${SEMANTIC_VERSIONING_REGEX}"
+  BIN_DIRECTORY: "conventional_commits_linter"
+  LIB_DIRECTORY: "conventional_commits_linter_lib"
+  END_TO_END_TESTS_DIRECTORY: "${BIN_DIRECTORY}/end-to-end-tests"
+  BIN_NAME: "conventional_commits_linter"
   RELEASE_CLI: "release-cli-linux-amd64"
   GIT_CLIFF_VERSION: "0.6.0"
 
@@ -42,22 +46,6 @@ conventional-commits-linting:
     - if: $CI_MERGE_REQUEST_ID
 
 
-conventional-commits-next-version-checking:
-  stage: conventional-commits-next-version-checking
-  image: rust
-  before_script:
-    - cargo install conventional_commits_next_version
-  script:
-    # Get current version.
-    - current_version=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "Cargo.toml" | cut -d '"' -f 2)
-    # Get latest tag.
-    - latest_tag=$(git tag --sort=-committerdate | head -1)
-    # Check current vs expected.
-    - /usr/local/cargo/bin/conventional_commits_next_version --calculation-mode "Batch" --from-reference "${latest_tag}" --from-version "${latest_tag}" --current-version "${current_version}"
-  rules:
-    - if: $CI_MERGE_REQUEST_ID
-
-
 conventional-commits-linter-formatting:
   stage: formatting
   image: rust
@@ -75,7 +63,7 @@ end-to-end-tests-formatting:
   before_script:
     - pip3 install autopep8
   script:
-    - for i in $(du -a "./end-to-end-tests/" | awk '{print $2}' | grep -i "[.]py$"); do
+    - for i in $(find "${END_TO_END_TESTS_DIRECTORY}/features/steps/" -type f | grep -i "[.]py$"); do
     - cp "$i" "temp.txt"
     - autopep8 --in-place --aggressive --aggressive "$i"
     - cmp "$i" "temp.txt" || ( echo "$i needs formatted." && exit 1 )
@@ -128,65 +116,10 @@ end-to-end-testing:
     - apt update
     - apt install python3-minimal python3-pip git -y
     - cargo build
-    - cd end-to-end-tests/
+    - cd "${END_TO_END_TESTS_DIRECTORY}"
     - pip3 install -r requirements.txt
   script:
     - behave
   rules:
     - if: $CI_MERGE_REQUEST_ID
     - if: $CI_COMMIT_BRANCH == "master"
-
-
-releasing:
-  stage: releasing
-  image: rust
-  script:
-    # Get current version.
-    - current_version=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "Cargo.toml" | cut -d '"' -f 2)
-    # If the tag already exist then exit.
-    - new_tag=${current_version}
-    - git tag -l | grep -q "^${new_tag}$" && exit 0
-    # Get latest tag.
-    - latest_tag=$(git tag --sort=-committerdate | head -1)
-    # Install release description generator.
-    - wget "https://github.com/orhun/git-cliff/releases/download/v${GIT_CLIFF_VERSION}/git-cliff-${GIT_CLIFF_VERSION}-x86_64-unknown-linux-musl.tar.gz"
-    - tar xzvf "git-cliff-${GIT_CLIFF_VERSION}-x86_64-unknown-linux-musl.tar.gz"
-    # Generate the release description.
-    - release_description=$(./git-cliff-${GIT_CLIFF_VERSION}/git-cliff "${latest_tag}.." --tag "${new_tag}" --strip all)
-    # Install GitlabCI cli releasing tool.
-    - wget "https://release-cli-downloads.s3.amazonaws.com/latest/${RELEASE_CLI}"
-    - chmod 755 "${RELEASE_CLI}"
-    # Create the new release.
-    - ./${RELEASE_CLI} create
-      --name "${new_tag}"
-      --description "${release_description}"
-      --tag-name "${new_tag}"
-      --ref "${CI_COMMIT_SHA}"
-      --assets-link '{"name":"x86_64-linux-musl-binary.zip","url":"https://gitlab.com/DeveloperC/conventional_commits_linter/-/jobs/artifacts/'${current_version}'/download?job=release-binary-compiling-x86_64-linux-musl"}'
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-
-
-crates-io-publishing:
-  stage: crates-io-publishing
-  image: rust
-  script:
-    - cargo publish --token "${GITLAB_CRATES_IO_TOKEN}"
-  rules:
-    - if: $CI_COMMIT_TAG
-
-
-release-binary-compiling-x86_64-linux-musl:
-  stage: release-binary-compiling
-  image: rust:alpine
-  before_script:
-    - apk add --no-cache musl-dev git
-  script:
-    - cargo build --release --target x86_64-unknown-linux-musl
-    - mv target/x86_64-unknown-linux-musl/release/conventional_commits_linter conventional_commits_linter
-    - strip conventional_commits_linter
-  artifacts:
-    paths:
-      - conventional_commits_linter
-  rules:
-    - if: $CI_COMMIT_TAG

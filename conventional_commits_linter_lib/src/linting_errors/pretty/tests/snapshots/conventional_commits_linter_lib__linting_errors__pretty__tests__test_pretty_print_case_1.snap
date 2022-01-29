@@ -1,0 +1,11 @@
+---
+source: conventional_commits_linter_lib/src/linting_errors/pretty/tests/mod.rs
+assertion_line: 29
+expression: pretty_print
+
+---
+[1;31mMessage[0m - "feat()!: yargs-parser now throws on invalid combinations of config\n\n"
+	[1;31mX[0m - Commit title does not comply with the Conventional Commits V1.0.0 specification.
+	[1;31mX[0m - Commit title has a scope which is empty.
+
+

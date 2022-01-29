@@ -1,6 +1,0 @@
----
-source: src/reporter/json/tests/mod.rs
-expression: reporting
-
----
-[{"commit_hash":"0000000000000000000000000000000000000000","commit_message":"feat()!: yargs-parser now throws on invalid combinations of config\n\n","linting_errors":["NonConventionalCommitsSpecification","EmptyScope"]},{"commit_hash":"1000000000000000000000000000000000000000","commit_message":"doc(webpack):webpack example (#1436)","linting_errors":["NonConventionalCommitsSpecification","NoSpaceAfterColonPrecedingTypeAndScope"]}]

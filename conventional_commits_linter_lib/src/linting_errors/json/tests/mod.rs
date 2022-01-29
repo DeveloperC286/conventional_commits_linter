@@ -1,0 +1,69 @@
+use rstest::rstest;
+
+use crate::commits::commit::Commit;
+use crate::commits::Commits;
+use crate::source::Source;
+
+#[rstest(
+    commit_message,
+    snapshot_name,
+    case(
+        "feat()!: yargs-parser now throws on invalid combinations of config\n\n",
+        "test_json_print_case_1"
+    ),
+    case("Release 1.0.126", "test_json_print_case_2"),
+    case(
+        "Merge branch 'fix-ocsp-signer-check' into 'master'",
+        "test_json_print_case_3"
+    )
+)]
+fn test_json_print_from_commit_message(commit_message: &str, snapshot_name: &str) {
+    // Given
+    let commits = crate::commits::Commits::from_commit_message(commit_message);
+    let linting_errors = commits.lint(false).unwrap_err();
+
+    // When
+    let json_print = linting_errors.json().unwrap();
+
+    // Then
+    insta::assert_snapshot!(snapshot_name, json_print);
+}
+
+#[rstest(
+    commit_messages,
+    snapshot_name,
+    case(
+        &["feat()!: yargs-parser now throws on invalid combinations of config\n\n", "doc(webpack):webpack example (#1436)"],
+        "test_json_print_from_git_case_1"
+    ),
+    case(
+        &["refactor(ts support)!: ship yargs.d.ts (#1671)", "feat!: drop support for EOL Node 8 (#1686)"],
+        "test_json_print_from_git_case_2"
+    ),
+)]
+fn test_json_print_from_git(commit_messages: &[&str], snapshot_name: &str) {
+    // Given
+    let commits: Commits = Commits {
+        source: Source::Git,
+        commits: commit_messages
+            .iter()
+            .enumerate()
+            .map(|(index, commit_message)| Commit {
+                hash: Some(
+                    git2::Oid::from_str(&*format!("{}", index))
+                        .unwrap()
+                        .to_string(),
+                ),
+                message: commit_message.to_string(),
+            })
+            .collect(),
+    };
+
+    let linting_errors = commits.lint(false).unwrap_err();
+
+    // When
+    let json_print = linting_errors.json().unwrap();
+
+    //Then
+    insta::assert_snapshot!(snapshot_name, json_print);
+}

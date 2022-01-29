@@ -1,6 +1,0 @@
----
-source: src/reporter/json/tests/mod.rs
-expression: reporting
-
----
-[{"commit_message":"Merge branch 'fix-ocsp-signer-check' into 'master'","linting_errors":["NonConventionalCommitsSpecification"]}]

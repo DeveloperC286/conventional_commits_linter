@@ -1,0 +1,38 @@
+[package]
+name = "conventional_commits_linter_lib"
+version = "0.1.0"
+description = "A tooling and language agnostic library to lint Git commits against the Conventional Commits specification."
+authors = ["C <DeveloperC@protonmail.com>"]
+edition = "2021"
+license = "AGPL-3.0"
+repository = "https://gitlab.com/DeveloperC/conventional_commits_linter"
+readme = "README.md"
+keywords = ["conventional", "commits", "lint", "linting", "git"]
+categories = ["command-line-utilities", "development-tools"]
+
+
+[dependencies]
+# For parsing commit messages.
+regex = "1.5.4"
+lazy_static = "1.4.0"
+
+# For logging.
+log = "0.4.14"
+
+# For reading Git commits.
+git2 = { version = "0.13.25", default-features = false, features=[] }
+
+# For printing output as JSON.
+serde = { version = "1.0.136", features = ["derive"] }
+serde_json = "1.0.79"
+
+# For fancy output.
+ansi_term = "0.12.1"
+
+
+[dev-dependencies]
+# For parameterized testing.
+rstest = "0.12.0"
+
+# For snapshot testing.
+insta = "1.12.0"
