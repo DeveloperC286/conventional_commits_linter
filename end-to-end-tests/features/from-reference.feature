@@ -35,4 +35,4 @@ Feature: A Git reference can be provided as an argument to indicate where to sta
 
     Examples:
       | repository                           | checkout_commit                          | from_reference |
-      | https://gitlab.com/inkscape/inkscape | e73f3c57b093fe47add63c94c230223af3378b87 | v13.0.2        |
+      | https://gitlab.com/Commit451/LabCoat | dcbed0075a41c221b37a3551db51572088fa6e2e | v2.7.4         |
