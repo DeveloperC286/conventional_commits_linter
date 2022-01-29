@@ -1,5 +1,5 @@
 import os
-import tempfile
+import hashlib
 from behave import given
 
 from utilities import execute_command
@@ -8,7 +8,6 @@ from utilities import execute_command
 @given('the context and environment are reset.')
 def reset_context(context):
     context.behave_directory = os.getcwd()
-    context.temporary_directory = tempfile.TemporaryDirectory()
 
     context.pre_command = ""
     context.conventional_commits_linter_path = context.behave_directory + \
@@ -24,18 +23,28 @@ def clone_remote_repository_and_checkout_commit(
         context, remote_repository, commit_hash):
     reset_context(context)
 
-    os.chdir(context.temporary_directory.name)
-    (exit_code, _, _) = execute_command(
-        "git clone " + remote_repository + " .")
+    remote_repository_md5 = hashlib.md5(remote_repository.encode())
+    context.remote_repository_cache = "/tmp/" + remote_repository_md5.hexdigest()
+
+    if not os.path.exists(context.remote_repository_cache):
+        (exit_code, _, _) = execute_command("git clone " +
+                                            remote_repository + " " + context.remote_repository_cache)
+        assert exit_code == 0
+
+    os.chdir(context.remote_repository_cache)
+
+    (exit_code, _, _) = execute_command("git reset --hard origin/HEAD")
     assert exit_code == 0
+
     (exit_code, _, _) = execute_command("git checkout " + commit_hash)
     assert exit_code == 0
+
     os.chdir(context.behave_directory)
 
 
 @given('the directory is changed to the cloned repository.')
 def change_into_git_dir(context):
-    os.chdir(context.temporary_directory.name)
+    os.chdir(context.remote_repository_cache)
 
 
 @given('the directory is changed to the behave directory.')
@@ -45,4 +54,4 @@ def change_into_behave_dir(context):
 
 @given('the GIT_DIR environment variable is set to the cloned repository.')
 def set_git_dir(context):
-    os.environ["GIT_DIR"] = str(context.temporary_directory.name + "/.git")
+    os.environ["GIT_DIR"] = str(context.remote_repository_cache + "/.git")
