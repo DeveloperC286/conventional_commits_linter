@@ -37,6 +37,9 @@ def clone_remote_repository_and_checkout_commit(
     (exit_code, _, _) = execute_command("git reset --hard origin/HEAD")
     assert exit_code == 0
 
+    (exit_code, _, _) = execute_command("git clean -fdx")
+    assert exit_code == 0
+
     (exit_code, _, _) = execute_command("git checkout " + commit_hash)
     assert exit_code == 0
 
