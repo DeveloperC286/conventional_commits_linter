@@ -24,7 +24,7 @@ def then_linting_fails(context):
 
 
 @then('their is a could not find reference "{reference}" error.')
-def then_could_not_find_reference(context, reference):
+def then_could_not_find_reference_error(context, reference):
     # Given
     could_not_find_reference_error = " ERROR conventional_commits_linter::git > Could not find a reference with the name \"" + reference + "\".\n"
 
@@ -36,7 +36,7 @@ def then_could_not_find_reference(context, reference):
 
 
 @then('their is a could not find commit hash "{commit_hash}" error.')
-def then_could_not_find_commit_hash(context, commit_hash):
+def then_could_not_find_commit_hash_error(context, commit_hash):
     # Given
     could_not_find_commit_hash_error = " ERROR conventional_commits_linter::git > Could not find a commit with the commit hash '" + commit_hash + "'.\n"
 
