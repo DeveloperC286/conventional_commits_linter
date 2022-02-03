@@ -3,8 +3,7 @@ Feature: Ensure input on what to lint or where to lint from is provided correctl
 
   Scenario Outline: You must provide either a reference, a commit hash or standard input.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
-    Then the linting fails.
-    And their is a required arguments missing error.
+    Then their is a missing from argument error.
 
 
     Examples:
@@ -16,8 +15,7 @@ Feature: Ensure input on what to lint or where to lint from is provided correctl
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     When the argument --from-reference is provided as "<from_reference>".
     And the argument --from-commit-hash is provided as "<from_commit_hash>".
-    Then the linting fails.
-    And their is a conflicting reference and commit hash input.
+    Then their is a conflicting from arguments error.
 
 
     Examples:
@@ -29,8 +27,7 @@ Feature: Ensure input on what to lint or where to lint from is provided correctl
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     When the argument --from-reference is provided as "<from_reference>".
     And the standard input is "<standard_input>".
-    Then the linting fails.
-    And their is a conflicting reference and standard input input.
+    Then their is a conflicting from arguments error.
 
 
     Examples:
@@ -42,8 +39,7 @@ Feature: Ensure input on what to lint or where to lint from is provided correctl
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     When the argument --from-commit-hash is provided as "<from_commit_hash>".
     And the standard input is "<standard_input>".
-    Then the linting fails.
-    And their is a conflicting commit hash and standard input input.
+    Then their is a conflicting from arguments error.
 
 
     Examples:

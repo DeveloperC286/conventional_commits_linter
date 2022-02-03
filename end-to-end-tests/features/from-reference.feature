@@ -26,8 +26,7 @@ Feature: A Git reference can be provided as an argument to indicate where to sta
   Scenario Outline: When you provide an invalid reference a relevant error message is returned.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     When the argument --from-reference is provided as "<from_reference>".
-    Then the linting fails.
-    And their is a could not find reference "<from_reference>" error.
+    Then their is a could not find reference "<from_reference>" error.
 
 
     Examples:

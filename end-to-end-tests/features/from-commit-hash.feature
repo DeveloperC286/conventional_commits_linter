@@ -26,8 +26,7 @@ Feature: A Git commit hash can be provided as an argument to indicate where to s
   Scenario Outline: When you provide an invalid commit hash a relevant error message is returned.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     When the argument --from-commit-hash is provided as "<from_commit_hash>".
-    Then the linting fails.
-    And their is a could not find commit hash "<from_commit_hash>" error.
+    Then their is a could not find commit hash "<from_commit_hash>" error.
 
 
     Examples:
