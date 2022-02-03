@@ -7,8 +7,7 @@ Feature: With the allow Angular types only flag, non-Angular types are picked up
     And the flag --json is set.
     Then the linting passes.
     When the flag --allow-angular-type-only is set.
-    Then the linting fails.
-    And a non-Angular type violation is detected.
+    Then a non-Angular type violation is detected.
 
 
     Examples:

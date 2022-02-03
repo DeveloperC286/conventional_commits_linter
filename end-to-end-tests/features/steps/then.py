@@ -9,7 +9,10 @@ conflicting_standard_input_input = "error: The argument '--from-stdin' cannot be
 
 @then('the linting passes.')
 def then_linting_passes(context):
+    # When
     execute_conventional_commits_linter(context)
+
+    # Then
     assert context.stdout == ""
     assert context.stderr == ""
     assert int(context.exit_code) == 0
@@ -17,7 +20,10 @@ def then_linting_passes(context):
 
 @then('the linting fails.')
 def then_linting_fails(context):
+    # When
     execute_conventional_commits_linter(context)
+
+    # Then
     assert int(context.exit_code) != 0
 
 

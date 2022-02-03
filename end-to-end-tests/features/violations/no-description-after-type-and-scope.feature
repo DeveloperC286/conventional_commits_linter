@@ -5,8 +5,7 @@ Feature: No descriptions after the type and scope is picked up as a Conventional
     Given the context and environment are reset.
     When the standard input is "<standard_input>".
     And the flag --json is set.
-    Then the linting fails.
-    And a no description after the type and scope violation is detected.
+    Then a no description after the type and scope violation is detected.
 
 
     Examples:

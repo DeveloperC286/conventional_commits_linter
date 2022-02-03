@@ -2,10 +2,15 @@ import json
 from behave import *
 
 from utilities import is_json
+from then import then_linting_fails
 
 
 @then('a preceding whitespace before the type violation is detected.')
 def then_preceding_whitespace_before_type_violation(context):
+    # When/Then
+    then_linting_fails(context)
+
+    # Then
     assert is_json(context.stdout)
     output = json.loads(context.stdout)
     assert len(output) == 1
@@ -17,6 +22,10 @@ def then_preceding_whitespace_before_type_violation(context):
 
 @then('a non-Angular type violation is detected.')
 def then_non_angular_type_violation(context):
+    # When/Then
+    then_linting_fails(context)
+
+    # Then
     assert is_json(context.stdout)
     output = json.loads(context.stdout)
     assert len(output) == 1
@@ -27,6 +36,10 @@ def then_non_angular_type_violation(context):
 
 @then('a empty scope violation is detected.')
 def then_empty_scope_violation(context):
+    # When/Then
+    then_linting_fails(context)
+
+    # Then
     assert is_json(context.stdout)
     output = json.loads(context.stdout)
     assert len(output) == 1
@@ -38,6 +51,10 @@ def then_empty_scope_violation(context):
 
 @then('a no space after the colon preceding the type and scope violation is detected.')
 def then_no_space_after_type_violation(context):
+    # When/Then
+    then_linting_fails(context)
+
+    # Then
     assert is_json(context.stdout)
     output = json.loads(context.stdout)
     assert len(output) == 1
@@ -49,6 +66,10 @@ def then_no_space_after_type_violation(context):
 
 @then('a no description after the type and scope violation is detected.')
 def then_no_description_violation(context):
+    # When/Then
+    then_linting_fails(context)
+
+    # Then
     assert is_json(context.stdout)
     output = json.loads(context.stdout)
     assert len(output) == 1

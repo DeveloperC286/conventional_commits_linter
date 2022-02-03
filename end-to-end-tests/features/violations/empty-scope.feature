@@ -5,8 +5,7 @@ Feature: Empty scopes are picked up as Conventional Commits specification violat
     Given the context and environment are reset.
     When the standard input is "<standard_input>".
     And the flag --json is set.
-    Then the linting fails.
-    And a empty scope violation is detected.
+    Then a empty scope violation is detected.
 
 
     Examples:
