@@ -3,7 +3,7 @@ Feature: With quiet enabled when linting errors are encountered no output is pri
 
   Scenario Outline:
     Given the context and environment are reset.
-    When the standard input is "<standard_input>".
+    When the flag --from-stdin is set and the standard input is "<standard_input>".
     Then the linting fails.
     And standard output is not empty.
     When the flag --quiet is set.

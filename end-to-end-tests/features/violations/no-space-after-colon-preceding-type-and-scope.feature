@@ -3,7 +3,7 @@ Feature: No space after the colon preceding the type and scope is picked up as a
 
   Scenario Outline:
     Given the context and environment are reset.
-    When the standard input is "<standard_input>".
+    When the flag --from-stdin is set and the standard input is "<standard_input>".
     And the flag --json is set.
     Then a no space after the colon preceding the type and scope violation is detected.
 

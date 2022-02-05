@@ -3,7 +3,7 @@ Feature: Preceding whitespace before the type is picked up as a Conventional Com
 
   Scenario Outline:
     Given the context and environment are reset.
-    When the standard input is "<standard_input>".
+    When the flag --from-stdin is set and the standard input is "<standard_input>".
     And the flag --json is set.
     Then a preceding whitespace before the type violation is detected.
 

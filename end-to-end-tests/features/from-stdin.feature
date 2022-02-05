@@ -3,7 +3,7 @@ Feature: Standard input can be read and the input is linted as a Git commit mess
 
   Scenario Outline:
     Given the context and environment are reset.
-    When the standard input is "<standard_input>".
+    When the flag --from-stdin is set and the standard input is "<standard_input>".
     Then the linting passes.
 
 
@@ -16,7 +16,7 @@ Feature: Standard input can be read and the input is linted as a Git commit mess
 
   Scenario Outline:
     Given the context and environment are reset.
-    When the standard input is "<standard_input>".
+    When the flag --from-stdin is set and the standard input is "<standard_input>".
     Then the linting fails.
 
 

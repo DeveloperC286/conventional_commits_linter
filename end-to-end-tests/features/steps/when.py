@@ -11,8 +11,9 @@ def set_from_reference(context, from_reference):
     context.arguments += " --from-reference " + from_reference + " "
 
 
-@when('the standard input is "{standard_input}".')
-def set_allow_angular_type_only(context, standard_input):
+@when(
+    'the flag --from-stdin is set and the standard input is "{standard_input}".')
+def set_from_stdin(context, standard_input):
     context.standard_input = standard_input.strip()
     context.pre_command = "echo " + context.standard_input + " | "
     context.arguments += " --from-stdin "

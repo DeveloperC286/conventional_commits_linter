@@ -3,7 +3,7 @@ Feature: Empty scopes are picked up as Conventional Commits specification violat
 
   Scenario Outline:
     Given the context and environment are reset.
-    When the standard input is "<standard_input>".
+    When the flag --from-stdin is set and the standard input is "<standard_input>".
     And the flag --json is set.
     Then a empty scope violation is detected.
 

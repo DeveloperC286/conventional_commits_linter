@@ -2,7 +2,7 @@ Feature: With JSON enabled when linting errors are encountered they are printed 
 
   Scenario Outline:
     Given the context and environment are reset.
-    When the standard input is "<standard_input>".
+    When the flag --from-stdin is set and the standard input is "<standard_input>".
     Then the linting fails.
     And standard output is not valid JSON.
     When the flag --json is set.

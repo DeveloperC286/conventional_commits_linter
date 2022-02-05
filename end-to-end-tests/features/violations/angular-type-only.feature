@@ -3,7 +3,7 @@ Feature: With the allow Angular types only flag, non-Angular types are picked up
 
   Scenario Outline:
     Given the context and environment are reset.
-    When the standard input is "<standard_input>".
+    When the flag --from-stdin is set and the standard input is "<standard_input>".
     And the flag --json is set.
     Then the linting passes.
     When the flag --allow-angular-type-only is set.

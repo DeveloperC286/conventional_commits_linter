@@ -3,7 +3,7 @@ Feature: No descriptions after the type and scope is picked up as a Conventional
 
   Scenario Outline:
     Given the context and environment are reset.
-    When the standard input is "<standard_input>".
+    When the flag --from-stdin is set and the standard input is "<standard_input>".
     And the flag --json is set.
     Then a no description after the type and scope violation is detected.
 
