@@ -1,4 +1,4 @@
-Feature: Ensure input on what to lint or where to lint from is provided correctly.
+Feature: A from argument is required and one must be provided.
 
 
   Scenario Outline: You must provide either a reference, a commit hash or standard input.
