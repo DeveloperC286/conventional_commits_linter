@@ -53,7 +53,7 @@ conventional-commits-next-version-checking:
     # Get latest tag.
     - latest_tag=$(git tag --sort=-committerdate | head -1)
     # Check current vs expected.
-    - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-reference "${latest_tag}" --from-version "${latest_tag}" --current-version "${current_version}"
+    - /usr/local/cargo/bin/conventional_commits_next_version --calculation-mode "Batch" --from-reference "${latest_tag}" --from-version "${latest_tag}" --current-version "${current_version}"
   rules:
     - if: $CI_MERGE_REQUEST_ID
 
