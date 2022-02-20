@@ -1,5 +1,4 @@
 # Conventional Commits Linter
-[![crates.io](https://img.shields.io/crates/v/conventional_commits_linter)](https://crates.io/crates/conventional_commits_linter)
 [![Pipeline Status](https://gitlab.com/DeveloperC/conventional_commits_linter/badges/master/pipeline.svg)](https://gitlab.com/DeveloperC/conventional_commits_linter/commits/master)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![License](https://img.shields.io/badge/License-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
@@ -9,6 +8,9 @@
 
 
 A tooling and language agnostic utility to lint Git commits against the Conventional Commits specification.
+
+
+Provided are a binary and a library. The binary is a standalone CLI tool that wraps the library. See the respective directories for more information on each.
 
 
 # Conventional Commits Linter Binary
