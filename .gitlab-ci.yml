@@ -1,11 +1,15 @@
 stages:
   - clean-git-history-checking
   - conventional-commits-linting
+  - conventional-commits-next-version-checking
   - formatting
   - linting
   - compiling
   - unit-testing
   - end-to-end-testing
+  - lib-crates-io-publishing
+  - bin-crates-io-publishing
+  - release-binary-compiling
 
 
 variables:
@@ -42,6 +46,40 @@ conventional-commits-linting:
   script:
     # Lint all the commits in the branch.
     - /usr/local/cargo/bin/conventional_commits_linter --from-reference "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}" --allow-angular-type-only
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+
+
+bin-conventional-commits-next-version-checking:
+  stage: conventional-commits-next-version-checking
+  image: rust
+  before_script:
+    - cargo install conventional_commits_next_version
+  script:
+    # Get current version.
+    - current_version=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "${BIN_DIRECTORY}/Cargo.toml" | cut -d '"' -f 2)
+    # Get latest tag.
+    - latest_tag=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
+    - latest_version=$(echo "${latest_tag}" | cut -d '-' -f 2)
+    # Check current vs expected.
+    - /usr/local/cargo/bin/conventional_commits_next_version --calculation-mode "Batch" --from-reference "${latest_tag}" --from-version "${latest_version}" --current-version "${current_version}" --monorepo "${BIN_DIRECTORY}/"
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+
+
+lib-conventional-commits-next-version-checking:
+  stage: conventional-commits-next-version-checking
+  image: rust
+  before_script:
+    - cargo install conventional_commits_next_version
+  script:
+    # Get current version.
+    - current_version=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "${LIB_DIRECTORY}/Cargo.toml" | cut -d '"' -f 2)
+    # Get latest tag.
+    - latest_tag=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
+    - latest_version=$(echo "${latest_tag}" | cut -d '-' -f 2)
+    # Check current vs expected.
+    - /usr/local/cargo/bin/conventional_commits_next_version --calculation-mode "Batch" --from-reference "${latest_tag}" --from-version "${latest_version}" --current-version "${current_version}" --monorepo "${LIB_DIRECTORY}/"
   rules:
     - if: $CI_MERGE_REQUEST_ID
 
@@ -123,3 +161,84 @@ end-to-end-testing:
   rules:
     - if: $CI_MERGE_REQUEST_ID
     - if: $CI_COMMIT_BRANCH == "master"
+
+
+lib-crates-io-publishing:
+  stage: lib-crates-io-publishing
+  image: rust
+  script:
+    # Get current version.
+    - current_version=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "${LIB_DIRECTORY}/Cargo.toml" | cut -d '"' -f 2)
+    # If the tag already exist then exit.
+    - new_tag="${LIB_TAG_PREFIX}${current_version}"
+    - git tag -l | grep -q "^${new_tag}$" && exit 0
+    # Get latest tag.
+    - latest_tag=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
+    # Publish the crate.
+    - cargo publish --manifest-path "${LIB_DIRECTORY}/Cargo.toml" --token "${GITLAB_CRATES_IO_TOKEN}"
+    # Install release description generator.
+    - wget "https://github.com/orhun/git-cliff/releases/download/v${GIT_CLIFF_VERSION}/git-cliff-${GIT_CLIFF_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+    - tar xzvf "git-cliff-${GIT_CLIFF_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+    # Generate the release description.
+    - release_description=$(./git-cliff-${GIT_CLIFF_VERSION}/git-cliff "${latest_tag}.." --tag "${new_tag}" --strip all --include-path "${LIB_DIRECTORY}/*")
+    # Install GitlabCI cli releasing tool.
+    - wget "https://release-cli-downloads.s3.amazonaws.com/latest/${RELEASE_CLI}"
+    - chmod 755 "${RELEASE_CLI}"
+    # Create the new release.
+    - ./${RELEASE_CLI} create
+      --name "${new_tag}"
+      --description "${release_description}"
+      --tag-name "${new_tag}"
+      --ref "${CI_COMMIT_SHA}"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+
+
+bin-crates-io-publishing:
+  stage: bin-crates-io-publishing
+  image: rust
+  script:
+    # Get current version.
+    - current_version=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "${BIN_DIRECTORY}/Cargo.toml" | cut -d '"' -f 2)
+    # If the tag already exist then exit.
+    - new_tag="${BIN_TAG_PREFIX}${current_version}"
+    - git tag -l | grep -q "^${new_tag}$" && exit 0
+    # Get latest tag.
+    - latest_tag=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
+    # Publish the crate.
+    - cargo publish --manifest-path "${BIN_DIRECTORY}/Cargo.toml" --token "${GITLAB_CRATES_IO_TOKEN}"
+    # Install release description generator.
+    - wget "https://github.com/orhun/git-cliff/releases/download/v${GIT_CLIFF_VERSION}/git-cliff-${GIT_CLIFF_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+    - tar xzvf "git-cliff-${GIT_CLIFF_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+    # Generate the release description.
+    - release_description=$(./git-cliff-${GIT_CLIFF_VERSION}/git-cliff "${latest_tag}.." --tag "${new_tag}" --strip all --include-path "${BIN_DIRECTORY}/*")
+    # Install GitlabCI cli releasing tool.
+    - wget "https://release-cli-downloads.s3.amazonaws.com/latest/${RELEASE_CLI}"
+    - chmod 755 "${RELEASE_CLI}"
+    # Create the new release.
+    - ./${RELEASE_CLI} create
+      --name "${new_tag}"
+      --description "${release_description}"
+      --tag-name "${new_tag}"
+      --ref "${CI_COMMIT_SHA}"
+      --assets-link '{"name":"x86_64-linux-musl-binary.zip","url":"https://gitlab.com/DeveloperC/'${BIN_NAME}'/-/jobs/artifacts/'${current_version}'/download?job=release-binary-compiling-x86_64-linux-musl"}'
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+
+
+release-binary-compiling-x86_64-linux-musl:
+  stage: release-binary-compiling
+  image: rust:alpine
+  before_script:
+    - apk add --no-cache musl-dev git
+  script:
+    - cargo build --release --target x86_64-unknown-linux-musl
+    # Delete the directory so we can use the name for the binary.
+    - rm -rf "${BIN_NAME}"
+    - mv "target/x86_64-unknown-linux-musl/release/${BIN_NAME}" "${BIN_NAME}"
+    - strip "${BIN_NAME}"
+  artifacts:
+    paths:
+      - $BIN_NAME
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^bin-.*$/'
