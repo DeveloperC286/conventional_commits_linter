@@ -8,7 +8,7 @@ license = "AGPL-3.0"
 repository = "https://gitlab.com/DeveloperC/conventional_commits_linter"
 readme = "README.md"
 keywords = ["conventional", "commits", "lint", "linting", "git"]
-categories = ["command-line-utilities", "development-tools"]
+categories = ["command-line-utilities", "development-tools", "data-structures", "encoding", "parser-implementations"]
 
 
 [dependencies]
