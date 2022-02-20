@@ -1,3 +1,4 @@
+import re
 from behave import *
 
 from utilities import is_json, execute_conventional_commits_linter
@@ -106,3 +107,37 @@ def then_standard_output_not_valid_json(context):
 @then('standard output is valid JSON.')
 def then_standard_output_valid_json(context):
     assert is_json(context.stdout)
+
+
+@then(
+    'their is a could not find shortened commit hash "{shortened_commit_hash}" error.')
+def then_could_not_find_shortened_commit_hash_error(
+        context, shortened_commit_hash):
+    # Given
+    could_not_find_shortened_commit_hash_error = " ERROR conventional_commits_linter_lib::commits > No commit hashes start with the provided short commit hash \"" + \
+        shortened_commit_hash + "\".\n"
+
+    # When/Then
+    then_linting_fails(context)
+
+    # Then
+    assert context.stderr == could_not_find_shortened_commit_hash_error
+
+
+@then(
+    'their is a ambiguous shortened commit hash "{shortened_commit_hash}" error.')
+def then_ambiguous_shortened_commit_hash_error(context, shortened_commit_hash):
+    # Given
+    ambiguous_shortened_commit_hash_error = re.compile(
+        '^ ERROR conventional_commits_linter_lib::commits > Ambiguous short commit hash, the commit hashes [[](' +
+        shortened_commit_hash +
+        '[a-f0-9]*(, )?)*[]] all start with the provided short commit hash "' +
+        shortened_commit_hash +
+        '".\n$')
+
+    # When/Then
+    then_linting_fails(context)
+
+    # Then
+    assert ambiguous_shortened_commit_hash_error.match(
+        context.stderr) is not None

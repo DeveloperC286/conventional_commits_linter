@@ -5,6 +5,11 @@ from behave import given
 from utilities import execute_command
 
 
+@given('the arguments are reset.')
+def reset_arguments(context):
+    context.arguments = ""
+
+
 @given('the context and environment are reset.')
 def reset_context(context):
     context.behave_directory = os.getcwd()
@@ -13,7 +18,7 @@ def reset_context(context):
     context.pre_command = ""
     context.conventional_commits_linter_path = context.behave_directory + \
         "/../../target/debug/conventional_commits_linter"
-    context.arguments = ""
+    reset_arguments(context)
 
     if "GIT_DIR" in os.environ:
         del os.environ["GIT_DIR"]
