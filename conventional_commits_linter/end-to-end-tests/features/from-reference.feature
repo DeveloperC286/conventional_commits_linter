@@ -12,15 +12,16 @@ Feature: A Git reference can be provided as an argument to indicate where to sta
       | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | v15.4.0        |
 
 
-  Scenario Outline:
+  Scenario Outline: You can also provide the long name and partial names not just the short name.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     When the argument --from-reference is provided as "<from_reference>".
-    Then the linting fails.
+    Then the linting passes.
 
 
     Examples:
-      | repository                                     | checkout_commit                          | from_reference        |
-      | https://gitlab.com/tortoisegit/tortoisegit.git | 42ffd0e0545202421f3dc658e1e359a01891067a | REL_2.12.0.0_EXTERNAL |
+      | repository                         | checkout_commit                          | from_reference |
+      | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | tags/v15.4.0        |
+      | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | refs/tags/v15.4.0        |
 
 
   Scenario Outline: When you provide an invalid reference a relevant error message is returned.
