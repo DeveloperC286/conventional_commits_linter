@@ -169,9 +169,14 @@ fn get_commits_till_head_from_oid(
         commits.push_front(commit);
     }
 
-    debug!("Operating upon {} commits.", commits.len());
-
-    Ok(commits)
+    if commits.is_empty() {
+        let error_message = "No Git commits within the provided range.".to_string();
+        error!("{error_message}");
+        Err(git2::Error::from_str(&error_message))
+    } else {
+        debug!("Operating upon {} commits.", commits.len());
+        Ok(commits)
+    }
 }
 
 fn get_reference_oid(repository: &Repository, matching: &str) -> Result<Oid, git2::Error> {

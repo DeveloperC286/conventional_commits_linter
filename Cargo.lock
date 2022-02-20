@@ -88,7 +88,7 @@ dependencies = [
 
 [[package]]
 name = "conventional_commits_linter"
-version = "0.9.0"
+version = "0.10.0"
 dependencies = [
  "conventional_commits_linter_lib",
  "git2",
@@ -101,7 +101,7 @@ dependencies = [
 
 [[package]]
 name = "conventional_commits_linter_lib"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "ansi_term",
  "git2",

@@ -141,3 +141,15 @@ def then_ambiguous_shortened_commit_hash_error(context, shortened_commit_hash):
     # Then
     assert ambiguous_shortened_commit_hash_error.match(
         context.stderr) is not None
+
+
+@then('their is a no commits error.')
+def then_no_commits_error(context):
+    # Given
+    no_commits_error = " ERROR conventional_commits_linter_lib::commits > No Git commits within the provided range.\n"
+
+    # When/Then
+    then_linting_fails(context)
+
+    # Then
+    assert context.stderr == no_commits_error
