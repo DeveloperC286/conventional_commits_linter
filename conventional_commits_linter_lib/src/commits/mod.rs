@@ -3,9 +3,10 @@ use std::collections::{HashMap, VecDeque};
 use git2::{Oid, Repository, Revwalk};
 
 use crate::commits::commit::Commit;
+use crate::git_history_mode::GitHistoryMode;
+use crate::linting_error::LintingError;
+use crate::linting_errors::LintingErrors;
 use crate::source::Source;
-use crate::LintingError;
-use crate::LintingErrors;
 
 pub mod commit;
 
@@ -47,28 +48,29 @@ impl Commits {
     /// E.g. short name.
     ///
     /// ```
-    /// use conventional_commits_linter_lib::Commits;
+    /// use conventional_commits_linter_lib::{Commits, GitHistoryMode};
     /// use git2::Repository;
     ///
     /// let repository = Repository::open_from_env().unwrap();
-    /// let commits = Commits::from_reference(&repository, "0.9.0").unwrap();
+    /// let commits = Commits::from_reference(&repository, "0.9.0", GitHistoryMode::FirstParent).unwrap();
     /// ```
     ///
     /// E.g. full name.
     ///
     /// ```
-    /// use conventional_commits_linter_lib::Commits;
+    /// use conventional_commits_linter_lib::{Commits, GitHistoryMode};
     /// use git2::Repository;
     ///
     /// let repository = Repository::open_from_env().unwrap();
-    /// let commits = Commits::from_reference(&repository, "refs/tags/0.9.0").unwrap();
+    /// let commits = Commits::from_reference(&repository, "refs/tags/0.9.0", GitHistoryMode::FirstParent).unwrap();
     /// ```
     pub fn from_reference<T: AsRef<str>>(
         repository: &Repository,
         reference: T,
+        git_history_mode: GitHistoryMode,
     ) -> Result<Commits, git2::Error> {
         let reference_oid = get_reference_oid(repository, reference.as_ref())?;
-        let commits = get_commits_till_head_from_oid(repository, reference_oid)?;
+        let commits = get_commits_till_head_from_oid(repository, reference_oid, git_history_mode)?;
         Ok(Commits {
             commits,
             source: Source::Git,
@@ -82,28 +84,29 @@ impl Commits {
     /// E.g. shortened commit hash.
     ///
     /// ```
-    /// use conventional_commits_linter_lib::Commits;
+    /// use conventional_commits_linter_lib::{Commits, GitHistoryMode};
     /// use git2::Repository;
     ///
     /// let repository = Repository::open_from_env().unwrap();
-    /// let commits = Commits::from_commit_hash(&repository, "0d12672").unwrap();
+    /// let commits = Commits::from_commit_hash(&repository, "0d12672", GitHistoryMode::FirstParent).unwrap();
     /// ```
     ///
     /// E.g. full commit hash.
     ///
     /// ```
-    /// use conventional_commits_linter_lib::Commits;
+    /// use conventional_commits_linter_lib::{Commits, GitHistoryMode};
     /// use git2::Repository;
     ///
     /// let repository = Repository::open_from_env().unwrap();
-    /// let commits = Commits::from_commit_hash(&repository, "0d126721af479dfd9ed2a5960c4202a87cfd4932").unwrap();
+    /// let commits = Commits::from_commit_hash(&repository, "0d126721af479dfd9ed2a5960c4202a87cfd4932", GitHistoryMode::FirstParent).unwrap();
     /// ```
     pub fn from_commit_hash<T: AsRef<str>>(
         repository: &Repository,
         commit_hash: T,
+        git_history_mode: GitHistoryMode,
     ) -> Result<Commits, git2::Error> {
         let commit_oid = parse_to_oid(repository, commit_hash.as_ref())?;
-        let commits = get_commits_till_head_from_oid(repository, commit_oid)?;
+        let commits = get_commits_till_head_from_oid(repository, commit_oid, git_history_mode)?;
         Ok(Commits {
             commits,
             source: Source::Git,
@@ -142,12 +145,17 @@ impl Commits {
 fn get_commits_till_head_from_oid(
     repository: &Repository,
     from_commit_hash: Oid,
+    git_history_mode: GitHistoryMode,
 ) -> Result<VecDeque<Commit>, git2::Error> {
     fn get_revwalker(
         repository: &Repository,
         from_commit_hash: Oid,
+        git_history_mode: GitHistoryMode,
     ) -> Result<Revwalk, git2::Error> {
         let mut commits = repository.revwalk()?;
+        if git_history_mode == GitHistoryMode::FirstParent {
+            commits.simplify_first_parent()?;
+        }
         commits.push_head()?;
 
         match commits.hide(from_commit_hash) {
@@ -159,7 +167,7 @@ fn get_commits_till_head_from_oid(
         }
     }
 
-    let revwalker = get_revwalker(repository, from_commit_hash)?;
+    let revwalker = get_revwalker(repository, from_commit_hash, git_history_mode)?;
     let mut commits = VecDeque::new();
 
     for oid in revwalker {

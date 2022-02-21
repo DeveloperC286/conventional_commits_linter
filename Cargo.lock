@@ -88,7 +88,7 @@ dependencies = [
 
 [[package]]
 name = "conventional_commits_linter"
-version = "0.10.0"
+version = "0.11.0"
 dependencies = [
  "conventional_commits_linter_lib",
  "git2",
@@ -101,7 +101,7 @@ dependencies = [
 
 [[package]]
 name = "conventional_commits_linter_lib"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "ansi_term",
  "git2",
@@ -112,6 +112,8 @@ dependencies = [
  "rstest",
  "serde",
  "serde_json",
+ "strum",
+ "strum_macros",
 ]
 
 [[package]]
@@ -247,9 +249,9 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
 name = "libc"
-version = "0.2.118"
+version = "0.2.119"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "06e509672465a0504304aa87f9f176f2b2b716ed8fb105ebe5c02dc6dce96a94"
+checksum = "1bf2e165bb3457c8e098ea76f3e3bc9db55f87aa90d52d0e6be741470916aaa4"
 
 [[package]]
 name = "libgit2-sys"
@@ -431,9 +433,9 @@ checksum = "73b4b750c782965c211b42f022f59af1fbceabdd026623714f104152f1ec149f"
 
 [[package]]
 name = "semver"
-version = "1.0.5"
+version = "1.0.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0486718e92ec9a68fbed73bb5ef687d71103b142595b406835649bebd33f72c7"
+checksum = "a4a3381e03edd24287172047536f20cabde766e2cd3e65e6b00fb3af51c4f38d"
 
 [[package]]
 name = "serde"

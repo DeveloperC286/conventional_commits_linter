@@ -5,6 +5,17 @@ from utilities import is_json
 from then import then_linting_fails
 
 
+@then('their are "{number_of_commits}" commits failing linting.')
+def then_number_of_commits_failing_linting(context, number_of_commits):
+    # When/Then
+    then_linting_fails(context)
+
+    # Then
+    assert is_json(context.stdout)
+    output = json.loads(context.stdout)
+    assert len(output) == int(number_of_commits)
+
+
 @then('a preceding whitespace before the type violation is detected.')
 def then_preceding_whitespace_before_type_violation(context):
     # When/Then

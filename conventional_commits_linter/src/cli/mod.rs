@@ -30,6 +30,13 @@ pub(crate) struct Arguments {
 
     #[structopt(
         long,
+        default_value = "FirstParent",
+        help = "The mode to use when transversing the Git commit history of the Git commit range, to collect the Git commit messages to use in calculating the next semantic version."
+    )]
+    pub(crate) git_history_mode: conventional_commits_linter_lib::GitHistoryMode,
+
+    #[structopt(
+        long,
         help = "Allow the Conventional Commits type to only be (`build`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `style`, `test`, `revert`), otherwise linting for the commit will fail."
     )]
     pub(crate) allow_angular_type_only: bool,

@@ -55,7 +55,7 @@ def then_missing_from_argument_error(context):
                                   "    <--from-stdin|--from-reference <from-reference>|--from-commit-hash <from-commit-hash>>\n" + \
                                   "\n" + \
                                   "USAGE:\n" + \
-                                  "    conventional_commits_linter --output <output> <--from-stdin|--from-reference <from-reference>|--from-commit-hash <from-commit-hash>>\n" + \
+                                  "    conventional_commits_linter --git-history-mode <git-history-mode> --output <output> <--from-stdin|--from-reference <from-reference>|--from-commit-hash <from-commit-hash>>\n" + \
                                   "\n" + \
                                   "For more information try --help\n"
 
@@ -71,7 +71,7 @@ def then_conflicting_from_arguments_error(context):
     # Given
     conflicting_arguments_end = "\n" + \
         "USAGE:\n" + \
-        "    conventional_commits_linter --output <output> <--from-stdin|--from-reference <from-reference>|--from-commit-hash <from-commit-hash>>\n" + \
+        "    conventional_commits_linter --git-history-mode <git-history-mode> --output <output> <--from-stdin|--from-reference <from-reference>|--from-commit-hash <from-commit-hash>>\n" + \
         "\n" + \
         "For more information try --help\n"
 
