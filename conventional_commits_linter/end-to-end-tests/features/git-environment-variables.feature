@@ -4,9 +4,9 @@ Feature: Git environment variables are respected and used instead of using the c
   Scenario Outline:
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     When the argument --from-commit-hash is provided as "<from_commit_hash>".
-	Then the linting passes.
-	Given the GIT_DIR environment variable is set to the cloned repository.
-	Then the linting passes.
+    Then the linting passes.
+    Given the GIT_DIR environment variable is set to the cloned repository.
+    Then the linting passes.
 
 
     Examples:
@@ -18,7 +18,7 @@ Feature: Git environment variables are respected and used instead of using the c
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     When the argument --from-commit-hash is provided as "<from_commit_hash>".
     Then their is a could not find commit hash "<from_commit_hash>" error.
-	Given the GIT_DIR environment variable is set to the cloned repository.
+    Given the GIT_DIR environment variable is set to the cloned repository.
     Then their is a could not find commit hash "<from_commit_hash>" error.
 
 
@@ -31,7 +31,7 @@ Feature: Git environment variables are respected and used instead of using the c
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     When the argument --from-reference is provided as "<from_reference>".
     Then the linting passes.
-	Given the GIT_DIR environment variable is set to the cloned repository.
+    Given the GIT_DIR environment variable is set to the cloned repository.
     Then the linting passes.
 
 
@@ -44,21 +44,21 @@ Feature: Git environment variables are respected and used instead of using the c
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     When the argument --from-reference is provided as "<from_reference>".
     Then the linting passes.
-	Given the GIT_DIR environment variable is set to the cloned repository.
+    Given the GIT_DIR environment variable is set to the cloned repository.
     Then the linting passes.
 
 
     Examples:
-      | repository                         | checkout_commit                          | from_reference |
-      | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | tags/v15.4.0        |
-      | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | refs/tags/v15.4.0        |
+      | repository                         | checkout_commit                          | from_reference    |
+      | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | tags/v15.4.0      |
+      | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | refs/tags/v15.4.0 |
 
 
   Scenario Outline: When you provide an invalid reference a relevant error message is returned.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     When the argument --from-reference is provided as "<from_reference>".
     Then their is a could not find reference "<from_reference>" error.
-	Given the GIT_DIR environment variable is set to the cloned repository.
+    Given the GIT_DIR environment variable is set to the cloned repository.
     Then their is a could not find reference "<from_reference>" error.
 
 

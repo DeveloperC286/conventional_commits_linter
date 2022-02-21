@@ -4,15 +4,15 @@ Feature: A shortened Git commit hash can be provided as an argument to indicate 
   Scenario Outline: A shortened and full Git commit hash can be used interchangeably.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     When the argument --from-commit-hash is provided as "<from_commit_hash>".
-	Then the linting passes.
-	Given the arguments are reset.
-    When the argument --from-commit-hash is provided as "<from_commit_hash>".
-	Then the linting passes.
+    Then the linting passes.
+    Given the arguments are reset.
+    When the argument --from-commit-hash is provided as "<shortened_from_commit_hash>".
+    Then the linting passes.
 
 
     Examples:
       | repository                                    | checkout_commit                          | from_commit_hash                         | shortened_from_commit_hash |
-      | https://github.com/danielduarte/diffparse.git | df6be23b79af66d3684fb27719020e1ce587f4b8 | 4f6bf53139fe66f61bd05893bcc9de6e96400c5c | 4f6bf53 |
+      | https://github.com/danielduarte/diffparse.git | df6be23b79af66d3684fb27719020e1ce587f4b8 | 4f6bf53139fe66f61bd05893bcc9de6e96400c5c | 4f6bf53                    |
 
 
   Scenario Outline: The shortened Git commit hash has no matches, so an error is returned.

@@ -19,9 +19,9 @@ Feature: A Git reference can be provided as an argument to indicate where to sta
 
 
     Examples:
-      | repository                         | checkout_commit                          | from_reference |
-      | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | tags/v15.4.0        |
-      | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | refs/tags/v15.4.0        |
+      | repository                         | checkout_commit                          | from_reference    |
+      | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | tags/v15.4.0      |
+      | https://github.com/yargs/yargs.git | 0f810245494ccf13a35b7786d021b30fc95ecad5 | refs/tags/v15.4.0 |
 
 
   Scenario Outline: When you provide an invalid reference a relevant error message is returned.
