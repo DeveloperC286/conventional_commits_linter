@@ -1,11 +1,9 @@
-use regex::Regex;
-
-use crate::LintingError;
+use super::*;
 
 pub(crate) fn lint(commit_message: &str) -> Result<(), LintingError> {
     lazy_static! {
         static ref PRECEDING_WHITESPACE_REGEX: Regex =
-            Regex::new(&format!("{}+", crate::linter::regex::PRECEDING_WHITESPACE)).unwrap();
+            Regex::new(&format!("{}+", PRECEDING_WHITESPACE)).unwrap();
     }
 
     match PRECEDING_WHITESPACE_REGEX.is_match(commit_message) {

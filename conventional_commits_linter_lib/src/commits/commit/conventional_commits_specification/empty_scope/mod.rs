@@ -1,16 +1,14 @@
-use regex::Regex;
-
-use crate::LintingError;
+use super::*;
 
 pub(crate) fn lint(commit_message: &str) -> Result<(), LintingError> {
     lazy_static! {
         static ref EMPTY_SCOPE_REGEX: Regex = Regex::new(&format!(
             "{}{}{}{}{}:",
-            *crate::linter::regex::OPTIONAL_PRECEDING_WHITESPACE,
-            crate::linter::regex::TYPE,
-            crate::linter::regex::OPTIONAL_EXCLAMATION,
-            crate::linter::regex::EMPTY_SCOPE,
-            crate::linter::regex::OPTIONAL_EXCLAMATION
+            *OPTIONAL_PRECEDING_WHITESPACE,
+            TYPE,
+            OPTIONAL_EXCLAMATION,
+            EMPTY_SCOPE,
+            OPTIONAL_EXCLAMATION
         ))
         .unwrap();
     }

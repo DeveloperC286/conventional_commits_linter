@@ -26,13 +26,15 @@ fn test_non_angular_type_commits_with_no_angular_type_only_assertion() {
                 utilities::is_position_in_binary_string_true(&binary_string, 3),
             );
 
-        //When/Then
         for commit_message in commit_messages {
-            assert_linting_errors_eq!(
-                expected_linting_errors,
-                lint_commit_message(&commit_message, allow_angular_type_only),
-                commit_message
-            );
+            // Given
+            let commit = Commit::from_commit_message(&commit_message);
+
+            // When
+            let linting_errors = commit.lint(allow_angular_type_only);
+
+            // Then
+            assert_linting_errors_eq!(expected_linting_errors, linting_errors, commit_message);
         }
     }
 }
@@ -57,13 +59,15 @@ fn test_angular_type_commits_with_no_angular_type_only_assertion() {
             utilities::is_position_in_binary_string_true(&binary_string, 3),
         );
 
-        //When/Then
         for commit_message in commit_messages {
-            assert_linting_errors_eq!(
-                expected_linting_errors,
-                lint_commit_message(&commit_message, allow_angular_type_only),
-                commit_message
-            );
+            // Given
+            let commit = Commit::from_commit_message(&commit_message);
+
+            // When
+            let linting_errors = commit.lint(allow_angular_type_only);
+
+            // Then
+            assert_linting_errors_eq!(expected_linting_errors, linting_errors, commit_message);
         }
     }
 }
@@ -90,13 +94,15 @@ fn test_non_angular_type_commits_with_angular_type_only_assertion() {
             );
         expected_linting_errors.push(LintingError::NonAngularType);
 
-        //When/Then
         for commit_message in commit_messages {
-            assert_linting_errors_eq!(
-                expected_linting_errors,
-                lint_commit_message(&commit_message, allow_angular_type_only),
-                commit_message
-            );
+            // Given
+            let commit = Commit::from_commit_message(&commit_message);
+
+            // When
+            let linting_errors = commit.lint(allow_angular_type_only);
+
+            // Then
+            assert_linting_errors_eq!(expected_linting_errors, linting_errors, commit_message);
         }
     }
 }
@@ -121,13 +127,15 @@ fn test_angular_type_commits_with_angular_type_only_assertion() {
             utilities::is_position_in_binary_string_true(&binary_string, 3),
         );
 
-        //When/Then
         for commit_message in commit_messages {
-            assert_linting_errors_eq!(
-                expected_linting_errors,
-                lint_commit_message(&commit_message, allow_angular_type_only),
-                commit_message
-            );
+            // Given
+            let commit = Commit::from_commit_message(&commit_message);
+
+            // When
+            let linting_errors = commit.lint(allow_angular_type_only);
+
+            // Then
+            assert_linting_errors_eq!(expected_linting_errors, linting_errors, commit_message);
         }
     }
 }

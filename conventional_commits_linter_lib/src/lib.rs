@@ -9,7 +9,6 @@ extern crate regex;
 
 mod commits;
 mod git_history_mode;
-mod linter;
 mod linting_error;
 mod linting_errors;
 mod source;

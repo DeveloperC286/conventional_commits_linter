@@ -11,10 +11,10 @@ lazy_static! {
         format!("{}*", PRECEDING_WHITESPACE);
     pub(crate) static ref IGNORE_TYPE_AND_SCOPE_LINTING_ERRORS: String = format!(
         "{}{}{}{}{}:",
-        *crate::linter::regex::OPTIONAL_PRECEDING_WHITESPACE,
-        crate::linter::regex::TYPE,
-        crate::linter::regex::OPTIONAL_EXCLAMATION,
-        crate::linter::regex::OPTIONAL_EMPTY_SCOPE_OR_SCOPE,
-        crate::linter::regex::OPTIONAL_EXCLAMATION
+        *OPTIONAL_PRECEDING_WHITESPACE,
+        TYPE,
+        OPTIONAL_EXCLAMATION,
+        OPTIONAL_EMPTY_SCOPE_OR_SCOPE,
+        OPTIONAL_EXCLAMATION
     );
 }

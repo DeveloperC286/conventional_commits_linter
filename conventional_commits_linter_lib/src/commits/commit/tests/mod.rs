@@ -26,7 +26,14 @@ use super::*;
     case("feat: drop support for EOL Node 8 (#1686)")
 )]
 fn test_lint_commits_on_valid(commit_message: &str) {
-    assert!(lint_commit_message(commit_message.to_string(), false,).is_empty());
+    // Given
+    let commit = Commit::from_commit_message(commit_message.to_string());
+
+    // When
+    let linting_errors = commit.lint(false);
+
+    // Then
+    assert!(linting_errors.is_empty());
 }
 
 mod generated_tests;
