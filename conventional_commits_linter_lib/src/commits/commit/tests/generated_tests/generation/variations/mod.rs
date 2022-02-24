@@ -72,3 +72,31 @@ pub(super) fn get_description_variations(
         false => DESCRIPTION_VARIATIONS,
     }
 }
+
+const DESCRIPTION_TERMINATION_VARIATIONS: &[&str] = &["\n\n"];
+const NON_DESCRIPTION_TERMINATION_VARIATIONS: &[&str] = &[""];
+
+pub(super) fn get_description_termination_variations(
+    should_generate_description_termination: bool,
+) -> &'static [&'static str] {
+    match should_generate_description_termination {
+        true => DESCRIPTION_TERMINATION_VARIATIONS,
+        false => NON_DESCRIPTION_TERMINATION_VARIATIONS,
+    }
+}
+
+const BODY_VARIATIONS: &[&str] = &[
+    "Helps license scanning tools like https://github.com/licensee/licensee\r\nto successfully detect that this is an MIT licensed project.",
+    "* Group all type definitions and helpers in using modules\r\n* Move .d.ts to typings directory\r\n* Get rid of types directory",
+    "closes #706\n",
+    "Co-authored-by: Renovate Bot <bot@renovateapp.com>",
+    "Co-authored-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>\r\nCo-authored-by: Benjamin E. Coe <bencoe@google.com>",
+];
+const NON_BODY_VARIATIONS: &[&str] = &["", "\n", "\n\n"];
+
+pub(super) fn get_body_variations(should_generate_body: bool) -> &'static [&'static str] {
+    match should_generate_body {
+        true => BODY_VARIATIONS,
+        false => NON_BODY_VARIATIONS,
+    }
+}
