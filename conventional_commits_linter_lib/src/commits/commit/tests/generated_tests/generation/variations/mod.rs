@@ -16,8 +16,19 @@ pub(super) fn get_preceding_whitespace_variations(
     }
 }
 
-pub(super) const NON_ANGULAR_COMMIT_TYPE_VARIATIONS: &[&str] =
-    &["lint", "Lint", "bug", "Bug", "BUG", "chore", "Chore"];
+pub(super) const NON_ANGULAR_COMMIT_TYPE_VARIATIONS: &[&str] = &[
+    "CICD",
+    "cicd",
+    "feature",
+    "REVERTING",
+    "lint",
+    "Lint",
+    "bug",
+    "Bug",
+    "BUG",
+    "chore",
+    "Chore",
+];
 pub(super) const ANGULAR_COMMIT_TYPE_VARIATIONS: &[&str] = &[
     "REVERT", "revert", "Build", "build", "ci", "CI", "docs", "feat", "FEAT", "fix", "Fix", "perf",
     "refactor", "Refactor", "style", "Style", "test", "TEST",
