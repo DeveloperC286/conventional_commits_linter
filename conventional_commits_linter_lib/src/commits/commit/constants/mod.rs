@@ -2,7 +2,7 @@ pub(crate) const PRECEDING_WHITESPACE: &str = "^([[:space:]])";
 pub(crate) const OPTIONAL_EXCLAMATION: &str = "(!)?";
 pub(crate) const ANGULAR_TYPE: &str = "(revert|build|ci|docs|feat|fix|perf|refactor|style|test)";
 pub(crate) const EMPTY_SCOPE: &str = r"\(([[:space:]])*\)";
-pub(crate) const TYPE: &str = r"([[:alpha:]])*";
+pub(crate) const TYPE: &str = r"([[:alpha:]])+";
 pub(crate) const OPTIONAL_SCOPE: &str = r"(\([[:alpha:]]+\))?";
 pub(crate) const OPTIONAL_EMPTY_SCOPE_OR_SCOPE: &str = r"(\(.*\))?";
 
