@@ -221,7 +221,7 @@ bin-crates-io-publishing:
       --description "${release_description}"
       --tag-name "${new_tag}"
       --ref "${CI_COMMIT_SHA}"
-      --assets-link '{"name":"x86_64-linux-musl-binary.zip","url":"https://gitlab.com/DeveloperC/'${BIN_NAME}'/-/jobs/artifacts/'${current_version}'/download?job=release-binary-compiling-x86_64-linux-musl"}'
+      --assets-link '{"name":"x86_64-linux-musl-binary.zip","url":"https://gitlab.com/DeveloperC/'${BIN_NAME}'/-/jobs/artifacts/'${new_tag}'/download?job=release-binary-compiling-x86_64-linux-musl"}'
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
 
