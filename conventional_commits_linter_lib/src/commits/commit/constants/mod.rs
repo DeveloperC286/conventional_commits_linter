@@ -8,13 +8,9 @@ pub(crate) const OPTIONAL_EMPTY_SCOPE_OR_SCOPE: &str = r"(\(.*\))?";
 
 lazy_static! {
     pub(crate) static ref OPTIONAL_PRECEDING_WHITESPACE: String =
-        format!("{}*", PRECEDING_WHITESPACE);
+        format!("{PRECEDING_WHITESPACE}*");
     pub(crate) static ref IGNORE_TYPE_AND_SCOPE_LINTING_ERRORS: String = format!(
-        "{}{}{}{}{}:",
+        "{}{TYPE}{OPTIONAL_EXCLAMATION}{OPTIONAL_EMPTY_SCOPE_OR_SCOPE}{OPTIONAL_EXCLAMATION}:",
         *OPTIONAL_PRECEDING_WHITESPACE,
-        TYPE,
-        OPTIONAL_EXCLAMATION,
-        OPTIONAL_EMPTY_SCOPE_OR_SCOPE,
-        OPTIONAL_EXCLAMATION
     );
 }

@@ -16,7 +16,7 @@ pub(crate) fn print_all(
         let red = Red.bold();
 
         if let Some(commit_hash) = &commit.hash {
-            pretty_print.push_str(&format!("{} - {}\n", red.paint("Commit Hash"), commit_hash));
+            pretty_print.push_str(&format!("{} - {commit_hash}\n", red.paint("Commit Hash")));
         }
 
         pretty_print.push_str(&format!(
@@ -84,9 +84,8 @@ pub(crate) fn print_all(
         let total_linting_errors: usize = errors.values().map(|x| x.len()).sum();
 
         pretty_print.push_str(&format!(
-            "{} - Found {} separate linting errors across {} commits.",
+            "{} - Found {total_linting_errors} separate linting errors across {} commits.",
             red.paint("X"),
-            total_linting_errors,
             errors.len()
         ));
     }

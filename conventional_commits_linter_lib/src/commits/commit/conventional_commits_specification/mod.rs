@@ -10,8 +10,7 @@ pub(crate) mod preceding_whitespace;
 pub(crate) fn lint(commit_message: &str) -> Result<(), LintingError> {
     lazy_static! {
         static ref CONVENTIONAL_COMMITS_REGEX: Regex = Regex::new(&format!(
-            r"^{}{}{}: [^[[:space:]]]+",
-            TYPE, OPTIONAL_SCOPE, OPTIONAL_EXCLAMATION,
+            r"^{TYPE}{OPTIONAL_SCOPE}{OPTIONAL_EXCLAMATION}: [^[[:space:]]]+"
         ))
         .unwrap();
     }
