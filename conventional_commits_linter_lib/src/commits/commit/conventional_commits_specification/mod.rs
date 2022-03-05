@@ -2,12 +2,12 @@ use regex::Regex;
 
 use super::*;
 
-pub(crate) mod empty_scope;
-pub(crate) mod no_description_after_type_and_scope;
-pub(crate) mod no_space_after_colon_preceding_type_and_scope;
-pub(crate) mod preceding_whitespace;
+pub(super) mod empty_scope;
+pub(super) mod no_description_after_type_and_scope;
+pub(super) mod no_space_after_colon_preceding_type_and_scope;
+pub(super) mod preceding_whitespace;
 
-pub(crate) fn lint(commit_message: &str) -> Result<(), LintingError> {
+pub(super) fn lint(commit_message: &str) -> Result<(), LintingError> {
     lazy_static! {
         static ref CONVENTIONAL_COMMITS_REGEX: Regex = Regex::new(&format!(
             r"^{TYPE}{OPTIONAL_SCOPE}{OPTIONAL_EXCLAMATION}: [^[[:space:]]]+"
