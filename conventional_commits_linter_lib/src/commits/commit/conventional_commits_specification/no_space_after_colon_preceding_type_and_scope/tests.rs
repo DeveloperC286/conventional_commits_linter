@@ -35,7 +35,7 @@ fn test_no_space_after_type_with_preceding_whitespace(commit_message: &str) {
     case("fix!(deps): Update os-locale to avoid security vulnerability (#1270)"),
     case("fix: calling parse multiple times now appropriately maintains state (#\n\n")
 )]
-fn test_not_no_space_after_type(commit_message: &str) {
+fn test_space_after_type(commit_message: &str) {
     assert!(lint(commit_message).is_ok());
 }
 
@@ -44,6 +44,6 @@ fn test_not_no_space_after_type(commit_message: &str) {
     case("GetHandle() -> GetProcess().Handle()\n"),
     case("GetRenderProcessHost() has been removed for OOPI support, should use #include GetMainFrame()->GetProcess()\n")
 )]
-fn test_not_no_space_after_type_on_non_conventional_commit(commit_message: &str) {
+fn test_space_after_type_on_non_conventional_commit(commit_message: &str) {
     assert!(lint(commit_message).is_ok());
 }
