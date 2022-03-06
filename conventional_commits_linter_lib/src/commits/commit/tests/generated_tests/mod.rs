@@ -1,6 +1,8 @@
 use super::*;
 
 mod generation;
+#[macro_use]
+mod macros;
 
 #[test]
 fn test_non_angular_type_commits_with_no_angular_type_only_assertion() {
