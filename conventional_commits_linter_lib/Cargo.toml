@@ -39,4 +39,4 @@ strum_macros = "0.24.0"
 rstest = "0.12.0"
 
 # For snapshot testing.
-insta = "1.12.0"
+insta = "1.13.0"
