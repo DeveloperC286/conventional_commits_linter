@@ -20,6 +20,3 @@ pub(super) fn lint(commit_message: &str) -> Result<(), LintingError> {
         false => Err(LintingError::NonConventionalCommitsSpecification),
     }
 }
-
-#[cfg(test)]
-mod tests;
