@@ -46,6 +46,13 @@ pub(crate) fn print_all(
             ));
         }
 
+        if linting_errors.contains(&LintingError::ExclamationMarkBeforeScope) {
+            pretty_print.push_str(&format!(
+                "\t{} - Commit title has a exclamation mark before the scope.\n",
+                red.paint("X")
+            ));
+        }
+
         if linting_errors.contains(&LintingError::EmptyScope) {
             pretty_print.push_str(&format!(
                 "\t{} - Commit title has a scope which is empty.\n",
@@ -55,16 +62,16 @@ pub(crate) fn print_all(
 
         if linting_errors.contains(&LintingError::NoSpaceAfterColonPrecedingTypeAndScope) {
             pretty_print.push_str(&format!(
-            "\t{} - Commit title has no space after the colon preceding the Conventional Commits type and scope.\n",
-            red.paint("X")
-        ));
+                "\t{} - Commit title has no space after the colon preceding the type and scope.\n",
+                red.paint("X")
+            ));
         }
 
         if linting_errors.contains(&LintingError::NoDescriptionAfterTypeAndScope) {
             pretty_print.push_str(&format!(
-            "\t{} - Commit title has no description after the Conventional Commits type and scope.\n",
-            red.paint("X")
-        ));
+                "\t{} - Commit title has no description after the type and scope.\n",
+                red.paint("X")
+            ));
         }
 
         pretty_print.push('\n');

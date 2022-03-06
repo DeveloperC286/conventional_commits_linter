@@ -69,6 +69,15 @@ impl Commit {
                     }
                 }
 
+                match conventional_commits_specification::exclamation_mark_before_scope::lint(
+                    &self.message,
+                ) {
+                    Ok(()) => {}
+                    Err(linting_error) => {
+                        linting_errors.push(linting_error);
+                    }
+                }
+
                 match conventional_commits_specification::no_space_after_colon_preceding_type_and_scope::lint(&self.message) {
                 Ok(()) => {}
                 Err(linting_error) => {

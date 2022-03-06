@@ -4,6 +4,7 @@ pub(super) const ANGULAR_TYPE: &str = "(revert|build|ci|docs|feat|fix|perf|refac
 pub(super) const EMPTY_SCOPE: &str = r"\(([[:space:]])*\)";
 pub(super) const TYPE: &str = r"([[:alpha:]])+";
 pub(super) const OPTIONAL_SCOPE: &str = r"(\([[:alpha:]]+\))?";
+pub(super) const EMPTY_SCOPE_OR_SCOPE: &str = r"(\(.*\))";
 pub(super) const OPTIONAL_EMPTY_SCOPE_OR_SCOPE: &str = r"(\(.*\))?";
 
 lazy_static! {

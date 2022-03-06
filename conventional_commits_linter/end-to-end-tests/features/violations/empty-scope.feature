@@ -1,11 +1,11 @@
-Feature: Empty scopes are picked up as Conventional Commits specification violation.
+Feature: When the commit title has a scope which is empty, it is picked up as Conventional Commits specification violation.
 
 
   Scenario Outline:
     Given the context and environment are reset.
     When the flag --from-stdin is set and the standard input is "<standard_input>".
     And the argument --output is set as "JSON".
-    Then a empty scope violation is detected.
+    Then has a scope which is empty violation is detected.
 
 
     Examples:
@@ -13,5 +13,5 @@ Feature: Empty scopes are picked up as Conventional Commits specification violat
       | "test(): adding stdin scenario variations"                                              |
       | "doc(   ): webpack example (#1436)"                                                     |
       | "chore(): 14.2.0"                                                                       |
-      | "chore!(): releasing 14.2.0\n"                                                          |
+      | "chore()!: releasing 14.2.0\n"                                                          |
       | "release(   ): 2.1.0 release\n\nCo-authored-by: Renovate Bot <bot@renovateapp.com>\n\n" |

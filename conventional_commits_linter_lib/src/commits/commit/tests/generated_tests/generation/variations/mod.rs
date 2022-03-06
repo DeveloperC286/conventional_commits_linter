@@ -50,6 +50,33 @@ pub(super) fn get_scope_variations(
     }
 }
 
+pub(super) fn get_incorrect_breaking_change_title_variations(
+    linting_errors: &mut Vec<LintingError>,
+    scope_variations: &'static [&'static str],
+    should_generate_incorrect_breaking_change_in_title: bool,
+) -> Vec<String> {
+    let mut new_scope_variations = vec![];
+
+    match should_generate_incorrect_breaking_change_in_title {
+        true => {
+            linting_errors.push(LintingError::ExclamationMarkBeforeScope);
+            for scope in scope_variations {
+                if !scope.is_empty() {
+                    new_scope_variations.push(format!("!{scope}"));
+                }
+            }
+        }
+        false => {
+            for scope in scope_variations {
+                new_scope_variations.push(scope.to_string());
+                new_scope_variations.push(format!("{scope}!"));
+            }
+        }
+    }
+
+    new_scope_variations
+}
+
 pub(super) fn get_after_type_variation(
     linting_errors: &mut Vec<LintingError>,
     should_not_generate_space_after_type: bool,

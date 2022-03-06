@@ -3,6 +3,7 @@ use regex::Regex;
 use super::*;
 
 pub(super) mod empty_scope;
+pub(super) mod exclamation_mark_before_scope;
 pub(super) mod no_description_after_type_and_scope;
 pub(super) mod no_space_after_colon_preceding_type_and_scope;
 pub(super) mod preceding_whitespace;

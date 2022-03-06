@@ -1,11 +1,11 @@
-Feature: Preceding whitespace before the type is picked up as a Conventional Commits specification violation.
+Feature: When the commit title has preceding whitespace characters, it is picked up as a Conventional Commits specification violation.
 
 
   Scenario Outline:
     Given the context and environment are reset.
     When the flag --from-stdin is set and the standard input is "<standard_input>".
     And the argument --output is set as "JSON".
-    Then a preceding whitespace before the type violation is detected.
+    Then has preceding whitespace characters violation is detected.
 
 
     Examples:
