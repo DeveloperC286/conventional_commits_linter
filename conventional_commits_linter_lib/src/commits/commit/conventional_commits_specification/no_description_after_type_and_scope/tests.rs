@@ -52,17 +52,6 @@ fn test_no_description_with_body(commit_message: &str) {
 
 #[rstest(
     commit_message,
-    case("feat: zsh auto completion (#1292) "),
-    case("chore(release): 13.1.0"),
-    case("fix!(deps): Update os-locale to avoid security vulnerability (#1270)"),
-    case("fix: calling parse multiple times now appropriately maintains state (#\n\n")
-)]
-fn test_not_no_description(commit_message: &str) {
-    assert!(lint(commit_message).is_ok());
-}
-
-#[rstest(
-    commit_message,
     case("GetHandle() -> GetProcess().Handle()\n"),
     case("GetRenderProcessHost() has been removed for OOPI support, should use #include GetMainFrame()->GetProcess()\n")
 )]

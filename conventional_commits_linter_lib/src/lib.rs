@@ -1,5 +1,10 @@
 #![doc = include_str!("../README.md")]
 #![deny(missing_docs)]
+// Disabling because of rstest_reuse.
+#![allow(clippy::single_component_path_imports)]
+
+#[cfg(test)]
+use rstest_reuse;
 
 #[macro_use]
 extern crate lazy_static;

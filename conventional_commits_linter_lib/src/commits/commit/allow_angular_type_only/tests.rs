@@ -31,13 +31,3 @@ fn test_non_angular_type_which_matches_start_with_preceding_whitespace(commit_me
 fn test_non_angular_type_with_scope(commit_message: &str) {
     assert_eq!(lint(commit_message), Err(LintingError::NonAngularType));
 }
-
-#[rstest(
-    commit_message,
-    case("feat(completion): positional arguments completion (#2090)"),
-    case("docs: an example using inquirer prompting"),
-    case("build: use v3 of release-please-action\n\n")
-)]
-fn test_angular_type(commit_message: &str) {
-    assert!(lint(commit_message).is_ok());
-}
