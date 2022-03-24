@@ -29,11 +29,6 @@ def set_allow_angular_type_only(context):
     context.arguments += " --allow-angular-type-only "
 
 
-@when('the argument --output is set as "Quiet".')
-def set_quiet(context):
-    context.arguments += " --output \"Quiet\" "
-
-
-@when('the argument --output is set as "JSON".')
-def set_json(context):
-    context.arguments += " --output \"JSON\" "
+@when('the argument --output is set as "{output}".')
+def set_output(context, output):
+    context.arguments += " --output " + output + " "
