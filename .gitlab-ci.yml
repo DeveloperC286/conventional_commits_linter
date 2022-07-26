@@ -132,7 +132,7 @@ compiling:
     - cargo build --verbose --workspace --no-default-features
   rules:
     - if: $CI_MERGE_REQUEST_ID
-    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 
 unit-testing:
@@ -144,7 +144,7 @@ unit-testing:
     - cargo test --verbose --workspace --no-default-features
   rules:
     - if: $CI_MERGE_REQUEST_ID
-    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 
 end-to-end-testing:
@@ -160,7 +160,7 @@ end-to-end-testing:
     - behave
   rules:
     - if: $CI_MERGE_REQUEST_ID
-    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 
 lib-crates-io-publishing:
@@ -191,7 +191,7 @@ lib-crates-io-publishing:
       --tag-name "${new_tag}"
       --ref "${CI_COMMIT_SHA}"
   rules:
-    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 
 bin-crates-io-publishing:
@@ -223,7 +223,7 @@ bin-crates-io-publishing:
       --ref "${CI_COMMIT_SHA}"
       --assets-link '{"name":"x86_64-linux-musl-binary.zip","url":"https://gitlab.com/DeveloperC/'${BIN_NAME}'/-/jobs/artifacts/'${new_tag}'/download?job=release-binary-compiling-x86_64-linux-musl"}'
   rules:
-    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 
 release-binary-compiling-x86_64-linux-musl:
