@@ -59,7 +59,7 @@ bin-conventional-commits-next-version-checking:
     # Get current version.
     - current_version=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "${BIN_DIRECTORY}/Cargo.toml" | cut -d '"' -f 2)
     # Get latest tag.
-    - latest_tag=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
+    - latest_tag=$(git tag --sort=committerdate | grep "${BIN_TAG_REGEX}" | tail -1)
     - latest_version=$(echo "${latest_tag}" | cut -d '-' -f 2)
     # Check current vs expected.
     - /usr/local/cargo/bin/conventional_commits_next_version --calculation-mode "Batch" --from-reference "${latest_tag}" --from-version "${latest_version}" --current-version "${current_version}" --monorepo "${BIN_DIRECTORY}/"
@@ -76,7 +76,7 @@ lib-conventional-commits-next-version-checking:
     # Get current version.
     - current_version=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "${LIB_DIRECTORY}/Cargo.toml" | cut -d '"' -f 2)
     # Get latest tag.
-    - latest_tag=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
+    - latest_tag=$(git tag --sort=committerdate | grep "${LIB_TAG_REGEX}" | tail -1)
     - latest_version=$(echo "${latest_tag}" | cut -d '-' -f 2)
     # Check current vs expected.
     - /usr/local/cargo/bin/conventional_commits_next_version --calculation-mode "Batch" --from-reference "${latest_tag}" --from-version "${latest_version}" --current-version "${current_version}" --monorepo "${LIB_DIRECTORY}/"
@@ -173,7 +173,7 @@ lib-crates-io-publishing:
     - new_tag="${LIB_TAG_PREFIX}${current_version}"
     - git tag -l | grep -q "^${new_tag}$" && exit 0
     # Get latest tag.
-    - latest_tag=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
+    - latest_tag=$(git tag --sort=committerdate | grep "${LIB_TAG_REGEX}" | tail -1)
     # Publish the crate.
     - cargo publish --manifest-path "${LIB_DIRECTORY}/Cargo.toml" --token "${GITLAB_CRATES_IO_TOKEN}"
     # Install release description generator.
@@ -204,7 +204,7 @@ bin-crates-io-publishing:
     - new_tag="${BIN_TAG_PREFIX}${current_version}"
     - git tag -l | grep -q "^${new_tag}$" && exit 0
     # Get latest tag.
-    - latest_tag=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
+    - latest_tag=$(git tag --sort=committerdate | grep "${BIN_TAG_REGEX}" | tail -1)
     # Publish the crate.
     - cargo publish --manifest-path "${BIN_DIRECTORY}/Cargo.toml" --token "${GITLAB_CRATES_IO_TOKEN}"
     # Install release description generator.
