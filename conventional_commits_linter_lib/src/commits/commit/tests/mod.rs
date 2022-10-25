@@ -19,7 +19,8 @@ use super::*;
     case("refactor(ts)!: ship yargs.d.ts (#1671)"),
     case("refactor(ts): ship yargs.d.ts (#1671)"),
     case("feat!: drop support for EOL Node 8 (#1686)"),
-    case("feat: drop support for EOL Node 8 (#1686)")
+    case("feat: drop support for EOL Node 8 (#1686)"),
+    case("build(dev-deps): bump themes dev-deps + anchor-js (#475)")
 )]
 fn angular_type_conventional_commits(commit_message: &str) {}
 
