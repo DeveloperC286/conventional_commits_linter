@@ -27,24 +27,26 @@ fn angular_type_conventional_commits(commit_message: &str) {}
 fn test_angular_type_conventional_commits_and_only_angular_type(commit_message: &str) {
     // Given
     let commit = Commit::from_commit_message(commit_message.to_string());
+    let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
     let linting_errors = commit.lint(true);
 
     // Then
-    assert!(linting_errors.is_empty());
+    assert_eq!(expected_linting_errors, linting_errors);
 }
 
 #[apply(angular_type_conventional_commits)]
 fn test_angular_type_conventional_commits(commit_message: &str) {
     // Given
     let commit = Commit::from_commit_message(commit_message.to_string());
+    let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
     let linting_errors = commit.lint(false);
 
     // Then
-    assert!(linting_errors.is_empty());
+    assert_eq!(expected_linting_errors, linting_errors);
 }
 
 #[template]
@@ -63,24 +65,26 @@ fn non_angular_type_conventional_commits(commit_message: &str) {}
 fn test_non_angular_type_conventional_commits_and_only_angular_type(commit_message: &str) {
     // Given
     let commit = Commit::from_commit_message(commit_message.to_string());
+    let expected_linting_errors = vec![LintingError::NonAngularType];
 
     // When
     let linting_errors = commit.lint(true);
 
     // Then
-    assert_eq!(vec![LintingError::NonAngularType], linting_errors,);
+    assert_eq!(expected_linting_errors, linting_errors);
 }
 
 #[apply(non_angular_type_conventional_commits)]
 fn test_non_angular_type_conventional_commits(commit_message: &str) {
     // Given
     let commit = Commit::from_commit_message(commit_message.to_string());
+    let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
     let linting_errors = commit.lint(false);
 
     // Then
-    assert!(linting_errors.is_empty());
+    assert_eq!(expected_linting_errors, linting_errors);
 }
 
 mod generated_tests;
