@@ -1,6 +1,6 @@
 [package]
 name = "conventional_commits_linter"
-version = "0.12.1"
+version = "0.12.2"
 description = "A tooling and language agnostic utility to lint Git commits against the Conventional Commits specification."
 authors = ["C <DeveloperC@protonmail.com>"]
 edition = "2021"
@@ -27,7 +27,7 @@ strum = "0.24.1"
 strum_macros = "0.24.3"
 
 
-conventional_commits_linter_lib = "0.4.0"
+conventional_commits_linter_lib = "0.4.1"
 
 
 [dev-dependencies]
