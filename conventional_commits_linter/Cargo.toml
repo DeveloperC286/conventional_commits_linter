@@ -16,15 +16,16 @@ categories = ["command-line-utilities", "development-tools", "data-structures", 
 structopt = "0.3.26"
 
 # For logging.
-log = "0.4.16"
+log = "0.4.17"
 pretty_env_logger = "0.4.0"
 
 # For reading Git commits.
-git2 = { version = "0.14.2", default-features = false, features=[] }
+git2 = { version = "0.15.0", default-features = false, features=[] }
 
 # For enum from _str etc for CLI usage.
-strum = "0.24.0"
-strum_macros = "0.24.0"
+strum = "0.24.1"
+strum_macros = "0.24.3"
+
 
 conventional_commits_linter_lib = "0.4.0"
 
