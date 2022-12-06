@@ -50,7 +50,7 @@ fn test_pretty_print_from_git(commit_messages: &[&str], snapshot_name: &str) {
             .enumerate()
             .map(|(index, commit_message)| Commit {
                 hash: Some(
-                    git2::Oid::from_str(&*format!("{index}"))
+                    git2::Oid::from_str(&format!("{index}"))
                         .unwrap()
                         .to_string(),
                 ),
