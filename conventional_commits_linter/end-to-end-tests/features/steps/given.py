@@ -3,6 +3,7 @@ import hashlib
 from behave import given
 
 from utilities import execute_command
+from assertions import assert_successful
 
 
 @given('the arguments are reset.')
@@ -34,18 +35,18 @@ def clone_remote_repository_and_checkout_commit(
     if not os.path.exists(context.remote_repository_cache):
         (exit_code, _, _) = execute_command(
             f"git clone {remote_repository} {context.remote_repository_cache}")
-        assert exit_code == 0
+        assert_successful(exit_code)
 
     os.chdir(context.remote_repository_cache)
 
     (exit_code, _, _) = execute_command("git reset --hard origin/HEAD")
-    assert exit_code == 0
+    assert_successful(exit_code)
 
     (exit_code, _, _) = execute_command("git clean -fdx")
-    assert exit_code == 0
+    assert_successful(exit_code)
 
     (exit_code, _, _) = execute_command(f"git checkout {commit_hash}")
-    assert exit_code == 0
+    assert_successful(exit_code)
 
     os.chdir(context.behave_directory)
 

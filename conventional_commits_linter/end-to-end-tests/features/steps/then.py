@@ -2,6 +2,7 @@ import re
 from behave import *
 
 from utilities import is_json, execute_conventional_commits_linter
+from assertions import *
 
 
 @then('the linting passes.')
@@ -10,9 +11,9 @@ def then_linting_passes(context):
     execute_conventional_commits_linter(context)
 
     # Then
-    assert context.stdout == ""
-    assert context.stderr == ""
-    assert int(context.exit_code) == 0
+    assert_empty(context.stdout)
+    assert_empty(context.stderr)
+    assert_successful(int(context.exit_code))
 
 
 @then('the linting fails.')
@@ -21,7 +22,7 @@ def then_linting_fails(context):
     execute_conventional_commits_linter(context)
 
     # Then
-    assert int(context.exit_code) != 0
+    assert_unsuccessful(int(context.exit_code))
 
 
 @then('their is a could not find reference "{reference}" error.')
@@ -33,7 +34,7 @@ def then_could_not_find_reference_error(context, reference):
     then_linting_fails(context)
 
     # Then
-    assert context.stderr == could_not_find_reference_error
+    assert_error(context.stderr, could_not_find_reference_error)
 
 
 @then('their is a could not find commit hash "{commit_hash}" error.')
@@ -45,7 +46,7 @@ def then_could_not_find_commit_hash_error(context, commit_hash):
     then_linting_fails(context)
 
     # Then
-    assert context.stderr == could_not_find_commit_hash_error
+    assert_error(context.stderr, could_not_find_commit_hash_error)
 
 
 @then('their is a missing from argument error.')
@@ -63,7 +64,7 @@ def then_missing_from_argument_error(context):
     then_linting_fails(context)
 
     # Then
-    assert context.stderr == missing_from_argument_error
+    assert_error(context.stderr, missing_from_argument_error)
 
 
 @then('their is a conflicting from arguments error.')
@@ -83,10 +84,10 @@ def then_conflicting_from_arguments_error(context):
     then_linting_fails(context)
 
     # Then
-    assert context.stderr in [
+    assert_in_errors(context.stderr, [
         conflicting_from_commit_hash_error,
         conflicting_from_reference_error,
-        conflicting_from_stdin_error]
+        conflicting_from_stdin_error])
 
 
 @then('standard output is not empty.')
@@ -96,7 +97,7 @@ def then_standard_output_not_empty(context):
 
 @then('standard output is empty.')
 def then_standard_output_empty(context):
-    assert context.stdout == ""
+    assert_empty(context.stdout)
 
 
 @then('standard output is not valid JSON.')
@@ -120,7 +121,7 @@ def then_could_not_find_shortened_commit_hash_error(
     then_linting_fails(context)
 
     # Then
-    assert context.stderr == could_not_find_shortened_commit_hash_error
+    assert_error(context.stderr, could_not_find_shortened_commit_hash_error)
 
 
 @then(
@@ -134,8 +135,7 @@ def then_ambiguous_shortened_commit_hash_error(context, shortened_commit_hash):
     then_linting_fails(context)
 
     # Then
-    assert ambiguous_shortened_commit_hash_error.match(
-        context.stderr) is not None
+    assert_regex(context.stderr, ambiguous_shortened_commit_hash_error)
 
 
 @then('their is a no commits error.')
@@ -147,4 +147,4 @@ def then_no_commits_error(context):
     then_linting_fails(context)
 
     # Then
-    assert context.stderr == no_commits_error
+    assert_error(context.stderr, no_commits_error)
