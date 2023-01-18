@@ -87,7 +87,7 @@ See [Compiling via Cargo](#compiling-via-cargo) for more details about installin
 
 __Note - This example downloads the latest `0.*` version.__
 
-```
+```yaml
 conventional-commits-linting:
     stage: conventional-commits-linting
     image: rust
@@ -106,7 +106,7 @@ See [Downloading Binary](#downloading-binary) for more details about Binary down
 
 __Note - This example downloads version `0.12.0`.__
 
-```
+```yaml
 conventional-commits-linting:
     stage: conventional-commits-linting
     image: rust
@@ -123,7 +123,7 @@ conventional-commits-linting:
 
 An example `commit-msg` Git hook to check if a Rust projects semantic version needs increased because of the commit message.
 
-```
+```sh
 #!/usr/bin/env bash
 
 set -o errexit
@@ -145,7 +145,7 @@ If you do not trust the provided binaries another option is to compile your own 
 Checkout the code repository locally, change into the repository's directory and then build via cargo.
 Using the `--release` flag produces an optimised binary but takes longer to compile.
 
-```
+```sh
 git clone git@gitlab.com:DeveloperC/conventional_commits_linter.git
 cd conventional_commits_linter/
 cargo build --release
@@ -158,7 +158,7 @@ The compiled binary is present in `target/release/conventional_commits_linter`.
 Cargo is the Rust package manager, using the `install` sub-command it pulls the Conventional Commits Linter from `crates.io` and then compiles the binary locally.
 `cargo install` places the produced binary at `${HOME}/.cargo/bin/conventional_commits_linter`.
 
-```
+```sh
 cargo install conventional_commits_linter
 ```
 
@@ -168,7 +168,7 @@ For certain environments such as CICD etc you may want to pin the version.
 
 e.g.
 
-```
+```sh
 cargo install conventional_commits_linter --version 0.12.0
 ```
 
@@ -176,7 +176,7 @@ Rather than pinning to a specific version you can specify the major or minor ver
 
 e.g.
 
-```
+```sh
 cargo install conventional_commits_linter --version ^0
 ```
 
@@ -186,7 +186,7 @@ Will download the latest `0.*` release whether that is `0.12.0` or `0.23.0`.
 ## Unit Testing
 The unit test suite has a number parameterised tests testing the Conventional Commits v1.0.0 linting, cargo can be used to setup and run all the unit tests.
 
-```
+```sh
 cargo test
 ```
 
@@ -202,7 +202,7 @@ To run the test suite you need to
 
 __Note - You can't use --release as the test suite uses `target/debug/conventional_commits_linter`.__
 
-```
+```sh
 cargo build
 cd conventional_commits_linter/end-to-end-tests/
 virtualenv -p python3 .venv
