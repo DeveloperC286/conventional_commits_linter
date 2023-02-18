@@ -20,7 +20,10 @@ use super::*;
     case("refactor(ts): ship yargs.d.ts (#1671)"),
     case("feat!: drop support for EOL Node 8 (#1686)"),
     case("feat: drop support for EOL Node 8 (#1686)"),
-    case("build(dev-deps): bump themes dev-deps + anchor-js (#475)")
+    case("test(guest-agent): Add unit tests for spawn"),
+    case("fix(guest-agent): Don't wait on failed spawns"),
+    case("style(guest-agent): Fix typo"),
+    case("feat(guest-agent): Run commands as the primary user")
 )]
 fn angular_type_conventional_commits(commit_message: &str) {}
 
