@@ -2,8 +2,10 @@ macro_rules! assert_linting_errors_eq {
     ($expected_linting_errors:expr, $actual_linting_errors:expr, $commit_message:expr) => {
         let mut sorted_expected_linting_errors = $expected_linting_errors.clone();
         sorted_expected_linting_errors.sort();
+        sorted_expected_linting_errors.dedup();
         let mut sorted_actual_linting_errors = $actual_linting_errors.clone();
         sorted_actual_linting_errors.sort();
+        sorted_actual_linting_errors.dedup();
 
         assert_eq!(
             sorted_expected_linting_errors, sorted_actual_linting_errors,
