@@ -31,24 +31,40 @@ pub(super) const ANGULAR_COMMIT_TYPE_VARIATIONS: &[&str] = &[
 
 const NO_SCOPE_VARIATIONS: &[&str] = &["", "!"];
 const EMPTY_SCOPE_VARIATIONS: &[&str] = &["()", "()!", "(  )", "(  )!"];
+const EXCLAMATION_MARK_BEFORE_EMPTY_SCOPE_VARIATIONS: &[&str] = &["!()", "!(  )"];
 const VALID_SCOPE_VARIATIONS: &[&str] = &["(parser)", "(parser)!"];
+const EXCLAMATION_MARK_BEFORE_VALID_SCOPE_VARIATIONS: &[&str] = &["!(parser)"];
 const INVALID_SCOPE_VARIATIONS: &[&str] = &["(i18n)", "(i18n)!", "(strict mode)", "(strict mode)!"];
-// TODO - Add empty scope variations and split into valid/invalid etc.
-const EXCLAMATION_MARK_BEFORE_SCOPE_VARIATIONS: &[&str] =
-    &["!(i18n)", "!(parser)", "!(strict mode)"];
+const EXCLAMATION_MARK_BEFORE_INVALID_SCOPE_VARIATIONS: &[&str] = &["!(i18n)", "!(strict mode)"];
 
 pub(super) const SCOPE_VARIATIONS: &[(&[LintingError], &[&str])] = &[
     (&[], NO_SCOPE_VARIATIONS),
     (&[LintingError::EmptyScope], EMPTY_SCOPE_VARIATIONS),
+    (
+        &[
+            LintingError::ExclamationMarkBeforeScope,
+            LintingError::EmptyScope,
+            LintingError::NonConventionalCommitsSpecification,
+        ],
+        EXCLAMATION_MARK_BEFORE_EMPTY_SCOPE_VARIATIONS,
+    ),
     (&[], VALID_SCOPE_VARIATIONS),
+    (
+        &[LintingError::ExclamationMarkBeforeScope],
+        EXCLAMATION_MARK_BEFORE_VALID_SCOPE_VARIATIONS,
+    ),
     // TODO - Specfic non-noun error rather than a generic error.
     (
         &[LintingError::NonConventionalCommitsSpecification],
         INVALID_SCOPE_VARIATIONS,
     ),
+    // TODO - Specfic non-noun error rather than a generic error.
     (
-        &[LintingError::ExclamationMarkBeforeScope],
-        EXCLAMATION_MARK_BEFORE_SCOPE_VARIATIONS,
+        &[
+            LintingError::ExclamationMarkBeforeScope,
+            LintingError::NonConventionalCommitsSpecification,
+        ],
+        EXCLAMATION_MARK_BEFORE_INVALID_SCOPE_VARIATIONS,
     ),
 ];
 
