@@ -42,7 +42,11 @@ fn test_angular_type_conventional_commits_and_only_angular_type(commit_message: 
     let linting_errors = commit.lint(true);
 
     // Then
-    assert_eq!(expected_linting_errors, linting_errors);
+    assert_eq!(
+        expected_linting_errors, linting_errors,
+        "\n\nFailed the assertion upon the commit message:\n{:?}\n\n",
+        commit_message
+    );
 }
 
 #[apply(angular_type_conventional_commits)]
@@ -55,7 +59,11 @@ fn test_angular_type_conventional_commits(commit_message: &str) {
     let linting_errors = commit.lint(false);
 
     // Then
-    assert_eq!(expected_linting_errors, linting_errors);
+    assert_eq!(
+        expected_linting_errors, linting_errors,
+        "\n\nFailed the assertion upon the commit message:\n{:?}\n\n",
+        commit_message
+    );
 }
 
 #[template]
@@ -95,7 +103,11 @@ fn test_non_angular_type_conventional_commits_and_only_angular_type(commit_messa
     let linting_errors = commit.lint(true);
 
     // Then
-    assert_eq!(expected_linting_errors, linting_errors);
+    assert_eq!(
+        expected_linting_errors, linting_errors,
+        "\n\nFailed the assertion upon the commit message:\n{:?}\n\n",
+        commit_message
+    );
 }
 
 #[apply(non_angular_type_conventional_commits)]
@@ -108,7 +120,11 @@ fn test_non_angular_type_conventional_commits(commit_message: &str) {
     let linting_errors = commit.lint(false);
 
     // Then
-    assert_eq!(expected_linting_errors, linting_errors);
+    assert_eq!(
+        expected_linting_errors, linting_errors,
+        "\n\nFailed the assertion upon the commit message:\n{:?}\n\n",
+        commit_message
+    );
 }
 
 mod generated_tests;
