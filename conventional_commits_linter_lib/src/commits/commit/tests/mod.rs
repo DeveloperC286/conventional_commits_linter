@@ -56,12 +56,27 @@ fn test_angular_type_conventional_commits(commit_message: &str) {
 #[template]
 #[rstest(
     commit_message,
+    // Normal variatiants.
+    case("chore: 13.1.0"),
+    case("samples: event.keyCode is deprecated, use new `.code` API (#2125)\n\nSome browser don't support `code` so I added a fallback for `keyCode`\r\n\r\nCo-authored-by: Benjamin E. Coe <bencoe@google.com>"),
+    case("multiple: improved completion for choices\n\nfeat(completion): choices will now work for all possible aliases of an option and not just the default long option\r\nfix(completion): fix for completions that contain non-leading hyphens\r\nfix(completion): changed the check for option arguments to match options that begin with '-', instead of '--', to include short options"),
+    case("bump: deps (#81)\n\nSigned-off-by: Carlos Alexandro Becker <caarlos0@gmail.com>"),
+    // TODO case("i18n: Update zh_TW.json (#1976)\n\n"),
+    case("meta: middleware improvements (#1852)\n\nfeat(middleware)!: global middleware now applied when no command is configured.\r\nfeat(middleware): async middleware can now be used before validation. "),
+    case("doc: edit help example to align with actual output (#1271)\n\n"),
+    case("tests: remove osx from CI, until Travis fixes OSX servers\n"),
+    case("perfs: enhance contacts display and search (#2959)\n\n"),
+    // Breaking change variatiants.
     case("chore!: drop Node 6 support (#1461)"),
-    case("doc(webpack): webpack example (#1436)"),
-    case("chore(release): 14.2.0"),
-    case("feature: support array of examples (#1682)"),
-    case("chore(release): 13.1.0"),
-    case("chore: 13.1.0")
+    case("feature!: incrementing API URL version (#1682)"),
+    // Scope variatiants.
+    case("chore(major-release): release 17.7.0 (#2285)"),
+    case("chore(deps): bump anchore/sbom-action from 0.13.3 to 0.13.4 (#637)"),
+    case("deps(security): CVE-2021-3807\n\nUpdate string-width to 4.2.3"),
+    case("doc(webpack): webpack example (#1436)\n\n* doc: weback example\r\n* doc(webpack): ignore dynamic module loading warnings"),
+    // Breaking change and scope variatiants.
+    case("chore(major-release)!: release 17.7.0 (#2285)"),
+    case("deps(security)!: CVE-2021-3807\n\nUpdate string-width to 4.2.3"),
 )]
 fn non_angular_type_conventional_commits(commit_message: &str) {}
 
