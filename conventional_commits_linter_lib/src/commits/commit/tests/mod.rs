@@ -21,6 +21,10 @@ use super::*;
     case("feat(completion): zsh auto completion (#1292) "),
     case("fix(deps): Update os-locale to avoid security vulnerability (#1270)"),
     case("refactor(ts): ship yargs.d.ts (#1671)"),
+    // TODO case("fix(#103): ensure the package is not included in itself  (#104)\n\n* fix(#103): ensure the package is not included in itself when using globs to match files\r\n\r\n* chore: switch strings.Contains to strings.HasSuffix\r\n"),
+    // TODO case("fix(i18n): Japanese translation phrasing (#1619)\n\n"),
+    // TODO case("fix(GO-2023-1621): update from go 1.20.1 to 1.20.2\n\nSigned-off-by: Carlos A Becker <caarlos0@users.noreply.github.com>\n"),
+    // TODO case("fix(win32): Detect files on different drive as outside project (#422)\n\nFixes #418"),
     // Scope variatiants https://gitlab.com/DeveloperC/conventional_commits_linter/-/issues/2.
     case("test(guest-agent): Add unit tests for spawn"),
     case("fix(guest-agent): Don't wait on failed spawns"),
