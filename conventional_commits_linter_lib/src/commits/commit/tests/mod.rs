@@ -7,12 +7,11 @@ use super::*;
 #[rstest(
     commit_message,
     // Normal variatiants.
-    case("test: add additional test for 1459"),
     case("fix: stop-parse was not being respected by commands (#1459)"),
     case("feat: zsh auto completion (#1292) "),
-    case("fix: Update os-locale to avoid security vulnerability (#1270)"),
-    case("fix: calling parse multiple times now appropriately maintains state (#\n\n"),
-    case("feat: drop support for EOL Node 8 (#1686)"),
+    case("fix: improve rpm release config (#64)\n\n* fix: improve rpm release config\r\n\r\nSigned-off-by: Carlos Alexandro Becker <caarlos0@gmail.com>\r\n\r\n* fix: template\r\n\r\nSigned-off-by: Carlos Alexandro Becker <caarlos0@gmail.com>\r\n"),
+    case("feat: added support for \"rules\" debian package file (#49)\n\n* Added support for rules debian package file\r\n\r\n* Fixing typo in CONTRIBUTING.md\r\n\r\n* Runing 'make fmt' on project.\r\n"),
+    case("ci: go mod tidy\n\nSigned-off-by: Carlos Alexandro Becker <caarlos0@gmail.com>\n"),
     // Breaking change variatiants.
     case("refactor!: remove package.json-based parserConfiguration (#1460)"),
     case("fix!: calling parse multiple times now appropriately maintains state (#\n\n"),
@@ -21,6 +20,8 @@ use super::*;
     case("feat(completion): zsh auto completion (#1292) "),
     case("fix(deps): Update os-locale to avoid security vulnerability (#1270)"),
     case("refactor(ts): ship yargs.d.ts (#1671)"),
+    case("docs(readme): add Greenkeeper badge (#7)\n\nhttps://greenkeeper.io/"),
+    case("feat(istanbul-reports): Enable keyboard shortcuts on HTML report file listing view (#265)\n\n* Keyboard shortcuts for low coverage in file listing view\r\n\r\n* Fix linting issues\r\n"),
     // TODO case("fix(#103): ensure the package is not included in itself  (#104)\n\n* fix(#103): ensure the package is not included in itself when using globs to match files\r\n\r\n* chore: switch strings.Contains to strings.HasSuffix\r\n"),
     // TODO case("fix(i18n): Japanese translation phrasing (#1619)\n\n"),
     // TODO case("fix(GO-2023-1621): update from go 1.20.1 to 1.20.2\n\nSigned-off-by: Carlos A Becker <caarlos0@users.noreply.github.com>\n"),
