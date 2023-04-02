@@ -6,24 +6,29 @@ use super::*;
 #[template]
 #[rstest(
     commit_message,
-    case("feat(deps)!: yargs-parser now throws on invalid combinations of config (\n\n"),
+    // Normal variatiants.
     case("test: add additional test for 1459"),
     case("fix: stop-parse was not being respected by commands (#1459)"),
-    case("refactor!: remove package.json-based parserConfiguration (#1460)"),
     case("feat: zsh auto completion (#1292) "),
-    case("feat(completion): zsh auto completion (#1292) "),
     case("fix: Update os-locale to avoid security vulnerability (#1270)"),
-    case("fix(deps): Update os-locale to avoid security vulnerability (#1270)"),
-    case("fix!: calling parse multiple times now appropriately maintains state (#\n\n"),
     case("fix: calling parse multiple times now appropriately maintains state (#\n\n"),
-    case("refactor(ts)!: ship yargs.d.ts (#1671)"),
-    case("refactor(ts): ship yargs.d.ts (#1671)"),
-    case("feat!: drop support for EOL Node 8 (#1686)"),
     case("feat: drop support for EOL Node 8 (#1686)"),
+    // Breaking change variatiants.
+    case("refactor!: remove package.json-based parserConfiguration (#1460)"),
+    case("fix!: calling parse multiple times now appropriately maintains state (#\n\n"),
+    case("feat!: drop support for EOL Node 8 (#1686)"),
+    // Scope variatiants.
+    case("feat(completion): zsh auto completion (#1292) "),
+    case("fix(deps): Update os-locale to avoid security vulnerability (#1270)"),
+    case("refactor(ts): ship yargs.d.ts (#1671)"),
+    // Scope variatiants https://gitlab.com/DeveloperC/conventional_commits_linter/-/issues/2.
     case("test(guest-agent): Add unit tests for spawn"),
     case("fix(guest-agent): Don't wait on failed spawns"),
     case("style(guest-agent): Fix typo"),
-    case("feat(guest-agent): Run commands as the primary user")
+    case("feat(guest-agent): Run commands as the primary user"),
+    // Breaking change and scope variatiants.
+    case("feat(deps)!: yargs-parser now throws on invalid combinations of config (\n\n"),
+    case("refactor(ts)!: ship yargs.d.ts (#1671)"),
 )]
 fn angular_type_conventional_commits(commit_message: &str) {}
 
