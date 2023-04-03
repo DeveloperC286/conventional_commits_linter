@@ -214,7 +214,6 @@ fn parse_to_oid(repository: &Repository, oid: &str) -> Result<Oid, git2::Error> 
             revwalker.push_head()?;
 
             let matched_commit_hashes: Vec<Oid> = revwalker
-                .into_iter()
                 .filter_map(|result| match result {
                     Ok(oid) => {
                         let oid_lowercase = oid.to_string().to_lowercase();
