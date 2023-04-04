@@ -13,18 +13,18 @@ categories = ["text-processing", "development-tools", "data-structures", "encodi
 
 [dependencies]
 # For parsing commit messages.
-regex = "1.6.0"
+regex = "1.7.3"
 lazy_static = "1.4.0"
 
 # For logging.
 log = "0.4.17"
 
 # For reading Git commits.
-git2 = { version = "0.15.0", default-features = false, features=[] }
+git2 = { version = "0.17.0", default-features = false, features=[] }
 
 # For printing output as JSON.
-serde = { version = "1.0.147", features = ["derive"] }
-serde_json = "1.0.87"
+serde = { version = "1.0.159", features = ["derive"] }
+serde_json = "1.0.95"
 
 # For fancy output.
 ansi_term = "0.12.1"
@@ -36,8 +36,8 @@ strum_macros = "0.24.3"
 
 [dev-dependencies]
 # For parameterized testing.
-rstest = "0.15.0"
-rstest_reuse = "0.4.0"
+rstest = "0.17.0"
+rstest_reuse = "0.5.0"
 
 # For snapshot testing.
-insta = "1.21.0"
+insta = "1.29.0"
