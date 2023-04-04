@@ -52,13 +52,7 @@ def then_could_not_find_commit_hash_error(context, commit_hash):
 @then('their is a missing from argument error.')
 def then_missing_from_argument_error(context):
     # Given
-    missing_from_argument_error = "error: The following required arguments were not provided:\n" + \
-                                  "    <--from-stdin|--from-reference <from-reference>|--from-commit-hash <from-commit-hash>>\n" + \
-                                  "\n" + \
-                                  "USAGE:\n" + \
-                                  "    conventional_commits_linter --git-history-mode <git-history-mode> --output <output> <--from-stdin|--from-reference <from-reference>|--from-commit-hash <from-commit-hash>>\n" + \
-                                  "\n" + \
-                                  "For more information try --help\n"
+    missing_from_argument_error = "error: the following required arguments were not provided:\n  <--from-stdin|--from-reference <FROM_REFERENCE>|--from-commit-hash <FROM_COMMIT_HASH>>\n\nUsage: conventional_commits_linter <--from-stdin|--from-reference <FROM_REFERENCE>|--from-commit-hash <FROM_COMMIT_HASH>>\n\nFor more information, try '--help'.\n"
 
     # When/Then
     then_linting_fails(context)
@@ -70,24 +64,18 @@ def then_missing_from_argument_error(context):
 @then('their is a conflicting from arguments error.')
 def then_conflicting_from_arguments_error(context):
     # Given
-    conflicting_arguments_end = "\n" + \
-        "USAGE:\n" + \
-        "    conventional_commits_linter --git-history-mode <git-history-mode> --output <output> <--from-stdin|--from-reference <from-reference>|--from-commit-hash <from-commit-hash>>\n" + \
-        "\n" + \
-        "For more information try --help\n"
-
-    conflicting_from_commit_hash_error = f"error: The argument '--from-commit-hash <from-commit-hash>' cannot be used with one or more of the other specified arguments\n{conflicting_arguments_end}"
-    conflicting_from_reference_error = f"error: The argument '--from-reference <from-reference>' cannot be used with one or more of the other specified arguments\n{conflicting_arguments_end}"
-    conflicting_from_stdin_error = f"error: The argument '--from-stdin' cannot be used with one or more of the other specified arguments\n{conflicting_arguments_end}"
+    conflicting_from_commit_hash_and_from_stdin_error = "error: the argument '--from-commit-hash <FROM_COMMIT_HASH>' cannot be used with '--from-stdin'\n\nUsage: conventional_commits_linter <--from-stdin|--from-reference <FROM_REFERENCE>|--from-commit-hash <FROM_COMMIT_HASH>>\n\nFor more information, try '--help'.\n"
+    conflicting_from_reference_and_from_commit_hash_error = "error: the argument '--from-reference <FROM_REFERENCE>' cannot be used with '--from-commit-hash <FROM_COMMIT_HASH>'\n\nUsage: conventional_commits_linter <--from-stdin|--from-reference <FROM_REFERENCE>|--from-commit-hash <FROM_COMMIT_HASH>>\n\nFor more information, try '--help'.\n"
+    conflicting_from_reference_and_from_stdin_error = "error: the argument '--from-reference <FROM_REFERENCE>' cannot be used with '--from-stdin'\n\nUsage: conventional_commits_linter <--from-stdin|--from-reference <FROM_REFERENCE>|--from-commit-hash <FROM_COMMIT_HASH>>\n\nFor more information, try '--help'.\n"
 
     # When/Then
     then_linting_fails(context)
 
     # Then
-    assert_in_errors(context.stderr, [
-        conflicting_from_commit_hash_error,
-        conflicting_from_reference_error,
-        conflicting_from_stdin_error])
+    assert_in_errors(context.stderr,
+                     [conflicting_from_commit_hash_and_from_stdin_error,
+                      conflicting_from_reference_and_from_commit_hash_error,
+                      conflicting_from_reference_and_from_stdin_error])
 
 
 @then('standard output is not empty.')

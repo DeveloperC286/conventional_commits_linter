@@ -4,9 +4,9 @@ extern crate pretty_env_logger;
 
 use std::io::{stdin, Read};
 
+use clap::Parser;
 use conventional_commits_linter_lib::Commits;
 use git2::Repository;
-use structopt::StructOpt;
 
 use crate::cli::Arguments;
 use crate::output::Output;
@@ -19,7 +19,7 @@ const ERROR_EXIT_CODE: i32 = 1;
 fn main() {
     pretty_env_logger::init();
     trace!("Version {}.", env!("CARGO_PKG_VERSION"));
-    let arguments = Arguments::from_args();
+    let arguments = Arguments::parse();
     trace!("The command line arguments provided are {arguments:?}.");
 
     if run(arguments).is_err() {

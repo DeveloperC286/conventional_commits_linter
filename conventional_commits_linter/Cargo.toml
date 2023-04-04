@@ -13,7 +13,7 @@ categories = ["command-line-utilities", "development-tools", "data-structures", 
 
 [dependencies]
 # For CLI parsing.
-structopt = "0.3.26"
+clap = { version = "4.2.1", features = ["derive"] }
 
 # For logging.
 log = "0.4.17"
