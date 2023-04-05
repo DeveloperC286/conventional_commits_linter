@@ -4,7 +4,7 @@ pub(super) const OPTIONAL_EXCLAMATION: &str = "(!)?";
 pub(super) const ANGULAR_TYPE: &str = "(revert|build|ci|docs|feat|fix|perf|refactor|style|test)";
 pub(super) const EMPTY_SCOPE: &str = r"\(([[:space:]])*\)";
 pub(super) const TYPE: &str = r"([[:alpha:]])+";
-pub(super) const OPTIONAL_SCOPE: &str = r"(\([[:alpha:]]+(-)?[[:alpha:]]+\))?";
+pub(super) const OPTIONAL_SCOPE: &str = r"(\([[:alpha:]]+(-[[:alpha:]]+)*\))?";
 pub(super) const EMPTY_SCOPE_OR_SCOPE: &str = r"(\(.*\))";
 pub(super) const OPTIONAL_EMPTY_SCOPE_OR_SCOPE: &str = r"(\(.*\))?";
 

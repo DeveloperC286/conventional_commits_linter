@@ -25,6 +25,7 @@ use super::*;
     // TODO case("fix(#103): ensure the package is not included in itself  (#104)\n\n* fix(#103): ensure the package is not included in itself when using globs to match files\r\n\r\n* chore: switch strings.Contains to strings.HasSuffix\r\n"),
     // TODO case("fix(i18n): Japanese translation phrasing (#1619)\n\n"),
     // TODO case("fix(GO-2023-1621): update from go 1.20.1 to 1.20.2\n\nSigned-off-by: Carlos A Becker <caarlos0@users.noreply.github.com>\n"),
+    case("fix(ecs-task-scheduler): changing min instances\n\n"),
     // TODO case("fix(win32): Detect files on different drive as outside project (#422)\n\nFixes #418"),
     // Scope variatiants https://gitlab.com/DeveloperC/conventional_commits_linter/-/issues/2.
     case("test(guest-agent): Add unit tests for spawn"),
@@ -34,6 +35,8 @@ use super::*;
     // Breaking change and scope variatiants.
     case("feat(deps)!: yargs-parser now throws on invalid combinations of config (\n\n"),
     case("refactor(ts)!: ship yargs.d.ts (#1671)"),
+    case("feat(guest-agent)!: run commands as the primary user"),
+    case("fix(ecs-task-scheduler)!: changing min instances\n\n"),
 )]
 fn angular_type_conventional_commits(commit_message: &str) {}
 
@@ -92,9 +95,11 @@ fn test_angular_type_conventional_commits(commit_message: &str) {
     case("chore(deps): bump anchore/sbom-action from 0.13.3 to 0.13.4 (#637)"),
     case("deps(security): CVE-2021-3807\n\nUpdate string-width to 4.2.3"),
     case("doc(webpack): webpack example (#1436)\n\n* doc: weback example\r\n* doc(webpack): ignore dynamic module loading warnings"),
+    case("deps(cve-dep-bump): CVE-2021-3807\n\nUpdate string-width to 4.2.3"),
     // Breaking change and scope variatiants.
     case("chore(major-release)!: release 17.7.0 (#2285)"),
     case("deps(security)!: CVE-2021-3807\n\nUpdate string-width to 4.2.3"),
+    case("deps(cve-dep-bump)!: CVE-2021-3807\n\nUpdate string-width to 4.2.3"),
 )]
 fn non_angular_type_conventional_commits(commit_message: &str) {}
 

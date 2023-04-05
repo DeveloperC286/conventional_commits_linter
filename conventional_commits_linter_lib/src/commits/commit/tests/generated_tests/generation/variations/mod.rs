@@ -32,7 +32,14 @@ pub(super) const ANGULAR_COMMIT_TYPE_VARIATIONS: &[&str] = &[
 const NO_SCOPE_VARIATIONS: &[&str] = &["", "!"];
 const EMPTY_SCOPE_VARIATIONS: &[&str] = &["()", "()!", "(  )", "(  )!"];
 const EXCLAMATION_MARK_BEFORE_EMPTY_SCOPE_VARIATIONS: &[&str] = &["!()", "!(  )"];
-const VALID_SCOPE_VARIATIONS: &[&str] = &["(parser)", "(parser)!"];
+const VALID_SCOPE_VARIATIONS: &[&str] = &[
+    "(parser)",
+    "(parser)!",
+    "(guest-agent)",
+    "(guest-agent)!",
+    "(ecs-task-scheduler)",
+    "(ecs-task-scheduler)!",
+];
 const EXCLAMATION_MARK_BEFORE_VALID_SCOPE_VARIATIONS: &[&str] = &["!(parser)"];
 const INVALID_SCOPE_VARIATIONS: &[&str] = &["(i18n)", "(i18n)!", "(strict mode)", "(strict mode)!"];
 const EXCLAMATION_MARK_BEFORE_INVALID_SCOPE_VARIATIONS: &[&str] = &["!(i18n)", "!(strict mode)"];
