@@ -1,3 +1,4 @@
+import tempfile
 from behave import *
 
 
@@ -7,6 +8,9 @@ def set_from_stdin(context, standard_input):
     context.standard_input = standard_input.strip()
     context.pre_command = f"echo {context.standard_input} | "
     context.arguments += " --from-stdin "
+    # Testing we use stdin when not in a Git repository.
+    # https://gitlab.com/DeveloperC/conventional_commits_linter/-/issues/3
+    context.remote_repository_cache = tempfile.mkdtemp()
 
 
 @when('the argument --from-reference is provided as "{from_reference}".')
