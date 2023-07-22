@@ -13,7 +13,7 @@ def then_linting_passes(context):
     # Then
     assert_empty(context.stdout)
     assert_empty(context.stderr)
-    assert_successful(int(context.exit_code))
+    assert_successful(context.exit_code)
 
 
 @then('the linting fails.')
@@ -22,7 +22,7 @@ def then_linting_fails(context):
     execute_conventional_commits_linter(context)
 
     # Then
-    assert_unsuccessful(int(context.exit_code))
+    assert_unsuccessful(context.exit_code)
 
 
 @then('their is a could not find reference "{reference}" error.')
