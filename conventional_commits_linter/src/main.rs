@@ -54,21 +54,20 @@ fn run(arguments: Arguments) -> Result<(), git2::Error> {
         }
     }?;
 
-    match commits.lint(arguments.allow_angular_type_only) {
-        Err(linting_results) => {
-            match arguments.output {
-                Output::Quiet => {}
-                Output::Pretty => {
-                    println!("{}", linting_results.pretty());
-                }
-                Output::JSON => {
-                    // TODO handle
-                    println!("{}", linting_results.json().unwrap());
-                }
+    if let Some(linting_results) = commits.lint(arguments.allow_angular_type_only) {
+        match arguments.output {
+            Output::Quiet => {}
+            Output::Pretty => {
+                println!("{}", linting_results.pretty());
             }
-
-            Err(git2::Error::from_str(""))
+            Output::JSON => {
+                // TODO handle
+                println!("{}", linting_results.json().unwrap());
+            }
         }
-        Ok(()) => Ok(()),
+
+        return Err(git2::Error::from_str(""));
     }
+
+    Ok(())
 }

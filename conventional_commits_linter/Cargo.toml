@@ -27,7 +27,7 @@ strum = "0.24.1"
 strum_macros = "0.24.3"
 
 
-conventional_commits_linter_lib = "0.4.2"
+conventional_commits_linter_lib = "0.5.0"
 
 
 [dev-dependencies]
