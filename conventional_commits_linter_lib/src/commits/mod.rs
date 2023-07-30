@@ -123,7 +123,7 @@ impl Commits {
     ///let commits = Commits::from_commit_message("feat: adding stdin support");
     ///let linting_result = commits.lint(true);
     ///```
-    pub fn lint(self, allow_angular_type_only: bool) -> Result<(), LintingErrors> {
+    pub fn lint(self, allow_angular_type_only: bool) -> Option<LintingErrors> {
         let mut errors: HashMap<Commit, Vec<LintingError>> = HashMap::new();
 
         for commit in self.commits.iter().cloned() {
@@ -135,9 +135,9 @@ impl Commits {
         }
 
         if errors.is_empty() {
-            Ok(())
+            None
         } else {
-            Err(LintingErrors::from(self.source, self.commits, errors))
+            Some(LintingErrors::from(self.source, self.commits, errors))
         }
     }
 }

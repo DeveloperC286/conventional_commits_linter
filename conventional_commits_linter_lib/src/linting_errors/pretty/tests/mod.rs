@@ -20,7 +20,7 @@ use crate::source::Source;
 fn test_pretty_print_from_commit_message(commit_message: &str, snapshot_name: &str) {
     // Given
     let commits = crate::commits::Commits::from_commit_message(commit_message);
-    let linting_errors = commits.lint(false).unwrap_err();
+    let linting_errors = commits.lint(false).unwrap();
 
     // When
     let pretty_print = linting_errors.pretty();
@@ -59,7 +59,7 @@ fn test_pretty_print_from_git(commit_messages: &[&str], snapshot_name: &str) {
             .collect(),
     };
 
-    let linting_errors = commits.lint(false).unwrap_err();
+    let linting_errors = commits.lint(false).unwrap();
 
     // When
     let pretty_print = linting_errors.pretty();
