@@ -13,21 +13,17 @@ categories = ["command-line-utilities", "development-tools", "data-structures", 
 
 [dependencies]
 # For CLI parsing.
-clap = { version = "4.2.1", features = ["derive"] }
+clap = { version = "4.3.19", features = ["derive"] }
 
 # For logging.
-log = "0.4.17"
+log = "0.4.19"
 pretty_env_logger = "0.4.0"
 
 # For reading Git commits.
-git2 = { version = "0.17.0", default-features = false, features=[] }
+git2 = { version = "0.17.2", default-features = false, features=[] }
 
 # For enum from _str etc for CLI usage.
-strum = "0.24.1"
-strum_macros = "0.24.3"
-
+strum = "0.25.0"
+strum_macros = "0.25.1"
 
 conventional_commits_linter_lib = "0.5.0"
-
-
-[dev-dependencies]
