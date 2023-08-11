@@ -123,7 +123,7 @@ def then_ambiguous_shortened_commit_hash_error(context, shortened_commit_hash):
     then_linting_fails(context)
 
     # Then
-    assert_regex(context.stderr, ambiguous_shortened_commit_hash_error)
+    assert_error_matches_regex(context, ambiguous_shortened_commit_hash_error)
 
 
 @then('their is a no commits error.')
