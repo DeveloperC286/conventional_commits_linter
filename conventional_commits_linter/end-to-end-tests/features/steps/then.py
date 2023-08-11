@@ -1,7 +1,7 @@
 import re
 from behave import *
 
-from utilities import is_json, execute_conventional_commits_linter
+from utilities import execute_conventional_commits_linter
 from assertions import *
 
 
@@ -90,12 +90,12 @@ def then_standard_output_empty(context):
 
 @then('standard output is not valid JSON.')
 def then_standard_output_not_valid_json(context):
-    assert not is_json(context.stdout)
+    assert_invalid_json(context)
 
 
 @then('standard output is valid JSON.')
 def then_standard_output_valid_json(context):
-    assert is_json(context.stdout)
+    assert_valid_json(context)
 
 
 @then(

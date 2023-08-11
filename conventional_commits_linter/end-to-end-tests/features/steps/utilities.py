@@ -25,11 +25,3 @@ def execute_conventional_commits_linter(context):
 
     if "GIT_DIR" not in os.environ:
         os.chdir(context.behave_directory)
-
-
-def is_json(testing):
-    try:
-        json.loads(testing)
-    except ValueError as _:
-        return False
-    return True
