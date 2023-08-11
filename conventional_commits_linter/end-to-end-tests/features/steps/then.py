@@ -11,8 +11,8 @@ def then_linting_passes(context):
     execute_conventional_commits_linter(context)
 
     # Then
-    assert_empty(context.stdout)
-    assert_empty(context.stderr)
+    assert_no_output(context)
+    assert_no_errors(context)
     assert_successful(context.exit_code)
 
 
@@ -85,7 +85,7 @@ def then_standard_output_not_empty(context):
 
 @then('standard output is empty.')
 def then_standard_output_empty(context):
-    assert_empty(context.stdout)
+    assert_no_output(context)
 
 
 @then('standard output is not valid JSON.')
