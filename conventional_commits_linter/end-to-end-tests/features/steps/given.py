@@ -3,7 +3,7 @@ import hashlib
 from behave import given
 
 from utilities import execute_command
-from assertions import assert_successful
+from assertions import assert_command_successful
 
 
 @given('the arguments are reset.')
@@ -33,20 +33,20 @@ def clone_remote_repository_and_checkout_commit(
     context.remote_repository_cache = f"/tmp/{remote_repository_md5.hexdigest()}"
 
     if not os.path.exists(context.remote_repository_cache):
-        (exit_code, _, _) = execute_command(
+        (context.exit_code, _, _) = execute_command(
             f"git clone {remote_repository} {context.remote_repository_cache}")
-        assert_successful(exit_code)
+        assert_command_successful(context)
 
     os.chdir(context.remote_repository_cache)
 
-    (exit_code, _, _) = execute_command("git reset --hard origin/HEAD")
-    assert_successful(exit_code)
+    (context.exit_code, _, _) = execute_command("git reset --hard origin/HEAD")
+    assert_command_successful(context)
 
-    (exit_code, _, _) = execute_command("git clean -fdx")
-    assert_successful(exit_code)
+    (context.exit_code, _, _) = execute_command("git clean -fdx")
+    assert_command_successful(context)
 
-    (exit_code, _, _) = execute_command(f"git checkout {commit_hash}")
-    assert_successful(exit_code)
+    (context.exit_code, _, _) = execute_command(f"git checkout {commit_hash}")
+    assert_command_successful(context)
 
     os.chdir(context.behave_directory)
 
