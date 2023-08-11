@@ -14,8 +14,8 @@ def assert_no_errors(context):
     assert context.stderr == "", f"Expected standard error to be empty.\nStandard error = {context.stderr.encode()}.\n"
 
 
-def assert_error(output, error):
-    assert output == error, f"Expected the output to equal the error.\nOutput = {output.encode()}.\nError  = {error.encode()}.\n"
+def assert_error_equals(context, error):
+    assert context.stderr == error, f"Expected standard error to equal the error.\nStandard error = {context.stderr.encode()}.\nError          = {error.encode()}.\n"
 
 
 def assert_regex(output, regex):

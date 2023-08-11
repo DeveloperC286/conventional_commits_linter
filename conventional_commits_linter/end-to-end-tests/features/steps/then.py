@@ -34,7 +34,7 @@ def then_could_not_find_reference_error(context, reference):
     then_linting_fails(context)
 
     # Then
-    assert_error(context.stderr, could_not_find_reference_error)
+    assert_error_equals(context, could_not_find_reference_error)
 
 
 @then('their is a could not find commit hash "{commit_hash}" error.')
@@ -46,7 +46,7 @@ def then_could_not_find_commit_hash_error(context, commit_hash):
     then_linting_fails(context)
 
     # Then
-    assert_error(context.stderr, could_not_find_commit_hash_error)
+    assert_error_equals(context, could_not_find_commit_hash_error)
 
 
 @then('their is a missing from argument error.')
@@ -58,7 +58,7 @@ def then_missing_from_argument_error(context):
     then_linting_fails(context)
 
     # Then
-    assert_error(context.stderr, missing_from_argument_error)
+    assert_error_equals(context, missing_from_argument_error)
 
 
 @then('their is a conflicting from arguments error.')
@@ -109,7 +109,7 @@ def then_could_not_find_shortened_commit_hash_error(
     then_linting_fails(context)
 
     # Then
-    assert_error(context.stderr, could_not_find_shortened_commit_hash_error)
+    assert_error_equals(context, could_not_find_shortened_commit_hash_error)
 
 
 @then(
@@ -135,4 +135,4 @@ def then_no_commits_error(context):
     then_linting_fails(context)
 
     # Then
-    assert_error(context.stderr, no_commits_error)
+    assert_error_equals(context, no_commits_error)
