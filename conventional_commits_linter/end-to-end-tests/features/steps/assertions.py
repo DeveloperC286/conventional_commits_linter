@@ -26,8 +26,8 @@ def assert_error_matches_regex(context, regex):
         context.stderr) is not None, f"Expected standard errors to match the regex.\nStandard error = {context.stderr.encode()}.\nRegex          = {regex.pattern.encode()}.\n"
 
 
-def assert_in_errors(output, errors):
-    assert output in errors, f"Expected the output to match an error.\nOutput = {output.encode()}.\nErrors  = {errors}.\n"
+def assert_error_is_one_of(context, errors):
+    assert context.stderr in errors, f"Expected standard error to equal one of these errors.\nStandard error = {context.stderr.encode()}.\nErrors         = {errors}.\n"
 
 
 def assert_invalid_json(context):

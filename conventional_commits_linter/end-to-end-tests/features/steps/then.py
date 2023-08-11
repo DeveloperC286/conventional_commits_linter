@@ -72,10 +72,10 @@ def then_conflicting_from_arguments_error(context):
     then_linting_fails(context)
 
     # Then
-    assert_in_errors(context.stderr,
-                     [conflicting_from_commit_hash_and_from_stdin_error,
-                      conflicting_from_reference_and_from_commit_hash_error,
-                      conflicting_from_reference_and_from_stdin_error])
+    assert_error_is_one_of(context,
+                           [conflicting_from_commit_hash_and_from_stdin_error,
+                            conflicting_from_reference_and_from_commit_hash_error,
+                            conflicting_from_reference_and_from_stdin_error])
 
 
 @then('standard output is not empty.')
