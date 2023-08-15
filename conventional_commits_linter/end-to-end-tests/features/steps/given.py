@@ -30,25 +30,19 @@ def clone_remote_repository_and_checkout_commit(
     reset_context(context)
 
     remote_repository_md5 = hashlib.md5(remote_repository.encode())
-    context.remote_repository_cache = f"/tmp/{remote_repository_md5.hexdigest()}"
+    context.remote_repository_cache = f"/tmp/{remote_repository_md5.hexdigest()}/{commit_hash}"
 
     if not os.path.exists(context.remote_repository_cache):
         result = execute_command(
             f"git clone {remote_repository} {context.remote_repository_cache}")
         assert_command_successful(result)
 
-    os.chdir(context.remote_repository_cache)
+        os.chdir(context.remote_repository_cache)
 
-    result = execute_command("git reset --hard origin/HEAD")
-    assert_command_successful(result)
+        result = execute_command(f"git checkout {commit_hash}")
+        assert_command_successful(result)
 
-    result = execute_command("git clean -fdx")
-    assert_command_successful(result)
-
-    result = execute_command(f"git checkout {commit_hash}")
-    assert_command_successful(result)
-
-    os.chdir(context.behave_directory)
+        os.chdir(context.behave_directory)
 
 
 @given('the GIT_DIR environment variable is set to the cloned repository.')
