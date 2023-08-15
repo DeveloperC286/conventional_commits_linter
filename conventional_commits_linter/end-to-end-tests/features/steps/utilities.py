@@ -12,16 +12,26 @@ def execute_command(command):
         stderr=PIPE)
     process.wait()
 
+    result = type("Result", (), {})
+    result.exit_code = process.returncode
+
     stdout, stderr = process.communicate()
-    return process.returncode, stdout.decode("utf-8"), stderr.decode("utf-8")
+    result.stdout = stdout.decode("utf-8")
+    result.stderr = stderr.decode("utf-8")
+
+    return result
 
 
 def execute_conventional_commits_linter(context):
     if "GIT_DIR" not in os.environ:
         os.chdir(context.remote_repository_cache)
 
-    (context.exit_code, context.stdout, context.stderr) = execute_command(
-        context.pre_command + context.conventional_commits_linter_path + context.arguments)
+    result = execute_command(
+        context.pre_command +
+        context.conventional_commits_linter_path +
+        context.arguments)
 
     if "GIT_DIR" not in os.environ:
         os.chdir(context.behave_directory)
+
+    return result

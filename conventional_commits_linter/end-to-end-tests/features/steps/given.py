@@ -33,20 +33,20 @@ def clone_remote_repository_and_checkout_commit(
     context.remote_repository_cache = f"/tmp/{remote_repository_md5.hexdigest()}"
 
     if not os.path.exists(context.remote_repository_cache):
-        (context.exit_code, _, _) = execute_command(
+        result = execute_command(
             f"git clone {remote_repository} {context.remote_repository_cache}")
-        assert_command_successful(context)
+        assert_command_successful(result)
 
     os.chdir(context.remote_repository_cache)
 
-    (context.exit_code, _, _) = execute_command("git reset --hard origin/HEAD")
-    assert_command_successful(context)
+    result = execute_command("git reset --hard origin/HEAD")
+    assert_command_successful(result)
 
-    (context.exit_code, _, _) = execute_command("git clean -fdx")
-    assert_command_successful(context)
+    result = execute_command("git clean -fdx")
+    assert_command_successful(result)
 
-    (context.exit_code, _, _) = execute_command(f"git checkout {commit_hash}")
-    assert_command_successful(context)
+    result = execute_command(f"git checkout {commit_hash}")
+    assert_command_successful(result)
 
     os.chdir(context.behave_directory)
 
