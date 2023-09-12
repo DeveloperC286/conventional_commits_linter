@@ -45,14 +45,22 @@ def assert_valid_json(result):
         assert False, f"Expected standard output to be valid JSON.\nStandard output = {result.stdout.encode()}.\n"
 
 
-def assert_commits_linting_errors(result, commits_linting_errors):
+def assert_number_of_commits(result, expected_number_of_commits):
     assert_valid_json(result)
     output = json.loads(result.stdout)
 
     number_of_commits = len(output)
-    assert number_of_commits == len(
-        commits_linting_errors), f"The number of commits failing linting are not was expected.\nExpected = {len(commits_linting_errors)}\nActual   = {number_of_commits}\n"
+    assert number_of_commits == int(
+        expected_number_of_commits), f"The number of commits failing linting are not was expected.\nExpected = {expected_number_of_commits}\nActual   = {number_of_commits}\n"
 
+
+def assert_commits_linting_errors(result, commits_linting_errors):
+    assert_valid_json(result)
+    output = json.loads(result.stdout)
+
+    assert_number_of_commits(result, len(commits_linting_errors))
+
+    number_of_commits = len(output)
     for i in range(number_of_commits):
         linting_errors = output[i]['linting_errors']
         expected_linting_errors = commits_linting_errors[i]

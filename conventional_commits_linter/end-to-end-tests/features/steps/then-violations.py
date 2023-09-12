@@ -5,15 +5,14 @@ from then import assert_linting_fails
 from assertions import *
 
 
-@then('their are "{number_of_commits}" commits failing linting.')
-def assert_number_of_commits_failing_linting(context, number_of_commits):
+@then('their are "{expected_number_of_commits}" commits failing linting.')
+def assert_number_of_commits_failing_linting(
+        context, expected_number_of_commits):
     # When/Then
     result = assert_linting_fails(context)
 
     # Then
-    assert_valid_json(result)
-    output = json.loads(result.stdout)
-    assert len(output) == int(number_of_commits)
+    assert_number_of_commits(result, expected_number_of_commits)
 
 
 @then('has preceding whitespace characters violation is detected.')
