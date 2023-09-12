@@ -152,10 +152,12 @@ end-to-end-testing:
   image: rust
   before_script:
     - apt update
-    - apt install python3-minimal python3-pip git -y
+    - apt install python3-minimal python3-pip python3-venv git -y
     - cargo build
     - cd "${END_TO_END_TESTS_DIRECTORY}"
-    - pip3 install -r requirements.txt
+    - python3 -m venv .venv
+    - source .venv/bin/activate
+    - python3 -m pip install -r requirements.txt
   script:
     - behave
   rules:
