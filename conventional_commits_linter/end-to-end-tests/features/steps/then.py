@@ -85,7 +85,7 @@ def assert_standard_output_not_empty(context):
     result = assert_linting_fails(context)
 
     # Then
-    assert result.stdout != ""
+    assert_output(result)
 
 
 @then('standard output is empty.')

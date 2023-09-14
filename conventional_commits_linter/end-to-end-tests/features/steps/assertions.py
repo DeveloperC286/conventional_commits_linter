@@ -9,6 +9,10 @@ def assert_command_unsuccessful(result):
     assert result.exit_code != 0, f"Expected a non-zero exit code to indicate a unsuccessful execution\nExit code = '{result.exit_code}'.\n"
 
 
+def assert_output(result):
+    assert result.stdout != "", f"Expected standard output to not be empty.\n"
+
+
 def assert_no_output(result):
     assert result.stdout == "", f"Expected standard output to be empty.\nStandard output = {result.stdout.encode()}.\n"
 
