@@ -1,5 +1,5 @@
 [workspace]
-
+resolver = "2"
 members = [
     "conventional_commits_linter",
     "conventional_commits_linter_lib",
