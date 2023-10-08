@@ -48,9 +48,7 @@ fn run(arguments: Arguments) -> Result<(), git2::Error> {
             Commits::from_reference(&repository, from_reference, arguments.git_history_mode)
         }
         (_, _, _) => {
-            unreachable!(
-                "Invalid combination of from arguments, should have been caught by structopt."
-            );
+            unreachable!("Invalid combination of arguments.");
         }
     }?;
 
