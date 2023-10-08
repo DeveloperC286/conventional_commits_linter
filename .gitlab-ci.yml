@@ -12,7 +12,13 @@ stages:
   - release-binary-compiling
 
 
+services:
+  - docker:dind
+
+
 variables:
+  DOCKER_HOST: tcp://docker:2375
+  EARTHLY_EXEC_CMD: "/bin/sh"
   SEMANTIC_VERSIONING_REGEX: "[0-9][0-9]*[.][0-9][0-9]*[.][0-9][0-9]*"
   BIN_TAG_PREFIX: "bin-"
   LIB_TAG_PREFIX: "lib-"
@@ -97,15 +103,9 @@ conventional-commits-linter-formatting:
 
 end-to-end-tests-formatting:
   stage: formatting
-  image: python:3-slim
-  before_script:
-    - pip3 install autopep8
+  image: earthly/earthly
   script:
-    - for i in $(find "${END_TO_END_TESTS_DIRECTORY}/features/steps/" -type f | grep -i "[.]py$"); do
-    - cp "$i" "temp.txt"
-    - autopep8 --in-place --aggressive --aggressive "$i"
-    - cmp "$i" "temp.txt" || ( echo "$i needs formatted." && exit 1 )
-    - done
+    - earthly --ci +check-e2e-formatting
   rules:
     - if: $CI_MERGE_REQUEST_ID
 
