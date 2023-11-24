@@ -4,6 +4,7 @@ extern crate pretty_env_logger;
 
 use std::io::{stdin, Read};
 
+use anyhow::{bail, Context, Result};
 use clap::Parser;
 use conventional_commits_linter_lib::Commits;
 use git2::Repository;
@@ -22,12 +23,13 @@ fn main() {
     let arguments = Arguments::parse();
     trace!("The command line arguments provided are {arguments:?}.");
 
-    if run(arguments).is_err() {
+    if let Err(err) = run(arguments) {
+        error!("{:?}", err);
         std::process::exit(ERROR_EXIT_CODE);
     }
 }
 
-fn run(arguments: Arguments) -> Result<(), git2::Error> {
+fn run(arguments: Arguments) -> Result<()> {
     let commits = match (
         arguments.from_stdin,
         arguments.from_commit_hash,
@@ -40,15 +42,17 @@ fn run(arguments: Arguments) -> Result<(), git2::Error> {
             Ok(Commits::from_commit_message(commit_message))
         }
         (false, Some(from_commit_hash), None) => {
-            let repository = Repository::open_from_env()?;
+            let repository = Repository::open_from_env()
+                .context(format!("Unable to open the Git repository."))?;
             Commits::from_commit_hash(&repository, from_commit_hash, arguments.git_history_mode)
         }
         (false, None, Some(from_reference)) => {
-            let repository = Repository::open_from_env()?;
+            let repository = Repository::open_from_env()
+                .context(format!("Unable to open the Git repository."))?;
             Commits::from_reference(&repository, from_reference, arguments.git_history_mode)
         }
         (_, _, _) => {
-            unreachable!("Invalid combination of arguments.");
+            bail!("Invalid combination of from arguments.");
         }
     }?;
 
@@ -59,12 +63,12 @@ fn run(arguments: Arguments) -> Result<(), git2::Error> {
                 println!("{}", linting_results.pretty());
             }
             Output::JSON => {
-                // TODO handle
+                // TODO handle unwrap.
                 println!("{}", linting_results.json().unwrap());
             }
         }
 
-        return Err(git2::Error::from_str(""));
+        bail!("Found linting errors within the commit messages.");
     }
 
     Ok(())

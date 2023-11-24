@@ -26,4 +26,7 @@ git2 = { version = "0.17.2", default-features = false, features=[] }
 strum = "0.25.0"
 strum_macros = "0.25.2"
 
+# For error handling.
+anyhow = "1.0.75"
+
 conventional_commits_linter_lib = "0.5.0"
