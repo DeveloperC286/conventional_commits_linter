@@ -213,4 +213,4 @@ behave
 
 
 ## Issues/Feature Requests
-To report a bug/issue or request a new feature use [https://gitlab.com/DeveloperC/conventional_commits_linter/-/issues](https://gitlab.com/DeveloperC/conventional_commits_linter/-/issues).
+To report a bug/issue or request a new feature use [https://github.com/DeveloperC286/conventional_commits_linter/issues](https://github.com/DeveloperC286/conventional_commits_linter/issues).
