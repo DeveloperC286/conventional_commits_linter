@@ -1,0 +1,17 @@
+name: Mirroring
+
+on: [push, delete]
+
+concurrency:
+  group: ${{ github.workflow }}
+
+jobs:
+  GitLab:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code.
+        run: git clone --mirror "https://github.com/${GITHUB_REPOSITORY}.git" "${GITHUB_WORKSPACE}"
+      - name: Get GitLab repository.
+        run: echo "REPOSITORY_NAME=$(echo "${GITHUB_REPOSITORY}" | sed "s|^${GITHUB_REPOSITORY_OWNER}/||g")" >> "${GITHUB_ENV}"
+      - name: Mirroring.
+        run: git push --mirror "https://oauth2:${{ secrets.GITLAB_PERSONAL_ACCESS_TOKEN }}@gitlab.com/DeveloperC/${REPOSITORY_NAME}"
