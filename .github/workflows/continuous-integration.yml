@@ -1,0 +1,68 @@
+name: Continuous Integration (CI)
+
+on: pull_request
+
+env:
+  # Forcing Earthly to use colours, to make reading output easier.
+  FORCE_COLOR: 1
+
+jobs:
+  formatting:
+    name: Formatting
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        language: [rust, python, shell, yaml]
+    steps:
+      - name: Download Earthly v0.8.12.
+        run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.12/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
+      - name: Checkout code.
+        uses: actions/checkout@v3
+      - name: Check formatting.
+        run: earthly --ci +check-${{ matrix.language }}-formatting
+  linting:
+    name: Linting
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        language: [rust, shell]
+    steps:
+      - name: Download Earthly v0.8.12.
+        run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.12/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
+      - name: Checkout code.
+        uses: actions/checkout@v3
+      - name: Check linting.
+        run: earthly --ci +check-${{ matrix.language }}-linting
+  compile:
+    name: Compile
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Earthly v0.8.12.
+        run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.12/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
+      - name: Checkout code.
+        uses: actions/checkout@v3
+      - name: Compile.
+        run: earthly --ci +compile
+  unit-test:
+    name: Unit Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Earthly v0.8.12.
+        run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.12/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
+      - name: Checkout code.
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - name: Unit test.
+        run: earthly --ci +unit-test
+  end-to-end-test:
+    name: End to End Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Earthly v0.8.12.
+        run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.12/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
+      - name: Checkout code.
+        uses: actions/checkout@v3
+      - name: End to End test.
+        run: earthly --ci +end-to-end-test
