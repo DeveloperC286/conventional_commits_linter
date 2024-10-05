@@ -17,7 +17,7 @@ jobs:
       - name: Download Earthly v0.8.12.
         run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.12/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
       - name: Checkout code.
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Check formatting.
         run: earthly --ci +check-${{ matrix.language }}-formatting
   linting:
@@ -30,7 +30,7 @@ jobs:
       - name: Download Earthly v0.8.12.
         run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.12/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
       - name: Checkout code.
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Check linting.
         run: earthly --ci +check-${{ matrix.language }}-linting
   compile:
@@ -40,7 +40,7 @@ jobs:
       - name: Download Earthly v0.8.12.
         run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.12/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
       - name: Checkout code.
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Compile.
         run: earthly --ci +compile
   unit-test:
@@ -50,7 +50,7 @@ jobs:
       - name: Download Earthly v0.8.12.
         run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.12/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
       - name: Checkout code.
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
@@ -63,6 +63,6 @@ jobs:
       - name: Download Earthly v0.8.12.
         run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.12/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
       - name: Checkout code.
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: End to End test.
         run: earthly --ci +end-to-end-test
