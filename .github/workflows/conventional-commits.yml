@@ -12,7 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Earthly v0.8.12.
-        run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.12/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
+        uses: earthly/actions-setup@v1
+        with:
+          version: v0.8.12
       - name: Checkout code.
         uses: actions/checkout@v4
         with:
