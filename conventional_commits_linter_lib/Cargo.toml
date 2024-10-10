@@ -37,7 +37,7 @@ strum_macros = "0.25.2"
 [dev-dependencies]
 # For parameterized testing.
 rstest = "0.18.2"
-rstest_reuse = "0.6.0"
+rstest_reuse = "0.7.0"
 
 # For snapshot testing.
 insta = "1.33.0"
