@@ -20,7 +20,7 @@ lazy_static = "1.4.0"
 log = "0.4.20"
 
 # For reading Git commits.
-git2 = { version = "0.17.2", default-features = false, features=[] }
+git2 = { version = "0.19.0", default-features = false, features=[] }
 
 # For printing output as JSON.
 serde = { version = "1.0.188", features = ["derive"] }
