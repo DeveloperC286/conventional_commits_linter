@@ -1,6 +1,5 @@
 # Conventional Commits Linter
 [![crates.io](https://img.shields.io/crates/v/conventional_commits_linter)](https://crates.io/crates/conventional_commits_linter)
-[![Continuous Integration (CI)](https://github.com/DeveloperC286/conventional_commits_linter/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/DeveloperC286/conventional_commits_linter/actions/workflows/continuous-integration.yml)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![License](https://img.shields.io/badge/License-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
