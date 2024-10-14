@@ -1,0 +1,5 @@
+---
+source: src/linting_errors/json/tests/mod.rs
+expression: json_print
+---
+[{"commit_message":"Merge branch 'fix-ocsp-signer-check' into 'master'","linting_errors":["NonConventionalCommitsSpecification"]}]

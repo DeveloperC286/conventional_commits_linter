@@ -1,0 +1,8 @@
+---
+source: src/linting_errors/pretty/tests/mod.rs
+expression: pretty_print
+---
+[1;31mMessage[0m - "Release 1.0.126"
+	[1;31mX[0m - Commit title does not comply with the Conventional Commits V1.0.0 specification.
+
+

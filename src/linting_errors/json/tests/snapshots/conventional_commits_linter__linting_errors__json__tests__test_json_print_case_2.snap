@@ -1,0 +1,5 @@
+---
+source: src/linting_errors/json/tests/mod.rs
+expression: json_print
+---
+[{"commit_message":"Release 1.0.126","linting_errors":["NonConventionalCommitsSpecification"]}]
