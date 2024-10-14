@@ -1,0 +1,9 @@
+---
+source: src/linting_errors/pretty/tests/mod.rs
+expression: pretty_print
+---
+[1;31mCommit Hash[0m - 0000000000000000000000000000000000000000
+[1;31mMessage[0m - "refactor(ts support)!: ship yargs.d.ts (#1671)"
+	[1;31mX[0m - Commit title does not comply with the Conventional Commits V1.0.0 specification.
+
+[1;31mX[0m - Found 1 separate linting errors across 1 commits.

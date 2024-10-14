@@ -1,7 +1,0 @@
----
-source: conventional_commits_linter_lib/src/linting_errors/json/tests/mod.rs
-assertion_line: 29
-expression: json_print
-
----
-[{"commit_message":"feat()!: yargs-parser now throws on invalid combinations of config\n\n","linting_errors":["NonConventionalCommitsSpecification","EmptyScope"]}]

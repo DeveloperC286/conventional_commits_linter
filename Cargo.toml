@@ -1,15 +1,47 @@
-[workspace]
-resolver = "2"
-members = [
-    "conventional_commits_linter",
-    "conventional_commits_linter_lib",
-]
+[package]
+name = "conventional_commits_linter"
+version = "0.12.4"
+description = "A tooling and language agnostic utility to lint Git commits against the Conventional Commits specification."
+authors = ["C <DeveloperC@protonmail.com>"]
+edition = "2021"
+license = "AGPL-3.0"
+repository = "https://github.com/DeveloperC286/conventional_commits_linter"
+readme = "README.md"
+keywords = ["conventional", "commits", "lint", "linting", "git"]
+categories = ["command-line-utilities", "development-tools", "data-structures", "encoding", "parser-implementations"]
 
 
-[patch.crates-io]
-conventional_commits_linter_lib = { path = "conventional_commits_linter_lib" }
+[dependencies]
+# For CLI parsing.
+clap = { version = "4.4.6", features = ["derive"] }
+
+# For logging.
+log = "0.4.20"
+pretty_env_logger = "0.4.0"
+
+# For reading Git commits.
+git2 = { version = "0.17.2", default-features = false, features=[] }
+
+# For enum from _str etc for CLI usage.
+strum = "0.25.0"
+strum_macros = "0.25.2"
+
+# For parsing commit messages.
+regex = "1.9.6"
+lazy_static = "1.4.0"
+
+# For printing output as JSON.
+serde = { version = "1.0.188", features = ["derive"] }
+serde_json = "1.0.107"
+
+# For fancy output.
+ansi_term = "0.12.1"
 
 
-[profile.release]
-lto = 'fat'
-codegen-units = 1
+[dev-dependencies]
+# For parameterized testing.
+rstest = "0.18.2"
+rstest_reuse = "0.6.0"
+
+# For snapshot testing.
+insta = "1.33.0"

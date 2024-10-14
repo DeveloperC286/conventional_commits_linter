@@ -13,7 +13,7 @@ COPY_METADATA:
 
 
 rust-base:
-    FROM rust:1.70.0-alpine3.18
+    FROM rust:1.74.0-alpine3.18
     RUN apk add --no-cache musl-dev bash
     WORKDIR "/conventional_commits_linter"
 
@@ -38,7 +38,7 @@ COPY_SOURCECODE:
     COMMAND
     DO +COPY_CI_DATA
     COPY --if-exists "Cargo.lock" "./"
-    COPY --dir "Cargo.toml" "conventional_commits_linter/" "conventional_commits_linter_lib/" "./"
+    COPY --dir "Cargo.toml" "src/" "end-to-end-tests/" "./"
 
 
 rust-formatting-base:
@@ -61,7 +61,7 @@ python-base:
 
 python-formatting-base:
     FROM +python-base
-    RUN pip3 install -r "conventional_commits_linter/end-to-end-tests/autopep8.requirements.txt"
+    RUN pip3 install -r "end-to-end-tests/autopep8.requirements.txt"
 
 
 check-python-formatting:
@@ -185,6 +185,6 @@ unit-test:
 
 end-to-end-test:
     FROM +python-base
-    RUN pip3 install -r "conventional_commits_linter/end-to-end-tests/requirements.txt"
+    RUN pip3 install -r "end-to-end-tests/requirements.txt"
     COPY "+compile/target/" "target/"
     RUN ./ci/end-to-end-test.sh
