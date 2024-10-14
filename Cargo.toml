@@ -13,7 +13,7 @@ categories = ["command-line-utilities", "development-tools", "data-structures", 
 
 [dependencies]
 # For CLI parsing.
-clap = { version = "4.4.6", features = ["derive"] }
+clap = { version = "4.5.20", features = ["derive"] }
 
 # For logging.
 log = "0.4.20"
