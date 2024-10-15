@@ -40,7 +40,7 @@ ansi_term = "0.12.1"
 
 [dev-dependencies]
 # For parameterized testing.
-rstest = "0.18.2"
+rstest = "0.23.0"
 rstest_reuse = "0.6.0"
 
 # For snapshot testing.
