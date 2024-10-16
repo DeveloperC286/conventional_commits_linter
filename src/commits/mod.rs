@@ -1,5 +1,6 @@
 use std::collections::{HashMap, VecDeque};
 
+use anyhow::{bail, Context, Result};
 use git2::{Oid, Repository, Revwalk};
 
 use crate::commits::commit::Commit;
@@ -34,7 +35,7 @@ impl Commits {
         repository: &Repository,
         reference: T,
         git_history_mode: GitHistoryMode,
-    ) -> Result<Commits, git2::Error> {
+    ) -> Result<Commits> {
         let reference_oid = get_reference_oid(repository, reference.as_ref())?;
         let commits = get_commits_till_head_from_oid(repository, reference_oid, git_history_mode)?;
         Ok(Commits {
@@ -47,7 +48,7 @@ impl Commits {
         repository: &Repository,
         commit_hash: T,
         git_history_mode: GitHistoryMode,
-    ) -> Result<Commits, git2::Error> {
+    ) -> Result<Commits> {
         let commit_oid = parse_to_oid(repository, commit_hash.as_ref())?;
         let commits = get_commits_till_head_from_oid(repository, commit_oid, git_history_mode)?;
         Ok(Commits {
@@ -79,25 +80,23 @@ fn get_commits_till_head_from_oid(
     repository: &Repository,
     from_commit_hash: Oid,
     git_history_mode: GitHistoryMode,
-) -> Result<VecDeque<Commit>, git2::Error> {
+) -> Result<VecDeque<Commit>> {
     fn get_revwalker(
         repository: &Repository,
         from_commit_hash: Oid,
         git_history_mode: GitHistoryMode,
-    ) -> Result<Revwalk, git2::Error> {
+    ) -> Result<Revwalk> {
         let mut commits = repository.revwalk()?;
         if git_history_mode == GitHistoryMode::FirstParent {
             commits.simplify_first_parent()?;
         }
         commits.push_head()?;
 
-        match commits.hide(from_commit_hash) {
-            Ok(_) => Ok(commits),
-            Err(error) => {
-                error!("Can not find a commit with the hash '{from_commit_hash}'.");
-                Err(error)
-            }
-        }
+        commits.hide(from_commit_hash).context(format!(
+            "Can not find a commit with the hash '{}'.",
+            from_commit_hash
+        ))?;
+        Ok(commits)
     }
 
     let revwalker = get_revwalker(repository, from_commit_hash, git_history_mode)?;
@@ -111,36 +110,35 @@ fn get_commits_till_head_from_oid(
     }
 
     if commits.is_empty() {
-        let error_message = "No Git commits within the provided range.".to_string();
-        error!("{error_message}");
-        Err(git2::Error::from_str(&error_message))
-    } else {
-        debug!("Operating upon {} commits.", commits.len());
-        Ok(commits)
+        bail!("No Git commits within the provided range.");
     }
+
+    Ok(commits)
 }
 
-fn get_reference_oid(repository: &Repository, matching: &str) -> Result<Oid, git2::Error> {
-    match repository.resolve_reference_from_short_name(matching) {
-        Ok(reference) => {
-            trace!(
-                "Matched {matching:?} to the reference {:?}.",
-                reference.name().unwrap()
-            );
-            let commit = reference.peel_to_commit()?;
-            Ok(commit.id())
-        }
-        Err(error) => {
-            error!("Could not find a reference with the name {matching:?}.");
-            Err(error)
-        }
-    }
+fn get_reference_oid(repository: &Repository, matching: &str) -> Result<Oid> {
+    let reference = repository
+        .resolve_reference_from_short_name(matching)
+        .context(format!(
+            "Could not find a reference with the name {:?}.",
+            matching
+        ))?;
+    trace!(
+        "Matched {:?} to the reference {:?}.",
+        matching,
+        reference.name().unwrap()
+    );
+    let commit = reference.peel_to_commit()?;
+    Ok(commit.id())
 }
 
-fn parse_to_oid(repository: &Repository, oid: &str) -> Result<Oid, git2::Error> {
+fn parse_to_oid(repository: &Repository, oid: &str) -> Result<Oid> {
     match oid.len() {
         1..=39 => {
-            trace!("Attempting to find a match for the short commit hash {oid:?}.");
+            trace!(
+                "Attempting to find a match for the short commit hash {:?}.",
+                oid
+            );
             let matching_oid_lowercase = oid.to_lowercase();
 
             let mut revwalker = repository.revwalk()?;
@@ -158,7 +156,7 @@ fn parse_to_oid(repository: &Repository, oid: &str) -> Result<Oid, git2::Error> 
                         None
                     }
                     Err(error) => {
-                        error!("{error:?}");
+                        error!("{:?}", error);
                         None
                     }
                 })
@@ -166,26 +164,17 @@ fn parse_to_oid(repository: &Repository, oid: &str) -> Result<Oid, git2::Error> 
 
             match matched_commit_hashes.len() {
                 0 => {
-                    let error_message = format!(
-                        "No commit hashes start with the provided short commit hash {matching_oid_lowercase:?}."
+                    bail!(
+                        "No commit hashes start with the provided short commit hash {:?}.",
+                        matching_oid_lowercase
                     );
-                    error!("{error_message}");
-                    Err(git2::Error::from_str(&error_message))
                 }
                 1 => Ok(*matched_commit_hashes.first().unwrap()),
                 _ => {
-                    let error_message = format!("Ambiguous short commit hash, the commit hashes {matched_commit_hashes:?} all start with the provided short commit hash {matching_oid_lowercase:?}.");
-                    error!("{error_message}");
-                    Err(git2::Error::from_str(&error_message))
+                    bail!("Ambiguous short commit hash, the commit hashes {:?} all start with the provided short commit hash {:?}.", matched_commit_hashes, matching_oid_lowercase);
                 }
             }
         }
-        _ => match git2::Oid::from_str(oid) {
-            Ok(oid) => Ok(oid),
-            Err(error) => {
-                error!("{oid:?} is not a valid commit hash.");
-                Err(error)
-            }
-        },
+        _ => git2::Oid::from_str(oid).context(format!("{:?} is not a valid commit hash.", oid)),
     }
 }
