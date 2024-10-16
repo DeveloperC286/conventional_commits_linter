@@ -178,7 +178,6 @@ compile:
 
 unit-test:
     FROM +rust-base
-    DO +COPY_METADATA
     DO +COPY_SOURCECODE
     RUN ./ci/unit-test.sh
 
