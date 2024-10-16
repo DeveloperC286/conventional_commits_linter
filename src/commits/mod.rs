@@ -10,7 +10,6 @@ use crate::source::Source;
 
 pub mod commit;
 
-/// A representation of a range of commits within a Git repository.
 #[cfg(not(test))]
 pub struct Commits {
     commits: VecDeque<Commit>,
