@@ -38,7 +38,7 @@ def assert_error_contains(result, error):
 
 
 def assert_error_matches_regex(result, regex):
-    assert regex.match(result.stderr) is not None, f"Expected standard errors to match the regex.\n" + \
+    assert regex.match(result.stderr) is not None, f"Expected standard error to match the regex.\n" + \
         f"Standard error = {result.stderr.encode()}.\n" + \
         f"Regex          = {regex.pattern.encode()}.\n"
 
