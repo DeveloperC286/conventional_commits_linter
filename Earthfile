@@ -187,3 +187,15 @@ end-to-end-test:
     RUN pip3 install -r "end-to-end-tests/requirements.txt"
     COPY "+compile/target/" "target/"
     RUN ./ci/end-to-end-test.sh
+
+
+release-artifacts:
+    FROM +rust-base
+    DO +COPY_CI_DATA
+    # Needed by the GitHub CLI.
+    RUN apk add --no-cache git
+    RUN ./ci/install-github-cli.sh
+    DO +COPY_METADATA
+    DO +COPY_SOURCECODE
+    ARG release
+    RUN --secret GH_TOKEN ./ci/release-artifacts.sh --release "${release}"
