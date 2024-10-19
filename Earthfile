@@ -199,3 +199,10 @@ release-artifacts:
     DO +COPY_SOURCECODE
     ARG release
     RUN --secret GH_TOKEN ./ci/release-artifacts.sh --release "${release}"
+
+
+publish:
+    FROM +rust-base
+    COPY "README.md" "./"
+    DO +COPY_SOURCECODE
+    RUN --secret CARGO_REGISTRY_TOKEN ./ci/publish.sh

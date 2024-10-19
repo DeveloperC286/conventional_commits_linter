@@ -27,3 +27,15 @@ jobs:
         run: earthly --ci --secret GH_TOKEN +release-artifacts --release "${GITHUB_REF_NAME}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by GitHub Actions.
+  publish:
+    name: Publish.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Earthly v0.8.12.
+        run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.12/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
+      - name: Checkout code.
+        uses: actions/checkout@v4
+      - name: Publish.
+        run: earthly --ci --secret CARGO_REGISTRY_TOKEN +publish
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
