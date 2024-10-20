@@ -80,12 +80,11 @@ fn run(arguments: Arguments) -> Result<i32> {
                 println!("{}", linting_results.pretty());
             }
             Output::JSON => {
-                // TODO handle
-                println!("{}", linting_results.json().unwrap());
+                println!("{}", linting_results.json()?);
             }
         }
 
-        // As we don't want an error printed but linting failed so want want to exit unsuccesffuly.
+        // As we don't want an error printed but linting failed so want to exit unsuccesffuly.
         return Ok(1);
     }
 

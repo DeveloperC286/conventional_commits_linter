@@ -1,5 +1,7 @@
 use std::collections::{HashMap, VecDeque};
 
+use anyhow::Result;
+
 use crate::commits::commit::Commit;
 use crate::linting_error::LintingError;
 use crate::source::Source;
@@ -35,7 +37,7 @@ impl LintingErrors {
 
     /// Get a JSON representation of the linting errors as a string, it is suitable as output for
     /// machine interpretation.
-    pub fn json(&self) -> Result<String, serde_json::Error> {
+    pub fn json(&self) -> Result<String> {
         json::print_all(&self.order, &self.errors)
     }
 }
