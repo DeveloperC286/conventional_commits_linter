@@ -44,7 +44,7 @@ anyhow = "1.0.89"
 [dev-dependencies]
 # For parameterized testing.
 rstest = "0.23.0"
-rstest_reuse = "0.6.0"
+rstest_reuse = "0.7.0"
 
 # For snapshot testing.
 insta = "1.33.0"
