@@ -1,8 +1,3 @@
-#![allow(clippy::single_component_path_imports)]
-
-#[cfg(test)]
-use rstest_reuse;
-
 #[macro_use]
 extern crate lazy_static;
 #[macro_use]
