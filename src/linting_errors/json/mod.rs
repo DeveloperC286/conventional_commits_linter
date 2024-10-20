@@ -1,5 +1,6 @@
 use std::collections::{HashMap, VecDeque};
 
+use anyhow::{Context, Result};
 use serde::Serialize;
 
 use crate::commits::commit::Commit;
@@ -16,7 +17,7 @@ struct LintingErrorsJSON {
 pub(crate) fn print_all(
     order: &VecDeque<Commit>,
     errors: &HashMap<Commit, Vec<LintingError>>,
-) -> Result<String, serde_json::Error> {
+) -> Result<String> {
     let mut linting_errors_json: Vec<LintingErrorsJSON> = vec![];
 
     for commit in order {
@@ -29,13 +30,8 @@ pub(crate) fn print_all(
         }
     }
 
-    match serde_json::to_string(&linting_errors_json) {
-        Ok(json) => Ok(json),
-        Err(error) => {
-            error!("{:?}", error);
-            Err(error)
-        }
-    }
+    serde_json::to_string(&linting_errors_json)
+        .context("Failed to convert the commit's linting errors into JSON.")
 }
 
 #[cfg(test)]
