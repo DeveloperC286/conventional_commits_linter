@@ -16,7 +16,7 @@ use crate::output::Output;
 
 mod cli;
 mod commits;
-mod git_history_mode;
+mod history_mode;
 mod linting_error;
 mod linting_errors;
 mod output;
@@ -56,12 +56,12 @@ fn run(arguments: Arguments) -> Result<i32> {
         (false, Some(from_commit_hash), None) => {
             let repository =
                 Repository::open_from_env().context("Unable to open the Git repository.")?;
-            Commits::from_commit_hash(&repository, from_commit_hash, arguments.git_history_mode)
+            Commits::from_commit_hash(&repository, from_commit_hash, arguments.history_mode)
         }
         (false, None, Some(from_reference)) => {
             let repository =
                 Repository::open_from_env().context("Unable to open the Git repository.")?;
-            Commits::from_reference(&repository, from_reference, arguments.git_history_mode)
+            Commits::from_reference(&repository, from_reference, arguments.history_mode)
         }
         (_, _, _) => {
             bail!("Invalid combination of from arguments.");

@@ -4,7 +4,7 @@ use anyhow::{bail, Context, Result};
 use git2::{Oid, Repository, Revwalk};
 
 use crate::commits::commit::Commit;
-use crate::git_history_mode::GitHistoryMode;
+use crate::history_mode::HistoryMode;
 use crate::linting_error::LintingError;
 use crate::linting_errors::LintingErrors;
 use crate::source::Source;
@@ -34,10 +34,10 @@ impl Commits {
     pub fn from_reference<T: AsRef<str>>(
         repository: &Repository,
         reference: T,
-        git_history_mode: GitHistoryMode,
+        history_mode: HistoryMode,
     ) -> Result<Commits> {
         let reference_oid = get_reference_oid(repository, reference.as_ref())?;
-        let commits = get_commits_till_head_from_oid(repository, reference_oid, git_history_mode)?;
+        let commits = get_commits_till_head_from_oid(repository, reference_oid, history_mode)?;
         Ok(Commits {
             commits,
             source: Source::Git,
@@ -47,10 +47,10 @@ impl Commits {
     pub fn from_commit_hash<T: AsRef<str>>(
         repository: &Repository,
         commit_hash: T,
-        git_history_mode: GitHistoryMode,
+        history_mode: HistoryMode,
     ) -> Result<Commits> {
         let commit_oid = parse_to_oid(repository, commit_hash.as_ref())?;
-        let commits = get_commits_till_head_from_oid(repository, commit_oid, git_history_mode)?;
+        let commits = get_commits_till_head_from_oid(repository, commit_oid, history_mode)?;
         Ok(Commits {
             commits,
             source: Source::Git,
@@ -79,15 +79,15 @@ impl Commits {
 fn get_commits_till_head_from_oid(
     repository: &Repository,
     from_commit_hash: Oid,
-    git_history_mode: GitHistoryMode,
+    history_mode: HistoryMode,
 ) -> Result<VecDeque<Commit>> {
     fn get_revwalker(
         repository: &Repository,
         from_commit_hash: Oid,
-        git_history_mode: GitHistoryMode,
+        history_mode: HistoryMode,
     ) -> Result<Revwalk> {
         let mut commits = repository.revwalk()?;
-        if git_history_mode == GitHistoryMode::FirstParent {
+        if history_mode == HistoryMode::First {
             commits.simplify_first_parent()?;
         }
         commits.push_head()?;
@@ -99,7 +99,7 @@ fn get_commits_till_head_from_oid(
         Ok(commits)
     }
 
-    let revwalker = get_revwalker(repository, from_commit_hash, git_history_mode)?;
+    let revwalker = get_revwalker(repository, from_commit_hash, history_mode)?;
     let mut commits = VecDeque::new();
 
     for oid in revwalker {
