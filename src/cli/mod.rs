@@ -44,8 +44,8 @@ pub(crate) struct Arguments {
 
     #[arg(
         long,
-        default_value = "Pretty",
-        help = "How to output the linting results if their are any, the options are (`Quiet`, `Pretty`, `JSON`) `Pretty` is the default."
+        default_value = "pretty",
+        help = "Specifies the format for outputting results, acceptable values are quiet, pretty, and json."
     )]
     pub(crate) output: crate::output::Output,
 }
