@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.0 (2024-10-21)
+
+## What's Changed
+* fix(deps): update rust crate serde_json to v1.0.132 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/76
+* fix: handling JSON output error by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/78
+* chore(deps): update rust crate rstest_reuse to 0.7.0 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/55
+* docs: improved output CLI argument documentation by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/79
+* refactor!: simplifying --git-history-mode naming/description by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/80
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.13.0...v1.0.0
+
 ## 0.13.0 (2024-10-19)
 
 ## What's Changed
