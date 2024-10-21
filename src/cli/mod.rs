@@ -31,10 +31,10 @@ pub(crate) struct Arguments {
 
     #[arg(
         long,
-        default_value = "FirstParent",
-        help = "The mode to use when transversing the Git commit history of the Git commit range, to collect the Git commit messages to use in calculating the next semantic version."
+        default_value = "first",
+        help = "Specifies how commits are parsed, acceptable values are 'first' to parse only the first parent of merge commits, or 'all' to parse all parents."
     )]
-    pub(crate) git_history_mode: crate::git_history_mode::GitHistoryMode,
+    pub(crate) history_mode: crate::history_mode::HistoryMode,
 
     #[arg(
         long,
