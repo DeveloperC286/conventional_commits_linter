@@ -12,15 +12,26 @@ COPY_METADATA:
     COPY --dir ".git/" "./"
 
 
-rust-base:
-    FROM rust:1.74.0-alpine3.18
-    RUN apk add --no-cache musl-dev bash
+alpine-base:
+    FROM alpine:3.20.3@sha256:1e42bbe2508154c9126d48c2b8a75420c3544343bf86fd041fb7527e017a4b4a
+    # renovate: datasource=repology depName=alpine_3_20/bash versioning=loose
+    ENV BASH_VERSION="5.2.26-r0"
+    RUN apk add --no-cache bash=$BASH_VERSION
     WORKDIR "/conventional_commits_linter"
+
+
+rust-base:
+    FROM +alpine-base
+    # renovate: datasource=repology depName=alpine_3_20/rust versioning=loose
+    ENV RUST_VERSION="1.78.0-r0"
+    RUN apk add --no-cache cargo=$RUST_VERSION
 
 
 check-clean-git-history:
     FROM +rust-base
-    RUN cargo install clean_git_history --version 0.1.2 --locked
+    # renovate: datasource=github-releases depName=DeveloperC286/clean_git_history
+    ENV CLEAN_GIT_HISTORY_VERSION="v0.2.0"
+    RUN wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/${CLEAN_GIT_HISTORY_VERSION}/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/clean_git_history && chmod 755 /usr/bin/clean_git_history
     DO +COPY_METADATA
     ARG from_reference="origin/HEAD"
     RUN ./ci/check-clean-git-history.sh --from-reference "${from_reference}"
@@ -28,7 +39,9 @@ check-clean-git-history:
 
 check-conventional-commits-linting:
     FROM +rust-base
-    RUN cargo install conventional_commits_linter --version 0.12.3 --locked
+    # renovate: datasource=github-releases depName=DeveloperC286/conventional_commits_linter
+    ENV CONVENTIONAL_COMMITS_LINTER_VERSION="v0.13.0"
+    RUN wget -O - "https://github.com/DeveloperC286/conventional_commits_linter/releases/download/${CONVENTIONAL_COMMITS_LINTER_VERSION}/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/conventional_commits_linter && chmod 755 /usr/bin/conventional_commits_linter
     DO +COPY_METADATA
     ARG from_reference="origin/HEAD"
     RUN ./ci/check-conventional-commits-linting.sh --from-reference "${from_reference}"
@@ -43,7 +56,7 @@ COPY_SOURCECODE:
 
 rust-formatting-base:
     FROM +rust-base
-    RUN rustup component add rustfmt
+    RUN apk add --no-cache rustfmt=$RUST_VERSION
     DO +COPY_SOURCECODE
 
 
@@ -53,15 +66,20 @@ check-rust-formatting:
 
 
 python-base:
-    FROM python:3.9.19-alpine
-    RUN apk add --no-cache git bash
-    WORKDIR "/consistent_whitespace"
+    FROM +alpine-base
+    # renovate: datasource=repology depName=alpine_3_20/python3 versioning=loose
+    ENV PYTHON_VERSION="3.12.7-r0"
+    # renovate: datasource=repology depName=alpine_3_20/git versioning=loose
+    ENV GIT_VERSION="2.45.2-r0"
+    # renovate: datasource=repology depName=alpine_3_20/py3-pip versioning=loose
+    ENV PIP_VERSION="24.0-r2"
+    RUN apk add --no-cache py3-pip=$PIP_VERSION python3=$PYTHON_VERSION git=$GIT_VERSION
     DO +COPY_SOURCECODE
 
 
 python-formatting-base:
     FROM +python-base
-    RUN pip3 install -r "end-to-end-tests/autopep8.requirements.txt"
+    RUN pip3 install -r "end-to-end-tests/autopep8.requirements.txt" --break-system-packages
 
 
 check-python-formatting:
@@ -71,12 +89,14 @@ check-python-formatting:
 
 golang-base:
     FROM golang:1.22.1
-    WORKDIR "/consistent_whitespace"
+    WORKDIR "/conventional_commits_linter"
 
 
 shell-formatting-base:
     FROM +golang-base
-    RUN go install mvdan.cc/sh/v3/cmd/shfmt@v3.7.0
+    # renovate: datasource=github-releases depName=mvdan/sh
+    ENV SHFMT_VERSION="v3.7.0"
+    RUN go install mvdan.cc/sh/v3/cmd/shfmt@$SHFMT_VERSION
     DO +COPY_CI_DATA
 
 
@@ -87,7 +107,9 @@ check-shell-formatting:
 
 yaml-formatting-base:
     FROM +golang-base
-    RUN go install github.com/google/yamlfmt/cmd/yamlfmt@v0.10.0
+    # renovate: datasource=github-releases depName=google/yamlfmt
+    ENV YAMLFMT_VERSION="v0.10.0"
+    RUN go install github.com/google/yamlfmt/cmd/yamlfmt@$YAMLFMT_VERSION
     COPY ".yamlfmt" "./"
     DO +COPY_CI_DATA
 
@@ -137,27 +159,25 @@ fix-formatting:
 
 check-rust-linting:
     FROM +rust-base
-    RUN rustup component add clippy
+    RUN apk add --no-cache rust-clippy=$RUST_VERSION
     DO +COPY_SOURCECODE
     RUN ./ci/check-rust-linting.sh
 
 
-ubuntu-base:
-    FROM ubuntu:22.04
-    # https://askubuntu.com/questions/462690/what-does-apt-get-fix-missing-do-and-when-is-it-useful
-    RUN apt-get update --fix-missing
-
-
 check-shell-linting:
-    FROM +ubuntu-base
-    RUN apt-get install shellcheck -y
+    FROM +alpine-base
+    # renovate: datasource=repology depName=alpine_3_20/shellcheck versioning=loose
+    ENV SHELLCHECK_VERSION="0.10.0-r1"
+    RUN apk add --no-cache shellcheck=$SHELLCHECK_VERSION
     DO +COPY_CI_DATA
     RUN ./ci/check-shell-linting.sh
 
 
 check-github-actions-workflows-linting:
     FROM +golang-base
-    RUN go install github.com/rhysd/actionlint/cmd/actionlint@v1.6.26
+    # renovate: datasource=github-releases depName=rhysd/actionlint
+    ENV ACTIONLINT_VERSION="v1.6.26"
+    RUN go install github.com/rhysd/actionlint/cmd/actionlint@$ACTIONLINT_VERSION
     DO +COPY_CI_DATA
     RUN ./ci/check-github-actions-workflows-linting.sh
 
@@ -184,17 +204,16 @@ unit-test:
 
 end-to-end-test:
     FROM +python-base
-    RUN pip3 install -r "end-to-end-tests/requirements.txt"
+    RUN pip3 install -r "end-to-end-tests/requirements.txt" --break-system-packages
     COPY "+compile/target/" "target/"
     RUN ./ci/end-to-end-test.sh
 
 
 release-artifacts:
-    FROM +rust-base
-    DO +COPY_CI_DATA
-    # Needed by the GitHub CLI.
-    RUN apk add --no-cache git
-    RUN ./ci/install-github-cli.sh
+    FROM +alpine-base
+    # renovate: datasource=repology depName=alpine_3_20/github-cli versioning=loose
+    ENV GITHUB_CLI_VERSION="2.47.0-r4"
+    RUN apk add --no-cache github-cli=$GITHUB_CLI_VERSION
     DO +COPY_METADATA
     DO +COPY_SOURCECODE
     ARG release
