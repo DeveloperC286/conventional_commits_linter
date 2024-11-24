@@ -1,6 +1,34 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:best-practices"
+  ],
+  "dockerfile": {
+    "fileMatch": [
+      "(^|/)Earthfile$",
+      "(^|/|\\.)Dockerfile$",
+      "(^|/)Dockerfile[^/]*$"
+    ]
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^Earthfile$"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.+_VERSION=\"(?<currentValue>.*?)\"\\s"
+      ]
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["^Earthfile$"],
+      "matchStrings": [
+        "# renovate: datasource=repology packageName=alpine_(?<currentValue>\\d+[._]\\d+)"
+      ],
+      "currentValueTemplate": "{{{ replace '_' '.' currentValue }}}",
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "alpine",
+      "versioningTemplate": "regex:^(?<major>\\d+)[._](?<minor>\\d+)$",
+      "autoReplaceStringTemplate": "# renovate: datasource=repology packageName=alpine_{{{newMajor}}}_{{{newMinor}}}"
+    }
   ]
 }

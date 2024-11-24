@@ -57,5 +57,5 @@ parse_commandline "$@"
 set -o errexit
 set -o xtrace
 
-"${CARGO_HOME}/bin/conventional_commits_linter" --from-reference "${_arg_from_reference}" --allow-angular-type-only
+conventional_commits_linter --from-reference "${_arg_from_reference}" --allow-angular-type-only
 # ] <-- needed because of Argbash
