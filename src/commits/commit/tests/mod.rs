@@ -2,6 +2,9 @@ use rstest::rstest;
 use rstest_reuse::{self, *};
 
 use super::*;
+use crate::commit_type::CommitType;
+
+const DEFAULT_COMMIT_TYPE: &CommitType = &CommitType::Any;
 
 #[template]
 #[rstest(
@@ -52,7 +55,7 @@ fn test_angular_type_conventional_commits_and_only_angular_type(commit_message: 
     let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
-    let linting_errors = commit.lint(true);
+    let linting_errors = commit.lint(&CommitType::Angular);
 
     // Then
     assert_eq!(
@@ -69,7 +72,7 @@ fn test_angular_type_conventional_commits(commit_message: &str) {
     let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
-    let linting_errors = commit.lint(false);
+    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE);
 
     // Then
     assert_eq!(
@@ -110,7 +113,7 @@ fn test_non_angular_type_conventional_commits_and_only_angular_type(commit_messa
     let expected_linting_errors = vec![LintingError::NonAngularType];
 
     // When
-    let linting_errors = commit.lint(true);
+    let linting_errors = commit.lint(&CommitType::Angular);
 
     // Then
     assert_eq!(
@@ -127,7 +130,7 @@ fn test_non_angular_type_conventional_commits(commit_message: &str) {
     let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
-    let linting_errors = commit.lint(false);
+    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE);
 
     // Then
     assert_eq!(
@@ -151,7 +154,7 @@ fn test_non_conventional_commits_fail_linting(commit_message: &str) {
     let commit = Commit::from_commit_message(commit_message.to_string());
 
     // When
-    let linting_errors = commit.lint(false);
+    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE);
 
     // Then
     assert!(

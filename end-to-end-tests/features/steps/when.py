@@ -22,9 +22,9 @@ def set_history_mode(context, history_mode):
     context.arguments += f" --history-mode {history_mode} "
 
 
-@when('the flag --allow-angular-type-only is set.')
-def set_allow_angular_type_only(context):
-    context.arguments += " --allow-angular-type-only "
+@when('the flag --type is set as "{type}".')
+def set_type(context, type):
+    context.arguments += f" --type {type} "
 
 
 @when('the argument --output is set as "{output}".')
