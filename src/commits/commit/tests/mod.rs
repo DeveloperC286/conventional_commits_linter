@@ -7,16 +7,20 @@ use super::*;
 #[rstest(
     commit_message,
     // Normal variatiants.
+    case("chore: 13.1.0"),
     case("fix: stop-parse was not being respected by commands (#1459)"),
     case("feat: zsh auto completion (#1292) "),
     case("fix: improve rpm release config (#64)\n\n* fix: improve rpm release config\r\n\r\nSigned-off-by: Carlos Alexandro Becker <caarlos0@gmail.com>\r\n\r\n* fix: template\r\n\r\nSigned-off-by: Carlos Alexandro Becker <caarlos0@gmail.com>\r\n"),
     case("feat: added support for \"rules\" debian package file (#49)\n\n* Added support for rules debian package file\r\n\r\n* Fixing typo in CONTRIBUTING.md\r\n\r\n* Runing 'make fmt' on project.\r\n"),
     case("ci: go mod tidy\n\nSigned-off-by: Carlos Alexandro Becker <caarlos0@gmail.com>\n"),
     // Breaking change variatiants.
+    case("chore!: drop Node 6 support (#1461)"),
     case("refactor!: remove package.json-based parserConfiguration (#1460)"),
     case("fix!: calling parse multiple times now appropriately maintains state (#\n\n"),
     case("feat!: drop support for EOL Node 8 (#1686)"),
     // Scope variatiants.
+    case("chore(major-release): release 17.7.0 (#2285)"),
+    case("chore(deps): bump anchore/sbom-action from 0.13.3 to 0.13.4 (#637)"),
     case("feat(completion): zsh auto completion (#1292) "),
     case("fix(deps): Update os-locale to avoid security vulnerability (#1270)"),
     case("refactor(ts): ship yargs.d.ts (#1671)"),
@@ -33,6 +37,7 @@ use super::*;
     case("style(guest-agent): Fix typo"),
     case("feat(guest-agent): Run commands as the primary user"),
     // Breaking change and scope variatiants.
+    case("chore(major-release)!: release 17.7.0 (#2285)"),
     case("feat(deps)!: yargs-parser now throws on invalid combinations of config (\n\n"),
     case("refactor(ts)!: ship yargs.d.ts (#1671)"),
     case("feat(guest-agent)!: run commands as the primary user"),
@@ -78,7 +83,6 @@ fn test_angular_type_conventional_commits(commit_message: &str) {
 #[rstest(
     commit_message,
     // Normal variatiants.
-    case("chore: 13.1.0"),
     case("samples: event.keyCode is deprecated, use new `.code` API (#2125)\n\nSome browser don't support `code` so I added a fallback for `keyCode`\r\n\r\nCo-authored-by: Benjamin E. Coe <bencoe@google.com>"),
     case("multiple: improved completion for choices\n\nfeat(completion): choices will now work for all possible aliases of an option and not just the default long option\r\nfix(completion): fix for completions that contain non-leading hyphens\r\nfix(completion): changed the check for option arguments to match options that begin with '-', instead of '--', to include short options"),
     case("bump: deps (#81)\n\nSigned-off-by: Carlos Alexandro Becker <caarlos0@gmail.com>"),
@@ -88,16 +92,12 @@ fn test_angular_type_conventional_commits(commit_message: &str) {
     case("tests: remove osx from CI, until Travis fixes OSX servers\n"),
     case("perfs: enhance contacts display and search (#2959)\n\n"),
     // Breaking change variatiants.
-    case("chore!: drop Node 6 support (#1461)"),
     case("feature!: incrementing API URL version (#1682)"),
     // Scope variatiants.
-    case("chore(major-release): release 17.7.0 (#2285)"),
-    case("chore(deps): bump anchore/sbom-action from 0.13.3 to 0.13.4 (#637)"),
     case("deps(security): CVE-2021-3807\n\nUpdate string-width to 4.2.3"),
     case("doc(webpack): webpack example (#1436)\n\n* doc: weback example\r\n* doc(webpack): ignore dynamic module loading warnings"),
     case("deps(cve-dep-bump): CVE-2021-3807\n\nUpdate string-width to 4.2.3"),
     // Breaking change and scope variatiants.
-    case("chore(major-release)!: release 17.7.0 (#2285)"),
     case("deps(security)!: CVE-2021-3807\n\nUpdate string-width to 4.2.3"),
     case("deps(cve-dep-bump)!: CVE-2021-3807\n\nUpdate string-width to 4.2.3"),
 )]
