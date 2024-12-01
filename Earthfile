@@ -95,7 +95,7 @@ golang-base:
 shell-formatting-base:
     FROM +golang-base
     # renovate: datasource=github-releases depName=mvdan/sh
-    ENV SHFMT_VERSION="v3.7.0"
+    ENV SHFMT_VERSION="v3.10.0"
     RUN go install mvdan.cc/sh/v3/cmd/shfmt@$SHFMT_VERSION
     DO +COPY_CI_DATA
 
