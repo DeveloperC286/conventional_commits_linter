@@ -21,12 +21,10 @@ pub(super) const NON_ANGULAR_COMMIT_TYPE_VARIATIONS: &[&str] = &[
     "bug",
     "Bug",
     "BUG",
-    "chore",
-    "Chore",
 ];
 pub(super) const ANGULAR_COMMIT_TYPE_VARIATIONS: &[&str] = &[
-    "REVERT", "revert", "Build", "build", "ci", "CI", "docs", "feat", "FEAT", "fix", "Fix", "perf",
-    "refactor", "Refactor", "style", "Style", "test", "TEST",
+    "Build", "build", "chore", "Chore", "ci", "CI", "docs", "feat", "FEAT", "fix", "Fix", "perf",
+    "refactor", "Refactor", "REVERT", "revert", "style", "Style", "test", "TEST",
 ];
 
 const NO_SCOPE_VARIATIONS: &[&str] = &["", "!"];
