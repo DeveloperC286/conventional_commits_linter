@@ -20,7 +20,7 @@ jobs:
       - name: Download Earthly v0.8.12.
         uses: earthly/actions-setup@v1
         with:
-          version: v0.8.12
+          version: v0.8.15
       - name: Checkout code.
         uses: actions/checkout@v4
       - name: Release artifacts.
