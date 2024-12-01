@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.14.1 (2024-12-01)
+
+## What's Changed
+* ci: release-publish depends on cargo/rustc by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/97
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.14.0...v0.14.1
+
 ## 0.14.0 (2024-12-01)
 
 ## What's Changed
