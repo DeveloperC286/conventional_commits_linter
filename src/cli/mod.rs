@@ -38,9 +38,10 @@ pub(crate) struct Arguments {
 
     #[arg(
         long,
+        default_value = "angular",
         help = "Allow the Conventional Commits type to only be (`build`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `style`, `test`, `revert`), otherwise linting for the commit will fail."
     )]
-    pub(crate) allow_angular_type_only: bool,
+    pub(crate) type: crate::type::Type,
 
     #[arg(
         long,

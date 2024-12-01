@@ -21,6 +21,7 @@ mod linting_error;
 mod linting_errors;
 mod output;
 mod source;
+mod type;
 
 const ERROR_EXIT_CODE: i32 = 1;
 
@@ -68,7 +69,7 @@ fn run(arguments: Arguments) -> Result<i32> {
         }
     }?;
 
-    if let Some(linting_results) = commits.lint(arguments.allow_angular_type_only) {
+    if let Some(linting_results) = commits.lint(arguments.type) {
         match arguments.output {
             Output::Quiet => {}
             Output::Pretty => {
