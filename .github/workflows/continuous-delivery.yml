@@ -22,7 +22,7 @@ jobs:
         with:
           version: v0.8.12
       - name: Checkout code.
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Release artifacts.
         run: earthly --ci --secret GH_TOKEN +release-artifacts --release "${GITHUB_REF_NAME}"
         env:
@@ -34,7 +34,7 @@ jobs:
       - name: Download Earthly v0.8.12.
         run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.12/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
       - name: Checkout code.
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Publish.
         run: earthly --ci --secret CARGO_REGISTRY_TOKEN +publish
         env:
