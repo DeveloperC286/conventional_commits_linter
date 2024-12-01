@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.14.0 (2024-12-01)
+
+## What's Changed
+* fix(deps): update rust crate serde_json to v1.0.132 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/76
+* fix: handling JSON output error by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/78
+* chore(deps): update rust crate rstest_reuse to 0.7.0 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/55
+* docs: improved output CLI argument documentation by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/79
+* refactor!: simplifying --git-history-mode naming/description by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/80
+* fix(deps): update rust crate anyhow to v1.0.93 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/82
+* fix(deps): update rust crate serde to v1.0.215 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/81
+* fix(deps): update rust crate regex to v1.11.1 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/83
+* chore(deps): update rust crate insta to v1.41.1 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/84
+* ci: Alpine migration for pinning/updating all dependencies by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/87
+* ci: adding Renovate GitHub Workflow Earthly updating by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/93
+* feat: accepting 'chore' as Angular commit type by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/95
+* chore: release 0.14.0 by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/96
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.13.0...v0.14.0
+
 ## 0.13.0 (2024-10-19)
 
 ## What's Changed
