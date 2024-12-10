@@ -68,7 +68,7 @@ check-rust-formatting:
 python-base:
     FROM +alpine-base
     # renovate: datasource=repology depName=alpine_3_20/python3 versioning=loose
-    ENV PYTHON_VERSION="3.12.7-r0"
+    ENV PYTHON_VERSION="3.12.8-r1"
     # renovate: datasource=repology depName=alpine_3_20/git versioning=loose
     ENV GIT_VERSION="2.45.2-r0"
     # renovate: datasource=repology depName=alpine_3_20/py3-pip versioning=loose
