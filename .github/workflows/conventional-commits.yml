@@ -11,7 +11,7 @@ jobs:
     name: Linting
     runs-on: ubuntu-latest
     steps:
-      - name: Download Earthly v0.8.12.
+      - name: Download Earthly.
         uses: earthly/actions-setup@v1
         with:
           version: v0.8.15
