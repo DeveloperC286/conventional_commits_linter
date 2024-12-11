@@ -64,6 +64,18 @@ jobs:
           fetch-depth: 0
       - name: Unit test.
         run: earthly --ci +unit-test
+  static-binary-test:
+    name: Static Binary Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Earthly.
+        uses: earthly/actions-setup@v1
+        with:
+          version: v0.8.15
+      - name: Checkout code.
+        uses: actions/checkout@v4
+      - name: Static binary test.
+        run: earthly --ci +static-binary-test
   end-to-end-test:
     name: End to End Test
     runs-on: ubuntu-latest

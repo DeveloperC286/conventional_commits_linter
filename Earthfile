@@ -12,19 +12,15 @@ COPY_METADATA:
     COPY --dir ".git/" "./"
 
 
-alpine-base:
-    FROM alpine:3.20.3@sha256:1e42bbe2508154c9126d48c2b8a75420c3544343bf86fd041fb7527e017a4b4a
+rust-base:
+    FROM rust:1.78.0-alpine3.20
     # renovate: datasource=repology depName=alpine_3_20/bash versioning=loose
     ENV BASH_VERSION="5.2.26-r0"
-    RUN apk add --no-cache bash=$BASH_VERSION
+    # renovate: datasource=repology depName=alpine_3_20/musl-dev versioning=loose
+    ENV MUSL_VERSION="1.2.5-r0"
+    RUN apk add --no-cache bash=$BASH_VERSION musl-dev=$MUSL_VERSION
+    RUN rustup component add rustfmt clippy
     WORKDIR "/conventional_commits_linter"
-
-
-rust-base:
-    FROM +alpine-base
-    # renovate: datasource=repology depName=alpine_3_20/rust versioning=loose
-    ENV RUST_VERSION="1.78.0-r0"
-    RUN apk add --no-cache cargo=$RUST_VERSION
 
 
 check-clean-git-history:
@@ -54,19 +50,18 @@ COPY_SOURCECODE:
     COPY --dir "Cargo.toml" "src/" "end-to-end-tests/" "./"
 
 
-rust-formatting-base:
+sourcecode-base:
     FROM +rust-base
-    RUN apk add --no-cache rustfmt=$RUST_VERSION
     DO +COPY_SOURCECODE
 
 
 check-rust-formatting:
-    FROM +rust-formatting-base
+    FROM +sourcecode-base
     RUN ./ci/check-rust-formatting.sh
 
 
 python-base:
-    FROM +alpine-base
+    FROM +rust-base
     # renovate: datasource=repology depName=alpine_3_20/python3 versioning=loose
     ENV PYTHON_VERSION="3.12.8-r1"
     # renovate: datasource=repology depName=alpine_3_20/git versioning=loose
@@ -127,7 +122,7 @@ check-formatting:
 
 
 fix-rust-formatting:
-    FROM +rust-formatting-base
+    FROM +sourcecode-base
     RUN ./ci/fix-rust-formatting.sh
     SAVE ARTIFACT "src/" AS LOCAL "./"
 
@@ -158,14 +153,12 @@ fix-formatting:
 
 
 check-rust-linting:
-    FROM +rust-base
-    RUN apk add --no-cache rust-clippy=$RUST_VERSION
-    DO +COPY_SOURCECODE
+    FROM +sourcecode-base
     RUN ./ci/check-rust-linting.sh
 
 
 check-shell-linting:
-    FROM +alpine-base
+    FROM +rust-base
     # renovate: datasource=repology depName=alpine_3_20/shellcheck versioning=loose
     ENV SHELLCHECK_VERSION="0.10.0-r1"
     RUN apk add --no-cache shellcheck=$SHELLCHECK_VERSION
@@ -189,17 +182,21 @@ check-linting:
 
 
 compile:
-    FROM +rust-base
-    DO +COPY_SOURCECODE
+    FROM +sourcecode-base
     RUN ./ci/compile.sh
     SAVE ARTIFACT "target/" AS LOCAL "./"
     SAVE ARTIFACT "Cargo.lock" AS LOCAL "./"
 
 
 unit-test:
-    FROM +rust-base
-    DO +COPY_SOURCECODE
+    FROM +sourcecode-base
     RUN ./ci/unit-test.sh
+
+
+static-binary-test:
+    FROM ubuntu:24.04
+    COPY "+compile/target/" "target/"
+    RUN ./target/debug/conventional_commits_linter --help
 
 
 end-to-end-test:
@@ -221,7 +218,6 @@ release-artifacts:
 
 
 publish:
-    FROM +rust-base
+    FROM +sourcecode-base
     COPY "README.md" "./"
-    DO +COPY_SOURCECODE
     RUN --secret CARGO_REGISTRY_TOKEN ./ci/publish.sh
