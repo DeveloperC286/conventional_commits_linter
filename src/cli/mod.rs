@@ -6,7 +6,6 @@ use clap::{ArgGroup, Parser};
             ArgGroup::new("from")
                 .required(true)
         ))]
-
 pub(crate) struct Arguments {
     #[arg(
         group = "from",
