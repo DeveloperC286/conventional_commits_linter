@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.14.2 (2024-12-11)
+
+## What's Changed
+* chore(deps): update dependency alpine_3_20/python3 to v3.12.8-r1 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/101
+* chore(deps): update earthly/earthly docker tag to v0.8.15 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/94
+* ci: replacing missed Earthly download with action by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/103
+* fix(deps): update rust crate anyhow to v1.0.94 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/100
+* fix(deps): update rust crate serde to v1.0.216 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/104
+* fix(deps): update rust crate serde_json to v1.0.133 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/86
+* fix(deps): update rust crate clap to v4.5.23 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/85
+* build: creating static MUSL binary by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/107
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.14.1...v0.14.2
+
 ## 0.14.1 (2024-12-01)
 
 ## What's Changed
