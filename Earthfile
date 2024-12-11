@@ -21,10 +21,7 @@ alpine-base:
 
 
 rust-base:
-    FROM +alpine-base
-    # renovate: datasource=repology depName=alpine_3_20/rust versioning=loose
-    ENV RUST_VERSION="1.78.0-r0"
-    RUN apk add --no-cache cargo=$RUST_VERSION
+    FROM rust:1.83.0-alpine3.20
 
 
 check-clean-git-history:
@@ -56,7 +53,7 @@ COPY_SOURCECODE:
 
 rust-formatting-base:
     FROM +rust-base
-    RUN apk add --no-cache rustfmt=$RUST_VERSION
+    RUN rustup component add rustfmt
     DO +COPY_SOURCECODE
 
 
@@ -159,7 +156,7 @@ fix-formatting:
 
 check-rust-linting:
     FROM +rust-base
-    RUN apk add --no-cache rust-clippy=$RUST_VERSION
+    RUN rustup component add clippy
     DO +COPY_SOURCECODE
     RUN ./ci/check-rust-linting.sh
 
