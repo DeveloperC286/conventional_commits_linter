@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.14.3 (2024-12-11)
+
+## What's Changed
+* chore(deps): update dependency developerc286/conventional_commits_linter to v0.14.2 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/99
+* build: converting to Rust's Alpine image by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/110
+* chore(deps): update rust docker tag to v1.83.0 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/111
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.14.2...v0.14.3
+
 ## 0.14.2 (2024-12-11)
 
 ## What's Changed
