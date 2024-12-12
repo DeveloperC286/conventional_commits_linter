@@ -13,8 +13,8 @@ env:
   FORCE_COLOR: 1
 
 jobs:
-  release-artifacts:
-    name: Release artifacts.
+  publish-binary:
+    name: Publish Binary
     runs-on: ubuntu-latest
     steps:
       - name: Download Earthly.
@@ -23,12 +23,12 @@ jobs:
           version: v0.8.15
       - name: Checkout code.
         uses: actions/checkout@v4
-      - name: Release artifacts.
-        run: earthly --ci --secret GH_TOKEN +release-artifacts --release "${GITHUB_REF_NAME}"
+      - name: Publish binary.
+        run: earthly --ci --secret GH_TOKEN +publish-binary --release "${GITHUB_REF_NAME}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by GitHub Actions.
-  publish:
-    name: Publish.
+  publish-crate:
+    name: Publish Crate
     runs-on: ubuntu-latest
     steps:
       - name: Download Earthly.
@@ -37,7 +37,7 @@ jobs:
           version: v0.8.15
       - name: Checkout code.
         uses: actions/checkout@v4
-      - name: Publish.
-        run: earthly --ci --secret CARGO_REGISTRY_TOKEN +publish
+      - name: Publish crate.
+        run: earthly --ci --secret CARGO_REGISTRY_TOKEN +publish-crate
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}

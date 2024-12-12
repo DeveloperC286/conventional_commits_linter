@@ -206,7 +206,7 @@ end-to-end-test:
     RUN ./ci/end-to-end-test.sh
 
 
-release-artifacts:
+publish-binary:
     FROM +rust-base
     # renovate: datasource=repology depName=alpine_3_20/github-cli versioning=loose
     ENV GITHUB_CLI_VERSION="2.47.0-r4"
@@ -214,10 +214,10 @@ release-artifacts:
     DO +COPY_METADATA
     DO +COPY_SOURCECODE
     ARG release
-    RUN --secret GH_TOKEN ./ci/release-artifacts.sh --release "${release}"
+    RUN --secret GH_TOKEN ./ci/publish-binary.sh --release "${release}"
 
 
-publish:
+publish-crate:
     FROM +sourcecode-base
     COPY "README.md" "./"
-    RUN --secret CARGO_REGISTRY_TOKEN ./ci/publish.sh
+    RUN --secret CARGO_REGISTRY_TOKEN ./ci/publish-crate.sh
