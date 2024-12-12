@@ -36,8 +36,8 @@ check-clean-git-history:
 check-conventional-commits-linting:
     FROM +rust-base
     # renovate: datasource=github-releases depName=DeveloperC286/conventional_commits_linter
-    ENV CONVENTIONAL_COMMITS_LINTER_VERSION="v0.14.2"
-    RUN wget -O - "https://github.com/DeveloperC286/conventional_commits_linter/releases/download/${CONVENTIONAL_COMMITS_LINTER_VERSION}/x86_64-alpine-linux-musl.gz" | gzip -d > /usr/bin/conventional_commits_linter && chmod 755 /usr/bin/conventional_commits_linter
+    ENV CONVENTIONAL_COMMITS_LINTER_VERSION="v0.14.3"
+    RUN wget -O - "https://github.com/DeveloperC286/conventional_commits_linter/releases/download/${CONVENTIONAL_COMMITS_LINTER_VERSION}/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/conventional_commits_linter && chmod 755 /usr/bin/conventional_commits_linter
     DO +COPY_METADATA
     ARG from_reference="origin/HEAD"
     RUN ./ci/check-conventional-commits-linting.sh --from-reference "${from_reference}"
