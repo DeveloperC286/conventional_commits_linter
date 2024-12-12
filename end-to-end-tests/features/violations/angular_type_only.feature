@@ -25,6 +25,6 @@ Feature: With the allow Angular types only flag, non-Angular types are picked up
 
 
     Examples:
-      | standard_input                      |
-      | "chore: update dependencies\n"      |
-      | "chore(release): 6.5.0"             |
+      | standard_input                 |
+      | "chore: update dependencies\n" |
+      | "chore(release): 6.5.0"        |

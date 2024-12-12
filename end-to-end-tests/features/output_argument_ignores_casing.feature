@@ -6,14 +6,14 @@ Feature: The output argument can be provided in any casing.
     When the flag --from-stdin is set and the standard input is ""fix(deps updated): update dependency gitmojis to v3"".
     And the argument --output is set as "<output>".
     Then the linting fails.
-	And standard output is valid JSON.
+    And standard output is valid JSON.
 
 
     Examples:
       | output |
-      | JSON |
-      | json |
-      | Json |
+      | JSON   |
+      | json   |
+      | Json   |
 
 
   Scenario Outline:
@@ -21,14 +21,14 @@ Feature: The output argument can be provided in any casing.
     When the flag --from-stdin is set and the standard input is ""fix(deps updated): update dependency gitmojis to v3"".
     And the argument --output is set as "<output>".
     Then the linting fails.
-	And standard output is empty.
+    And standard output is empty.
 
 
     Examples:
       | output |
-	  | QUIET |
-	  | quiet |
-	  | Quiet |
+      | QUIET  |
+      | quiet  |
+      | Quiet  |
 
 
   Scenario Outline:
@@ -36,7 +36,7 @@ Feature: The output argument can be provided in any casing.
     When the flag --from-stdin is set and the standard input is ""fix(deps updated): update dependency gitmojis to v3"".
     And the argument --output is set as "<output>".
     Then the linting fails.
-	And standard output is not empty.
+    And standard output is not empty.
 
 
     Examples:
