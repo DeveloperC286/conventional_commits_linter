@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.14.4 (2024-12-12)
+
+## What's Changed
+* chore(deps): update dependency developerc286/conventional_commits_linter to v0.14.3 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/112
+* build: correcting Cargo configuration target by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/114
+* build: improved continuous delivery target naming by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/115
+* refactor: formatting end to end test features by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/116
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.14.3...v0.14.4
+
 ## 0.14.3 (2024-12-11)
 
 ## What's Changed
