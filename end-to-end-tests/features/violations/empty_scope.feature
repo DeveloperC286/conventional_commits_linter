@@ -3,13 +3,13 @@ Feature: When the commit title has a scope which is empty, it is picked up as Co
 
   Scenario Outline:
     Given the context and environment are reset.
-    When the flag --from-stdin is set and the standard input is "<standard_input>".
+    When linting the "<commit_message>".
     And the argument --output is set as "JSON".
     Then has a scope which is empty violation is detected.
 
 
     Examples:
-      | standard_input                                                                          |
+      | commit_message                                                                          |
       | "test(): adding stdin scenario variations"                                              |
       | "doc(   ): webpack example (#1436)"                                                     |
       | "chore(): 14.2.0"                                                                       |

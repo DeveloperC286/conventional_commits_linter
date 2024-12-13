@@ -1,33 +1,8 @@
-use clap::{ArgGroup, Parser};
+use clap::Parser;
 
 #[derive(Parser, Debug)]
 #[command(version, about)]
-#[command(group(
-            ArgGroup::new("from")
-                .required(true)
-        ))]
 pub(crate) struct Arguments {
-    #[arg(
-        group = "from",
-        long,
-        help = "Read the standard input and lint the input as a Git commit message."
-    )]
-    pub(crate) from_stdin: bool,
-
-    #[arg(
-        group = "from",
-        long,
-        help = "The Git reference from where to start taking the range of commits from till HEAD to lint. The range is inclusive of HEAD and exclusive of the provided reference."
-    )]
-    pub(crate) from_reference: Option<String>,
-
-    #[arg(
-        group = "from",
-        long,
-        help = "The Git commit hash from where to take the range of commits from till HEAD to lint. The range is inclusive of HEAD and exclusive of the provided commit hash."
-    )]
-    pub(crate) from_commit_hash: Option<String>,
-
     #[arg(
         long,
         default_value = "first",
@@ -47,4 +22,9 @@ pub(crate) struct Arguments {
         help = "Specifies the format for outputting results, acceptable values are quiet, pretty, and json."
     )]
     pub(crate) output: crate::output::Output,
+
+    #[arg(
+        help = "The Git reference from where to start taking the range of commits from till HEAD to lint. The range is inclusive of HEAD and exclusive of the provided reference. '-' indicates to read the standard input and lint the input as a Git commit message."
+    )]
+    pub(crate) from: String,
 }

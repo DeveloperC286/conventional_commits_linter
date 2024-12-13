@@ -31,26 +31,16 @@ impl Commits {
         }
     }
 
-    pub fn from_reference<T: AsRef<str>>(
+    pub fn from_git<T: AsRef<str>>(
         repository: &Repository,
-        reference: T,
+        git: T,
         history_mode: HistoryMode,
     ) -> Result<Commits> {
-        let reference_oid = get_reference_oid(repository, reference.as_ref())?;
-        let commits = get_commits_till_head_from_oid(repository, reference_oid, history_mode)?;
-        Ok(Commits {
-            commits,
-            source: Source::Git,
-        })
-    }
+        let oid = parse_to_oid(repository, git.as_ref()).or_else(|error| {
+            get_reference_oid(repository, git.as_ref()).map_err(|e| error.context(e))
+        })?;
 
-    pub fn from_commit_hash<T: AsRef<str>>(
-        repository: &Repository,
-        commit_hash: T,
-        history_mode: HistoryMode,
-    ) -> Result<Commits> {
-        let commit_oid = parse_to_oid(repository, commit_hash.as_ref())?;
-        let commits = get_commits_till_head_from_oid(repository, commit_oid, history_mode)?;
+        let commits = get_commits_till_head_from_oid(repository, oid, history_mode)?;
         Ok(Commits {
             commits,
             source: Source::Git,
@@ -155,10 +145,7 @@ fn parse_to_oid(repository: &Repository, oid: &str) -> Result<Oid> {
 
                         None
                     }
-                    Err(error) => {
-                        error!("{:?}", error);
-                        None
-                    }
+                    Err(_) => None,
                 })
                 .collect();
 

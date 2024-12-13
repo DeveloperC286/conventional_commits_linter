@@ -9,6 +9,7 @@ from assertions import assert_command_successful
 @given('the arguments are reset.')
 def reset_arguments(context):
     context.arguments = ""
+    context.from_ref = ""
 
 
 @given('the context and environment are reset.')

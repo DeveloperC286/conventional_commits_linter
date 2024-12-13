@@ -3,13 +3,13 @@ Feature: When the commit title has no space after the colon preceding the Conven
 
   Scenario Outline:
     Given the context and environment are reset.
-    When the flag --from-stdin is set and the standard input is "<standard_input>".
+    When linting the "<commit_message>".
     And the argument --output is set as "JSON".
     Then has no space after the colon preceding the type and scope violation is detected.
 
 
     Examples:
-      | standard_input                                                                                  |
+      | commit_message                                                                                  |
       | "chore:🌐 fix chinese translations"                                                             |
       | "docs:提交文件"                                                                                     |
       | "fix(deps):update dependency gitmojis to v3"                                                    |

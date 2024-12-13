@@ -3,7 +3,7 @@ Feature: With the allow Angular types only flag, non-Angular types are picked up
 
   Scenario Outline:
     Given the context and environment are reset.
-    When the flag --from-stdin is set and the standard input is "<standard_input>".
+    When linting the "<commit_message>".
     Then the linting passes.
     When the flag --allow-angular-type-only is set.
     And the argument --output is set as "JSON".
@@ -11,7 +11,7 @@ Feature: With the allow Angular types only flag, non-Angular types are picked up
 
 
     Examples:
-      | standard_input                      |
+      | commit_message                      |
       | "lint: clean up mutex returns\n\n"  |
       | "composer: updated the packages"    |
       | "major: release v3 (merge #51)\n\n" |
@@ -19,12 +19,12 @@ Feature: With the allow Angular types only flag, non-Angular types are picked up
 
   Scenario Outline:
     Given the context and environment are reset.
-    When the flag --from-stdin is set and the standard input is "<standard_input>".
+    When linting the "<commit_message>".
     And the flag --allow-angular-type-only is set.
     Then the linting passes.
 
 
     Examples:
-      | standard_input                 |
+      | commit_message                 |
       | "chore: update dependencies\n" |
       | "chore(release): 6.5.0"        |
