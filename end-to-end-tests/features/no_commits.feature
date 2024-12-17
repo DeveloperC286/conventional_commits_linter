@@ -3,7 +3,7 @@ Feature: When the range of commits from to lint are empty, then an error is retu
 
   Scenario Outline:
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
-    When the argument --from-commit-hash is provided as "<checkout_commit>".
+    When linting from the "<checkout_commit>".
     Then their is a no commits error.
 
 

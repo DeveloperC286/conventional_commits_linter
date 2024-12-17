@@ -3,12 +3,12 @@ Feature: A commit message can be provided by standard input rather than from a r
 
   Scenario Outline:
     Given the context and environment are reset.
-    When the flag --from-stdin is set and the standard input is "<standard_input>".
+    When linting the "<commit_message>".
     Then the linting passes.
 
 
     Examples:
-      | standard_input                           |
+      | commit_message                           |
       | "test: adding stdin scenario variations" |
       | "docs: correct spelling of CHANGELOG"    |
       | "fix: minor typos in code"               |

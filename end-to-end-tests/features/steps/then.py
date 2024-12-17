@@ -53,30 +53,13 @@ def assert_could_not_find_commit_hash_error(context, commit_hash):
 @then('their is a missing from argument error.')
 def assert_missing_from_argument_error(context):
     # Given
-    missing_from_argument_error = "error: the following required arguments were not provided:\n  <--from-stdin|--from-reference <FROM_REFERENCE>|--from-commit-hash <FROM_COMMIT_HASH>>\n\nUsage: conventional_commits_linter <--from-stdin|--from-reference <FROM_REFERENCE>|--from-commit-hash <FROM_COMMIT_HASH>>\n\nFor more information, try '--help'.\n"
+    missing_from_argument_error = "error: the following required arguments were not provided:\n  <FROM>\n\nUsage: conventional_commits_linter <FROM>\n\nFor more information, try '--help'.\n"
 
     # When/Then
     result = assert_linting_fails(context)
 
     # Then
     assert_error_equals(result, missing_from_argument_error)
-
-
-@then('their is a conflicting from arguments error.')
-def assert_conflicting_from_arguments_error(context):
-    # Given
-    conflicting_from_commit_hash_and_from_stdin_error = "error: the argument '--from-commit-hash <FROM_COMMIT_HASH>' cannot be used with '--from-stdin'\n\nUsage: conventional_commits_linter <--from-stdin|--from-reference <FROM_REFERENCE>|--from-commit-hash <FROM_COMMIT_HASH>>\n\nFor more information, try '--help'.\n"
-    conflicting_from_reference_and_from_commit_hash_error = "error: the argument '--from-reference <FROM_REFERENCE>' cannot be used with '--from-commit-hash <FROM_COMMIT_HASH>'\n\nUsage: conventional_commits_linter <--from-stdin|--from-reference <FROM_REFERENCE>|--from-commit-hash <FROM_COMMIT_HASH>>\n\nFor more information, try '--help'.\n"
-    conflicting_from_reference_and_from_stdin_error = "error: the argument '--from-reference <FROM_REFERENCE>' cannot be used with '--from-stdin'\n\nUsage: conventional_commits_linter <--from-stdin|--from-reference <FROM_REFERENCE>|--from-commit-hash <FROM_COMMIT_HASH>>\n\nFor more information, try '--help'.\n"
-
-    # When/Then
-    result = assert_linting_fails(context)
-
-    # Then
-    assert_error_is_one_of(result,
-                           [conflicting_from_commit_hash_and_from_stdin_error,
-                            conflicting_from_reference_and_from_commit_hash_error,
-                            conflicting_from_reference_and_from_stdin_error])
 
 
 @then('standard output is not empty.')
@@ -132,7 +115,7 @@ def assert_could_not_find_shortened_commit_hash_error(context, shortened_commit_
     'their is a ambiguous shortened commit hash "{shortened_commit_hash}" error.')
 def assert_ambiguous_shortened_commit_hash_error(context, shortened_commit_hash):
     # Given
-    ambiguous_shortened_commit_hash_error = re.compile(f"^ ERROR conventional_commits_linter > Ambiguous short commit hash, the commit hashes [[]({shortened_commit_hash}[a-f0-9]*(, )?)*[]] all start with the provided short commit hash \"{shortened_commit_hash}\".\n$")  # fmt: off
+    ambiguous_shortened_commit_hash_error = re.compile(f"^ ERROR conventional_commits_linter > Could not find a reference with the name \"{shortened_commit_hash}\".\n\nCaused by:\n    Ambiguous short commit hash, the commit hashes [[]({shortened_commit_hash}[a-f0-9]*(, )?)*[]] all start with the provided short commit hash \"{shortened_commit_hash}\".\n$")  # fmt: off
 
     # When/Then
     result = assert_linting_fails(context)

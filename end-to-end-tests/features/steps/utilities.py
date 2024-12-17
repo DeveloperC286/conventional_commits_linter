@@ -29,7 +29,8 @@ def execute_conventional_commits_linter(context):
     result = execute_command(
         context.pre_command +
         context.conventional_commits_linter_path +
-        context.arguments)
+        context.arguments +
+        context.from_ref)
 
     if "GIT_DIR" not in os.environ:
         os.chdir(context.behave_directory)

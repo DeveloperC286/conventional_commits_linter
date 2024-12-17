@@ -2,7 +2,7 @@ Feature: With JSON enabled when linting errors are encountered they are printed 
 
   Scenario Outline:
     Given the context and environment are reset.
-    When the flag --from-stdin is set and the standard input is "<standard_input>".
+    When linting the "<commit_message>".
     Then the linting fails.
     And standard output is not valid JSON.
     When the argument --output is set as "JSON".
@@ -11,7 +11,7 @@ Feature: With JSON enabled when linting errors are encountered they are printed 
 
 
     Examples:
-      | standard_input                                                                                  |
+      | commit_message                                                                                  |
       | "chore:🌐 fix chinese translations"                                                             |
       | "fix(deps updated): update dependency gitmojis to v3"                                           |
       | "test making test assertion stricter\n\nCo-authored-by: Renovate Bot <bot@renovateapp.com>\n\n" |

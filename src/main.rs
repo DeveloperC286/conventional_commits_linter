@@ -6,7 +6,7 @@ extern crate pretty_env_logger;
 
 use std::io::{stdin, Read};
 
-use anyhow::{bail, Context, Result};
+use anyhow::{Context, Result};
 use clap::Parser;
 use git2::Repository;
 
@@ -42,30 +42,14 @@ fn main() {
 }
 
 fn run(arguments: Arguments) -> Result<i32> {
-    let commits = match (
-        arguments.from_stdin,
-        arguments.from_commit_hash,
-        arguments.from_reference,
-    ) {
-        (true, None, None) => {
-            let mut commit_message = String::new();
-            stdin().read_to_string(&mut commit_message).unwrap();
-
-            Ok(Commits::from_commit_message(commit_message))
-        }
-        (false, Some(from_commit_hash), None) => {
-            let repository =
-                Repository::open_from_env().context("Unable to open the Git repository.")?;
-            Commits::from_commit_hash(&repository, from_commit_hash, arguments.history_mode)
-        }
-        (false, None, Some(from_reference)) => {
-            let repository =
-                Repository::open_from_env().context("Unable to open the Git repository.")?;
-            Commits::from_reference(&repository, from_reference, arguments.history_mode)
-        }
-        (_, _, _) => {
-            bail!("Invalid combination of from arguments.");
-        }
+    let commits = if arguments.from == "-" {
+        let mut commit_message = String::new();
+        stdin().read_to_string(&mut commit_message).unwrap();
+        Ok(Commits::from_commit_message(commit_message))
+    } else {
+        let repository =
+            Repository::open_from_env().context("Unable to open the Git repository.")?;
+        Commits::from_git(&repository, arguments.from, arguments.history_mode)
     }?;
 
     if let Some(linting_results) = commits.lint(arguments.allow_angular_type_only) {
