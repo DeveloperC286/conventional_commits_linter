@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.0.0 (2024-12-18)
+
+## What's Changed
+* chore(deps): update dependency developerc286/conventional_commits_linter to v0.14.3 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/112
+* build: correcting Cargo configuration target by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/114
+* build: improved continuous delivery target naming by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/115
+* refactor: formatting end to end test features by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/116
+* chore(deps): update dependency google/yamlfmt to v0.14.0 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/89
+* chore(deps): update dependency mvdan/sh to v3.10.0 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/90
+* chore(deps): update dependency rhysd/actionlint to v1.7.4 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/91
+* chore(deps): update golang docker tag to v1.23.4 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/92
+* chore(deps): update dependency six to v1.17.0 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/105
+* feat!: from changed to singular positional argument by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/117
+* build: adding cargo --locked and removing --workspace by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/118
+* ci: removing Alpine Renovate version updating by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/119
+* ci: converting to publishing .tar.gz by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/120
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.14.3...v1.0.0
+
 ## 0.14.3 (2024-12-11)
 
 ## What's Changed
