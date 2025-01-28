@@ -28,7 +28,7 @@
       "matchStrings": [
         ".*version: (?<currentValue>.*?)\\s"
       ],
-      "datasourceTemplate": "docker",
+      "datasourceTemplate": "github-tags",
       "depNameTemplate": "earthly/earthly"
     }
   ]
