@@ -3,6 +3,7 @@
   "extends": [
     "config:best-practices"
   ],
+  "automerge": true,
   "dockerfile": {
     "fileMatch": [
       "(^|/)Earthfile$",
