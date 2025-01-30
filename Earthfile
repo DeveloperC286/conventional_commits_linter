@@ -169,7 +169,7 @@ check-shell-linting:
 check-github-actions-workflows-linting:
     FROM +golang-base
     # renovate: datasource=github-releases depName=rhysd/actionlint
-    ENV ACTIONLINT_VERSION="v1.7.4"
+    ENV ACTIONLINT_VERSION="v1.7.7"
     RUN go install github.com/rhysd/actionlint/cmd/actionlint@$ACTIONLINT_VERSION
     DO +COPY_CI_DATA
     RUN ./ci/check-github-actions-workflows-linting.sh
