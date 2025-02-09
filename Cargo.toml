@@ -47,4 +47,4 @@ rstest = "=0.24.0"
 rstest_reuse = "=0.7.0"
 
 # For snapshot testing.
-insta = "=1.33.0"
+insta = "=1.42.1"
