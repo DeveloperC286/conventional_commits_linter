@@ -17,7 +17,7 @@ rust-base:
     # renovate: datasource=repology depName=alpine_3_20/bash versioning=loose
     ENV BASH_VERSION="5.2.26-r0"
     # renovate: datasource=repology depName=alpine_3_20/musl-dev versioning=loose
-    ENV MUSL_VERSION="1.2.5-r0"
+    ENV MUSL_VERSION="1.2.5-r1"
     RUN apk add --no-cache bash=$BASH_VERSION musl-dev=$MUSL_VERSION
     RUN rustup component add rustfmt clippy
     WORKDIR "/conventional_commits_linter"
