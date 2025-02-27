@@ -21,4 +21,4 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
       - name: Check clean Git history.
-        run: earthly --ci +check-clean-git-history --from_reference "origin/${{ github.base_ref }}"
+        run: earthly --ci +check-clean-git-history --from "origin/${{ github.base_ref }}"
