@@ -14,11 +14,9 @@ COPY_METADATA:
 
 rust-base:
     FROM rust:1.86.0-alpine3.20@sha256:2ee35275aeaa2e438f34a0563f7931988f5c5254e2eeec562f95a60ca2a2e7c3
-    # renovate: datasource=repology depName=alpine_3_20/bash versioning=loose
-    ENV BASH_VERSION="5.2.26-r0"
-    # renovate: datasource=repology depName=alpine_3_20/musl-dev versioning=loose
-    ENV MUSL_VERSION="1.2.5-r1"
-    RUN apk add --no-cache bash=$BASH_VERSION musl-dev=$MUSL_VERSION
+    RUN apk add --no-cache \
+        bash=5.2.26-r0 \
+        musl-dev=1.2.5-r1
     RUN rustup component add rustfmt clippy
     WORKDIR "/conventional_commits_linter"
 
@@ -62,13 +60,10 @@ check-rust-formatting:
 
 python-base:
     FROM +rust-base
-    # renovate: datasource=repology depName=alpine_3_20/python3 versioning=loose
-    ENV PYTHON_VERSION="3.12.10-r0"
-    # renovate: datasource=repology depName=alpine_3_20/git versioning=loose
-    ENV GIT_VERSION="2.45.3-r0"
-    # renovate: datasource=repology depName=alpine_3_20/py3-pip versioning=loose
-    ENV PIP_VERSION="24.0-r2"
-    RUN apk add --no-cache py3-pip=$PIP_VERSION python3=$PYTHON_VERSION git=$GIT_VERSION
+    RUN apk add --no-cache \
+        python3=3.12.10-r0 \
+        py3-pip=24.0-r2 \
+        git=2.45.3-r0
     DO +COPY_SOURCECODE
 
 
@@ -159,9 +154,8 @@ check-rust-linting:
 
 check-shell-linting:
     FROM +rust-base
-    # renovate: datasource=repology depName=alpine_3_20/shellcheck versioning=loose
-    ENV SHELLCHECK_VERSION="0.10.0-r1"
-    RUN apk add --no-cache shellcheck=$SHELLCHECK_VERSION
+    RUN apk add --no-cache \
+        shellcheck=0.10.0-r1
     DO +COPY_CI_DATA
     RUN ./ci/check-shell-linting.sh
 
@@ -208,9 +202,8 @@ end-to-end-test:
 
 publish-binary:
     FROM +rust-base
-    # renovate: datasource=repology depName=alpine_3_20/github-cli versioning=loose
-    ENV GITHUB_CLI_VERSION="2.47.0-r4"
-    RUN apk add --no-cache github-cli=$GITHUB_CLI_VERSION
+    RUN apk add --no-cache \
+        github-cli=2.47.0-r4
     DO +COPY_METADATA
     DO +COPY_SOURCECODE
     ARG release
