@@ -28,7 +28,7 @@ check-clean-git-history:
     RUN wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/${CLEAN_GIT_HISTORY_VERSION}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
     DO +COPY_METADATA
     ARG from="origin/HEAD"
-    RUN ./ci/check-clean-git-history.sh "${from_reference}"
+    RUN ./ci/check-clean-git-history.sh "${from}"
 
 
 check-conventional-commits-linting:
