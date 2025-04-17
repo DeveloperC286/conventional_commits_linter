@@ -42,6 +42,21 @@
       ],
       "versioningTemplate": "regex:^(?<compatibility>[\\S]*\\d+\\.\\d+(?:\\.\\d+)?(?:[\\S]*)?-alpine-?)(?<major>\\d+)\\.(?<minor>\\d+)(?:\\.(?<patch>\\d+))?$",
       "datasourceTemplate": "docker",
+    },
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "^Earthfile$"
+      ],
+      "matchStringsStrategy": "recursive",
+      "matchStrings": [
+        "FROM\\s*.*?alpine[.:]?(?<alpineMajor>\\d+)\\.(?<alpineMinor>\\d+)(?:\\n|.)*",
+        "apk\\s+add\\s+(?:\\n|.)*?[^\\\\]\\n",
+        "(?<name>[^\\s=~]+)~?=(?<currentValue>[^\\s=]+)"
+      ],
+      "datasourceTemplate": "repology",
+      "depNameTemplate": "alpine_{{alpineMajor}}_{{alpineMinor}}/{{name}}",
+      "versioningTemplate": "loose"
     }
   ]
 }
