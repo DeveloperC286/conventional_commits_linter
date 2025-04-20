@@ -203,7 +203,7 @@ end-to-end-test:
 publish-binary:
     FROM +rust-base
     RUN apk add --no-cache \
-        github-cli=2.47.0-r4
+        github-cli=2.63.0-r4
     DO +COPY_METADATA
     DO +COPY_SOURCECODE
     ARG release
