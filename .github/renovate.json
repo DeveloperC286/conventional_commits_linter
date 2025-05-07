@@ -5,17 +5,17 @@
   ],
   "automerge": true,
   "dockerfile": {
-    "fileMatch": [
-      "(^|/)Earthfile$",
-      "(^|/|\\.)Dockerfile$",
-      "(^|/)Dockerfile[^/]*$"
+    "managerFilePatterns": [
+      "/(^|/)Earthfile$/",
+      "/(^|/|\\.)Dockerfile$/",
+      "/(^|/)Dockerfile[^/]*$/"
     ]
   },
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": [
-        "^Earthfile$"
+      "managerFilePatterns": [
+        "/^Earthfile$/"
       ],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.+_VERSION=\"(?<currentValue>.*?)\"\\s"
@@ -23,8 +23,8 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "^[.]github/workflows/"
+      "managerFilePatterns": [
+        "/^[.]github/workflows//"
       ],
       "matchStrings": [
         ".*version: (?<currentValue>.*?)\\s"
@@ -34,19 +34,19 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "^Earthfile$"
+      "managerFilePatterns": [
+        "/^Earthfile$/"
       ],
       "matchStrings": [
         "FROM\\s+(?<depName>[\\S]+?):(?<currentValue>[^@\\s]+)(?:@(?<currentDigest>sha256:[a-f0-9]+))?"
       ],
       "versioningTemplate": "regex:^(?<compatibility>[\\S]*\\d+\\.\\d+(?:\\.\\d+)?(?:[\\S]*)?-alpine-?)(?<major>\\d+)\\.(?<minor>\\d+)(?:\\.(?<patch>\\d+))?$",
-      "datasourceTemplate": "docker",
+      "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "^Earthfile$"
+      "managerFilePatterns": [
+        "/^Earthfile$/"
       ],
       "matchStringsStrategy": "recursive",
       "matchStrings": [
