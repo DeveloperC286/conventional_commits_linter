@@ -78,7 +78,7 @@ check-python-formatting:
 
 
 golang-base:
-    FROM golang:1.24.3@sha256:02a22753ab3426d91ba5ba6f4dfb4ac2454f19b05afdb18d61ab02cbf1a2dffe
+    FROM golang:1.24.3@sha256:baf611fd7d082c08acbf365005971f201017d34ca2e80e6f3415577f82c44af2
     WORKDIR "/conventional_commits_linter"
 
 
