@@ -98,7 +98,7 @@ check-shell-formatting:
 yaml-formatting-base:
     FROM +golang-base
     # renovate: datasource=github-releases depName=google/yamlfmt
-    ENV YAMLFMT_VERSION="v0.16.0"
+    ENV YAMLFMT_VERSION="v0.17.0"
     RUN go install github.com/google/yamlfmt/cmd/yamlfmt@$YAMLFMT_VERSION
     COPY ".yamlfmt" "./"
     DO +COPY_CI_DATA
