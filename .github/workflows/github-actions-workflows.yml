@@ -2,32 +2,20 @@ name: GitHub Actions Workflows
 
 on: pull_request
 
-env:
-  # Forcing Earthly to use colours, to make reading output easier.
-  FORCE_COLOR: 1
-
 jobs:
   linting:
     name: Linting
     runs-on: ubuntu-latest
     steps:
-      - name: Download Earthly.
-        uses: earthly/actions-setup@43211c7a0eae5344d6d79fb4aaf209c8f8866203 # v1.0.13
-        with:
-          version: v0.8.15
       - name: Checkout code.
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Check GitHub Actions workflows linting.
-        run: earthly +check-github-actions-workflows-linting
+        run: make check-github-actions-workflows-linting
   formatting:
     name: Formatting
     runs-on: ubuntu-latest
     steps:
-      - name: Download Earthly.
-        uses: earthly/actions-setup@43211c7a0eae5344d6d79fb4aaf209c8f8866203 # v1.0.13
-        with:
-          version: v0.8.15
       - name: Checkout code.
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Check formatting.
-        run: earthly +check-yaml-formatting
+        run: make check-yaml-formatting

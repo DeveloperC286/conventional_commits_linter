@@ -2,89 +2,58 @@ name: Continuous Integration (CI)
 
 on: pull_request
 
-env:
-  # Forcing Earthly to use colours, to make reading output easier.
-  FORCE_COLOR: 1
-
 jobs:
   formatting:
     name: Formatting
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        language: [rust, python, shell]
+        language: [rust, shell, python]
     steps:
-      - name: Download Earthly.
-        uses: earthly/actions-setup@43211c7a0eae5344d6d79fb4aaf209c8f8866203 # v1.0.13
-        with:
-          version: v0.8.15
       - name: Checkout code.
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Check formatting.
-        run: earthly --ci +check-${{ matrix.language }}-formatting
+        run: make check-${{ matrix.language }}-formatting
   linting:
     name: Linting
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        language: [rust, shell]
+        language: [rust]
     steps:
-      - name: Download Earthly.
-        uses: earthly/actions-setup@43211c7a0eae5344d6d79fb4aaf209c8f8866203 # v1.0.13
-        with:
-          version: v0.8.15
       - name: Checkout code.
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Check linting.
-        run: earthly --ci +check-${{ matrix.language }}-linting
+        run: make check-${{ matrix.language }}-linting
   compile:
     name: Compile
     runs-on: ubuntu-latest
     steps:
-      - name: Download Earthly.
-        uses: earthly/actions-setup@43211c7a0eae5344d6d79fb4aaf209c8f8866203 # v1.0.13
-        with:
-          version: v0.8.15
       - name: Checkout code.
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Compile.
-        run: earthly --ci +compile
+        run: make compile
   unit-test:
     name: Unit Test
     runs-on: ubuntu-latest
     steps:
-      - name: Download Earthly.
-        uses: earthly/actions-setup@43211c7a0eae5344d6d79fb4aaf209c8f8866203 # v1.0.13
-        with:
-          version: v0.8.15
       - name: Checkout code.
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 0
       - name: Unit test.
-        run: earthly --ci +unit-test
+        run: make unit-test
   static-binary-test:
     name: Static Binary Test
     runs-on: ubuntu-latest
     steps:
-      - name: Download Earthly.
-        uses: earthly/actions-setup@43211c7a0eae5344d6d79fb4aaf209c8f8866203 # v1.0.13
-        with:
-          version: v0.8.15
       - name: Checkout code.
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Static binary test.
-        run: earthly --ci +static-binary-test
+        run: make static-binary-test
   end-to-end-test:
     name: End to End Test
     runs-on: ubuntu-latest
     steps:
-      - name: Download Earthly.
-        uses: earthly/actions-setup@43211c7a0eae5344d6d79fb4aaf209c8f8866203 # v1.0.13
-        with:
-          version: v0.8.15
       - name: Checkout code.
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: End to End test.
-        run: earthly --ci +end-to-end-test
+        run: make end-to-end-test

@@ -6,7 +6,6 @@
   "automerge": true,
   "dockerfile": {
     "managerFilePatterns": [
-      "/(^|/)Earthfile$/",
       "/(^|/|\\.)Dockerfile$/",
       "/(^|/)Dockerfile[^/]*$/"
     ]
@@ -15,7 +14,8 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/^Earthfile$/"
+        "/(^|/|\\.)Dockerfile$/",
+        "/(^|/)Dockerfile[^/]*$/"
       ],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.+_VERSION=\"(?<currentValue>.*?)\"\\s"
@@ -24,29 +24,8 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/^[.]github/workflows//"
-      ],
-      "matchStrings": [
-        ".*version: (?<currentValue>.*?)\\s"
-      ],
-      "datasourceTemplate": "github-tags",
-      "depNameTemplate": "earthly/earthly"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/^Earthfile$/"
-      ],
-      "matchStrings": [
-        "FROM\\s+(?<depName>[\\S]+?):(?<currentValue>[^@\\s]+)(?:@(?<currentDigest>sha256:[a-f0-9]+))?"
-      ],
-      "versioningTemplate": "regex:^(?<compatibility>[\\S]*\\d+\\.\\d+(?:\\.\\d+)?(?:[\\S]*)?-alpine-?)(?<major>\\d+)\\.(?<minor>\\d+)(?:\\.(?<patch>\\d+))?$",
-      "datasourceTemplate": "docker"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/^Earthfile$/"
+        "/(^|/|\\.)Dockerfile$/",
+        "/(^|/)Dockerfile[^/]*$/"
       ],
       "matchStringsStrategy": "recursive",
       "matchStrings": [
