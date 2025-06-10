@@ -2,23 +2,15 @@ name: Git History
 
 on: pull_request
 
-env:
-  # Forcing Earthly to use colours, to make reading output easier.
-  FORCE_COLOR: 1
-
 jobs:
   clean:
     name: Clean
     runs-on: ubuntu-latest
     steps:
-      - name: Download Earthly.
-        uses: earthly/actions-setup@43211c7a0eae5344d6d79fb4aaf209c8f8866203 # v1.0.13
-        with:
-          version: v0.8.15
       - name: Checkout code.
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
       - name: Check clean Git history.
-        run: earthly --ci +check-clean-git-history --from "origin/${{ github.base_ref }}"
+        run: make check-clean-git-history FROM="origin/${{ github.base_ref }}"
