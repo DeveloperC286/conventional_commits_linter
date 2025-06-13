@@ -12,6 +12,6 @@ fi
 RELEASE="$1"
 
 target="x86_64-unknown-linux-musl"
-tar -czvf "${target}.tar.gz" -C "target/${target}/release" "clean_git_history"
+tar -czvf "${target}.tar.gz" -C "target/${target}/release" "conventional_commits_linter"
 gh release upload "${RELEASE}" "${target}.tar.gz"
 rm "${target}.tar.gz"
