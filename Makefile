@@ -16,9 +16,12 @@ check-rust-formatting:
 	docker build -t check-rust-formatting -f ci/check-rust-formatting.Dockerfile .
 	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) check-rust-formatting
 
+# renovate: depName=mvdan/shfmt
+SHFMT_VERSION=v3.11.0-alpine@sha256:394d755b6007056a2e6d7537ccdbdcfca01b9855ba91e99df0166ca039c9d422
+
 check-shell-formatting:
-	docker pull mvdan/shfmt:v3.11.0-alpine
-	docker run --rm -v $(PWD):/workspace -w /workspace -u $(UID):$(GID) mvdan/shfmt:v3.11.0-alpine --simplify --diff ci/* 
+	docker pull mvdan/shfmt:$(SHFMT_VERSION)
+	docker run --rm -v $(PWD):/workspace -w /workspace -u $(UID):$(GID) mvdan/shfmt:$(SHFMT_VERSION) --simplify --diff ci/* 
 
 check-python-formatting:
 	docker build -t check-python-formatting -f ci/check-python-formatting.Dockerfile .
@@ -33,24 +36,30 @@ fix-rust-formatting:
 	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) fix-rust-formatting
 
 fix-shell-formatting:
-	docker pull mvdan/shfmt:v3.11.0-alpine
-	docker run --rm -v $(PWD):/workspace -w /workspace -u $(UID):$(GID) mvdan/shfmt:v3.11.0-alpine --simplify --write ci/* 
+	docker pull mvdan/shfmt:$(SHFMT_VERSION)
+	docker run --rm -v $(PWD):/workspace -w /workspace -u $(UID):$(GID) mvdan/shfmt:$(SHFMT_VERSION) --simplify --write ci/* 
 
 fix-python-formatting:
 	docker build -t fix-python-formatting -f ci/fix-python-formatting.Dockerfile .
 	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) fix-python-formatting
 
+# renovate: depName=ghcr.io/google/yamlfmt
+YAMLFMT_VERSION=0.17.0@sha256:b4ebf4ff064f5bcf779ef4799dad1fc52542e137677699210aea2de2b270e97f
+
 fix-yaml-formatting:
-	docker pull ghcr.io/google/yamlfmt:0.17.0
-	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) ghcr.io/google/yamlfmt:0.17.0 -verbose -dstar .github/workflows/*
+	docker pull ghcr.io/google/yamlfmt:$(YAMLFMT_VERSION)
+	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) ghcr.io/google/yamlfmt:$(YAMLFMT_VERSION) -verbose -dstar .github/workflows/*
 
 check-rust-linting:
 	docker build -t check-rust-linting -f ci/check-rust-linting.Dockerfile .
 	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) check-rust-linting
 
+# renovate: depName=rhysd/actionlint
+ACTIONLINT_VERSION=1.7.7@sha256:887a259a5a534f3c4f36cb02dca341673c6089431057242cdc931e9f133147e9
+
 check-github-actions-workflows-linting:
-	docker pull rhysd/actionlint:1.7.7
-	docker run --rm -v $(PWD):/workspace -w /workspace -u $(UID):$(GID) rhysd/actionlint:1.7.7 -verbose -color
+	docker pull rhysd/actionlint:$(ACTIONLINT_VERSION)
+	docker run --rm -v $(PWD):/workspace -w /workspace -u $(UID):$(GID) rhysd/actionlint:$(ACTIONLINT_VERSION) -verbose -color
 
 compile:
 	docker build -t compile -f ci/compile.Dockerfile .
