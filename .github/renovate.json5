@@ -36,6 +36,18 @@
       "datasourceTemplate": "repology",
       "depNameTemplate": "alpine_{{alpineMajor}}_{{alpineMinor}}/{{name}}",
       "versioningTemplate": "loose"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/|\\.)Makefile$/",
+        "/(^|/)Makefile[^/]*$/"
+      ],
+      "matchStrings": [
+        "# renovate: depName=(?<depName>.*?)\\s.+_VERSION=(?<currentValue>[a-z0-9.-]+)(?:@(?<currentDigest>sha256:[a-f0-9]+))?"
+      ],
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "docker"
     }
   ]
 }
