@@ -44,7 +44,7 @@ fix-python-formatting:
 	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) fix-python-formatting
 
 # renovate: depName=ghcr.io/google/yamlfmt
-YAMLFMT_VERSION=0.17.0@sha256:b4ebf4ff064f5bcf779ef4799dad1fc52542e137677699210aea2de2b270e97f
+YAMLFMT_VERSION=0.17.1@sha256:4aef3416c720c378e8faeb2b96faebdd092058fe8860a868fdb33c8ed5d50a5d
 
 fix-yaml-formatting:
 	docker pull ghcr.io/google/yamlfmt:$(YAMLFMT_VERSION)
