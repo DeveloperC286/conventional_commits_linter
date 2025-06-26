@@ -83,8 +83,7 @@ fn get_commits_till_head_from_oid(
         commits.push_head()?;
 
         commits.hide(from_commit_hash).context(format!(
-            "Can not find a commit with the hash '{}'.",
-            from_commit_hash
+            "Can not find a commit with the hash '{from_commit_hash}'."
         ))?;
         Ok(commits)
     }
@@ -110,8 +109,7 @@ fn get_reference_oid(repository: &Repository, matching: &str) -> Result<Oid> {
     let reference = repository
         .resolve_reference_from_short_name(matching)
         .context(format!(
-            "Could not find a reference with the name {:?}.",
-            matching
+            "Could not find a reference with the name {matching:?}."
         ))?;
     trace!(
         "Matched {:?} to the reference {:?}.",
@@ -125,10 +123,7 @@ fn get_reference_oid(repository: &Repository, matching: &str) -> Result<Oid> {
 fn parse_to_oid(repository: &Repository, oid: &str) -> Result<Oid> {
     match oid.len() {
         1..=39 => {
-            trace!(
-                "Attempting to find a match for the short commit hash {:?}.",
-                oid
-            );
+            trace!("Attempting to find a match for the short commit hash {oid:?}.");
             let matching_oid_lowercase = oid.to_lowercase();
 
             let mut revwalker = repository.revwalk()?;
@@ -162,6 +157,6 @@ fn parse_to_oid(repository: &Repository, oid: &str) -> Result<Oid> {
                 }
             }
         }
-        _ => git2::Oid::from_str(oid).context(format!("{:?} is not a valid commit hash.", oid)),
+        _ => git2::Oid::from_str(oid).context(format!("{oid:?} is not a valid commit hash.")),
     }
 }
