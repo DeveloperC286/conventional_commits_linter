@@ -4,9 +4,13 @@ GID := $(shell id -g)
 
 .PHONY: check-clean-git-history check-conventional-commits-linting check-rust-formatting check-python-formatting check-yaml-formatting fix-rust-formatting fix-python-formatting fix-yaml-formatting check-rust-linting check-github-actions-workflows-linting compile unit-test static-binary-test end-to-end-test publish-binary publish-crate
 
+
+# renovate: depName=ghcr.io/developerc286/clean_git_history
+CLEAN_GIT_HISTORY_VERSION=1.0.4@sha256:5783341a3377a723e409e72b9ec0826a75ba944288d030978355de05ef65b186
+
 check-clean-git-history:
-	docker build -t check-clean-git-history -f ci/check-clean-git-history.Dockerfile .
-	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) check-clean-git-history $(FROM)
+	docker pull ghcr.io/developerc286/clean_git_history:$(CLEAN_GIT_HISTORY_VERSION)
+	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) ghcr.io/developerc286/clean_git_history:$(CLEAN_GIT_HISTORY_VERSION) $(FROM)
 
 check-conventional-commits-linting:
 	docker build -t check-conventional-commits-linting -f ci/check-conventional-commits-linting.Dockerfile .
