@@ -2,8 +2,7 @@
 UID := $(shell id -u)
 GID := $(shell id -g)
 
-.PHONY: check-clean-git-history check-conventional-commits-linting check-rust-formatting check-python-formatting check-yaml-formatting fix-rust-formatting fix-python-formatting fix-yaml-formatting check-rust-linting check-github-actions-workflows-linting compile unit-test static-binary-test end-to-end-test publish-binary publish-crate
-
+.PHONY: check-clean-git-history check-conventional-commits-linting check-rust-formatting check-python-formatting check-yaml-formatting fix-rust-formatting fix-python-formatting fix-yaml-formatting check-rust-linting check-github-actions-workflows-linting compile unit-test end-to-end-test publish-binary publish-crate dogfood-docker publish-docker
 
 # renovate: depName=ghcr.io/developerc286/clean_git_history
 CLEAN_GIT_HISTORY_VERSION=1.0.4@sha256:5783341a3377a723e409e72b9ec0826a75ba944288d030978355de05ef65b186
@@ -73,18 +72,25 @@ unit-test:
 	docker build -t unit-test -f ci/unit-test.Dockerfile .
 	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) unit-test
 
-static-binary-test: compile
-	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) compile --release
-	./target/x86_64-unknown-linux-musl/release/conventional_commits_linter --help
-
 end-to-end-test: compile
 	docker build -t end-to-end-test -f ci/end-to-end-test.Dockerfile .
 	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) end-to-end-test
 
-publish-binary: static-binary-test
+release:
+	docker build -t compile -f ci/compile.Dockerfile .
+	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) compile --release
+
+publish-binary: release
 	docker build -t publish-binary -f ci/publish-binary.Dockerfile .
 	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) -e GH_TOKEN publish-binary $(RELEASE)
 
 publish-crate:
 	docker build -t publish-crate -f ci/publish-crate.Dockerfile .
 	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) -e CARGO_REGISTRY_TOKEN publish-crate
+
+dogfood-docker: release
+	docker build -t conventional-commits-linter -f Dockerfile .
+	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) conventional-commits-linter $(FROM)
+
+publish-docker: release
+	./ci/publish-docker.sh ${RELEASE}
