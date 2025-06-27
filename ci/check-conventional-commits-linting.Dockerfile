@@ -1,4 +1,4 @@
-FROM rust:1.87.0-alpine3.21@sha256:fa7c28576553c431224a85c897c38f3a6443bd831be37061ab3560d9e797dc82
+FROM rust:1.88.0-alpine3.21@sha256:9c6a4baf58661f99a5441b15e3ad8295dabf35e849c4935e77ad35d9809be1d2
 
 # renovate: datasource=github-releases depName=DeveloperC286/conventional_commits_linter
 ENV CONVENTIONAL_COMMITS_LINTER_VERSION="v0.14.3"

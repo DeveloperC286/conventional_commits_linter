@@ -35,7 +35,7 @@ fn main() {
             std::process::exit(exit_code);
         }
         Err(err) => {
-            error!("{:?}", err);
+            error!("{err:?}");
             std::process::exit(ERROR_EXIT_CODE);
         }
     }
