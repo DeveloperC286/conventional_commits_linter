@@ -163,7 +163,7 @@ dependencies = [
 
 [[package]]
 name = "conventional_commits_linter"
-version = "0.14.3"
+version = "0.15.0"
 dependencies = [
  "ansi_term",
  "anyhow",
