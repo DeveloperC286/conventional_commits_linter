@@ -1,0 +1,19 @@
+name: Dogfood
+
+on: pull_request
+
+permissions:
+  contents: read
+
+jobs:
+  docker:
+    name: Docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code.
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - name: Dogfooding Docker
+        run: make dogfood-docker FROM="origin/${{ github.base_ref }}"

@@ -41,14 +41,6 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Unit test.
         run: make unit-test
-  static-binary-test:
-    name: Static Binary Test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code.
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - name: Static binary test.
-        run: make static-binary-test
   end-to-end-test:
     name: End to End Test
     runs-on: ubuntu-latest
