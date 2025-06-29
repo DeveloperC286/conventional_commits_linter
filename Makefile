@@ -11,9 +11,12 @@ check-clean-git-history:
 	docker pull ghcr.io/developerc286/clean_git_history:$(CLEAN_GIT_HISTORY_VERSION)
 	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) ghcr.io/developerc286/clean_git_history:$(CLEAN_GIT_HISTORY_VERSION) $(FROM)
 
+# renovate: depName=ghcr.io/developerc286/conventional_commits_linter
+CONVENTIONAL_COMMITS_LINTER_VERSION=0.15.0@sha256:b631a3cdcbed28c8938a2a6b63e16ecfd0d7ff71c28e878815adf9183e1fb599
+
 check-conventional-commits-linting:
-	docker build -t check-conventional-commits-linting -f ci/check-conventional-commits-linting.Dockerfile .
-	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) check-conventional-commits-linting $(FROM)
+	docker pull ghcr.io/developerc286/conventional_commits_linter:$(CONVENTIONAL_COMMITS_LINTER_VERSION)
+	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) ghcr.io/developerc286/conventional_commits_linter:$(CONVENTIONAL_COMMITS_LINTER_VERSION) --allow-angular-type-only $(FROM)
 
 check-rust-formatting:
 	docker build -t check-rust-formatting -f ci/check-rust-formatting.Dockerfile .
