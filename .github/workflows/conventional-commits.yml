@@ -2,6 +2,9 @@ name: Conventional Commits
 
 on: pull_request
 
+permissions:
+  contents: read
+
 jobs:
   linting:
     name: Linting
