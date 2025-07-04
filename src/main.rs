@@ -25,10 +25,16 @@ mod source;
 const ERROR_EXIT_CODE: i32 = 1;
 
 fn main() {
-    pretty_env_logger::init();
-    trace!("Version {}.", env!("CARGO_PKG_VERSION"));
+    info!("Version {}.", env!("CARGO_PKG_VERSION"));
     let arguments = Arguments::parse();
-    trace!("The command line arguments provided are {arguments:?}.");
+    debug!("The command line arguments provided are {arguments:?}.");
+
+    // Set up logging: if verbose is true and RUST_LOG is not set, default to info level
+    if arguments.verbose && std::env::var("RUST_LOG").is_err() {
+        std::env::set_var("RUST_LOG", "info");
+    }
+
+    pretty_env_logger::init();
 
     match run(arguments) {
         Ok(exit_code) => {
@@ -67,5 +73,6 @@ fn run(arguments: Arguments) -> Result<i32> {
         return Ok(1);
     }
 
+    info!("Successfully linted all commits.");
     Ok(0)
 }

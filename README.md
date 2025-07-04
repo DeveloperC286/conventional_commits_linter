@@ -33,7 +33,6 @@ A tooling and language agnostic utility to lint Git commits against the Conventi
  * [Usage](#usage)
    + [Usage - Additional Flags](#usage-additional-flags)
    + [Usage - Git Environment Variables](#usage-git-environment-variables)
-   + [Usage - Logging](#usage-logging)
  * [CICD Examples](#cicd-examples)
    + [GitLab CI Rust Project Example](#gitlab-ci-rust-project-example)
      + [Via Cargo](#via-cargo)
@@ -71,12 +70,6 @@ The only required arguments are any of the `--from-stdin`, `--from-commit-hash <
 When looking for a repository the Git environment variables are respected.
 When `${GIT_DIR}` is set, it takes precedence and Conventional Commits Linter begins searching for a repository in the directory specified in `${GIT_DIR}`.
 When `${GIT_DIR}` is not set, Conventional Commits Linter searches for a repository beginning in the current directory.
-
-
-### Usage - Logging
-The crates `pretty_env_logger` and `log` are used to provide logging.
-The environment variable `RUST_LOG` can be used to set the logging level.
-See [https://crates.io/crates/pretty_env_logger](https://crates.io/crates/pretty_env_logger) for more detailed documentation.
 
 
 ## CICD Examples

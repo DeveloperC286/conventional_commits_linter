@@ -54,6 +54,11 @@ impl Commits {
             let commit_errors = commit.lint(allow_angular_type_only);
 
             if !commit_errors.is_empty() {
+                warn!(
+                    "Found {} linting errors for the commit {:?}.",
+                    commit_errors.len(),
+                    commit.hash
+                );
                 errors.insert(commit, commit_errors);
             }
         }
@@ -102,6 +107,7 @@ fn get_commits_till_head_from_oid(
         bail!("No Git commits within the provided range.");
     }
 
+    info!("Found {} commits within the provided range.", commits.len());
     Ok(commits)
 }
 
@@ -111,7 +117,7 @@ fn get_reference_oid(repository: &Repository, matching: &str) -> Result<Oid> {
         .context(format!(
             "Could not find a reference with the name {matching:?}."
         ))?;
-    trace!(
+    debug!(
         "Matched {:?} to the reference {:?}.",
         matching,
         reference.name().unwrap()
@@ -123,7 +129,7 @@ fn get_reference_oid(repository: &Repository, matching: &str) -> Result<Oid> {
 fn parse_to_oid(repository: &Repository, oid: &str) -> Result<Oid> {
     match oid.len() {
         1..=39 => {
-            trace!("Attempting to find a match for the short commit hash {oid:?}.");
+            debug!("Attempting to find a match for the short commit hash {oid:?}.");
             let matching_oid_lowercase = oid.to_lowercase();
 
             let mut revwalker = repository.revwalk()?;
@@ -135,6 +141,7 @@ fn parse_to_oid(repository: &Repository, oid: &str) -> Result<Oid> {
                         let oid_lowercase = oid.to_string().to_lowercase();
 
                         if oid_lowercase.starts_with(&matching_oid_lowercase) {
+                            debug!("Found a match for the short commit hash {oid:?}.");
                             return Some(oid);
                         }
 
