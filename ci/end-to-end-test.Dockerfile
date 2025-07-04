@@ -5,5 +5,4 @@ RUN apk add --no-cache \
 COPY end-to-end-tests/requirements.txt ./
 RUN pip3 install -r requirements.txt
 
-WORKDIR /workspace/end-to-end-tests
 ENTRYPOINT ["behave"]
