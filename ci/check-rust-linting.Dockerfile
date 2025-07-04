@@ -3,6 +3,4 @@ RUN apk add --no-cache \
 	musl-dev=1.2.5-r9
 RUN rustup component add clippy
 
-WORKDIR /workspace
-
 ENTRYPOINT ["cargo", "clippy", "--verbose", "--target=x86_64-unknown-linux-musl", "--locked", "--", "-D", "warnings"]
