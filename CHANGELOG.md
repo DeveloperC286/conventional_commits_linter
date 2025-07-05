@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.16.0 (2025-07-05)
+
+## What's Changed
+* ci: conventional commits linter Docker image by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/268
+* refactor: GitHub Actions setting permissions by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/270
+* build: simplifying Makefile by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/271
+* feat: adding verbose CLI option by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/272
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.15.0...v0.16.0
+
 ## 0.15.0 (2025-06-27)
 
 ## What's Changed
