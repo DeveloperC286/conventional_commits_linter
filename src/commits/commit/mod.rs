@@ -47,6 +47,7 @@ impl Commit {
     }
 
     pub(crate) fn lint(&self, allow_angular_type_only: bool) -> Vec<LintingError> {
+        info!("Linting the commit message {:?}.", self.message);
         let mut linting_errors = vec![];
 
         match conventional_commits_specification::lint(&self.message) {

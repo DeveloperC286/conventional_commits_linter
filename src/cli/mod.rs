@@ -24,6 +24,12 @@ pub(crate) struct Arguments {
     pub(crate) output: crate::output::Output,
 
     #[arg(
+        long,
+        help = "Enable verbose output, respects RUST_LOG environment variable if set."
+    )]
+    pub(crate) verbose: bool,
+
+    #[arg(
         help = "The Git reference from where to start taking the range of commits from till HEAD to lint. The range is inclusive of HEAD and exclusive of the provided reference. '-' indicates to read the standard input and lint the input as a Git commit message."
     )]
     pub(crate) from: String,
