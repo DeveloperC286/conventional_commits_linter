@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.16.0 (2025-07-10)
+
+## What's Changed
+* ci: conventional commits linter Docker image by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/268
+* refactor: GitHub Actions setting permissions by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/270
+* build: simplifying Makefile by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/271
+* feat: adding verbose CLI option by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/272
+* chore(deps): update mvdan/shfmt docker tag to v3.12.0 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/273
+* chore(deps): update dependency alpine_3_22/git to v2.49.1-r0 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/274
+* chore(deps): update dependency alpine_3_21/git to v2.47.3-r0 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/275
+* fix(deps): update rust crate clap to v4.5.41 by @renovate in https://github.com/DeveloperC286/conventional_commits_linter/pull/276
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.15.0...v0.16.0
+
 ## 0.15.0 (2025-06-27)
 
 ## What's Changed
