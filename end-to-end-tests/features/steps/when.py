@@ -30,3 +30,8 @@ def set_type(context, type):
 @when('the argument --output is set as "{output}".')
 def set_output(context, output):
     context.arguments += f" --output {output} "
+
+
+@when('the argument --max-commit-title-length is set to "{max_length}".')
+def set_max_commit_title_length(context, max_length):
+    context.arguments += f" --max-commit-title-length {max_length} "

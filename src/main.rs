@@ -60,7 +60,9 @@ fn run(arguments: Arguments) -> Result<i32> {
         Commits::from_git(&repository, arguments.from, arguments.history_mode)
     }?;
 
-    if let Some(linting_results) = commits.lint(&arguments.commit_type) {
+    if let Some(linting_results) =
+        commits.lint(&arguments.commit_type, arguments.max_commit_title_length)
+    {
         match arguments.output {
             Output::Quiet => {}
             Output::Pretty => {

@@ -6,6 +6,8 @@ use crate::commit_type::CommitType;
 
 const DEFAULT_COMMIT_TYPE: &CommitType = &CommitType::Any;
 
+const DEFAULT_COMMIT_TITLE_LENGTH: usize = 72;
+
 #[template]
 #[rstest(
     commit_message,
@@ -28,7 +30,7 @@ const DEFAULT_COMMIT_TYPE: &CommitType = &CommitType::Any;
     case("fix(deps): Update os-locale to avoid security vulnerability (#1270)"),
     case("refactor(ts): ship yargs.d.ts (#1671)"),
     case("docs(readme): add Greenkeeper badge (#7)\n\nhttps://greenkeeper.io/"),
-    case("feat(istanbul-reports): Enable keyboard shortcuts on HTML report file listing view (#265)\n\n* Keyboard shortcuts for low coverage in file listing view\r\n\r\n* Fix linting issues\r\n"),
+    case("feat(istanbul-reports): keyboard shortcuts on HTML report file (#265)\n\n* Keyboard shortcuts for low coverage in file listing view\r\n\r\n* Fix linting issues\r\n"),
     // TODO case("fix(#103): ensure the package is not included in itself  (#104)\n\n* fix(#103): ensure the package is not included in itself when using globs to match files\r\n\r\n* chore: switch strings.Contains to strings.HasSuffix\r\n"),
     // TODO case("fix(i18n): Japanese translation phrasing (#1619)\n\n"),
     // TODO case("fix(GO-2023-1621): update from go 1.20.1 to 1.20.2\n\nSigned-off-by: Carlos A Becker <caarlos0@users.noreply.github.com>\n"),
@@ -55,7 +57,7 @@ fn test_angular_type_conventional_commits_and_only_angular_type(commit_message: 
     let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
-    let linting_errors = commit.lint(&CommitType::Angular);
+    let linting_errors = commit.lint(&CommitType::Angular, DEFAULT_COMMIT_TITLE_LENGTH);
 
     // Then
     assert_eq!(
@@ -72,7 +74,7 @@ fn test_angular_type_conventional_commits(commit_message: &str) {
     let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
-    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE);
+    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, DEFAULT_COMMIT_TITLE_LENGTH);
 
     // Then
     assert_eq!(
@@ -113,7 +115,7 @@ fn test_non_angular_type_conventional_commits_and_only_angular_type(commit_messa
     let expected_linting_errors = vec![LintingError::NonAngularType];
 
     // When
-    let linting_errors = commit.lint(&CommitType::Angular);
+    let linting_errors = commit.lint(&CommitType::Angular, DEFAULT_COMMIT_TITLE_LENGTH);
 
     // Then
     assert_eq!(
@@ -130,7 +132,7 @@ fn test_non_angular_type_conventional_commits(commit_message: &str) {
     let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
-    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE);
+    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, DEFAULT_COMMIT_TITLE_LENGTH);
 
     // Then
     assert_eq!(
@@ -154,12 +156,90 @@ fn test_non_conventional_commits_fail_linting(commit_message: &str) {
     let commit = Commit::from_commit_message(commit_message.to_string());
 
     // When
-    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE);
+    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, DEFAULT_COMMIT_TITLE_LENGTH);
 
     // Then
     assert!(
         !linting_errors.is_empty(),
         "\n\nThe linting should have return errors for the commit message:\n{:?}\n\n",
+        commit_message
+    );
+}
+
+#[template]
+#[rstest(
+    commit_message,
+    // Basic long commit messages
+    case("fix: This is a very long commit message that exceeds the seventy-two character limit"),
+    case("feat: Add new feature with a detailed description that goes over the limit"),
+    case("docs: Update documentation with comprehensive examples and explanations that exceed length"),
+    // Long commit messages with scopes
+    case("fix(api): This is a very long commit message with scope that exceeds the seventy-two character limit"),
+    case("feat(auth): Add comprehensive authentication system with detailed security features that exceed limit"),
+    case("docs(readme): Update documentation with comprehensive examples and detailed explanations that exceed length"),
+    case("chore(deps): Update all dependencies to latest versions with comprehensive security patches that exceed limit"),
+    // Long commit messages with breaking changes
+    case("fix!: This is a very long breaking change commit message that exceeds the seventy-two character limit"),
+    case("feat!: Add new breaking feature with detailed description that goes over the character limit"),
+    case("refactor!: Complete rewrite of core system with comprehensive changes that exceed the character limit"),
+    // Long commit messages with scopes and breaking changes
+    case("fix(api)!: This breaking change commit message with scope exceeds the seventy-two character limit"),
+    case("feat(auth)!: Add comprehensive breaking authentication changes with detailed security that exceed limit"),
+    // Long commit messages with bodies
+    case("fix: This is a very long commit message that exceeds the seventy-two character limit\n\nThis commit includes a detailed body that explains the changes made to fix the issue."),
+    case("feat: Add new feature with a detailed description that goes over the limit\n\nImplemented comprehensive feature set including:\n- Feature A\n- Feature B\n- Feature C"),
+    case("docs: Update comprehensive documentation with examples that exceed the character limit\n\nUpdated all documentation files with new examples and improved explanations for better user experience."),
+    // Long commit messages with scopes and bodies
+    case("fix(api)!: Breaking API changes with very long title that exceeds character limit\n\nThis commit introduces breaking changes to the API:\n\n- Removed deprecated endpoints\n- Updated response format\n- Added new authentication requirements"),
+    case("feat(ui): Comprehensive user interface overhaul that exceeds the character limit\n\nComplete redesign of the user interface including:\n- New component library\n- Improved accessibility\n- Mobile-first responsive design")
+)]
+fn commit_title_too_long_commits(commit_message: &str) {}
+
+#[apply(commit_title_too_long_commits)]
+fn test_commit_title_too_long(commit_message: &str) {
+    // Given
+    let commit = Commit::from_commit_message(commit_message.to_string());
+    let expected_linting_errors: Vec<LintingError> = vec![LintingError::CommitTitleTooLong];
+
+    // When
+    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, DEFAULT_COMMIT_TITLE_LENGTH);
+
+    // Then
+    assert_eq!(
+        expected_linting_errors, linting_errors,
+        "\n\nFailed the assertion upon the commit message:\n{:?}\n\n",
+        commit_message
+    );
+}
+
+#[apply(commit_title_too_long_commits)]
+fn test_max_commit_title_length_changeable(commit_message: &str) {
+    // Given
+    let commit = Commit::from_commit_message(commit_message.to_string());
+
+    // When
+    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, 120);
+
+    // Then
+    assert!(
+        linting_errors.is_empty(),
+        "\n\nThe linting should have returned no errors for the commit message:\n{:?}\n\n",
+        commit_message
+    );
+}
+
+#[apply(commit_title_too_long_commits)]
+fn test_max_commit_title_length_disableable(commit_message: &str) {
+    // Given
+    let commit = Commit::from_commit_message(commit_message.to_string());
+
+    // When
+    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, 0);
+
+    // Then
+    assert!(
+        linting_errors.is_empty(),
+        "\n\nThe linting should have returned no errors for the commit message:\n{:?}\n\n",
         commit_message
     );
 }

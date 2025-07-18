@@ -17,4 +17,6 @@ pub enum LintingError {
     NoSpaceAfterColonPrecedingTypeAndScope,
     /// Commit title has no description after the type and scope.
     NoDescriptionAfterTypeAndScope,
+    /// Commit message subject line exceeds the recommended maximum length.
+    CommitTitleTooLong,
 }

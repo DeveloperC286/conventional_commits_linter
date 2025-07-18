@@ -31,6 +31,13 @@ pub(crate) struct Arguments {
     pub(crate) verbose: bool,
 
     #[arg(
+        long,
+        default_value = "72",
+        help = "Maximum length allowed for commit message titles. Set to 0 to disable the length check."
+    )]
+    pub(crate) max_commit_title_length: usize,
+
+    #[arg(
         help = "The Git reference from where to start taking the range of commits from till HEAD to lint. The range is inclusive of HEAD and exclusive of the provided reference. '-' indicates to read the standard input and lint the input as a Git commit message."
     )]
     pub(crate) from: String,

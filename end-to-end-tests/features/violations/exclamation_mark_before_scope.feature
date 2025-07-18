@@ -11,4 +11,4 @@ Feature: When the commit title has a exclamation mark before the scope, it is pi
     Examples:
       | commit_message                                                        |
       | "chore!(release): v12.6.0\n\n"                                        |
-      | "feat!(api): send an email to the customer when a product is shipped" |
+      | "feat!(api): send email to customer"                                  |
