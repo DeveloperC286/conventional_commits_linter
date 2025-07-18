@@ -3,6 +3,8 @@ use rstest_reuse::{self, *};
 
 use super::*;
 
+const DEFAULT_COMMIT_TITLE_LENGTH: usize = 72;
+
 #[template]
 #[rstest(
     commit_message,
@@ -52,7 +54,7 @@ fn test_angular_type_conventional_commits_and_only_angular_type(commit_message: 
     let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
-    let linting_errors = commit.lint(true, 72);
+    let linting_errors = commit.lint(true, DEFAULT_COMMIT_TITLE_LENGTH);
 
     // Then
     assert_eq!(
@@ -69,7 +71,7 @@ fn test_angular_type_conventional_commits(commit_message: &str) {
     let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
-    let linting_errors = commit.lint(false, 72);
+    let linting_errors = commit.lint(false, DEFAULT_COMMIT_TITLE_LENGTH);
 
     // Then
     assert_eq!(
@@ -110,7 +112,7 @@ fn test_non_angular_type_conventional_commits_and_only_angular_type(commit_messa
     let expected_linting_errors = vec![LintingError::NonAngularType];
 
     // When
-    let linting_errors = commit.lint(true, 72);
+    let linting_errors = commit.lint(true, DEFAULT_COMMIT_TITLE_LENGTH);
 
     // Then
     assert_eq!(
@@ -127,7 +129,7 @@ fn test_non_angular_type_conventional_commits(commit_message: &str) {
     let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
-    let linting_errors = commit.lint(false, 72);
+    let linting_errors = commit.lint(false, DEFAULT_COMMIT_TITLE_LENGTH);
 
     // Then
     assert_eq!(
@@ -151,7 +153,7 @@ fn test_non_conventional_commits_fail_linting(commit_message: &str) {
     let commit = Commit::from_commit_message(commit_message.to_string());
 
     // When
-    let linting_errors = commit.lint(false, 72);
+    let linting_errors = commit.lint(false, DEFAULT_COMMIT_TITLE_LENGTH);
 
     // Then
     assert!(
@@ -175,7 +177,7 @@ fn test_message_too_long_fails_linting(commit_message: &str) {
     let _expected_linting_errors = vec![LintingError::MessageTooLong];
 
     // When
-    let linting_errors = commit.lint(false, 72);
+    let linting_errors = commit.lint(false, DEFAULT_COMMIT_TITLE_LENGTH);
 
     // Then
     assert!(
@@ -198,7 +200,7 @@ fn test_message_within_length_limit_passes_linting(commit_message: &str) {
     let commit = Commit::from_commit_message(commit_message.to_string());
 
     // When
-    let linting_errors = commit.lint(false, 72);
+    let linting_errors = commit.lint(false, DEFAULT_COMMIT_TITLE_LENGTH);
 
     // Then
     assert!(
