@@ -5,7 +5,7 @@ Feature: With the allow Angular types only flag, non-Angular types are picked up
     Given the context and environment are reset.
     When linting the "<commit_message>".
     Then the linting passes.
-    When the flag --allow-angular-type-only is set.
+    When the flag --type is set as "angular".
     And the argument --output is set as "JSON".
     Then a non-Angular type violation is detected.
 
@@ -20,7 +20,7 @@ Feature: With the allow Angular types only flag, non-Angular types are picked up
   Scenario Outline:
     Given the context and environment are reset.
     When linting the "<commit_message>".
-    And the flag --allow-angular-type-only is set.
+    And the flag --type is set as "angular".
     Then the linting passes.
 
 

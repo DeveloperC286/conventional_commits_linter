@@ -11,10 +11,11 @@ pub(crate) struct Arguments {
     pub(crate) history_mode: crate::history_mode::HistoryMode,
 
     #[arg(
-        long,
+        long = "type",
+        default_value = "any",
         help = "Allow the Conventional Commits type to only be (`build`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `style`, `test`, `revert`), otherwise linting for the commit will fail."
     )]
-    pub(crate) allow_angular_type_only: bool,
+    pub(crate) commit_type: crate::commit_type::CommitType,
 
     #[arg(
         long,

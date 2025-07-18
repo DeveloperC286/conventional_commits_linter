@@ -1,3 +1,4 @@
+use crate::commit_type::CommitType;
 use crate::linting_error::LintingError;
 
 mod allow_angular_type_only;
@@ -46,7 +47,7 @@ impl Commit {
         }
     }
 
-    pub(crate) fn lint(&self, allow_angular_type_only: bool) -> Vec<LintingError> {
+    pub(crate) fn lint(&self, commit_type: &CommitType) -> Vec<LintingError> {
         info!("Linting the commit message {:?}.", self.message);
         let mut linting_errors = vec![];
 
@@ -97,7 +98,7 @@ impl Commit {
             }
         }
 
-        if allow_angular_type_only {
+        if *commit_type == CommitType::Angular {
             match allow_angular_type_only::lint(&self.message) {
                 Ok(()) => {}
                 Err(linting_error) => {

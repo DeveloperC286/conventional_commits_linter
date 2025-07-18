@@ -1,8 +1,11 @@
 use rstest::rstest;
 
+use crate::commit_type::CommitType;
 use crate::commits::commit::Commit;
 use crate::commits::Commits;
 use crate::source::Source;
+
+const DEFAULT_COMMIT_TYPE: &CommitType = &CommitType::Any;
 
 #[rstest(
     commit_message,
@@ -20,7 +23,7 @@ use crate::source::Source;
 fn test_json_print_from_commit_message(commit_message: &str, snapshot_name: &str) {
     // Given
     let commits = crate::commits::Commits::from_commit_message(commit_message);
-    let linting_errors = commits.lint(false).unwrap();
+    let linting_errors = commits.lint(DEFAULT_COMMIT_TYPE).unwrap();
 
     // When
     let json_print = linting_errors.json().unwrap();
@@ -59,7 +62,7 @@ fn test_json_print_from_git(commit_messages: &[&str], snapshot_name: &str) {
             .collect(),
     };
 
-    let linting_errors = commits.lint(false).unwrap();
+    let linting_errors = commits.lint(DEFAULT_COMMIT_TYPE).unwrap();
 
     // When
     let json_print = linting_errors.json().unwrap();

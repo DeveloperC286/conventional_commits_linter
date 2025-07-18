@@ -15,6 +15,7 @@ use crate::commits::Commits;
 use crate::output::Output;
 
 mod cli;
+mod commit_type;
 mod commits;
 mod history_mode;
 mod linting_error;
@@ -58,7 +59,7 @@ fn run(arguments: Arguments) -> Result<i32> {
         Commits::from_git(&repository, arguments.from, arguments.history_mode)
     }?;
 
-    if let Some(linting_results) = commits.lint(arguments.allow_angular_type_only) {
+    if let Some(linting_results) = commits.lint(&arguments.commit_type) {
         match arguments.output {
             Output::Quiet => {}
             Output::Pretty => {

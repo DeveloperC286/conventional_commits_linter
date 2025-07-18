@@ -3,6 +3,7 @@ use std::collections::{HashMap, VecDeque};
 use anyhow::{bail, Context, Result};
 use git2::{Oid, Repository, Revwalk};
 
+use crate::commit_type::CommitType;
 use crate::commits::commit::Commit;
 use crate::history_mode::HistoryMode;
 use crate::linting_error::LintingError;
@@ -47,11 +48,11 @@ impl Commits {
         })
     }
 
-    pub fn lint(self, allow_angular_type_only: bool) -> Option<LintingErrors> {
+    pub fn lint(self, commit_type: &CommitType) -> Option<LintingErrors> {
         let mut errors: HashMap<Commit, Vec<LintingError>> = HashMap::new();
 
         for commit in self.commits.iter().cloned() {
-            let commit_errors = commit.lint(allow_angular_type_only);
+            let commit_errors = commit.lint(commit_type);
 
             if !commit_errors.is_empty() {
                 warn!(
