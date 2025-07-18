@@ -1,5 +1,7 @@
 use super::*;
 
+const DEFAULT_COMMIT_TITLE_LENGTH: usize = 50;
+
 mod generation;
 #[macro_use]
 mod macros;
@@ -16,7 +18,7 @@ fn test_non_angular_type_commits_with_no_angular_type_only_assertion() {
             let commit = Commit::from_commit_message(&commit_message);
 
             // When
-            let linting_errors = commit.lint(allow_angular_type_only);
+            let linting_errors = commit.lint(allow_angular_type_only, DEFAULT_COMMIT_TITLE_LENGTH);
 
             // Then
             assert_linting_errors_eq!(expected_linting_errors, linting_errors, commit_message);
@@ -34,7 +36,7 @@ fn test_angular_type_commits_with_no_angular_type_only_assertion() {
             let commit = Commit::from_commit_message(&commit_message);
 
             // When
-            let linting_errors = commit.lint(allow_angular_type_only);
+            let linting_errors = commit.lint(allow_angular_type_only, DEFAULT_COMMIT_TITLE_LENGTH);
 
             // Then
             assert_linting_errors_eq!(expected_linting_errors, linting_errors, commit_message);
@@ -56,7 +58,7 @@ fn test_non_angular_type_commits_with_angular_type_only_assertion() {
             let commit = Commit::from_commit_message(&commit_message);
 
             // When
-            let linting_errors = commit.lint(allow_angular_type_only);
+            let linting_errors = commit.lint(allow_angular_type_only, DEFAULT_COMMIT_TITLE_LENGTH);
 
             // Then
             assert_linting_errors_eq!(expected_linting_errors, linting_errors, commit_message);
@@ -74,7 +76,7 @@ fn test_angular_type_commits_with_angular_type_only_assertion() {
             let commit = Commit::from_commit_message(&commit_message);
 
             // When
-            let linting_errors = commit.lint(allow_angular_type_only);
+            let linting_errors = commit.lint(allow_angular_type_only, DEFAULT_COMMIT_TITLE_LENGTH);
 
             // Then
             assert_linting_errors_eq!(expected_linting_errors, linting_errors, commit_message);

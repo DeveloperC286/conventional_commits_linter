@@ -46,7 +46,7 @@ impl Commit {
         }
     }
 
-    pub(crate) fn lint(&self, allow_angular_type_only: bool) -> Vec<LintingError> {
+    pub(crate) fn lint(&self, allow_angular_type_only: bool, max_commit_title_length: usize) -> Vec<LintingError> {
         info!("Linting the commit message {:?}.", self.message);
         let mut linting_errors = vec![];
 
@@ -103,6 +103,14 @@ impl Commit {
                 Err(linting_error) => {
                     linting_errors.push(linting_error);
                 }
+            }
+        }
+
+        // Check message length regardless of conventional commits compliance
+        match conventional_commits_specification::message_length::lint(&self.message, max_commit_title_length) {
+            Ok(()) => {}
+            Err(linting_error) => {
+                linting_errors.push(linting_error);
             }
         }
 

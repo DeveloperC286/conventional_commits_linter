@@ -3,6 +3,8 @@ use rstest_reuse::{self, *};
 
 use super::*;
 
+const DEFAULT_COMMIT_TITLE_LENGTH: usize = 50;
+
 #[template]
 #[rstest(
     commit_message,
@@ -25,7 +27,7 @@ use super::*;
     case("fix(deps): Update os-locale to avoid security vulnerability (#1270)"),
     case("refactor(ts): ship yargs.d.ts (#1671)"),
     case("docs(readme): add Greenkeeper badge (#7)\n\nhttps://greenkeeper.io/"),
-    case("feat(istanbul-reports): Enable keyboard shortcuts on HTML report file listing view (#265)\n\n* Keyboard shortcuts for low coverage in file listing view\r\n\r\n* Fix linting issues\r\n"),
+    case("feat(istanbul-reports): Enable keyboard shortcuts on HTML (#265)\n\n* Keyboard shortcuts for low coverage in file listing view\r\n\r\n* Fix linting issues\r\n"),
     // TODO case("fix(#103): ensure the package is not included in itself  (#104)\n\n* fix(#103): ensure the package is not included in itself when using globs to match files\r\n\r\n* chore: switch strings.Contains to strings.HasSuffix\r\n"),
     // TODO case("fix(i18n): Japanese translation phrasing (#1619)\n\n"),
     // TODO case("fix(GO-2023-1621): update from go 1.20.1 to 1.20.2\n\nSigned-off-by: Carlos A Becker <caarlos0@users.noreply.github.com>\n"),
@@ -38,7 +40,7 @@ use super::*;
     case("feat(guest-agent): Run commands as the primary user"),
     // Breaking change and scope variatiants.
     case("chore(major-release)!: release 17.7.0 (#2285)"),
-    case("feat(deps)!: yargs-parser now throws on invalid combinations of config (\n\n"),
+    case("feat(deps)!: yargs-parser throws on invalid config combinations\n\n"),
     case("refactor(ts)!: ship yargs.d.ts (#1671)"),
     case("feat(guest-agent)!: run commands as the primary user"),
     case("fix(ecs-task-scheduler)!: changing min instances\n\n"),
@@ -52,7 +54,7 @@ fn test_angular_type_conventional_commits_and_only_angular_type(commit_message: 
     let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
-    let linting_errors = commit.lint(true);
+    let linting_errors = commit.lint(true, DEFAULT_COMMIT_TITLE_LENGTH);
 
     // Then
     assert_eq!(
@@ -69,7 +71,7 @@ fn test_angular_type_conventional_commits(commit_message: &str) {
     let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
-    let linting_errors = commit.lint(false);
+    let linting_errors = commit.lint(false, DEFAULT_COMMIT_TITLE_LENGTH);
 
     // Then
     assert_eq!(
@@ -110,7 +112,7 @@ fn test_non_angular_type_conventional_commits_and_only_angular_type(commit_messa
     let expected_linting_errors = vec![LintingError::NonAngularType];
 
     // When
-    let linting_errors = commit.lint(true);
+    let linting_errors = commit.lint(true, DEFAULT_COMMIT_TITLE_LENGTH);
 
     // Then
     assert_eq!(
@@ -127,7 +129,7 @@ fn test_non_angular_type_conventional_commits(commit_message: &str) {
     let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
-    let linting_errors = commit.lint(false);
+    let linting_errors = commit.lint(false, DEFAULT_COMMIT_TITLE_LENGTH);
 
     // Then
     assert_eq!(
@@ -151,7 +153,7 @@ fn test_non_conventional_commits_fail_linting(commit_message: &str) {
     let commit = Commit::from_commit_message(commit_message.to_string());
 
     // When
-    let linting_errors = commit.lint(false);
+    let linting_errors = commit.lint(false, DEFAULT_COMMIT_TITLE_LENGTH);
 
     // Then
     assert!(
@@ -162,3 +164,116 @@ fn test_non_conventional_commits_fail_linting(commit_message: &str) {
 }
 
 mod generated_tests;
+
+#[rstest(
+    commit_message,
+    case("fix: This is a very long commit message that exceeds the seventy-two character limit"),
+    case("feat: Add new feature with a detailed description that goes over the limit"),
+    case("docs: Update documentation with comprehensive examples and explanations that exceed length")
+)]
+fn test_message_too_long_fails_linting(commit_message: &str) {
+    // Given
+    let commit = Commit::from_commit_message(commit_message.to_string());
+    let _expected_linting_errors = vec![LintingError::MessageTooLong];
+
+    // When
+    let linting_errors = commit.lint(false, DEFAULT_COMMIT_TITLE_LENGTH);
+
+    // Then
+    assert!(
+        linting_errors.contains(&LintingError::MessageTooLong),
+        "\n\nExpected MessageTooLong error for commit message:\n{:?}\nActual errors: {:?}\n\n",
+        commit_message,
+        linting_errors
+    );
+}
+
+#[rstest(
+    commit_message,
+    case("fix: short message"),
+    case("feat: add new feature"),
+    case("docs: update docs"),
+    case("test: add unit tests for the new functionality and edge cases")
+)]
+fn test_message_within_length_limit_passes_linting(commit_message: &str) {
+    // Given
+    let commit = Commit::from_commit_message(commit_message.to_string());
+
+    // When
+    let linting_errors = commit.lint(false, DEFAULT_COMMIT_TITLE_LENGTH);
+
+    // Then
+    assert!(
+        !linting_errors.contains(&LintingError::MessageTooLong),
+        "\n\nDid not expect MessageTooLong error for commit message:\n{:?}\nActual errors: {:?}\n\n",
+        commit_message,
+        linting_errors
+    );
+}
+
+#[rstest(
+    commit_message,
+    case("fix: This is a very long commit message that exceeds the seventy-two character limit"),
+    case("feat: Add new feature with a detailed description that goes over the limit"),
+    case("docs: Update documentation with comprehensive examples and explanations that exceed length")
+)]
+fn test_message_too_long_with_custom_limit_fails_linting(commit_message: &str) {
+    // Given
+    let commit = Commit::from_commit_message(commit_message.to_string());
+
+    // When - using a custom limit of 50 characters
+    let linting_errors = commit.lint(false, 50);
+
+    // Then
+    assert!(
+        linting_errors.contains(&LintingError::MessageTooLong),
+        "\n\nExpected MessageTooLong error for commit message with custom limit:\n{:?}\nActual errors: {:?}\n\n",
+        commit_message,
+        linting_errors
+    );
+}
+
+#[rstest(
+    commit_message,
+    case("fix: This is a very long commit message that exceeds the seventy-two character limit"),
+    case("feat: Add new feature with a detailed description that goes over the limit"),
+    case("docs: Update documentation with comprehensive examples and explanations that exceed length")
+)]
+fn test_message_length_check_disabled_passes_linting(commit_message: &str) {
+    // Given
+    let commit = Commit::from_commit_message(commit_message.to_string());
+
+    // When - disabling the length check by setting max_length to 0
+    let linting_errors = commit.lint(false, 0);
+
+    // Then
+    assert!(
+        !linting_errors.contains(&LintingError::MessageTooLong),
+        "\n\nDid not expect MessageTooLong error when length check is disabled:\n{:?}\nActual errors: {:?}\n\n",
+        commit_message,
+        linting_errors
+    );
+}
+
+#[rstest(
+    commit_message,
+    case("fix: short message"),
+    case("feat: add new feature"),
+    case("docs: update docs"),
+    case("test: add unit tests for the new functionality and edge cases")
+)]
+fn test_message_within_custom_length_limit_passes_linting(commit_message: &str) {
+    // Given
+    let commit = Commit::from_commit_message(commit_message.to_string());
+
+    // When - using a custom limit of 100 characters
+    let linting_errors = commit.lint(false, 100);
+
+    // Then
+    assert!(
+        !linting_errors.contains(&LintingError::MessageTooLong),
+        "\n\nDid not expect MessageTooLong error for commit message within custom limit:\n{:?}\nActual errors: {:?}\n\n",
+        commit_message,
+        linting_errors
+    );
+}
