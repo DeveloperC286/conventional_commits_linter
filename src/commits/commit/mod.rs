@@ -106,6 +106,14 @@ impl Commit {
             }
         }
 
+        // Check message length regardless of conventional commits compliance
+        match conventional_commits_specification::message_length::lint(&self.message) {
+            Ok(()) => {}
+            Err(linting_error) => {
+                linting_errors.push(linting_error);
+            }
+        }
+
         linting_errors
     }
 }

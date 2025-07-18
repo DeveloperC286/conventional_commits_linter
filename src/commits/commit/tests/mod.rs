@@ -162,3 +162,49 @@ fn test_non_conventional_commits_fail_linting(commit_message: &str) {
 }
 
 mod generated_tests;
+
+#[rstest(
+    commit_message,
+    case("fix: This is a very long commit message that exceeds the seventy-two character limit"),
+    case("feat: Add new feature with a detailed description that goes over the limit"),
+    case("docs: Update documentation with comprehensive examples and explanations that exceed length")
+)]
+fn test_message_too_long_fails_linting(commit_message: &str) {
+    // Given
+    let commit = Commit::from_commit_message(commit_message.to_string());
+    let expected_linting_errors = vec![LintingError::MessageTooLong];
+
+    // When
+    let linting_errors = commit.lint(false);
+
+    // Then
+    assert!(
+        linting_errors.contains(&LintingError::MessageTooLong),
+        "\n\nExpected MessageTooLong error for commit message:\n{:?}\nActual errors: {:?}\n\n",
+        commit_message,
+        linting_errors
+    );
+}
+
+#[rstest(
+    commit_message,
+    case("fix: short message"),
+    case("feat: add new feature"),
+    case("docs: update docs"),
+    case("test: add unit tests for the new functionality and edge cases")
+)]
+fn test_message_within_length_limit_passes_linting(commit_message: &str) {
+    // Given
+    let commit = Commit::from_commit_message(commit_message.to_string());
+
+    // When
+    let linting_errors = commit.lint(false);
+
+    // Then
+    assert!(
+        !linting_errors.contains(&LintingError::MessageTooLong),
+        "\n\nDid not expect MessageTooLong error for commit message:\n{:?}\nActual errors: {:?}\n\n",
+        commit_message,
+        linting_errors
+    );
+}
