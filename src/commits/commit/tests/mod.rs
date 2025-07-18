@@ -25,7 +25,7 @@ use super::*;
     case("fix(deps): Update os-locale to avoid security vulnerability (#1270)"),
     case("refactor(ts): ship yargs.d.ts (#1671)"),
     case("docs(readme): add Greenkeeper badge (#7)\n\nhttps://greenkeeper.io/"),
-    case("feat(istanbul-reports): Enable keyboard shortcuts on HTML report file listing view (#265)\n\n* Keyboard shortcuts for low coverage in file listing view\r\n\r\n* Fix linting issues\r\n"),
+    case("feat(istanbul-reports): Enable keyboard shortcuts on HTML report (#265)\n\n* Keyboard shortcuts for low coverage in file listing view\r\n\r\n* Fix linting issues\r\n"),
     // TODO case("fix(#103): ensure the package is not included in itself  (#104)\n\n* fix(#103): ensure the package is not included in itself when using globs to match files\r\n\r\n* chore: switch strings.Contains to strings.HasSuffix\r\n"),
     // TODO case("fix(i18n): Japanese translation phrasing (#1619)\n\n"),
     // TODO case("fix(GO-2023-1621): update from go 1.20.1 to 1.20.2\n\nSigned-off-by: Carlos A Becker <caarlos0@users.noreply.github.com>\n"),
@@ -38,7 +38,7 @@ use super::*;
     case("feat(guest-agent): Run commands as the primary user"),
     // Breaking change and scope variatiants.
     case("chore(major-release)!: release 17.7.0 (#2285)"),
-    case("feat(deps)!: yargs-parser now throws on invalid combinations of config (\n\n"),
+    case("feat(deps)!: yargs-parser throws on invalid config combinations\n\n"),
     case("refactor(ts)!: ship yargs.d.ts (#1671)"),
     case("feat(guest-agent)!: run commands as the primary user"),
     case("fix(ecs-task-scheduler)!: changing min instances\n\n"),
