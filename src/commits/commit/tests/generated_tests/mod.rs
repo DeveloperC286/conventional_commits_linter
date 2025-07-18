@@ -1,6 +1,6 @@
 use super::*;
 
-const DEFAULT_COMMIT_TITLE_LENGTH: usize = 72;
+const DEFAULT_COMMIT_TITLE_LENGTH: usize = 50;
 
 mod generation;
 #[macro_use]

@@ -4,7 +4,7 @@ use crate::commits::commit::Commit;
 use crate::commits::Commits;
 use crate::source::Source;
 
-const DEFAULT_COMMIT_TITLE_LENGTH: usize = 72;
+const DEFAULT_COMMIT_TITLE_LENGTH: usize = 50;
 
 #[rstest(
     commit_message,
