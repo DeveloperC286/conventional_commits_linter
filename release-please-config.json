@@ -4,6 +4,10 @@
   "pull-request-title-pattern": "chore: release ${version}",
   "include-component-in-tag": false,
   "packages": {
-    ".": {}
+    ".": {
+      "extra-files": [
+        "README.md"
+      ]
+    }
   }
 }
