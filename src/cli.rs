@@ -31,6 +31,12 @@ pub(crate) struct Arguments {
     pub(crate) verbose: bool,
 
     #[arg(
+        long,
+        help = "Enforce that scope (if present) is lowercase, otherwise linting for the commit will fail."
+    )]
+    pub(crate) lowercase_scope: bool,
+
+    #[arg(
         help = "The Git reference from where to start taking the range of commits from till HEAD to lint. The range is inclusive of HEAD and exclusive of the provided reference. '-' indicates to read the standard input and lint the input as a Git commit message."
     )]
     pub(crate) from: String,

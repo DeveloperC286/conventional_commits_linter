@@ -47,7 +47,11 @@ impl Commit {
         }
     }
 
-    pub(crate) fn lint(&self, commit_type: &CommitType) -> Vec<LintingError> {
+    pub(crate) fn lint(
+        &self,
+        commit_type: &CommitType,
+        lowercase_scope: bool,
+    ) -> Vec<LintingError> {
         info!("Linting the commit message {:?}.", self.message);
         let mut linting_errors = vec![];
 
@@ -94,6 +98,15 @@ impl Commit {
                     Err(linting_error) => {
                         linting_errors.push(linting_error);
                     }
+                }
+            }
+        }
+
+        if lowercase_scope {
+            match conventional_commits_specification::lowercase_scope::lint(&self.message) {
+                Ok(()) => {}
+                Err(linting_error) => {
+                    linting_errors.push(linting_error);
                 }
             }
         }

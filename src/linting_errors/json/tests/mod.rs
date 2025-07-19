@@ -23,7 +23,7 @@ const DEFAULT_COMMIT_TYPE: &CommitType = &CommitType::Any;
 fn test_json_print_from_commit_message(commit_message: &str, snapshot_name: &str) {
     // Given
     let commits = crate::commits::Commits::from_commit_message(commit_message);
-    let linting_errors = commits.lint(DEFAULT_COMMIT_TYPE).unwrap();
+    let linting_errors = commits.lint(DEFAULT_COMMIT_TYPE, false).unwrap();
 
     // When
     let json_print = linting_errors.json().unwrap();
@@ -62,7 +62,7 @@ fn test_json_print_from_git(commit_messages: &[&str], snapshot_name: &str) {
             .collect(),
     };
 
-    let linting_errors = commits.lint(DEFAULT_COMMIT_TYPE).unwrap();
+    let linting_errors = commits.lint(DEFAULT_COMMIT_TYPE, false).unwrap();
 
     // When
     let json_print = linting_errors.json().unwrap();

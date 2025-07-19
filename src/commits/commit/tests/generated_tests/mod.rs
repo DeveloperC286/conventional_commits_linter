@@ -17,7 +17,7 @@ fn test_non_angular_type_commits_with_no_angular_type_only_assertion() {
             let commit = Commit::from_commit_message(&commit_message);
 
             // When
-            let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE);
+            let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, false);
 
             // Then
             assert_linting_errors_eq!(expected_linting_errors, linting_errors, commit_message);
@@ -33,7 +33,7 @@ fn test_angular_type_commits_with_no_angular_type_only_assertion() {
             let commit = Commit::from_commit_message(&commit_message);
 
             // When
-            let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE);
+            let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, false);
 
             // Then
             assert_linting_errors_eq!(expected_linting_errors, linting_errors, commit_message);
@@ -53,7 +53,7 @@ fn test_non_angular_type_commits_with_angular_type_only_assertion() {
             let commit = Commit::from_commit_message(&commit_message);
 
             // When
-            let linting_errors = commit.lint(&CommitType::Angular);
+            let linting_errors = commit.lint(&CommitType::Angular, false);
 
             // Then
             assert_linting_errors_eq!(expected_linting_errors, linting_errors, commit_message);
@@ -69,7 +69,7 @@ fn test_angular_type_commits_with_angular_type_only_assertion() {
             let commit = Commit::from_commit_message(&commit_message);
 
             // When
-            let linting_errors = commit.lint(&CommitType::Angular);
+            let linting_errors = commit.lint(&CommitType::Angular, false);
 
             // Then
             assert_linting_errors_eq!(expected_linting_errors, linting_errors, commit_message);

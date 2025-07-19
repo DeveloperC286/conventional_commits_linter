@@ -48,11 +48,11 @@ impl Commits {
         })
     }
 
-    pub fn lint(self, commit_type: &CommitType) -> Option<LintingErrors> {
+    pub fn lint(self, commit_type: &CommitType, lowercase_scope: bool) -> Option<LintingErrors> {
         let mut errors: HashMap<Commit, Vec<LintingError>> = HashMap::new();
 
         for commit in self.commits.iter().cloned() {
-            let commit_errors = commit.lint(commit_type);
+            let commit_errors = commit.lint(commit_type, lowercase_scope);
 
             if !commit_errors.is_empty() {
                 warn!(

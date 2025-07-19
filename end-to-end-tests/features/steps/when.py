@@ -30,3 +30,8 @@ def set_type(context, type):
 @when('the argument --output is set as "{output}".')
 def set_output(context, output):
     context.arguments += f" --output {output} "
+
+
+@when('the argument --lowercase-scope is set.')
+def set_lowercase_scope(context):
+    context.arguments += " --lowercase-scope "

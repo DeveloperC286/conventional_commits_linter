@@ -17,4 +17,6 @@ pub enum LintingError {
     NoSpaceAfterColonPrecedingTypeAndScope,
     /// Commit title has no description after the type and scope.
     NoDescriptionAfterTypeAndScope,
+    /// Commit title has a scope which is not lowercase.
+    NonLowercaseScope,
 }

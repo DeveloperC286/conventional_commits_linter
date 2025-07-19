@@ -66,6 +66,16 @@ def assert_no_space_after_type_violation(context):
                                     'NoSpaceAfterColonPrecedingTypeAndScope']])
 
 
+@then('has a scope which is not lowercase violation is detected.')
+def assert_non_lowercase_scope_violation(context):
+    # When/Then
+    result = assert_linting_fails(context)
+
+    # Then
+    assert_commits_linting_errors(
+        result, [['NonLowercaseScope']])
+
+
 @then('has no description after the type and scope violation is detected.')
 def assert_no_description_violation(context):
     # When/Then
