@@ -43,7 +43,7 @@ anyhow = "1.0.89"
 
 [dev-dependencies]
 # For parameterized testing.
-rstest = "=0.25.0"
+rstest = "=0.26.0"
 rstest_reuse = "=0.7.0"
 
 # For snapshot testing.
