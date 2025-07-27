@@ -1,5 +1,38 @@
 # Changelog
 
+## 0.16.0 (2025-07-27)
+
+## What's Changed
+* ci: conventional commits linter Docker image by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/268
+* refactor: GitHub Actions setting permissions by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/270
+* build: simplifying Makefile by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/271
+* feat: adding verbose CLI option by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/272
+* chore(deps): update mvdan/shfmt docker tag to v3.12.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/273
+* chore(deps): update dependency alpine_3_22/git to v2.49.1-r0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/274
+* chore(deps): update dependency alpine_3_21/git to v2.47.3-r0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/275
+* fix(deps): update rust crate clap to v4.5.41 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/276
+* chore(deps): update alpine:3.22 docker digest to 4bcff63 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/278
+* chore(deps): update python:3.13.5-alpine3.21 docker digest to 763eee4 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/279
+* chore(deps): update rust:1.88.0-alpine3.21 docker digest to b7a47e9 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/280
+* chore(deps): update alpine docker tag to v3.22.1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/281
+* ci: adding anthropics/claude-code-action by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/277
+* ci: Claude Git/PR permissions by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/282
+* ci: Claude can read GitHub Actions by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/284
+* ci: readding Claudes id-token: write permissions by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/285
+* ci: Claude allowing Bash tool by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/286
+* build: adding basic AGENT.md by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/288
+* refactor: CLI as enum not bool by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/287
+* fix(deps): update rust crate serde_json to v1.0.141 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/289
+* docs: condensed/simplified README.md by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/290
+* fix(deps): update strum monorepo to v0.27.2 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/291
+* chore(deps): update rust:1.88.0-alpine3.21 docker digest to 0c004cf by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/292
+* chore(deps): update rust:1.88.0-alpine3.21 docker digest to 54e937b by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/293
+* chore(deps): update rust crate rstest to v0.26.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/294
+* chore(deps): update rust crate rstest to v0.26.1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/295
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.15.0...v0.16.0
+
 ## 0.15.0 (2025-06-27)
 
 ## What's Changed
