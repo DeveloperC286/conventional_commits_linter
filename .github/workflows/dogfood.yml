@@ -28,4 +28,4 @@ jobs:
         with:
           fetch-depth: 0
       - name: Lint commits
-        run: conventional_commits_linter --from-reference "origin/${{ github.base_ref }}" --allow-angular-type-only
+        run: conventional_commits_linter "origin/${{ github.base_ref }}" --allow-angular-type-only
