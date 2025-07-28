@@ -29,14 +29,14 @@ A tooling and language agnostic utility to lint Git commits against the Conventi
 
 ## Usage
 Conventional Commits Linter can either operate upon a range of Git commits in the repositories' history or on a commit message from standard in.
-To provide a commit message by standard in simple add the flag `--from-stdin` and standard in will be read.
-Otherwise to specify the range of commits you can add either the `--from-commit-hash <commit-hash>` or `--from-reference <reference>` arguments.
+To provide a commit message by standard in use `-` as the positional argument and standard in will be read.
+Otherwise to specify the range of commits you can provide a commit hash or reference as a positional argument.
 The range of commits starts exclusively from the commit specified till inclusively of `HEAD`.
 
 All commit messages provided or within the range are linted against the Conventional Commits v1.0.0 specification.
 If any commits messages fail linting then an error message explaining why is logged and Conventional Commits Linter exits with a non zero exit code.
 
-The only required arguments are any of the `--from-stdin`, `--from-commit-hash <commit-hash>` or `--from-reference <reference>` arguments.
+The only required argument is a commit hash/reference as a positional argument, or `-` to read from standard input.
 
 ## Examples
 ### GitHub Actions
@@ -51,15 +51,14 @@ on:
 jobs:
   conventional-commits-linting:
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/developerc286/conventional_commits_linter:0.16.0
     steps:
     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
         fetch-depth: 0
-    - name: Download binary
-      run: |
-        version="v0.16.0" && wget -O - "https://github.com/DeveloperC286/conventional_commits_linter/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
     - name: Lint commits
-      run: conventional_commits_linter --from-reference "origin/${{ github.base_ref }}" --allow-angular-type-only
+      run: conventional_commits_linter --commit-type angular "origin/${{ github.base_ref }}"
 ```
 <!-- x-release-please-end -->
 
@@ -73,7 +72,7 @@ conventional-commits-linting:
         - version="v0.16.0" && wget -O - "https://github.com/DeveloperC286/conventional_commits_linter/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
     script:
         # Lint all the commits in the branch.
-        - conventional_commits_linter --from-reference "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}" --allow-angular-type-only
+        - conventional_commits_linter --commits-type angular "origin/${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"
     rules:
         - if: $CI_MERGE_REQUEST_ID
 ```
