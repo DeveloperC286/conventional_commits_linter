@@ -30,13 +30,13 @@ A tooling and language agnostic utility to lint Git commits against the Conventi
 ## Usage
 Conventional Commits Linter can either operate upon a range of Git commits in the repositories' history or on a commit message from standard in.
 To provide a commit message by standard in simple add the flag `--from-stdin` and standard in will be read.
-Otherwise to specify the range of commits you can add either the `--from-commit-hash <commit-hash>` or `--from-reference <reference>` arguments.
+Otherwise to specify the range of commits you can provide a commit hash or reference as a positional argument.
 The range of commits starts exclusively from the commit specified till inclusively of `HEAD`.
 
 All commit messages provided or within the range are linted against the Conventional Commits v1.0.0 specification.
 If any commits messages fail linting then an error message explaining why is logged and Conventional Commits Linter exits with a non zero exit code.
 
-The only required arguments are any of the `--from-stdin`, `--from-commit-hash <commit-hash>` or `--from-reference <reference>` arguments.
+The only required arguments are either the `--from-stdin` flag or a commit hash/reference as a positional argument.
 
 ## Examples
 ### GitHub Actions
@@ -58,7 +58,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Lint commits
-      run: conventional_commits_linter --from-reference "origin/${{ github.base_ref }}" --allow-angular-type-only
+      run: conventional_commits_linter "origin/${{ github.base_ref }}" --allow-angular-type-only
 ```
 <!-- x-release-please-end -->
 
@@ -72,7 +72,7 @@ conventional-commits-linting:
         - version="v1.0.4" && wget -O - "https://github.com/DeveloperC286/conventional_commits_linter/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
     script:
         # Lint all the commits in the branch.
-        - conventional_commits_linter --from-reference "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}" --allow-angular-type-only
+        - conventional_commits_linter "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}" --allow-angular-type-only
     rules:
         - if: $CI_MERGE_REQUEST_ID
 ```
