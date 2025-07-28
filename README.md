@@ -51,13 +51,12 @@ on:
 jobs:
   conventional-commits-linting:
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/developerc286/conventional_commits_linter:0.15.0
     steps:
     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
         fetch-depth: 0
-    - name: Download binary
-      run: |
-        version="v1.0.4" && wget -O - "https://github.com/DeveloperC286/conventional_commits_linter/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
     - name: Lint commits
       run: conventional_commits_linter --from-reference "origin/${{ github.base_ref }}" --allow-angular-type-only
 ```
