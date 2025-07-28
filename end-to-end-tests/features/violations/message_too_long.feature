@@ -1,29 +1,23 @@
 Feature: When the commit title exceeds the configured maximum length, it is picked up as a linting violation.
 
 
-  Scenario: Commit message that passes default length limit but fails with custom limit
+  Scenario: Long message fails with default limit then passes with increased limit
     Given the context and environment are reset.
-    When linting the "feat: add new feature for handling user authentication".
+    When linting the "feat: this is a very long commit message that exceeds fifty characters".
+    And the argument --output is set as "JSON".
+    Then a message too long violation is detected.
+    Given the context and environment are reset.
+    When linting the "feat: this is a very long commit message that exceeds fifty characters".
+    And the argument --max-commit-title-length is set to "80".
     Then the linting passes.
 
 
-  Scenario: Commit message that fails with custom length limit
+  Scenario: Short message passes with default limit then fails with decreased limit
     Given the context and environment are reset.
-    When linting the "feat: add new feature for handling user authentication".
-    And the argument --max-commit-title-length is set to "30".
-    And the argument --output is set as "JSON".
-    Then a message too long violation is detected.
-
-
-  Scenario: Very long commit message that fails default length limit
-    Given the context and environment are reset.
-    When linting the "feat: this is a very long commit message that definitely exceeds the default fifty character limit".
-    And the argument --output is set as "JSON".
-    Then a message too long violation is detected.
-
-
-  Scenario: Length check can be disabled entirely
-    Given the context and environment are reset.
-    When linting the "feat: this is a very long commit message that definitely exceeds the default fifty character limit".
-    And the argument --max-commit-title-length is set to "0".
+    When linting the "feat: add new feature".
     Then the linting passes.
+    Given the context and environment are reset.
+    When linting the "feat: add new feature".
+    And the argument --max-commit-title-length is set to "15".
+    And the argument --output is set as "JSON".
+    Then a message too long violation is detected.

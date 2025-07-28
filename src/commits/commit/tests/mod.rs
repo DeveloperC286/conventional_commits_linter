@@ -174,15 +174,15 @@ mod generated_tests;
 fn test_message_too_long_fails_linting(commit_message: &str) {
     // Given
     let commit = Commit::from_commit_message(commit_message.to_string());
-    let _expected_linting_errors = vec![LintingError::MessageTooLong];
+    let _expected_linting_errors = vec![LintingError::CommitTitleTooLong];
 
     // When
     let linting_errors = commit.lint(false, DEFAULT_COMMIT_TITLE_LENGTH);
 
     // Then
     assert!(
-        linting_errors.contains(&LintingError::MessageTooLong),
-        "\n\nExpected MessageTooLong error for commit message:\n{:?}\nActual errors: {:?}\n\n",
+        linting_errors.contains(&LintingError::CommitTitleTooLong),
+        "\n\nExpected CommitTitleTooLong error for commit message:\n{:?}\nActual errors: {:?}\n\n",
         commit_message,
         linting_errors
     );
@@ -204,8 +204,8 @@ fn test_message_within_length_limit_passes_linting(commit_message: &str) {
 
     // Then
     assert!(
-        !linting_errors.contains(&LintingError::MessageTooLong),
-        "\n\nDid not expect MessageTooLong error for commit message:\n{:?}\nActual errors: {:?}\n\n",
+        !linting_errors.contains(&LintingError::CommitTitleTooLong),
+        "\n\nDid not expect CommitTitleTooLong error for commit message:\n{:?}\nActual errors: {:?}\n\n",
         commit_message,
         linting_errors
     );
@@ -226,8 +226,8 @@ fn test_message_too_long_with_custom_limit_fails_linting(commit_message: &str) {
 
     // Then
     assert!(
-        linting_errors.contains(&LintingError::MessageTooLong),
-        "\n\nExpected MessageTooLong error for commit message with custom limit:\n{:?}\nActual errors: {:?}\n\n",
+        linting_errors.contains(&LintingError::CommitTitleTooLong),
+        "\n\nExpected CommitTitleTooLong error for commit message with custom limit:\n{:?}\nActual errors: {:?}\n\n",
         commit_message,
         linting_errors
     );
@@ -248,8 +248,8 @@ fn test_message_length_check_disabled_passes_linting(commit_message: &str) {
 
     // Then
     assert!(
-        !linting_errors.contains(&LintingError::MessageTooLong),
-        "\n\nDid not expect MessageTooLong error when length check is disabled:\n{:?}\nActual errors: {:?}\n\n",
+        !linting_errors.contains(&LintingError::CommitTitleTooLong),
+        "\n\nDid not expect CommitTitleTooLong error when length check is disabled:\n{:?}\nActual errors: {:?}\n\n",
         commit_message,
         linting_errors
     );
@@ -271,8 +271,8 @@ fn test_message_within_custom_length_limit_passes_linting(commit_message: &str) 
 
     // Then
     assert!(
-        !linting_errors.contains(&LintingError::MessageTooLong),
-        "\n\nDid not expect MessageTooLong error for commit message within custom limit:\n{:?}\nActual errors: {:?}\n\n",
+        !linting_errors.contains(&LintingError::CommitTitleTooLong),
+        "\n\nDid not expect CommitTitleTooLong error for commit message within custom limit:\n{:?}\nActual errors: {:?}\n\n",
         commit_message,
         linting_errors
     );

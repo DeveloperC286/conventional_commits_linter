@@ -83,4 +83,4 @@ def assert_message_too_long_violation(context):
     result = assert_linting_fails(context)
 
     # Then
-    assert_commits_linting_errors(result, [['MessageTooLong']])
+    assert_commits_linting_errors(result, [['CommitTitleTooLong']])

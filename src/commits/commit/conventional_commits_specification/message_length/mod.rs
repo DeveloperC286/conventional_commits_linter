@@ -10,7 +10,7 @@ pub fn lint(commit_message: &str, max_length: usize) -> Result<(), LintingError>
     let subject_length = first_line.chars().count();
 
     if subject_length > max_length {
-        Err(LintingError::MessageTooLong)
+        Err(LintingError::CommitTitleTooLong)
     } else {
         Ok(())
     }
