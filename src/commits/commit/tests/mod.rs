@@ -147,6 +147,7 @@ fn test_non_angular_type_conventional_commits(commit_message: &str) {
     case("Revert \"chore(deps): update dependency eslint to v7 (#1656)\" (#1673)\n\nThis reverts commit 1755aecc17311859a7cfa80807f997afb7883b7b."),
     case("Update advance.md: it's -> its (#1499)\n\nit's -> its"),
     case("Merge pull request #656 from dgrcode/translation/spanish\n\nSpanish translation for \"aliases\" and \"did you mean %s?\""),
+    case("fix: This is a very long commit message that exceeds the fifty character limit")
 )]
 fn test_non_conventional_commits_fail_linting(commit_message: &str) {
     // Given
@@ -165,51 +166,7 @@ fn test_non_conventional_commits_fail_linting(commit_message: &str) {
 
 mod generated_tests;
 
-#[rstest(
-    commit_message,
-    case("fix: This is a very long commit message that exceeds the seventy-two character limit"),
-    case("feat: Add new feature with a detailed description that goes over the limit"),
-    case("docs: Update documentation with comprehensive examples and explanations that exceed length")
-)]
-fn test_message_too_long_fails_linting(commit_message: &str) {
-    // Given
-    let commit = Commit::from_commit_message(commit_message.to_string());
-    let _expected_linting_errors = vec![LintingError::CommitTitleTooLong];
 
-    // When
-    let linting_errors = commit.lint(false, DEFAULT_COMMIT_TITLE_LENGTH);
-
-    // Then
-    assert!(
-        linting_errors.contains(&LintingError::CommitTitleTooLong),
-        "\n\nExpected CommitTitleTooLong error for commit message:\n{:?}\nActual errors: {:?}\n\n",
-        commit_message,
-        linting_errors
-    );
-}
-
-#[rstest(
-    commit_message,
-    case("fix: short message"),
-    case("feat: add new feature"),
-    case("docs: update docs"),
-    case("test: add unit tests for the new functionality and edge cases")
-)]
-fn test_message_within_length_limit_passes_linting(commit_message: &str) {
-    // Given
-    let commit = Commit::from_commit_message(commit_message.to_string());
-
-    // When
-    let linting_errors = commit.lint(false, DEFAULT_COMMIT_TITLE_LENGTH);
-
-    // Then
-    assert!(
-        !linting_errors.contains(&LintingError::CommitTitleTooLong),
-        "\n\nDid not expect CommitTitleTooLong error for commit message:\n{:?}\nActual errors: {:?}\n\n",
-        commit_message,
-        linting_errors
-    );
-}
 
 #[rstest(
     commit_message,

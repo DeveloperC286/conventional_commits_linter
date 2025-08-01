@@ -1,7 +1,6 @@
 use super::*;
 
 pub fn lint(commit_message: &str, max_length: Option<usize>) -> Result<(), LintingError> {
-    // If max_length is None, skip the length check entirely
     let max_length = match max_length {
         Some(length) => length,
         None => return Ok(()),
