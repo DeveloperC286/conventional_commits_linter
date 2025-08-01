@@ -1,16 +1,15 @@
 use super::*;
 
-pub fn lint(commit_message: &str, max_length: Option<usize>) -> Result<(), LintingError> {
-    let max_length = match max_length {
-        Some(length) => length,
-        None => return Ok(()),
-    };
+pub fn lint(commit_message: &str, max: Option<usize>) -> Result<(), LintingError> {
+    if let Some(max) = max {
+        let title = commit_message.lines().next().unwrap();
+        let length = title.chars().count();
 
-    let first_line = commit_message.lines().next().ok_or(LintingError::CommitTitleTooLong)?;
-    let subject_length = first_line.chars().count();
-
-    if subject_length > max_length {
-        Err(LintingError::CommitTitleTooLong)
+        if length > max {
+            Err(LintingError::CommitTitleTooLong)
+        } else {
+            Ok(())
+        }
     } else {
         Ok(())
     }
