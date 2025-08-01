@@ -77,7 +77,7 @@ def assert_no_description_violation(context):
                                     'NoDescriptionAfterTypeAndScope']])
 
 
-@then('a message too long violation is detected.')
+@then('a commit title too long violation is detected.')
 def assert_commit_title_too_long_violation(context):
     # When/Then
     result = assert_linting_fails(context)

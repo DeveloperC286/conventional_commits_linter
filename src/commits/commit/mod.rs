@@ -107,7 +107,12 @@ impl Commit {
         }
 
         // Check message length regardless of conventional commits compliance
-        match conventional_commits_specification::message_length::lint(&self.message, max_commit_title_length) {
+        let max_length = if max_commit_title_length == 0 {
+            None
+        } else {
+            Some(max_commit_title_length)
+        };
+        match conventional_commits_specification::message_length::lint(&self.message, max_length) {
             Ok(()) => {}
             Err(linting_error) => {
                 linting_errors.push(linting_error);
