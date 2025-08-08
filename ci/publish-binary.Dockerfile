@@ -1,5 +1,5 @@
 FROM alpine:3.22@sha256:4bcff63911fcb4448bd4fdacec207030997caf25e9bea4045fa6c8c44de311d1
 RUN apk add --no-cache \
-	github-cli=2.72.0-r1
+	github-cli=2.72.0-r2
 
 ENTRYPOINT ["/workspace/ci/publish-binary.sh"]
