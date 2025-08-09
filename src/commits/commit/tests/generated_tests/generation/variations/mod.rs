@@ -90,6 +90,9 @@ const VALID_DESCRIPTION_VARIATIONS: &[&str] = &[
     "update types for deno ^1.4.0\n",
     "Japanese translation phrasing (#1619)\n",
 ];
+const TOO_LONG_DESCRIPTION_VARIATIONS: &[&str] = &[
+    "this is a very long commit message that exceeds the default fifty character limit and will trigger the CommitTitleTooLong error\n",
+];
 const EMPTY_DESCRIPTION_VARIATIONS: &[&str] = &["", "\n", "\n\n"];
 
 const BODY_VARIATIONS: &[&str] = &[
@@ -105,6 +108,11 @@ pub(super) const DESCRIPTION_AND_BODY_VARIATIONS: &[(&[LintingError], &[&str], &
     (
         &[LintingError::NoDescriptionAfterTypeAndScope],
         EMPTY_DESCRIPTION_VARIATIONS,
+        &[],
+    ),
+    (
+        &[LintingError::CommitTitleTooLong],
+        TOO_LONG_DESCRIPTION_VARIATIONS,
         &[],
     ),
     (&[], VALID_DESCRIPTION_VARIATIONS, BODY_VARIATIONS),
