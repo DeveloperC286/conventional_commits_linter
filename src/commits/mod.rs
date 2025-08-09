@@ -81,7 +81,7 @@ fn get_commits_till_head_from_oid(
         repository: &Repository,
         from_commit_hash: Oid,
         history_mode: HistoryMode,
-    ) -> Result<Revwalk> {
+    ) -> Result<Revwalk<'_>> {
         let mut commits = repository.revwalk()?;
         if history_mode == HistoryMode::First {
             commits.simplify_first_parent()?;
