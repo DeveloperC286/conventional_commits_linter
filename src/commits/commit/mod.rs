@@ -1,3 +1,7 @@
+use std::sync::OnceLock;
+
+use regex::Regex;
+
 use crate::commit_type::CommitType;
 use crate::linting_error::LintingError;
 

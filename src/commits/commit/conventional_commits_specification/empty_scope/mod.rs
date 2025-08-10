@@ -1,14 +1,16 @@
 use super::*;
 
+static EMPTY_SCOPE_REGEX: OnceLock<Regex> = OnceLock::new();
+
 pub(crate) fn lint(commit_message: &str) -> Result<(), LintingError> {
-    lazy_static! {
-        static ref EMPTY_SCOPE_REGEX: Regex = Regex::new(&format!(
+    let regex = EMPTY_SCOPE_REGEX.get_or_init(|| {
+        Regex::new(&format!(
             "{OPTIONAL_PRECEDING_WHITESPACE}{TYPE}{OPTIONAL_EXCLAMATION}{EMPTY_SCOPE}{OPTIONAL_EXCLAMATION}:",
         ))
-        .unwrap();
-    }
+        .unwrap()
+    });
 
-    match EMPTY_SCOPE_REGEX.is_match(commit_message) {
+    match regex.is_match(commit_message) {
         true => Err(LintingError::EmptyScope),
         false => Ok(()),
     }

@@ -28,7 +28,6 @@ strum_macros = "0.27.0"
 
 # For parsing commit messages.
 regex = "1.9.6"
-lazy_static = "1.4.0"
 
 # For printing output as JSON.
 serde = { version = "1.0.188", features = ["derive"] }

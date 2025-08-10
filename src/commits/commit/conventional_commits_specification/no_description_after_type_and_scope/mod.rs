@@ -1,15 +1,17 @@
 use super::*;
 
-pub(crate) fn lint(commit_message: &str) -> Result<(), LintingError> {
-    lazy_static! {
-        static ref NO_DESCRIPTION_REGEX: Regex = Regex::new(&format!(
-            r"{}([[:space:]]*($|\n))",
-            *IGNORE_TYPE_AND_SCOPE_LINTING_ERRORS,
-        ))
-        .unwrap();
-    }
+static NO_DESCRIPTION_REGEX: OnceLock<Regex> = OnceLock::new();
 
-    match NO_DESCRIPTION_REGEX.is_match(commit_message) {
+pub(crate) fn lint(commit_message: &str) -> Result<(), LintingError> {
+    let regex = NO_DESCRIPTION_REGEX.get_or_init(|| {
+        Regex::new(&format!(
+            r"{}([[:space:]]*($|\n))",
+            ignore_type_and_scope_linting_errors(),
+        ))
+        .unwrap()
+    });
+
+    match regex.is_match(commit_message) {
         true => Err(LintingError::NoDescriptionAfterTypeAndScope),
         false => Ok(()),
     }
