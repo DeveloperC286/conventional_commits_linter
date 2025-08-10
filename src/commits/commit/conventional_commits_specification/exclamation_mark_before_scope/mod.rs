@@ -1,14 +1,16 @@
 use super::*;
 
+static EXCLAMATION_MARK_BEFORE_SCOPE_REGEX: OnceLock<Regex> = OnceLock::new();
+
 pub(crate) fn lint(commit_message: &str) -> Result<(), LintingError> {
-    lazy_static! {
-        static ref EXCLAMATION_MARK_BEFORE_SCOPE_REGEX: Regex = Regex::new(&format!(
+    let regex = EXCLAMATION_MARK_BEFORE_SCOPE_REGEX.get_or_init(|| {
+        Regex::new(&format!(
             "{OPTIONAL_PRECEDING_WHITESPACE}{TYPE}(!){EMPTY_SCOPE_OR_SCOPE}:",
         ))
-        .unwrap();
-    }
+        .unwrap()
+    });
 
-    match EXCLAMATION_MARK_BEFORE_SCOPE_REGEX.is_match(commit_message) {
+    match regex.is_match(commit_message) {
         true => Err(LintingError::ExclamationMarkBeforeScope),
         false => Ok(()),
     }
