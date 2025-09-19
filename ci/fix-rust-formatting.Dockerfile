@@ -1,4 +1,4 @@
-FROM rust:1.89.0-alpine3.21@sha256:8f717b9506b922815d461317b6ac40d2cddc0f77867809509a5f1d32b8372ea4
+FROM rust:1.90.0-alpine3.21@sha256:85ef0dac25e61cf7a81c43b861401c39577257b848769b95b5fba92bf0ece004
 RUN rustup component add rustfmt
 
 ENTRYPOINT ["cargo", "fmt", "--all", "--", "--config=group_imports=StdExternalCrate"]
