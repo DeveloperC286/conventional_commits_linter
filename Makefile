@@ -15,7 +15,7 @@ check-clean-git-history:
 	docker run $(DOCKER_RUN_WRITE_OPTS) ghcr.io/developerc286/clean_git_history:$(CLEAN_GIT_HISTORY_VERSION) $(FROM)
 
 # renovate: depName=ghcr.io/developerc286/conventional_commits_linter
-CONVENTIONAL_COMMITS_LINTER_VERSION=0.15.0@sha256:b631a3cdcbed28c8938a2a6b63e16ecfd0d7ff71c28e878815adf9183e1fb599
+CONVENTIONAL_COMMITS_LINTER_VERSION=0.16.0@sha256:d685b9c20793a87ff85311247394d97feb05cbe313e3d9e2c8a4c9b94eca362a
 
 .PHONY: check-conventional-commits-linting
 check-conventional-commits-linting:
