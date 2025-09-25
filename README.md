@@ -59,7 +59,7 @@ jobs:
       run: |
         version="v0.16.0" && wget -O - "https://github.com/DeveloperC286/conventional_commits_linter/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
     - name: Lint commits
-      run: conventional_commits_linter --from-reference "origin/${{ github.base_ref }}" --allow-angular-type-only
+      run: conventional_commits_linter --from-reference "origin/${{ github.base_ref }}" --type angular
 ```
 <!-- x-release-please-end -->
 
@@ -73,7 +73,7 @@ conventional-commits-linting:
         - version="v0.16.0" && wget -O - "https://github.com/DeveloperC286/conventional_commits_linter/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
     script:
         # Lint all the commits in the branch.
-        - conventional_commits_linter --from-reference "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}" --allow-angular-type-only
+        - conventional_commits_linter --from-reference "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}" --type angular
     rules:
         - if: $CI_MERGE_REQUEST_ID
 ```
