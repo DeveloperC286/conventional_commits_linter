@@ -19,7 +19,7 @@ CONVENTIONAL_COMMITS_LINTER_VERSION=0.16.0@sha256:d685b9c20793a87ff85311247394d9
 
 .PHONY: check-conventional-commits-linting
 check-conventional-commits-linting:
-	docker run $(DOCKER_RUN_WRITE_OPTS) ghcr.io/developerc286/conventional_commits_linter:$(CONVENTIONAL_COMMITS_LINTER_VERSION) --allow-angular-type-only $(FROM)
+	docker run $(DOCKER_RUN_WRITE_OPTS) ghcr.io/developerc286/conventional_commits_linter:$(CONVENTIONAL_COMMITS_LINTER_VERSION) --type angular $(FROM)
 
 .PHONY: check-rust-formatting
 check-rust-formatting:
