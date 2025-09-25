@@ -6,8 +6,7 @@
   "packages": {
     ".": {
       "extra-files": [
-        "README.md",
-        ".github/workflows/dogfood.yml"
+        "README.md"
       ]
     }
   }
