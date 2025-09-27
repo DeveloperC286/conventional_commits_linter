@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.16.1 (2025-09-27)
+
+## What's Changed
+* fix(deps): update rust crate serde to v1.0.225 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/337
+* fix(deps): update rust crate serde_json to v1.0.145 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/338
+* fix(deps): update rust crate anyhow to v1.0.100 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/341
+* chore(deps): update rust docker tag to v1.90.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/342
+* fix(deps): update rust crate clap to v4.5.48 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/343
+* fix(deps): update rust crate serde to v1.0.226 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/344
+* chore(deps): update ghcr.io/developerc286/clean_git_history docker tag to v1.1.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/339
+* chore(deps): update ghcr.io/developerc286/conventional_commits_linter docker tag to v0.16.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/340
+* ci: update Claude Code GitHub Workflow by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/345
+* chore(deps): pin dependencies by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/346
+* chore(deps): update actions/checkout action to v5 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/347
+* ci: removing Dogfooding version updating by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/348
+* ci: fixing Claude Code Review by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/350
+* ci: improved Claude Code names by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/351
+* ci: fixing Claude Code workflow by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/352
+* chore(deps): update anthropics/claude-code-action digest to 426380f by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/353
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.16.0...v0.16.1
+
 ## 0.16.0 (2025-07-27)
 
 ## What's Changed
