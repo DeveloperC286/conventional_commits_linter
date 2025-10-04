@@ -55,6 +55,7 @@ impl Commit {
         &self,
         commit_type: &CommitType,
         max_commit_title_length: usize,
+        lowercase_scope: bool,
     ) -> Vec<LintingError> {
         info!("Linting the commit message {:?}.", self.message);
         let mut linting_errors = vec![];
@@ -108,6 +109,15 @@ impl Commit {
 
         if *commit_type == CommitType::Angular {
             match allow_angular_type_only::lint(&self.message) {
+                Ok(()) => {}
+                Err(linting_error) => {
+                    linting_errors.push(linting_error);
+                }
+            }
+        }
+
+        if lowercase_scope {
+            match conventional_commits_specification::lowercase_scope::lint(&self.message) {
                 Ok(()) => {}
                 Err(linting_error) => {
                     linting_errors.push(linting_error);

@@ -19,4 +19,6 @@ pub enum LintingError {
     NoDescriptionAfterTypeAndScope,
     /// Commit message subject line exceeds the recommended maximum length.
     CommitTitleTooLong,
+    /// Commit title has a scope which is not lowercase.
+    NonLowercaseScope,
 }

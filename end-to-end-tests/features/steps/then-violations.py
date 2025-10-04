@@ -84,3 +84,12 @@ def assert_commit_title_too_long_violation(context):
 
     # Then
     assert_commits_linting_errors(result, [['CommitTitleTooLong']])
+
+
+@then('has a scope which is not lowercase violation is detected.')
+def assert_non_lowercase_scope_violation(context):
+    # When/Then
+    result = assert_linting_fails(context)
+
+    # Then
+    assert_commits_linting_errors(result, [['NonLowercaseScope']])
