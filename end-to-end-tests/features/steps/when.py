@@ -35,3 +35,8 @@ def set_output(context, output):
 @when('the argument --max-commit-title-length is set to "{max_length}".')
 def set_max_commit_title_length(context, max_length):
     context.arguments += f" --max-commit-title-length {max_length} "
+
+
+@when('the argument --lowercase-scope is set.')
+def set_lowercase_scope(context):
+    context.arguments += " --lowercase-scope "
