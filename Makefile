@@ -39,7 +39,7 @@ check-python-formatting:
 	docker run $(DOCKER_RUN_OPTS) check-python-formatting
 
 # renovate: depName=ghcr.io/google/yamlfmt
-YAMLFMT_VERSION=0.19.0@sha256:9316569fdb8bd4e01f7bc75f2e7d45777a2dd216dc61dc39c48b8eeb2389397f
+YAMLFMT_VERSION=0.20.0@sha256:cd11483ba1119371593a7d55386d082da518e27dd932ee00db32e5fb6f3a58c0
 
 .PHONY: check-yaml-formatting
 check-yaml-formatting:
