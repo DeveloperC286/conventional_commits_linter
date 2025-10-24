@@ -5,6 +5,8 @@ const DEFAULT_COMMIT_TYPE: &CommitType = &CommitType::Any;
 
 const DEFAULT_COMMIT_TITLE_LENGTH: usize = 72;
 
+const DEFAULT_LOWERCASE_SCOPE: bool = false;
+
 mod generation;
 #[macro_use]
 mod macros;
@@ -19,7 +21,7 @@ fn test_non_angular_type_commits_with_no_angular_type_only_assertion() {
             let commit = Commit::from_commit_message(&commit_message);
 
             // When
-            let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, DEFAULT_COMMIT_TITLE_LENGTH);
+            let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, DEFAULT_COMMIT_TITLE_LENGTH, DEFAULT_LOWERCASE_SCOPE);
 
             // Then
             assert_linting_errors_eq!(expected_linting_errors, linting_errors, commit_message);
@@ -35,7 +37,7 @@ fn test_angular_type_commits_with_no_angular_type_only_assertion() {
             let commit = Commit::from_commit_message(&commit_message);
 
             // When
-            let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, DEFAULT_COMMIT_TITLE_LENGTH);
+            let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, DEFAULT_COMMIT_TITLE_LENGTH, DEFAULT_LOWERCASE_SCOPE);
 
             // Then
             assert_linting_errors_eq!(expected_linting_errors, linting_errors, commit_message);
@@ -55,7 +57,7 @@ fn test_non_angular_type_commits_with_angular_type_only_assertion() {
             let commit = Commit::from_commit_message(&commit_message);
 
             // When
-            let linting_errors = commit.lint(&CommitType::Angular, DEFAULT_COMMIT_TITLE_LENGTH);
+            let linting_errors = commit.lint(&CommitType::Angular, DEFAULT_COMMIT_TITLE_LENGTH, DEFAULT_LOWERCASE_SCOPE);
 
             // Then
             assert_linting_errors_eq!(expected_linting_errors, linting_errors, commit_message);
@@ -71,7 +73,7 @@ fn test_angular_type_commits_with_angular_type_only_assertion() {
             let commit = Commit::from_commit_message(&commit_message);
 
             // When
-            let linting_errors = commit.lint(&CommitType::Angular, DEFAULT_COMMIT_TITLE_LENGTH);
+            let linting_errors = commit.lint(&CommitType::Angular, DEFAULT_COMMIT_TITLE_LENGTH, DEFAULT_LOWERCASE_SCOPE);
 
             // Then
             assert_linting_errors_eq!(expected_linting_errors, linting_errors, commit_message);
