@@ -8,6 +8,8 @@ const DEFAULT_COMMIT_TYPE: &CommitType = &CommitType::Any;
 
 const DEFAULT_COMMIT_TITLE_LENGTH: usize = 72;
 
+const DEFAULT_LOWERCASE_SCOPE: bool = false;
+
 #[template]
 #[rstest(
     commit_message,
@@ -57,7 +59,7 @@ fn test_angular_type_conventional_commits_and_only_angular_type(commit_message: 
     let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
-    let linting_errors = commit.lint(&CommitType::Angular, DEFAULT_COMMIT_TITLE_LENGTH);
+    let linting_errors = commit.lint(&CommitType::Angular, DEFAULT_COMMIT_TITLE_LENGTH, DEFAULT_LOWERCASE_SCOPE);
 
     // Then
     assert_eq!(
@@ -74,7 +76,7 @@ fn test_angular_type_conventional_commits(commit_message: &str) {
     let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
-    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, DEFAULT_COMMIT_TITLE_LENGTH);
+    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, DEFAULT_COMMIT_TITLE_LENGTH, DEFAULT_LOWERCASE_SCOPE);
 
     // Then
     assert_eq!(
@@ -115,7 +117,7 @@ fn test_non_angular_type_conventional_commits_and_only_angular_type(commit_messa
     let expected_linting_errors = vec![LintingError::NonAngularType];
 
     // When
-    let linting_errors = commit.lint(&CommitType::Angular, DEFAULT_COMMIT_TITLE_LENGTH);
+    let linting_errors = commit.lint(&CommitType::Angular, DEFAULT_COMMIT_TITLE_LENGTH, DEFAULT_LOWERCASE_SCOPE);
 
     // Then
     assert_eq!(
@@ -132,7 +134,7 @@ fn test_non_angular_type_conventional_commits(commit_message: &str) {
     let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
-    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, DEFAULT_COMMIT_TITLE_LENGTH);
+    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, DEFAULT_COMMIT_TITLE_LENGTH, DEFAULT_LOWERCASE_SCOPE);
 
     // Then
     assert_eq!(
@@ -156,7 +158,7 @@ fn test_non_conventional_commits_fail_linting(commit_message: &str) {
     let commit = Commit::from_commit_message(commit_message.to_string());
 
     // When
-    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, DEFAULT_COMMIT_TITLE_LENGTH);
+    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, DEFAULT_COMMIT_TITLE_LENGTH, DEFAULT_LOWERCASE_SCOPE);
 
     // Then
     assert!(
@@ -202,7 +204,7 @@ fn test_commit_title_too_long(commit_message: &str) {
     let expected_linting_errors: Vec<LintingError> = vec![LintingError::CommitTitleTooLong];
 
     // When
-    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, DEFAULT_COMMIT_TITLE_LENGTH);
+    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, DEFAULT_COMMIT_TITLE_LENGTH, DEFAULT_LOWERCASE_SCOPE);
 
     // Then
     assert_eq!(
@@ -218,7 +220,7 @@ fn test_max_commit_title_length_changeable(commit_message: &str) {
     let commit = Commit::from_commit_message(commit_message.to_string());
 
     // When
-    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, 120);
+    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, 120, DEFAULT_LOWERCASE_SCOPE);
 
     // Then
     assert!(
@@ -234,7 +236,7 @@ fn test_max_commit_title_length_disableable(commit_message: &str) {
     let commit = Commit::from_commit_message(commit_message.to_string());
 
     // When
-    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, 0);
+    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, 0, DEFAULT_LOWERCASE_SCOPE);
 
     // Then
     assert!(

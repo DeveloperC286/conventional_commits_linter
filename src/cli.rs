@@ -38,6 +38,12 @@ pub(crate) struct Arguments {
     pub(crate) max_commit_title_length: usize,
 
     #[arg(
+        long,
+        help = "Enforce that the scope (if present) in conventional commit messages must be lowercase, otherwise linting will fail."
+    )]
+    pub(crate) lowercase_scope: bool,
+
+    #[arg(
         help = "The Git reference from where to start taking the range of commits from till HEAD to lint. The range is inclusive of HEAD and exclusive of the provided reference. '-' indicates to read the standard input and lint the input as a Git commit message."
     )]
     pub(crate) from: String,
