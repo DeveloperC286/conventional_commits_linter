@@ -108,7 +108,7 @@ publish-crate:
 .PHONY: dogfood-docker
 dogfood-docker: release
 	docker build -t conventional_commits_linter -f Dockerfile .
-	docker run $(DOCKER_RUN_WRITE_OPTS) conventional_commits_linter --verbose $(FROM)
+	docker run $(DOCKER_RUN_OPTS) -e HOME=/github/home -e GITHUB_ACTIONS=true -e CI=true conventional_commits_linter --verbose $(FROM)
 
 .PHONY: publish-docker
 publish-docker: release
