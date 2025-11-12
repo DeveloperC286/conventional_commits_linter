@@ -14,13 +14,6 @@ CLEAN_GIT_HISTORY_VERSION=1.1.0@sha256:d61b1c1627513f43760c86c63515fc8b8d97879d9
 check-clean-git-history:
 	docker run $(DOCKER_RUN_WRITE_OPTS) ghcr.io/developerc286/clean_git_history:$(CLEAN_GIT_HISTORY_VERSION) $(FROM)
 
-# renovate: depName=ghcr.io/developerc286/conventional_commits_linter
-CONVENTIONAL_COMMITS_LINTER_VERSION=0.16.0@sha256:d685b9c20793a87ff85311247394d97feb05cbe313e3d9e2c8a4c9b94eca362a
-
-.PHONY: check-conventional-commits-linting
-check-conventional-commits-linting:
-	docker run $(DOCKER_RUN_WRITE_OPTS) ghcr.io/developerc286/conventional_commits_linter:$(CONVENTIONAL_COMMITS_LINTER_VERSION) --type angular $(FROM)
-
 .PHONY: check-rust-formatting
 check-rust-formatting:
 	docker build -t check-rust-formatting -f ci/check-rust-formatting.Dockerfile .

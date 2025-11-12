@@ -9,6 +9,8 @@ jobs:
   linting:
     name: Linting
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/developerc286/conventional_commits_linter:0.16.1@sha256:571459d02adf6dd5f88f731c6d0eefc5529b1b4fab24a4aeef99fa6b9e0bc95f
     steps:
       - name: Checkout code.
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -16,4 +18,4 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
       - name: Check Conventional Commits linting.
-        run: make check-conventional-commits-linting FROM="origin/${{ github.base_ref }}"
+        run: conventional_commits_linter --type angular "origin/${{ github.base_ref }}"
