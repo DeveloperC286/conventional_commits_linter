@@ -1,5 +1,64 @@
 # Changelog
 
+## 0.16.1 (2025-11-12)
+
+## What's Changed
+* fix(deps): update rust crate serde to v1.0.225 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/337
+* fix(deps): update rust crate serde_json to v1.0.145 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/338
+* fix(deps): update rust crate anyhow to v1.0.100 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/341
+* chore(deps): update rust docker tag to v1.90.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/342
+* fix(deps): update rust crate clap to v4.5.48 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/343
+* fix(deps): update rust crate serde to v1.0.226 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/344
+* chore(deps): update ghcr.io/developerc286/clean_git_history docker tag to v1.1.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/339
+* chore(deps): update ghcr.io/developerc286/conventional_commits_linter docker tag to v0.16.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/340
+* ci: update Claude Code GitHub Workflow by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/345
+* chore(deps): pin dependencies by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/346
+* chore(deps): update actions/checkout action to v5 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/347
+* ci: removing Dogfooding version updating by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/348
+* ci: fixing Claude Code Review by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/350
+* ci: improved Claude Code names by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/351
+* ci: fixing Claude Code workflow by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/352
+* chore(deps): update anthropics/claude-code-action digest to 426380f by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/353
+* chore(deps): update docker/login-action digest to 5e57cd1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/354
+* chore(deps): update anthropics/claude-code-action digest to 90d189f by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/355
+* chore(deps): update anthropics/claude-code-action digest to ac1a320 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/357
+* chore(deps): update python docker tag to v3.14.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/358
+* chore(deps): update alpine:3.22 docker digest to 56b31e2 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/359
+* chore(deps): update alpine:3.22 docker digest to 4b7ce07 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/361
+* chore(deps): update python:3.14.0-alpine3.21 docker digest to c2410fb by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/362
+* chore(deps): update rust:1.90.0-alpine3.21 docker digest to 1b3ecdc by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/363
+* chore(deps): update python:3.14.0-alpine3.21 docker digest to a9bf2b3 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/364
+* chore(deps): update python:3.14.0-alpine3.21 docker digest to 814983b by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/366
+* chore(deps): update alpine docker tag to v3.22.2 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/360
+* chore(deps): update rust:1.90.0-alpine3.21 docker digest to 3757b14 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/365
+* chore(deps): update rust crate regex to v1.11.3 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/367
+* chore(deps): update rust crate serde to v1.0.228 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/368
+* chore(deps): update anthropics/claude-code-action digest to 777ffcb by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/369
+* chore(deps): update rust crate regex to v1.12.1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/370
+* chore(deps): update python:3.14.0-alpine3.21 docker digest to f1ac9e0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/371
+* chore(deps): update rhysd/actionlint docker tag to v1.7.8 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/372
+* chore(deps): update dependency alpine_3_22/github-cli to v2.72.0-r4 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/373
+* chore(deps): update rust crate regex to v1.12.2 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/375
+* chore(deps): update rust crate clap to v4.5.49 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/374
+* chore(deps): update ghcr.io/google/yamlfmt docker tag to v0.18.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/376
+* chore(deps): update anthropics/claude-code-action digest to e8bad57 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/377
+* ci: Claude Code only reviewing owner by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/378
+* chore(deps): update ghcr.io/google/yamlfmt docker tag to v0.18.1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/379
+* chore(deps): update ghcr.io/google/yamlfmt docker tag to v0.19.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/380
+* chore(deps): update rust crate clap to v4.5.50 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/381
+* chore(deps): update ghcr.io/google/yamlfmt docker tag to v0.20.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/382
+* chore(deps): update anthropics/claude-code-action digest to f30f5ee by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/383
+* chore(deps): update googleapis/release-please-action action to v4.4.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/384
+* chore(deps): update anthropics/claude-code-action digest to f4d737a by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/385
+* chore(deps): update anthropics/claude-code-action digest to 8a1c437 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/386
+* chore(deps): update rust crate clap to v4.5.51 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/387
+* chore(deps): update rust docker tag to v1.91.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/388
+* chore(deps): update rust docker tag to v1.91.1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/389
+* fix: git config system by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/390
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.16.0...v0.16.1
+
 ## 0.16.0 (2025-07-27)
 
 ## What's Changed
