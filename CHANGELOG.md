@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.16.2 (2025-11-13)
+
+## What's Changed
+* ci: GitHub Actions example uses container by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/298
+* ci: skip Claude Code review on draft PRs by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/394
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.16.1...v0.16.2
+
 ## 0.16.1 (2025-11-12)
 
 ## What's Changed
