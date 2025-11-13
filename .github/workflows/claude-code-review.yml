@@ -7,7 +7,7 @@ on:
 jobs:
   review:
     name: Review
-    if: github.event.pull_request.user.login == 'DeveloperC286' && !startsWith(github.event.pull_request.head.ref, 'release-please')
+    if: github.event.pull_request.user.login == 'DeveloperC286' && !startsWith(github.event.pull_request.head.ref, 'release-please') && !github.event.pull_request.draft
 
     runs-on: ubuntu-latest
     permissions:
