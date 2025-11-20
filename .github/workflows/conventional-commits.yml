@@ -13,7 +13,7 @@ jobs:
       image: ghcr.io/developerc286/conventional_commits_linter:0.16.1@sha256:571459d02adf6dd5f88f731c6d0eefc5529b1b4fab24a4aeef99fa6b9e0bc95f
     steps:
       - name: Checkout code.
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
