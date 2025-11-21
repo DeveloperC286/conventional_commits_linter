@@ -62,7 +62,7 @@ check-rust-linting:
 	docker run $(DOCKER_RUN_OPTS) check-rust-linting
 
 # renovate: depName=rhysd/actionlint
-ACTIONLINT_VERSION=1.7.8@sha256:96d4a8c87dbbfb3bdd324f8fdc285fc3df5261e2decc619a4dd7e8ee52bbfd46
+ACTIONLINT_VERSION=1.7.9@sha256:a0383f60d92601e2694e24b24d37df7b6a40bed7cedbc447611c50009bf02d94
 
 .PHONY: check-github-actions-workflows-linting
 check-github-actions-workflows-linting:
