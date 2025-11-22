@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.16.2 (2025-11-22)
+
+## What's Changed
+* ci: GitHub Actions example uses container by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/298
+* ci: skip Claude Code review on draft PRs by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/394
+* chore(deps): update actions/checkout digest to 93cb6ef by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/395
+* chore(deps): update actions/checkout action to v5.0.1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/396
+* chore(deps): update rust crate clap to v4.5.52 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/397
+* chore(deps): update anthropics/claude-code-action digest to 906bd89 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/398
+* chore(deps): update anthropics/claude-code-action digest to 6902c22 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/399
+* chore(deps): update rust crate clap to v4.5.53 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/400
+* chore(deps): update rust crate insta to v1.44.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/401
+* chore(deps): update actions/checkout action to v6 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/402
+* chore(deps): update rust crate insta to v1.44.1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/403
+* chore(deps): update rhysd/actionlint docker tag to v1.7.9 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/404
+* chore(deps): update anthropics/claude-code-action digest to f9b2917 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/405
+* chore(deps): update anthropics/claude-code-action digest to 798cf09 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/406
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.16.1...v0.16.2
+
 ## 0.16.1 (2025-11-12)
 
 ## What's Changed
