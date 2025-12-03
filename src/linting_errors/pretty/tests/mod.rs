@@ -6,7 +6,7 @@ use crate::commits::Commits;
 use crate::source::Source;
 
 const DEFAULT_COMMIT_TYPE: &CommitType = &CommitType::Any;
-const DEFAULT_COMMIT_TITLE_LENGTH: usize = 72;
+const DEFAULT_COMMIT_TITLE_LENGTH: usize = 0;
 
 #[rstest(
     commit_message,

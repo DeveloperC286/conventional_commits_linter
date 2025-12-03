@@ -2,8 +2,7 @@ use super::*;
 use crate::commit_type::CommitType;
 
 const DEFAULT_COMMIT_TYPE: &CommitType = &CommitType::Any;
-
-const DEFAULT_COMMIT_TITLE_LENGTH: usize = 72;
+const DEFAULT_COMMIT_TITLE_LENGTH: usize = 0;
 
 mod generation;
 #[macro_use]

@@ -32,7 +32,7 @@ pub(crate) struct Arguments {
 
     #[arg(
         long,
-        default_value = "72",
+        default_value = "0",
         help = "Maximum length allowed for commit message titles. Set to 0 to disable the length check."
     )]
     pub(crate) max_commit_title_length: usize,
