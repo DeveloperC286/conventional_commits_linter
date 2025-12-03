@@ -5,8 +5,7 @@ use super::*;
 use crate::commit_type::CommitType;
 
 const DEFAULT_COMMIT_TYPE: &CommitType = &CommitType::Any;
-
-const DEFAULT_COMMIT_TITLE_LENGTH: usize = 72;
+const DEFAULT_COMMIT_TITLE_LENGTH: usize = 0;
 
 #[template]
 #[rstest(
@@ -30,7 +29,7 @@ const DEFAULT_COMMIT_TITLE_LENGTH: usize = 72;
     case("fix(deps): Update os-locale to avoid security vulnerability (#1270)"),
     case("refactor(ts): ship yargs.d.ts (#1671)"),
     case("docs(readme): add Greenkeeper badge (#7)\n\nhttps://greenkeeper.io/"),
-    case("feat(istanbul-reports): keyboard shortcuts on HTML report file (#265)\n\n* Keyboard shortcuts for low coverage in file listing view\r\n\r\n* Fix linting issues\r\n"),
+    case("feat(istanbul-reports): Enable keyboard shortcuts on HTML report file listing view (#265)\n\n* Keyboard shortcuts for low coverage in file listing view\r\n\r\n* Fix linting issues\r\n"),
     // TODO case("fix(#103): ensure the package is not included in itself  (#104)\n\n* fix(#103): ensure the package is not included in itself when using globs to match files\r\n\r\n* chore: switch strings.Contains to strings.HasSuffix\r\n"),
     // TODO case("fix(i18n): Japanese translation phrasing (#1619)\n\n"),
     // TODO case("fix(GO-2023-1621): update from go 1.20.1 to 1.20.2\n\nSigned-off-by: Carlos A Becker <caarlos0@users.noreply.github.com>\n"),
@@ -202,7 +201,7 @@ fn test_commit_title_too_long(commit_message: &str) {
     let expected_linting_errors: Vec<LintingError> = vec![LintingError::CommitTitleTooLong];
 
     // When
-    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, DEFAULT_COMMIT_TITLE_LENGTH);
+    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, 72);
 
     // Then
     assert_eq!(
@@ -240,6 +239,31 @@ fn test_max_commit_title_length_disableable(commit_message: &str) {
     assert!(
         linting_errors.is_empty(),
         "\n\nThe linting should have returned no errors for the commit message:\n{:?}\n\n",
+        commit_message
+    );
+}
+
+#[rstest(
+    commit_message,
+    // Automated tools like Renovate, Dependabot, semantic-release, etc.
+    // frequently exceed the 72-character limit, but should pass with default length of 0.
+    case("chore(deps): update dependency https://github.com/developerc286/template to v1.2.0 #344"),
+    case("chore(deps): update ghcr.io/developerc286/conventional_commits_linter docker tag to v0.16.1 #244"),
+    case("chore(deps): update ghcr.io/developerc286/clean_git_history docker tag to v1.1.1 #243"),
+    case("chore(deps): update ghcr.io/developerc286/clean_git_history docker tag to v1.1.1 #391"),
+)]
+fn test_automated_tools_long_commits_pass_with_default_length(commit_message: &str) {
+    // Given
+    let commit = Commit::from_commit_message(commit_message.to_string());
+    let expected_linting_errors: Vec<LintingError> = vec![];
+
+    // When
+    let linting_errors = commit.lint(DEFAULT_COMMIT_TYPE, DEFAULT_COMMIT_TITLE_LENGTH);
+
+    // Then
+    assert_eq!(
+        expected_linting_errors, linting_errors,
+        "\n\nFailed the assertion upon the commit message:\n{:?}\n\n",
         commit_message
     );
 }
