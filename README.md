@@ -54,7 +54,7 @@ jobs:
     name: Linting
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/developerc286/conventional_commits_linter:0.16.1
+      image: ghcr.io/developerc286/conventional_commits_linter:0.17.0
     steps:
       - name: Checkout code.
         uses: actions/checkout@v5
@@ -73,7 +73,7 @@ conventional-commits-linting:
     stage: conventional-commits-linting
     image: rust
     before_script:
-        - version="v0.16.1" && wget -O - "https://github.com/DeveloperC286/conventional_commits_linter/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
+        - version="v0.17.0" && wget -O - "https://github.com/DeveloperC286/conventional_commits_linter/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
     script:
         # Lint all the commits in the branch.
         - conventional_commits_linter --type angular "origin/${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"
@@ -91,7 +91,7 @@ If you do not trust the provided binaries another option is to compile your own 
 
 <!-- x-release-please-start-version -->
 ```sh
-version="v0.16.1" && wget -O - "https://github.com/DeveloperC286/conventional_commits_linter/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
+version="v0.17.0" && wget -O - "https://github.com/DeveloperC286/conventional_commits_linter/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
 ```
 <!-- x-release-please-end -->
 
@@ -110,7 +110,7 @@ e.g.
 
 <!-- x-release-please-start-version -->
 ```sh
-cargo install conventional_commits_linter --version 0.16.1
+cargo install conventional_commits_linter --version 0.17.0
 ```
 <!-- x-release-please-end -->
 

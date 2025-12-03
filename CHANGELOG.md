@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.17.0 (2025-12-03)
+
+## What's Changed
+* ci: GitHub Actions example uses container by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/298
+* ci: skip Claude Code review on draft PRs by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/394
+* chore(deps): update actions/checkout digest to 93cb6ef by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/395
+* chore(deps): update actions/checkout action to v5.0.1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/396
+* chore(deps): update rust crate clap to v4.5.52 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/397
+* chore(deps): update anthropics/claude-code-action digest to 906bd89 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/398
+* chore(deps): update anthropics/claude-code-action digest to 6902c22 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/399
+* chore(deps): update rust crate clap to v4.5.53 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/400
+* chore(deps): update rust crate insta to v1.44.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/401
+* chore(deps): update actions/checkout action to v6 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/402
+* chore(deps): update rust crate insta to v1.44.1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/403
+* chore(deps): update rhysd/actionlint docker tag to v1.7.9 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/404
+* chore(deps): update anthropics/claude-code-action digest to f9b2917 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/405
+* chore(deps): update anthropics/claude-code-action digest to 798cf09 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/406
+* chore(deps): update anthropics/claude-code-action digest to a7e4c51 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/407
+* chore(deps): update rust crate insta to v1.44.3 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/408
+* chore(deps): update anthropics/claude-code-action digest to 6337623 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/409
+* chore(deps): update actions/checkout digest to 8e8c483 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/410
+* chore(deps): update actions/checkout action to v6.0.1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/411
+* feat: removing commit title length by default by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/412
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.16.1...v0.17.0
+
 ## 0.16.1 (2025-11-12)
 
 ## What's Changed
