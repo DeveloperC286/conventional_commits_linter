@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.17.1 (2025-12-06)
+
+## What's Changed
+* chore(deps): update rust crate log to v0.4.29 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/413
+* chore(deps): update python docker tag to v3.14.1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/415
+* chore(deps): update ghcr.io/developerc286/conventional_commits_linter docker tag to v0.17.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/416
+* chore(deps): update ghcr.io/developerc286/clean_git_history docker tag to v1.1.1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/391
+* chore(deps): update dependency alpine_3_22/github-cli to v2.72.0-r5 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/418
+* chore(deps): update python:3.14.1-alpine3.21 docker digest to fd8407c by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/417
+* chore(deps): update alpine docker tag by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/419
+* chore(deps): update rust:1.91.1-alpine3.21 docker digest to 32817dd by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/420
+* chore(deps): update dependency alpine_3_23/git to v2.52.0-r0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/421
+* chore(deps): update dependency alpine_3_23/github-cli to v2.83.0-r0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/422
+* chore(deps): update dependency alpine_3_23/github-cli to v2.83.0-r1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/423
+* chore(deps): update rust crate git2 to v0.20.3 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/424
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.17.0...v0.17.1
+
 ## 0.17.0 (2025-12-03)
 
 ## What's Changed
