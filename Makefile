@@ -8,7 +8,7 @@ DOCKER_RUN_WRITE_OPTS := $(DOCKER_RUN_OPTS) -u $(UID):$(GID)
 default: compile
 
 # renovate: depName=ghcr.io/developerc286/clean_git_history
-CLEAN_GIT_HISTORY_VERSION=1.1.1@sha256:2b36fb6c76417a5feedd6136e52d5987cd96408c1ff4cda3f37af86219fe0636
+CLEAN_GIT_HISTORY_VERSION=1.1.5@sha256:b1374591d48393f6b5fcc888f6bc7da05f7d218961f7850112130b1cad78186a
 
 .PHONY: check-clean-git-history
 check-clean-git-history:
