@@ -8,7 +8,9 @@ permissions:
 jobs:
   clean:
     name: Clean
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    container:
+      image: ghcr.io/developerc286/clean_git_history:1.1.5@sha256:b1374591d48393f6b5fcc888f6bc7da05f7d218961f7850112130b1cad78186a
     steps:
       - name: Checkout code.
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
@@ -16,4 +18,4 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
       - name: Check clean Git history.
-        run: make check-clean-git-history FROM="origin/${{ github.base_ref }}"
+        run: clean_git_history "origin/${{ github.base_ref }}"

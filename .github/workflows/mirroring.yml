@@ -9,8 +9,9 @@ concurrency:
   group: ${{ github.workflow }}
 
 jobs:
-  GitLab:
-    runs-on: ubuntu-latest
+  gitlab:
+    name: GitLab
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout code.
         run: git clone --mirror "https://github.com/${GITHUB_REPOSITORY}.git" "${GITHUB_WORKSPACE}"

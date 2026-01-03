@@ -3,15 +3,15 @@
 set -o errexit
 set -o xtrace
 
-if [ "$#" -ne 1 ]; then
-	echo "Usage: $0 RELEASE_TAG"
+if [ "$#" -ne 2 ]; then
+	echo "Usage: $0 RELEASE_TAG TARGET"
 	echo "$#"
 	exit 1
 fi
 
 RELEASE="$1"
+TARGET="$2"
 
-target="x86_64-unknown-linux-musl"
-tar -czvf "${target}.tar.gz" -C "target/${target}/release" "conventional_commits_linter"
-gh release upload "${RELEASE}" "${target}.tar.gz"
-rm "${target}.tar.gz"
+tar -czvf "${TARGET}.tar.gz" -C "target/${TARGET}/release" "conventional_commits_linter"
+gh release upload "${RELEASE}" "${TARGET}.tar.gz"
+rm "${TARGET}.tar.gz"

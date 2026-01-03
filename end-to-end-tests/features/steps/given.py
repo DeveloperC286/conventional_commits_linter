@@ -18,7 +18,7 @@ def reset_context(context):
     context.remote_repository_cache = os.getcwd()
 
     context.pre_command = ""
-    context.conventional_commits_linter_path = f"{context.behave_directory}/../target/x86_64-unknown-linux-musl/debug/conventional_commits_linter"  # fmt: off
+    context.conventional_commits_linter_path = f"{context.behave_directory}/../target/debug/conventional_commits_linter"  # fmt: off
     reset_arguments(context)
 
     if "GIT_DIR" in os.environ:

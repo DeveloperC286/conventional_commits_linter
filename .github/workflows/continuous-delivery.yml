@@ -12,39 +12,78 @@ permissions:
 jobs:
   publish-binary:
     name: Publish Binary
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.architecture }}
+    strategy:
+      matrix:
+        architecture: [ubuntu-24.04, ubuntu-24.04-arm]
     steps:
       - name: Checkout code.
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - name: Setup Nix.
+        uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31.9.0
       - name: Publish binary.
-        run: make publish-binary RELEASE="${GITHUB_REF_NAME}"
+        run: nix develop -c make publish-binary RELEASE="${GITHUB_REF_NAME}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by GitHub Actions.
 
   publish-crate:
     name: Publish Crate
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout code.
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - name: Setup Nix.
+        uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31.9.0
       - name: Publish crate.
-        run: make publish-crate
+        run: nix develop -c make publish-crate
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
 
-  publish-docker:
-    name: Publish Docker Image
-    runs-on: ubuntu-latest
+  publish-docker-image:
+    name: Publish Docker Image (${{ matrix.platform }})
+    runs-on: ${{ matrix.runner }}
+    needs: [publish-binary]
+    strategy:
+      matrix:
+        include:
+          - platform: linux/amd64
+            runner: ubuntu-24.04
+            target: x86_64-unknown-linux-musl
+            suffix: amd64
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
+            target: aarch64-unknown-linux-musl
+            suffix: arm64
     steps:
       - name: Checkout code.
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3
+        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish Docker Image
-        run: make publish-docker RELEASE="${GITHUB_REF_NAME}"
+        run: make publish-docker-image RELEASE="${GITHUB_REF_NAME}" PLATFORM="${{ matrix.platform }}" TARGET="${{ matrix.target }}" SUFFIX="${{ matrix.suffix }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-docker-manifest:
+    name: Publish Docker Manifest
+    runs-on: ubuntu-24.04
+    needs: [publish-docker-image]
+    steps:
+      - name: Checkout code.
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish Docker Manifest
+        run: make publish-docker-manifest RELEASE="${GITHUB_REF_NAME}"
