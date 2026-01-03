@@ -6,19 +6,30 @@ permissions:
   contents: read
 
 jobs:
-  linting:
-    name: Linting
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code.
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-      - name: Check GitHub Actions workflows linting.
-        run: make check-github-actions-workflows-linting
   formatting:
     name: Formatting
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.architecture }}
+    strategy:
+      matrix:
+        architecture: [ubuntu-24.04, ubuntu-24.04-arm]
     steps:
       - name: Checkout code.
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - name: Setup Nix.
+        uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31.9.0
       - name: Check formatting.
-        run: make check-yaml-formatting
+        run: nix develop -c make check-yaml-formatting
+
+  linting:
+    name: Linting
+    runs-on: ${{ matrix.architecture }}
+    strategy:
+      matrix:
+        architecture: [ubuntu-24.04, ubuntu-24.04-arm]
+    steps:
+      - name: Checkout code.
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - name: Setup Nix.
+        uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31.9.0
+      - name: Check GitHub Actions workflows linting.
+        run: nix develop -c make check-github-actions-workflows-linting

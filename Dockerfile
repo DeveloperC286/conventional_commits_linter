@@ -4,7 +4,8 @@ RUN apk add --no-cache \
     git=2.52.0-r0 && \
     git config --system --add safe.directory '*'
 
-COPY ./target/x86_64-unknown-linux-musl/release/conventional_commits_linter /usr/local/bin/
+ARG TARGET
+COPY ./target/${TARGET}/release/conventional_commits_linter /usr/local/bin/
 
 WORKDIR /workspace
 
