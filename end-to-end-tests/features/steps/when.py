@@ -1,5 +1,5 @@
 import tempfile
-from behave import *
+from behave import when
 
 
 @when('linting the "{commit_message}".')
