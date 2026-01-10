@@ -10,7 +10,7 @@ jobs:
     name: Clean
     runs-on: ubuntu-24.04
     container:
-      image: ghcr.io/developerc286/clean_git_history:1.1.5@sha256:b1374591d48393f6b5fcc888f6bc7da05f7d218961f7850112130b1cad78186a
+      image: ghcr.io/developerc286/clean_git_history:1.1.6@sha256:93fd9c692f6e629956921b8d068ccad33760882b6e0c6d4d32cd963380aec25f
     steps:
       - name: Checkout code.
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1

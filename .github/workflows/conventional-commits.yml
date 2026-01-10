@@ -10,7 +10,7 @@ jobs:
     name: Linting
     runs-on: ubuntu-24.04
     container:
-      image: ghcr.io/developerc286/conventional_commits_linter:0.17.0@sha256:d6fb0dfd79c2e06897692bc3f0dc62bcb7ce90a92030c81a3137935516d525d7
+      image: ghcr.io/developerc286/conventional_commits_linter:0.17.1@sha256:f1b947937ee884ba7f886d04939cd4858f9aeafb50dcf94925a516c50e43021b
     steps:
       - name: Checkout code.
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1

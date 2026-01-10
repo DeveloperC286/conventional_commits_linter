@@ -1,8 +1,19 @@
 import re
-from behave import *
+from behave import then
 
 from utilities import execute_conventional_commits_linter
-from assertions import *
+from assertions import (
+    assert_no_output,
+    assert_no_errors,
+    assert_command_successful,
+    assert_command_unsuccessful,
+    assert_error_contains,
+    assert_error_equals,
+    assert_output,
+    assert_invalid_json,
+    assert_valid_json,
+    assert_error_matches_regex,
+)
 
 
 @then('the linting passes.')

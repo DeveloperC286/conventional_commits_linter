@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier
-_commit: v1.6.1
+_commit: v1.6.3
 _src_path: https://github.com/DeveloperC286/template
 project_name: conventional_commits_linter
 uses_git: true

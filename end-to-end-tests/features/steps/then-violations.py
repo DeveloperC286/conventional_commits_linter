@@ -1,8 +1,7 @@
-import json
-from behave import *
+from behave import then
 
 from then import assert_linting_fails
-from assertions import *
+from assertions import assert_number_of_commits, assert_commits_linting_errors
 
 
 @then('their are "{expected_number_of_commits}" commits failing linting.')

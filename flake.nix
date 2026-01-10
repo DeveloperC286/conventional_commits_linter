@@ -40,15 +40,22 @@
           buildInputs = [
             # Rust with cross-compilation targets built-in.
             rustWithTargets
-            # Shell scripts.
+            # Shell formatting.
             pkgs.shfmt
-            pkgs.shellcheck
-            # GitHub Action Workflows.
+            # Python formatting.
+            pkgs.python313Packages.autopep8
+            # YAML formatting.
             pkgs.yamlfmt
+            # Shell linting.
+            pkgs.shellcheck
+            # Python linting.
+            pkgs.ruff
+            # GitHub Actions workflows linting.
             pkgs.actionlint
+            # Rust dependencies check.
+            pkgs.cargo-machete
             # End to end tests.
             pkgs.python313
-            pkgs.python313Packages.autopep8
             pkgs.python313Packages.behave
             pkgs.git
             # Deploying.
