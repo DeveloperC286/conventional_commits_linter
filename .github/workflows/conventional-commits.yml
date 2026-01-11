@@ -1,6 +1,8 @@
 name: Conventional Commits
 
-on: pull_request
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
 
 permissions:
   contents: read
@@ -18,4 +20,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
       - name: Check Conventional Commits linting.
-        run: conventional_commits_linter --type angular "origin/${{ github.base_ref }}"
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: printf '%s\n\n%s' "$PR_TITLE" "$PR_BODY" | conventional_commits_linter -
