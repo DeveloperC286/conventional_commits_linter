@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.17.2 (2026-01-11)
+
+## What's Changed
+* chore(deps): update rust crate insta to v1.46.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/445
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/448
+* chore(deps): update rust crate serde_json to v1.0.149 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/449
+* chore(deps): update dependency https://github.com/developerc286/template to v1.6.3 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/447
+* chore(deps): update dependency https://github.com/developerc286/template to v1.6.4 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/450
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.17.1...v0.17.2
+
 ## 0.17.1 (2026-01-03)
 
 ## What's Changed
