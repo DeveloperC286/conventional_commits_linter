@@ -10,10 +10,10 @@ jobs:
     name: Clean
     runs-on: ubuntu-24.04
     container:
-      image: ghcr.io/developerc286/clean_git_history:1.1.6@sha256:93fd9c692f6e629956921b8d068ccad33760882b6e0c6d4d32cd963380aec25f
+      image: ghcr.io/developerc286/clean_git_history:1.2.0@sha256:bdbd6ca09529f44010583fd89528a96961f7acb12bdd7baa975b0811032a647e
     steps:
       - name: Checkout code.
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
