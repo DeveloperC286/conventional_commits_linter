@@ -1,7 +1,6 @@
 # Changes here will be overwritten by Copier
-_commit: v1.6.4
+_commit: v1.7.5
 _src_path: https://github.com/DeveloperC286/template
 project_name: conventional_commits_linter
+project_type: rust
 uses_git: true
-
-#copier updated
