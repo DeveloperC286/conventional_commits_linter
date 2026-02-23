@@ -1,5 +1,41 @@
 # Changelog
 
+## 0.17.2 (2026-02-23)
+
+## What's Changed
+* chore(deps): update rust crate insta to v1.46.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/445
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/448
+* chore(deps): update rust crate serde_json to v1.0.149 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/449
+* chore(deps): update dependency https://github.com/developerc286/template to v1.6.3 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/447
+* chore(deps): update dependency https://github.com/developerc286/template to v1.6.4 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/450
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/451
+* chore(deps): update rust crate insta to v1.46.1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/452
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.2 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/453
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/454
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/455
+* chore(deps): update rust crate clap to v4.5.55 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/456
+* chore(deps): update alpine docker tag to v3.23.3 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/457
+* chore(deps): update rust crate clap to v4.5.56 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/458
+* chore(deps): update rust crate insta to v1.46.2 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/459
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/460
+* chore(deps): update rust crate regex to v1.12.3 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/463
+* chore(deps): update rust crate git2 to v0.20.4 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/461
+* chore(deps): update rust crate insta to v1.46.3 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/462
+* chore(deps): update rust crate clap to v4.5.57 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/464
+* chore(deps): update rust crate anyhow to v1.0.101 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/465
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/466
+* chore(deps): update rust crate clap to v4.5.58 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/467
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/468
+* chore(deps): update rust crate clap to v4.5.59 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/469
+* chore(deps): update rust crate clap to v4.5.60 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/470
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.5 by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/471
+* chore(deps): update rust crate anyhow to v1.0.102 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/472
+* fix(deps): update strum monorepo to 0.28.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/473
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/474
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.17.1...v0.17.2
+
 ## 0.17.1 (2026-01-03)
 
 ## What's Changed
