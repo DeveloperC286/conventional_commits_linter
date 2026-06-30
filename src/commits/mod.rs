@@ -104,7 +104,7 @@ fn get_commits_till_head_from_oid(
     for oid in revwalker {
         let oid = oid?;
         let commit = repository.find_commit(oid)?;
-        let commit = Commit::from_git(&commit);
+        let commit = Commit::from_git(&commit)?;
         commits.push_front(commit);
     }
 

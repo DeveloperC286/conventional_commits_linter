@@ -1,5 +1,6 @@
 use std::sync::OnceLock;
 
+use anyhow::{Context, Result};
 use regex::Regex;
 
 use crate::commit_type::CommitType;
@@ -25,30 +26,26 @@ impl Commit {
         }
     }
 
-    pub(crate) fn from_git(commit: &git2::Commit) -> Commit {
-        let message = match commit.message().map(|m| m.to_string()) {
-            Some(message) => {
-                trace!(
-                    "Found the commit message {message:?} for the commit with the hash '{}'.",
+    pub(crate) fn from_git(commit: &git2::Commit) -> Result<Commit> {
+        let message = commit
+            .message()
+            .with_context(|| {
+                format!(
+                    "Can not read the commit message for the commit with the hash '{}'.",
                     commit.id()
-                );
+                )
+            })?
+            .to_string();
 
-                message
-            }
-            None => {
-                warn!(
-                    "Can not find commit message for the commit with the hash '{}'.",
-                    commit.id()
-                );
+        trace!(
+            "Found the commit message {message:?} for the commit with the hash '{}'.",
+            commit.id()
+        );
 
-                String::new()
-            }
-        };
-
-        Commit {
+        Ok(Commit {
             hash: Some(commit.id().to_string()),
             message,
-        }
+        })
     }
 
     pub(crate) fn lint(
