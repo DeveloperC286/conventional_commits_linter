@@ -13,7 +13,7 @@ jobs:
       image: ghcr.io/developerc286/clean_git_history:1.2.0@sha256:bdbd6ca09529f44010583fd89528a96961f7acb12bdd7baa975b0811032a647e
     steps:
       - name: Checkout code.
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
