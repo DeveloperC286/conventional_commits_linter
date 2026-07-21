@@ -26,11 +26,11 @@ fix-rust-formatting:
 
 .PHONY: check-shell-formatting
 check-shell-formatting:
-	shfmt --simplify --diff ci/*
+	shfmt --simplify --diff ci/*.sh
 
 .PHONY: fix-shell-formatting
 fix-shell-formatting:
-	shfmt --simplify --write ci/*
+	shfmt --simplify --write ci/*.sh
 
 .PHONY: check-python-formatting
 check-python-formatting:
