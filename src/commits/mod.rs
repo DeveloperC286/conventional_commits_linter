@@ -1,6 +1,6 @@
 use std::collections::{HashMap, VecDeque};
 
-use anyhow::{bail, Context, Result};
+use anyhow::{Context, Result, bail};
 use git2::{Oid, Repository, Revwalk};
 use log::{debug, info, warn};
 
@@ -166,7 +166,11 @@ fn parse_to_oid(repository: &Repository, oid: &str) -> Result<Oid> {
                 }
                 1 => Ok(*matched_commit_hashes.first().unwrap()),
                 _ => {
-                    bail!("Ambiguous short commit hash, the commit hashes {:?} all start with the provided short commit hash {:?}.", matched_commit_hashes, matching_oid_lowercase);
+                    bail!(
+                        "Ambiguous short commit hash, the commit hashes {:?} all start with the provided short commit hash {:?}.",
+                        matched_commit_hashes,
+                        matching_oid_lowercase
+                    );
                 }
             }
         }

@@ -28,10 +28,11 @@ pub(crate) fn print_all(
         );
 
         if linting_errors.contains(&LintingError::NonConventionalCommitsSpecification) {
-            let _ = writeln!(pretty_print,
-            "\t{} - Commit title does not comply with the Conventional Commits V1.0.0 specification.",
-            red.paint("X")
-        );
+            let _ = writeln!(
+                pretty_print,
+                "\t{} - Commit title does not comply with the Conventional Commits V1.0.0 specification.",
+                red.paint("X")
+            );
         }
 
         if linting_errors.contains(&LintingError::PrecedingWhitespace) {

@@ -1,4 +1,4 @@
-use std::io::{stdin, Read};
+use std::io::{Read, stdin};
 
 use anyhow::{Context, Result};
 use clap::Parser;

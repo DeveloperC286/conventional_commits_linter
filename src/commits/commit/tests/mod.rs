@@ -145,10 +145,16 @@ fn test_non_angular_type_conventional_commits(commit_message: &str) {
 // These tests cases are not exhaustive, but are used as a sanity check.
 #[rstest(
     commit_message,
-    case(" feat: adds support for async builder (#1888)\n\nFixes: #1042\r\nBREAKING CHANGE: providing an async builder will now cause yargs to return async result\r\nBREAKING CHANGE: .positional() now allowed at root level of yargs.\r\n"),
-    case("Revert \"chore(deps): update dependency eslint to v7 (#1656)\" (#1673)\n\nThis reverts commit 1755aecc17311859a7cfa80807f997afb7883b7b."),
+    case(
+        " feat: adds support for async builder (#1888)\n\nFixes: #1042\r\nBREAKING CHANGE: providing an async builder will now cause yargs to return async result\r\nBREAKING CHANGE: .positional() now allowed at root level of yargs.\r\n"
+    ),
+    case(
+        "Revert \"chore(deps): update dependency eslint to v7 (#1656)\" (#1673)\n\nThis reverts commit 1755aecc17311859a7cfa80807f997afb7883b7b."
+    ),
     case("Update advance.md: it's -> its (#1499)\n\nit's -> its"),
-    case("Merge pull request #656 from dgrcode/translation/spanish\n\nSpanish translation for \"aliases\" and \"did you mean %s?\""),
+    case(
+        "Merge pull request #656 from dgrcode/translation/spanish\n\nSpanish translation for \"aliases\" and \"did you mean %s?\""
+    )
 )]
 fn test_non_conventional_commits_fail_linting(commit_message: &str) {
     // Given

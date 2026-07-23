@@ -1,8 +1,8 @@
 use rstest::rstest;
 
 use crate::commit_type::CommitType;
-use crate::commits::commit::Commit;
 use crate::commits::Commits;
+use crate::commits::commit::Commit;
 use crate::source::Source;
 
 const DEFAULT_COMMIT_TYPE: &CommitType = &CommitType::Any;
