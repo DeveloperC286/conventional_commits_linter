@@ -50,7 +50,9 @@ fn main() {
 fn run(arguments: Arguments) -> Result<i32> {
     let commits = if arguments.from == "-" {
         let mut commit_message = String::new();
-        stdin().read_to_string(&mut commit_message).unwrap();
+        stdin()
+            .read_to_string(&mut commit_message)
+            .context("Unable to read the commit message from standard input.")?;
         Ok(Commits::from_commit_message(commit_message))
     } else {
         let repository =
