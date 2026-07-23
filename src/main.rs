@@ -1,12 +1,9 @@
-#[macro_use]
-extern crate log;
-extern crate pretty_env_logger;
-
 use std::io::{stdin, Read};
 
 use anyhow::{Context, Result};
 use clap::Parser;
 use git2::Repository;
+use log::{debug, error, info};
 
 use crate::cli::Arguments;
 use crate::commits::Commits;
