@@ -1,6 +1,7 @@
 use std::sync::OnceLock;
 
 use anyhow::{Context, Result};
+use log::{info, trace};
 use regex::Regex;
 
 use crate::commit_type::CommitType;
