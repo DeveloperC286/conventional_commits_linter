@@ -1,5 +1,85 @@
 # Changelog
 
+## 0.17.2 (2026-07-24)
+
+## What's Changed
+* chore(deps): update rust crate insta to v1.46.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/445
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/448
+* chore(deps): update rust crate serde_json to v1.0.149 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/449
+* chore(deps): update dependency https://github.com/developerc286/template to v1.6.3 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/447
+* chore(deps): update dependency https://github.com/developerc286/template to v1.6.4 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/450
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/451
+* chore(deps): update rust crate insta to v1.46.1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/452
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.2 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/453
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/454
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/455
+* chore(deps): update rust crate clap to v4.5.55 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/456
+* chore(deps): update alpine docker tag to v3.23.3 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/457
+* chore(deps): update rust crate clap to v4.5.56 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/458
+* chore(deps): update rust crate insta to v1.46.2 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/459
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/460
+* chore(deps): update rust crate regex to v1.12.3 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/463
+* chore(deps): update rust crate git2 to v0.20.4 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/461
+* chore(deps): update rust crate insta to v1.46.3 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/462
+* chore(deps): update rust crate clap to v4.5.57 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/464
+* chore(deps): update rust crate anyhow to v1.0.101 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/465
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/466
+* chore(deps): update rust crate clap to v4.5.58 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/467
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/468
+* chore(deps): update rust crate clap to v4.5.59 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/469
+* chore(deps): update rust crate clap to v4.5.60 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/470
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.5 by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/471
+* chore(deps): update rust crate anyhow to v1.0.102 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/472
+* fix(deps): update strum monorepo to 0.28.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/473
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/474
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.6 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/476
+* chore(deps): update rust crate clap to v4.6.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/477
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/475
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/478
+* chore(deps): update rust crate insta to v1.47.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/479
+* chore(deps): update rust crate insta to v1.47.1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/480
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/481
+* chore(deps): update rust crate insta to v1.47.2 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/482
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/483
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/484
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.7 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/485
+* chore(deps): update alpine docker tag to v3.23.4 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/486
+* chore(deps): update rust crate clap to v4.6.1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/487
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/488
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/489
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.8 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/490
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/491
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/492
+* chore(deps): update rust crate serde_json to v1.0.150 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/493
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/495
+* chore(deps): update rust crate log to v0.4.30 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/496
+* chore(deps): update rust crate log to v0.4.32 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/497
+* chore(deps): update rust crate regex to v1.12.4 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/498
+* chore(deps): update rust crate insta to v1.48.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/500
+* chore(deps): update rust crate log to v0.4.33 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/501
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/502
+* fix(deps): update rust crate git2 to 0.21.0 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/494
+* chore(deps): update rust crate anyhow to v1.0.103 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/503
+* chore(deps): update alpine docker tag to v3.24.1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/499
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/504
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.9 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/505
+* chore(deps): update rust crate clap to v4.6.2 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/506
+* chore(deps): update rust crate regex to v1.13.1 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/507
+* chore(deps): update rust crate anyhow to v1.0.104 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/508
+* chore(deps): update rust crate serde to v1.0.229 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/509
+* chore(deps): update rust crate clap to v4.6.3 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/510
+* chore(deps): update rust crate serde_json to v1.0.151 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/511
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.10 by @renovate[bot] in https://github.com/DeveloperC286/conventional_commits_linter/pull/512
+* refactor: Anyhow context over unwrap by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/513
+* refactor: build logger explicitly instead of mutating RUST_LOG by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/514
+* refactor: replace #[macro_use] extern crate log with per-module use imports by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/515
+* style: upgrade to Rust edition 2024 by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/516
+* docs: add missing chore type to --type help text by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/517
+* fix: print CommitTitleTooLong in the pretty output by @DeveloperC286 in https://github.com/DeveloperC286/conventional_commits_linter/pull/518
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.17.1...v0.17.2
+
 ## 0.17.1 (2026-01-03)
 
 ## What's Changed
