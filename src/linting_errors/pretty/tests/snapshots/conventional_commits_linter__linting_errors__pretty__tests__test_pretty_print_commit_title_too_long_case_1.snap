@@ -1,0 +1,6 @@
+---
+source: src/linting_errors/pretty/tests/mod.rs
+expression: pretty_print
+---
+[1;31mMessage[0m - "feat: add new feature"
+	[1;31mX[0m - Commit title is longer than the maximum allowed length.

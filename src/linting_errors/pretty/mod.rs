@@ -83,6 +83,14 @@ pub(crate) fn print_all(
             );
         }
 
+        if linting_errors.contains(&LintingError::CommitTitleTooLong) {
+            let _ = writeln!(
+                pretty_print,
+                "\t{} - Commit title is longer than the maximum allowed length.",
+                red.paint("X")
+            );
+        }
+
         pretty_print
     }
 
