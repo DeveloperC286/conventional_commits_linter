@@ -13,7 +13,7 @@ pub(crate) struct Arguments {
     #[arg(
         long = "type",
         default_value = "any",
-        help = "Allow the Conventional Commits type to only be (`build`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `style`, `test`, `revert`), otherwise linting for the commit will fail."
+        help = "Allow the Conventional Commits type to only be (`build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `style`, `test`, `revert`), otherwise linting for the commit will fail."
     )]
     pub(crate) commit_type: crate::commit_type::CommitType,
 
