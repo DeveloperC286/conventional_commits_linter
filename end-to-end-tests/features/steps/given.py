@@ -1,9 +1,9 @@
-import os
 import hashlib
-from behave import given
+import os
 
-from utilities import execute_command
 from assertions import assert_command_successful
+from behave import given
+from utilities import execute_command
 
 
 @given('the arguments are reset.')
