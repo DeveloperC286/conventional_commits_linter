@@ -1,19 +1,19 @@
 import re
-from behave import then
 
-from utilities import execute_conventional_commits_linter
 from assertions import (
-    assert_no_output,
-    assert_no_errors,
     assert_command_successful,
     assert_command_unsuccessful,
     assert_error_contains,
     assert_error_equals,
-    assert_output,
-    assert_invalid_json,
-    assert_valid_json,
     assert_error_matches_regex,
+    assert_invalid_json,
+    assert_no_errors,
+    assert_no_output,
+    assert_output,
+    assert_valid_json,
 )
+from behave import then
+from utilities import execute_conventional_commits_linter
 
 
 @then('the linting passes.')
@@ -43,7 +43,7 @@ def assert_could_not_find_reference_error(context, reference):
     could_not_find_reference_error = f"Could not find a reference with the name \"{reference}\".\n"  # fmt: off
 
     # When/Then
-    result = result = assert_linting_fails(context)
+    result = assert_linting_fails(context)
 
     # Then
     assert_error_contains(result, could_not_find_reference_error)
