@@ -4,3 +4,5 @@ _src_path: https://github.com/DeveloperC286/template
 project_name: conventional_commits_linter
 project_type: rust
 uses_git: true
+
+#copier updated
