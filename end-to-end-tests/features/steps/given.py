@@ -20,9 +20,7 @@ def reset_context(context):
     context.pre_command = ""
     context.conventional_commits_linter_path = f"{context.behave_directory}/../target/debug/conventional_commits_linter"  # fmt: off
     reset_arguments(context)
-
-    if "GIT_DIR" in os.environ:
-        del os.environ["GIT_DIR"]
+    context.environment_overrides = {}
 
 
 @given('the repository "{remote_repository}" is cloned and checked out at the commit "{commit_hash}".')
@@ -36,14 +34,10 @@ def clone_remote_repository_and_checkout_commit(context, remote_repository, comm
         result = execute_command(f"git clone {remote_repository} {context.remote_repository_cache}")
         assert_command_successful(result)
 
-        os.chdir(context.remote_repository_cache)
-
-        result = execute_command(f"git checkout {commit_hash}")
+        result = execute_command(f"git checkout {commit_hash}", cwd=context.remote_repository_cache)
         assert_command_successful(result)
-
-        os.chdir(context.behave_directory)
 
 
 @given('the GIT_DIR environment variable is set to the cloned repository.')
 def set_git_dir(context):
-    os.environ["GIT_DIR"] = str(context.remote_repository_cache + "/.git")
+    context.environment_overrides["GIT_DIR"] = str(context.remote_repository_cache + "/.git")
